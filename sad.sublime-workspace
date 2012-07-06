@@ -55,7 +55,7 @@
 			"file": "app/views/layout/partial/menu.blade.php",
 			"settings":
 			{
-				"buffer_size": 1929,
+				"buffer_size": 2235,
 				"line_ending": "Unix"
 			}
 		},
@@ -68,18 +68,18 @@
 			}
 		},
 		{
-			"file": "app/views/group/edit.blade.php",
+			"file": "app/views/home/admin.blade.php",
 			"settings":
 			{
-				"buffer_size": 2636,
+				"buffer_size": 143,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/lang/mz/mz_IN.po",
+			"file": "app/controllers/HomeController.php",
 			"settings":
 			{
-				"buffer_size": 2563,
+				"buffer_size": 393,
 				"line_ending": "Unix"
 			}
 		}
@@ -111,6 +111,8 @@
 	},
 	"file_history":
 	[
+		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/models/Store.php",
+		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/views/group/edit.blade.php",
 		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/lang/en/pagination.php",
 		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/views/hello.php",
 		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/views/hello.blade.php",
@@ -236,9 +238,7 @@
 		"/C/xampp/htdocs/vhosts/sadindent/app/config/database.original.php",
 		"/C/xampp/htdocs/php/3.php",
 		"/C/xampp/htdocs/php/4.php",
-		"/C/Users/Alan Pachuau/External Backup/MAC Backup/Documents/Jet Airways/Jet Airways.txt",
-		"/C/xampp/apache/conf/extra/httpd-ssl.conf",
-		"/C/xampp/apache/conf/extra/httpd-dav.conf"
+		"/C/Users/Alan Pachuau/External Backup/MAC Backup/Documents/Jet Airways/Jet Airways.txt"
 	],
 	"find":
 	{
@@ -256,6 +256,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"stocks",
 			")}}",
 			"{{_",
 			"status",
@@ -357,7 +358,7 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -366,15 +367,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1929,
+						"buffer_size": 2235,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1230,
-								1230
+								0,
+								0
 							]
 						],
 						"settings":
@@ -420,19 +421,19 @@
 				},
 				{
 					"buffer": 2,
-					"file": "app/views/group/edit.blade.php",
+					"file": "app/views/home/admin.blade.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2636,
+						"buffer_size": 143,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2388,
-								2388
+								143,
+								143
 							]
 						],
 						"settings":
@@ -440,39 +441,40 @@
 							"syntax": "Packages/PHP/PHP.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 12.0,
-						"translation.y": 400.0,
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "app/lang/mz/mz_IN.po",
-					"semi_transient": true,
+					"file": "app/controllers/HomeController.php",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2563,
+						"buffer_size": 393,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1201,
-								1201
+								334,
+								334
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 340.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]

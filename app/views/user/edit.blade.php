@@ -53,7 +53,7 @@
 					else
 						$user_groups = '-';
 					?>
-					<tr>	
+					<tr {{($current_user->id == $user->id)?'class="success"':''}}>
 						<td>{{++$i}}</td>
 						<td>{{$user->username}}</td>
 						<td>{{!empty($user->department)?$user->department->name:'-'}}</td>
@@ -61,7 +61,12 @@
 						<td>{{$user_groups}}</td>
 						<td>
 							{{Form::open(array('url'=>route('user.destroy', $user->id), 'method'=>'delete'))}}
+								
+							@if($user->id == $current_user->id)
+							<a href="{{route('user.edit', $user->id)}}" class="disabled btn btn-xs btn-success tooltip-top" title="Edit User"><i class="fa fa-pencil"></i></a>
+							@else
 							<a href="{{route('user.edit', $user->id)}}" class="btn btn-xs btn-success tooltip-top" title="Edit User"><i class="fa fa-pencil"></i></a>
+							@endif
 							<button type="submit" onclick="return confirm('Are you sure?');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove User" value="{{$user->id}}"><i class="fa fa-times"></i></a>
 							{{Form::close()}}
 						</td>
@@ -74,7 +79,7 @@
 
 <div class="col-md-4">
 	<div class="panel panel-default" >
-		<div class="panel-heading" ><h5 class="text-center"> <?php echo _('CREATE USER');?></h5></div>
+		<div class="panel-heading" ><h5 class="text-center"> <?php echo _('EDIT USER');?></h5></div>
 			<div class="panel-body">
 
 				@if(Session::has('message'))
@@ -83,12 +88,12 @@
 				</div>
 				@endif
 
-				{{Form::open(array('url'=>route('user.index'),'method'=>'post','class'=>'form-vertical'))}}
+				{{Form::open(array('url'=>'user','method'=>'post','class'=>'form-vertical'))}}
 					
 				<div class="form-group">
 					{{Form::label('store', _('Store'), array('class'=>'control-label'))}}
 					
-					{{Form::select('store', $stores, 'null', array('class' =>'dropdown input-sm form-control'))}}
+					{{Form::select('store', $stores, $current_user->store_id, array('class' =>'dropdown input-sm form-control'))}}
 					
 					@if($errors->has('store'))
 					<p class="help-block"><span class="text-danger">{{$errors->first('store')}}</span></p>
@@ -96,8 +101,17 @@
 				</div>
 
 				<div class="form-group">
+					<?php
+					$current_groups = $current_user->getGroups();
+					$current_groups = $current_groups->lists('id');
+					$public_group = Sentry::findGroupByName('Public');
+
+					$public_group = array_search($public_group->id, $current_groups);
+					unset($current_groups[$public_group]);
+					$current_group = reset($current_groups);
+					?>
 					{{Form::Label('group', _('Group'), array('class'=>'control-label'))}}
-					{{Form::select('group', $groups, 'null', array('class' =>'dropdown input-sm form-control'))}}
+					{{Form::select('group', $groups, $current_group, array('class' =>'dropdown input-sm form-control'))}}
 					
 					@if($errors->has('group'))
 					<p class="help-block"><span class="text-danger">{{$errors->first('group')}}</span></p>
@@ -109,7 +123,7 @@
 					{{Form::select('department', $departments, 'null', array('class' =>'dropdown input-sm form-control'))}}
 					
 					@if($errors->has('department'))
-					<p class="help-block"><span class="text-danger">{{$errors->first('department')}}</span></p>
+					<p class="help-block"><span class="text-danger">{{_($errors->first('department'))}}</span></p>
 					@endif				
 				</div>
 
@@ -179,9 +193,9 @@
 				</div>
 
 				<div class="form-group">
-					<?php echo Form::label('activated', _('Activated'), array('class'=>'control-label')); ?>
+					{{Form::label('activated', _('Activated'), array('class'=>'control-label'))}}
 					
-					<?php echo Form::select('activated', array(0=>_('No'), 1=>_('Yes')), 0, array('class'=>'dropdown input-sm form-control')); ?>
+					{{Form::select('activated', array(0=>'No', 1=>'Yes'), 0, array('class'=>'dropdown input-sm form-control'))}}
 
 					@if($errors->has('activated'))
 					<p class="help-block"><span class="text-danger">{{$errors->first('activated')}}</span></p>
@@ -190,6 +204,7 @@
 
 				<div class="form-group text-right">
 					<button type="submit" class="btn btn-sm btn-primary"><?php echo _('Submit');?></button>
+					<a href="{{route('user.index')}}" class="btn btn-sm btn-primary"><?php echo _('Cancel');?></button>
 				</div>
 			</div>
 	</div>

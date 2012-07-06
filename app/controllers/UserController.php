@@ -130,7 +130,42 @@ class UserController extends \BaseController {
 	 */
 	public function edit($id)
 	{
+		// We need to pass these filters to view to populate filter form
+		$filter = array(
+			'department' => Input::get('department'),
+			'username' => Input::get('username'),
+			'group' => Input::get('group')
+			);
+
+		$current_user = Sentry::findUserById($id);
+
+		$users = User::with('department', 'store', 'groups')->where(function($query){
+				if(Input::get('username', null))
+					$query->where('username', 'LIKE', '%' . Input::get('username') . '%');
+
+				if(Input::get('department', null))
+					$query->where('department_id', '=', Input::get('department'));
+			})
+			->orderBy('username', 'asc')
+			->paginate(30);
+
+		$departments = array(''=>'Select Department') + Department::orderBy('name', 'asc')->lists('name', 'id');
 		
+		$stores = array();
+		$stores_temp = Store::with('department')->orderBy('store_code', 'asc')->get();
+		foreach($stores_temp as $s){
+			$stores[$s->id] = $s->department->name . ' (' . $s->store_code . ')';
+		}
+
+		$groups = array(''=>'Select Group') + Group::where('name', '<>', 'Public')->orderBy('name', 'asc')->lists('name', 'id');
+
+		return View::make('user.edit')
+			->with('departments', $departments)
+			->with('stores', $stores)
+			->with('groups', $groups)
+			->with('users', $users)
+			->with('current_user', $current_user)
+			->with('filter', $filter);
 	}
 
 	/**
