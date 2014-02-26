@@ -13,10 +13,10 @@
 
 Route::get('/', function()
 {
-	// $user = new User();
-// echo $user->printTable();
-	$prod = new Product();
-	echo $prod->printTable();
-exit;
+// 	// $user = new User();
+// // echo $user->printTable();
+// 	$prod = new Product();
+// 	echo $prod->printTable();
+// exit;
 	return View::make('hello');
 });
