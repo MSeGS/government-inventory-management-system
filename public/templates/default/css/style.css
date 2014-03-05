@@ -83,6 +83,8 @@ border-bottom: none !important;
 
 .navbar-default {
     background: #428BCA;
+    /*background: #CA4294;*/
+    /*background: #E29146;*/
     border-bottom: 1px solid #EFF0F2;
 }
 
@@ -320,6 +322,7 @@ border-bottom: none !important;
 }
 .headerStyles {
     background: #428BCA;
+    /*background: #CA4294;*/
     padding: 0;
     position:fixed; 
     top:0; 
