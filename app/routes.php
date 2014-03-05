@@ -11,12 +11,14 @@
 |
 */
 
-Route::get('/', function()
-{
-// 	// $user = new User();
-// // echo $user->printTable();
-// 	$prod = new Product();
-// 	echo $prod->printTable();
-// exit;
-	return View::make('hello');
-});
+Route::get('/', array('before'=>'sentry', 'uses'=>'HomeController@index', 'as'=>'home.index'));
+
+Route::get('login', array('uses'=>'AuthController@login', 'as'=>'login'));
+Route::post('login', 'AuthController@authenticate');
+Route::get('logout', array('uses'=>'AuthController@logout', 'as'=>'logout'));
+
+Route::get('/registration', array('uses'=>'RegistrationController@index', 'as'=>'registration'));
+Route::post('/registration', 'RegistrationController@register');
+
+Route::resource('user', 'UserController');
+Route::resource('group', 'GroupController');

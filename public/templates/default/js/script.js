@@ -8,4 +8,14 @@ $(document).ready(function(){
 	$('tr.link').on('click', function(){
 		window.location = $(this).attr('href');
 	});
-})
+
+	initTooltips();
+});
+
+function initTooltips()
+{
+	$('.tooltip-top').tooltip({'placement':'top'});
+	$('.tooltip-bottom').tooltip({'placement':'bottom'});
+	$('.tooltip-left').tooltip({'placement':'left'});
+	$('.tooltip-right').tooltip({'placement':'right'});
+}

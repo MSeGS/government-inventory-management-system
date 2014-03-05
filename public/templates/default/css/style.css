@@ -6,6 +6,18 @@ html, body {
     -webkit-font-smoothing: antialiased!important;
 }
 
+@font-face {
+    font-family: 'enigmaticregular';
+    src: url('../lib/fonts/Enigma__2-webfont.eot');
+    src: url('../lib/fonts/Enigma__2-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../lib/fonts/Enigma__2-webfont.woff') format('woff'),
+         url('../lib/fonts/Enigma__2-webfont.ttf') format('truetype'),
+         url('../lib/fonts/Enigma__2-webfont.svg#enigmaticregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 /** Bootstrap Overwrite **/
 
 input[type='text'], input[type='password'], input[type='email'], textarea {
@@ -91,18 +103,18 @@ border-bottom: none !important;
 
 /* PREFIXED CSS */
 
-.dropdown,
-.dropdown div,
-.dropdown li,
-.dropdown div::after{
+.easydropdown,
+.easydropdown div,
+.easydropdown li,
+.easydropdown div::after{
     -webkit-transition: all 150ms ease-in-out;
     -moz-transition: all 150ms ease-in-out;
     -ms-transition: all 150ms ease-in-out;
     transition: all 150ms ease-in-out;
 }
 
-.dropdown .selected::after,
-.dropdown.scrollable div::after{
+.easydropdown .selected::after,
+.easydropdown.scrollable div::after{
     -webkit-pointer-events: none;
     -moz-pointer-events: none;
     -ms-pointer-events: none;
@@ -111,7 +123,7 @@ border-bottom: none !important;
 
 /* WRAPPER */
 
-.dropdown{
+.easydropdown{
     position: relative;
     width: 100%;
     border: 1px solid #ccc;
@@ -125,21 +137,21 @@ border-bottom: none !important;
     user-select: none;
 }
 
-.dropdown.open{
+.easydropdown.open{
     z-index: 2;
 }
 
-.dropdown:hover{
+.easydropdown:hover{
     box-shadow: 0 0 5px rgba(0,0,0,.15);
 }
 
-.dropdown.focus{
+.easydropdown.focus{
     box-shadow: 0 0 5px rgba(51,102,248,.4);
 }
 
 /* CARAT */
 
-.dropdown .carat{
+.easydropdown .carat{
     position: absolute;
     right: 12px;
     top: 50%;
@@ -148,19 +160,19 @@ border-bottom: none !important;
     border-top: 8px solid #000;
 }
 
-.dropdown.open .carat{
+.easydropdown.open .carat{
     margin-top: -10px;
     border-top: 6px solid transparent;
     border-bottom: 8px solid #000;
 }
 
-.dropdown.disabled .carat{
+.easydropdown.disabled .carat{
     border-top-color: #999;
 }
 
 /* OLD SELECT (HIDDEN) */
 
-.dropdown .old{
+.easydropdown .old{
     position: absolute;
     left: 0;
     top: 0;
@@ -169,18 +181,18 @@ border-bottom: none !important;
     overflow: hidden;
 }
 
-.dropdown select{
+.easydropdown select{
     position: absolute;
     left: 0px;
     top: 0px;
 }
 
-.dropdown.touch .old{
+.easydropdown.touch .old{
     width: 100%;
     height: 100%;
 }
 
-.dropdown.touch select{
+.easydropdown.touch select{
     width: 100%;
     height: 100%;
     opacity: 0;
@@ -188,8 +200,8 @@ border-bottom: none !important;
 
 /* SELECTED FEEDBACK ITEM */ 
 
-.dropdown .selected,
-.dropdown li{
+.easydropdown .selected,
+.easydropdown li{
     display: block;
     font-size: 14px;
     line-height: 1;
@@ -199,11 +211,11 @@ border-bottom: none !important;
     white-space: nowrap;
 }
 
-.dropdown.disabled .selected{
+.easydropdown.disabled .selected{
     color: #999;
 }
 
-.dropdown .selected::after{
+.easydropdown .selected::after{
     content: '';
     position: absolute;
     right: 0;
@@ -217,7 +229,7 @@ border-bottom: none !important;
 
 /* DROP DOWN WRAPPER */
 
-.dropdown div{
+.easydropdown div{
     position: absolute;
     height: 0;
     left: -1px;
@@ -234,14 +246,14 @@ border-bottom: none !important;
 
 /* Height is adjusted by JS on open */
 
-.dropdown.open div{
+.easydropdown.open div{
     opacity: 1;
     z-index: 2;
 }
 
 /* FADE OVERLAY FOR SCROLLING LISTS */
 
-.dropdown.scrollable div::after{
+.easydropdown.scrollable div::after{
     content: '';
     position: absolute;
     left: 0;
@@ -252,13 +264,13 @@ border-bottom: none !important;
     box-shadow: inset 0 -50px 30px -35px #fff;
 }
 
-.dropdown.scrollable.bottom div::after{
+.easydropdown.scrollable.bottom div::after{
     opacity: 0;
 }
 
 /* DROP DOWN LIST */
 
-.dropdown ul{
+.easydropdown ul{
     position: absolute;
     padding: 0;
     left: 0;
@@ -272,7 +284,7 @@ border-bottom: none !important;
     margin-left: 10px;
 }
 
-.dropdown.scrollable.open ul{
+.easydropdown.scrollable.open ul{
     overflow-y: auto;
 }
 
@@ -282,21 +294,21 @@ border-bottom: none !important;
 
 /* DROP DOWN LIST ITEMS */
 
-.dropdown li{
+.easydropdown li{
     list-style: none;
     padding: 8px 12px;
 }
 
 /* .focus class is also added on hover */
 
-.dropdown li.focus{
+.easydropdown li.focus{
     background: #5596CF;
     position: relative;
     z-index: 3;
     color: #fff;
 }
 
-.dropdown li.active{
+.easydropdown li.active{
     font-weight: 700;
 }
 
@@ -306,13 +318,6 @@ border-bottom: none !important;
 .mt18 {
     margin-top: 18px;
 }
-
-@font-face {
-    font-family:"BreeSerif-Regular";
-    src:url("BreeSerif-Regular.eot?") format("eot"),url("BreeSerif-Regular.woff") format("woff"),url("BreeSerif-Regular.ttf") format("truetype"),url("BreeSerif-Regular.svg#BreeSerif-Regular") format("svg");
-    font-weight:normal;font-style:normal;
-    }
-
 .headerStyles {
     background: #428BCA;
     padding: 0;
@@ -344,9 +349,9 @@ border-bottom: none !important;
 }
 
 .headerBrand {
-    color: #CBCBCB !important;
-    font-family: 'BreeSerif-Regular';
-    font-size: 1.8em;
+    color: #fff !important;
+    font-family: 'enigmaticregular';
+    font-size: 1.6em;
     font-weight: normal;
 }
 
@@ -358,7 +363,7 @@ border-bottom: none !important;
 
 .contentStyles {
     background: #EFF0F2;
-    min-height: 470px;
+    min-height: 380px;
     padding-bottom: 40px;
 }
 
@@ -378,6 +383,10 @@ border-bottom: none !important;
 .mtheader {
     margin-top: 50px;
     padding-top: 20px;
+}
+
+hr {
+    border-color: #aaa;
 }
 
 @media (min-width: 768px) and (max-width: 991px) {

@@ -1,0 +1,585 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"publ",
+				"publicGroup"
+			],
+			[
+				"mysql_fetch",
+				"mysql_fetch_row"
+			],
+			[
+				"my",
+				"mysql_query"
+			],
+			[
+				"for",
+				"foreach	foreach …"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "public/templates/default/css/style.css",
+			"settings":
+			{
+				"buffer_size": 6891,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/controllers/AuthController.php",
+			"settings":
+			{
+				"buffer_size": 2354,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/views/layout/partial/menu.blade.php",
+			"settings":
+			{
+				"buffer_size": 633,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/routes.php",
+			"settings":
+			{
+				"buffer_size": 716,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/filters.php",
+			"settings":
+			{
+				"buffer_size": 2211,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/auth/login.blade.php",
+			"settings":
+			{
+				"buffer_size": 1382,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/views/layout/partial/language.blade.php",
+			"settings":
+			{
+				"buffer_size": 412,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/database/migrations/2014_02_25_111724_create_products_table.php.bak",
+			"settings":
+			{
+				"buffer_size": 618,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/xampp/htdocs/vhosts/sadindent/app/routes.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/database/seeds/UserTableSeeder.php",
+		"/C/xampp/htdocs/vhosts/sadindent/vendor/cartalyst/sentry/src/migrations/2012_12_06_225921_migration_cartalyst_sentry_install_users.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/views/auth/login.blade.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/controllers/AuthController.php",
+		"/C/xampp/htdocs/vhosts/sadindent/vendor/cartalyst/sentry/src/config/config.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/config/packages/cartalyst/sentry/config.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/controllers/HomeController.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/config/app.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/database/seeds/GroupTableSeeder.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/views/home/index.blade.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/views/layout/main.blade.php",
+		"/C/xampp/htdocs/vhosts/sadindent/public/templates/default/js/script.js",
+		"/C/xampp/htdocs/vhosts/sadindent/app/database/seeds/DatabaseSeeder.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/views/layout/partial/menu.blade.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/views/layout/partial/header.blade.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/views/layout/partial/language.blade.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/views/layout/partial/footer.blade.php",
+		"/C/xampp/htdocs/vhosts/sadindent/public/sad-proto/script/jquery.easydropdown.min.js",
+		"/C/xampp/htdocs/vhosts/sadindent/public/templates/default/lib/js/jquery.easydropdown.min.js",
+		"/C/xampp/htdocs/vhosts/sadindent/public/templates/default/lib/fonts/stylesheet.css",
+		"/C/xampp/htdocs/vhosts/sadindent/public/templates/default/css/style.css",
+		"/C/xampp/htdocs/vhosts/sadindent/public/templates/default/css/login.css",
+		"/C/xampp/htdocs/vhosts/sadindent/public/96266.htm",
+		"/C/Users/Alan Pachuau/Downloads/96266.htm",
+		"/C/xampp/htdocs/vhosts/sadindent/app/filters.php",
+		"/C/xampp/htdocs/vhosts/nielitcms/public/test.php",
+		"/C/xampp/apache/conf/httpd.conf",
+		"/C/Users/Alan Pachuau/Downloads/Compressed/semantic/examples/homepage.html",
+		"/C/xampp/htdocs/vhosts/sadindent/app/views/layout/login.blade.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/database/migrations/2014_02_28_095329_create_users_departments_table.php",
+		"/C/xampp/apache/conf/extra/httpd-vhosts.conf",
+		"/C/xampp/htdocs/vhosts/nielitcms/public/.htaccess",
+		"/C/xampp/htdocs/vhosts/nielitcms/public/index.php",
+		"/C/xampp/htdocs/vhosts/sadindent/public/templates/default/lib/js/legacy.js",
+		"/C/Users/Alan Pachuau/Downloads/Compressed/semantic/examples/feed.html",
+		"/C/xampp/htdocs/vhosts/sadindent/app/database/migrations/2014_02_25_115205_create_user_table.php.bak",
+		"/C/xampp/htdocs/vhosts/sadindent/app/database/migrations/2014_02_25_104109_create_indent_items_table.php.bak",
+		"/C/xampp/htdocs/vhosts/sadindent/app/database/migrations/2014_02_25_095324_create_departments_table.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/database/migrations/2014_02_25_111345_create_options_table.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/database/migrations/2014_02_25_105846_create_indent_requirements_table.php.bak",
+		"/C/xampp/htdocs/vhosts/sadindent/app/database/migrations/2014_02_25_110624_create_notifications_table.php.bak",
+		"/C/xampp/htdocs/vhosts/sadindent/app/database/migrations/2014_02_25_111724_create_products_table.php.bak",
+		"/C/xampp/htdocs/vhosts/sadindent/app/database/migrations/2014_02_25_112441_create_categories_table.php.bak",
+		"/C/xampp/htdocs/vhosts/sadindent/app/database/migrations/2014_02_25_112821_create_damages_table.php.bak",
+		"/C/xampp/htdocs/vhosts/sadindent/app/database/migrations/2014_02_25_113655_create_stocks_table.php.bak",
+		"/C/xampp/htdocs/vhosts/sadindent/app/database/migrations/2014_02_25_114309_create_stores_table.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/database/migrations/2014_02_25_102909_create_indents_table.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/models/Product.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/controllers/GroupController.php.php",
+		"/C/xampp/htdocs/vhosts/sadindent/composer.json",
+		"/C/xampp/htdocs/vhosts/sadindent/app/controllers/UserController.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/controllers/BaseController.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/models/User.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/database/migrations/2014_02_25_095324_create_department_table.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/views/hello.php",
+		"/C/xampp/htdocs/php/test.php",
+		"/C/xampp/htdocs/php/array.php",
+		"/C/xampp/htdocs/php/22.php",
+		"/C/xampp/htdocs/test/sql.php",
+		"/E/DATABASE",
+		"/C/xampp/htdocs/test/1.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/config/database.php",
+		"/C/xampp/htdocs/vhosts/sadindent/.gitignore",
+		"/C/Users/Alan Pachuau/Dropbox/msegs/msegs_sad.sql",
+		"/C/xampp/htdocs/vhosts/sadindent/app/models/BaseModel.php",
+		"/C/Users/Alan Pachuau/External Backup/MAC Backup/Sites/library.dev/app/views/layout/partial/header.blade.php",
+		"/C/xampp/htdocs/vhosts/sadindent/public/templates/default/css/default.date.css",
+		"/C/Users/Alan Pachuau/External Backup/MAC Backup/Sites/library.dev/app/views/layout/main.blade.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/views/home/public.blade.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/views/layout/main.bl",
+		"/C/xampp/htdocs/vhosts/sadindent/app/config/.gitignore",
+		"/C/xampp/htdocs/vhosts/sadindent/app/config/database.original.php",
+		"/C/xampp/htdocs/php/3.php",
+		"/C/xampp/htdocs/php/4.php",
+		"/C/Users/Alan Pachuau/External Backup/MAC Backup/Documents/Jet Airways/Jet Airways.txt",
+		"/C/xampp/apache/conf/extra/httpd-ssl.conf",
+		"/C/xampp/apache/conf/extra/httpd-dav.conf",
+		"/C/xampp/security/webdav.htpasswd",
+		"/C/xampp/htdocs/vhosts/git/sadindent.git/config",
+		"/C/Users/Alan Pachuau/External Backup/MAC Backup/Accounts/Dict CMS/Mizoram.gov.in.txt",
+		"/C/Users/Alan Pachuau/External Backup/MAC Backup/Accounts/Dict CMS/git.mizoram.gov.in.txt",
+		"/C/xampp/security/git.htpasswd",
+		"/C/xampp/htdocs/php/1.php",
+		"/C/xampp/htdocs/php/2.php",
+		"/C/xampp/php/php.ini"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"username",
+			"/login",
+			"email",
+			"dropdown",
+			"font-size",
+			"tooltip-top",
+			"<button",
+			"button",
+			".dropdown",
+			"dropdown\"",
+			"dropdown",
+			"dropdown\"",
+			"dropdown",
+			"<li>",
+			"h2",
+			"Enigma__2",
+			"h2",
+			"glyphicon",
+			"('",
+			";",
+			"increments",
+			" -> ",
+			"'store'",
+			"store",
+			"product_stock",
+			"product_damage",
+			"update",
+			"username",
+			"dav",
+			"webdav",
+			"ssl",
+			"is",
+			" =",
+			"$ec1 = \"this is an example of php\";\n",
+			"\n$"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 7,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "public/templates/default/css/style.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6891,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								38,
+								38
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/controllers/AuthController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2354,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								273,
+								273
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/views/layout/partial/menu.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 633,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								109,
+								109
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 24.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/routes.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 716,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								511,
+								511
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "app/filters.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2211,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1059,
+								1059
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 622.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "app/views/auth/login.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1382,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								204,
+								204
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "app/views/layout/partial/language.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 412,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								214,
+								214
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 578.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "app/database/migrations/2014_02_25_111724_create_products_table.php.bak",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 618,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								437,
+								437
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 21.0
+	},
+	"input":
+	{
+		"height": 40.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "sad.sublime-project",
+	"replace":
+	{
+		"height": 38.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 323.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
