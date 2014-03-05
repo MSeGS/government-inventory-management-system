@@ -11,8 +11,8 @@ class AuthController extends BaseController
 
 	public function logout()
 	{
-		// Sentry::logout();
-		// return Redirect::to('sign-in');
+		Sentry::logout();
+		return Redirect::route('login');
 	}
 
 	public function authenticate()
@@ -26,7 +26,7 @@ class AuthController extends BaseController
 
 		if($validator->fails())
 		{
-			return Redirect::to('login')->withErrors($validator);
+			return Redirect::route('login')->withErrors($validator);
 		}
 		else
 		{
@@ -44,36 +44,36 @@ class AuthController extends BaseController
 			    if(Sentry::check())
 			    	return Redirect::route('home.index');
 			    else
-			    	return Redirect::to('login')->with('error', _('Login failed. Please check your credentials.'));
+			    	return Redirect::route('login')->with('error', _('Login failed. Please check your credentials.'));
 			}
 			catch (Cartalyst\Sentry\Users\LoginRequiredException $e)
 			{
-			    return Redirect::to('login')->with('error', _('Login failed. Please check your credentials.'));
+			    return Redirect::route('login')->with('error', _('Login failed. Please check your credentials.'));
 			}
 			catch (Cartalyst\Sentry\Users\PasswordRequiredException $e)
 			{
-			  	return Redirect::to('login')->with('error', _('Login failed. Please check your credentials.'));
+			  	return Redirect::route('login')->with('error', _('Login failed. Please check your credentials.'));
 			}
 			catch (Cartalyst\Sentry\Users\WrongPasswordException $e)
 			{
-			    return Redirect::to('login')->with('error', _('Login failed. Please check your credentials.'));
+			    return Redirect::route('login')->with('error', _('Login failed. Please check your credentials.'));
 			}
 			catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
 			{
-			    return Redirect::to('login')->with('error', _('Login failed. Please check your credentials.'));
+			    return Redirect::route('login')->with('error', _('Login failed. Please check your credentials.'));
 			}
 			catch (Cartalyst\Sentry\Users\UserNotActivatedException $e)
 			{
-			    return Redirect::to('login')->with('error', _('Login failed. Please check your credentials.'));
+			    return Redirect::route('login')->with('error', _('Login failed. Please check your credentials.'));
 			}
 			// The following is only required if throttle is enabled
 			catch (Cartalyst\Sentry\Throttling\UserSuspendedException $e)
 			{
-			    return Redirect::to('login')->with('error', _('Login failed. Please check your credentials.'));
+			    return Redirect::route('login')->with('error', _('Login failed. Please check your credentials.'));
 			}
 			catch (Cartalyst\Sentry\Throttling\UserBannedException $e)
 			{
-			    return Redirect::to('login')->with('error', _('Login failed. Please check your credentials.'));
+			    return Redirect::route('login')->with('error', _('Login failed. Please check your credentials.'));
 			}
 		}
 	}
