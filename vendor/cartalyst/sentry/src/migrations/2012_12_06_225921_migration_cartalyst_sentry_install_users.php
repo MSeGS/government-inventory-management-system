@@ -32,7 +32,8 @@ class MigrationCartalystSentryInstallUsers extends Migration {
 		Schema::create('users', function($table)
 		{
 			$table->increments('id');
-			$table->string('email');
+			$table->string('full_name')->nullable();
+			$table->string('username');
 			$table->string('password');
 			$table->text('permissions')->nullable();
 			$table->boolean('activated')->default(0);
@@ -41,14 +42,19 @@ class MigrationCartalystSentryInstallUsers extends Migration {
 			$table->timestamp('last_login')->nullable();
 			$table->string('persist_code')->nullable();
 			$table->string('reset_password_code')->nullable();
-			$table->string('first_name')->nullable();
-			$table->string('last_name')->nullable();
+			$table->integer('store_id');
+			$table->string('email_id',100);
+			$table->string('phone_no', 250);
+			$table->text('address');
+			$table->integer('department_id');
+			$table->string('designation', 250);
+
 			$table->timestamps();
 
 			// We'll need to ensure that MySQL uses the InnoDB engine to
 			// support the indexes, other engines aren't affected.
 			$table->engine = 'InnoDB';
-			$table->unique('email');
+			$table->unique('username');
 			$table->index('activation_code');
 			$table->index('reset_password_code');
 		});
