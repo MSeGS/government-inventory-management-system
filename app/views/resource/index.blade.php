@@ -1,0 +1,58 @@
+@extends('layout.main')
+
+@section('content')
+<div class="col-md-7">
+	{{Form::open(array('url'=>'resource', 'method'=>'delete'))}}
+	<table class="table table-condensed table-striped table-bordered">
+		<thead>
+			<tr>
+				<th class="col-md-1">#</th>
+				<th class="col-md-5">RESOURCE NAME</th>
+				<th class="col-md-3">RESOURCE ROUTE</th>
+				<th class="col-md-3"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php $i=0; ?>
+			@foreach($resources as $resource)
+			<tr>
+				<td>{{++$i}}</td>
+				<td>{{$resource->name}}</td>
+				<td><strong>{{$resource->route}}</strong></td>
+				<td>
+					<a href="{{route('resource.edit', array($resource->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Resource"><i class="fa fa-pencil"></i></a>
+					<button type="submit" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Resource" value="{{$resource->id}}"><i class="fa fa-times"></i></a>
+				</td>
+			</tr>
+			@endforeach
+		</tbody>
+	</table>
+	{{Form::close()}}
+
+	{{$resources->links()}}
+</div>
+<div class="col-md-5">
+	<div class="panel panel-default">
+		<div class="panel-heading"><h5 class="text-center">NEW RESOURCE</h5></div>
+		<div class="panel-body">
+			{{Form::open(array('url'=>'resource', 'method'=>'post', 'class'=>'form-vertical'))}}
+
+			<div class="form-group">
+				{{Form::label('name', 'Resource Name', array('class'=>'control-label'))}}
+				{{Form::text('name', '', array('class'=>'form-control input-sm'))}}
+			</div>
+
+			<div class="form-group">
+				{{Form::label('route', 'Resource Route', array('class'=>'control-label'))}}
+				{{Form::text('route', '', array('class'=>'form-control input-sm'))}}
+			</div>
+
+			<div class="form-group">
+				<button type="button" name="submit" class="btn btn-primary btn-sm">Add Resource</button>
+			</div>
+
+			{{Form::close()}}
+		</div>
+	</div>
+</div>
+@stop

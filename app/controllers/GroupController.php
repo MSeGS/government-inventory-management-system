@@ -1,6 +1,6 @@
 <?php
 
-class GroupController.php extends \BaseController {
+class GroupController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -9,7 +9,9 @@ class GroupController.php extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$groups = Sentry::findAllGroups();
+		return View::make('group.index')
+			->with('groups', $groups);
 	}
 
 	/**

@@ -22,3 +22,4 @@ Route::post('/registration', 'RegistrationController@register');
 
 Route::resource('user', 'UserController');
 Route::resource('group', 'GroupController');
+Route::resource('resource', 'ResourceController');
