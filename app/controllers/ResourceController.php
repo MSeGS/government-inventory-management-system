@@ -78,9 +78,10 @@ class ResourceController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$resource = Resource::find($id);
+		$resourceById = Resource::find($id);
+		$resources = Resource::orderBy('name', 'asc')->paginate(30);
 		return View::make('resource.edit')
-			->with('resource', $resource);
+			->with(array('resources'=> $resources, 'resourceById' => $resourceById));
 	}
 
 	/**
