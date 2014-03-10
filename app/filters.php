@@ -80,7 +80,22 @@ Route::filter('csrf', function()
 });
 
 
-Route::filter('sentry', function(){
+Route::filter('sentry', function($route, $request){
 	if( ! Sentry::check() )
 		return Redirect::route('login');
+	else {
+		$user = Sentry::getUser();
+
+		if(!$user->hasAccess($route->getName()))
+			return Response::view('error.denied', array('route_name'=>$route->getName()), 403);
+	}
+});
+
+
+/*
+Application 404 handler
+*/
+App::missing(function($exception)
+{
+    return Response::view('error.missing', array(), 404);
 });

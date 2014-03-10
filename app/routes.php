@@ -17,9 +17,12 @@ Route::get('login', array('uses'=>'AuthController@login', 'as'=>'login'));
 Route::post('login', 'AuthController@authenticate');
 Route::get('logout', array('uses'=>'AuthController@logout', 'as'=>'logout'));
 
-Route::get('/registration', array('uses'=>'RegistrationController@index', 'as'=>'registration'));
-Route::post('/registration', 'RegistrationController@register');
+Route::get('registration', array('uses'=>'RegistrationController@index', 'as'=>'registration'));
+Route::post('registration', 'RegistrationController@register');
 
 Route::resource('user', 'UserController');
 Route::resource('group', 'GroupController');
 Route::resource('resource', 'ResourceController');
+
+Route::get('denied', array('uses'=>'ErrorController@denied', 'as'=>'denied'));
+Route::get('notfound', array('uses'=>'ErrorController@notfound', 'as'=>'notfound'));

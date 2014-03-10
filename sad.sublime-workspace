@@ -27,23 +27,23 @@
 			"file": "public/templates/default/css/style.css",
 			"settings":
 			{
-				"buffer_size": 6891,
+				"buffer_size": 6987,
 				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/controllers/AuthController.php",
-			"settings":
-			{
-				"buffer_size": 2354,
-				"line_ending": "Windows"
 			}
 		},
 		{
 			"file": "app/views/layout/partial/menu.blade.php",
 			"settings":
 			{
-				"buffer_size": 633,
+				"buffer_size": 1061,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/controllers/AuthController.php",
+			"settings":
+			{
+				"buffer_size": 2369,
 				"line_ending": "Windows"
 			}
 		},
@@ -51,7 +51,7 @@
 			"file": "app/routes.php",
 			"settings":
 			{
-				"buffer_size": 716,
+				"buffer_size": 1164,
 				"line_ending": "Windows"
 			}
 		},
@@ -59,32 +59,17 @@
 			"file": "app/filters.php",
 			"settings":
 			{
-				"buffer_size": 2211,
+				"buffer_size": 2510,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/views/auth/login.blade.php",
+			"file": "app/views/error/denied.blade.php",
 			"settings":
 			{
-				"buffer_size": 1382,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/views/layout/partial/language.blade.php",
-			"settings":
-			{
-				"buffer_size": 412,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/database/migrations/2014_02_25_111724_create_products_table.php.bak",
-			"settings":
-			{
-				"buffer_size": 618,
-				"line_ending": "Windows"
+				"buffer_size": 551,
+				"line_ending": "Windows",
+				"name": "notfound.blade.php"
 			}
 		}
 	],
@@ -115,23 +100,40 @@
 	},
 	"file_history":
 	[
-		"/C/xampp/htdocs/vhosts/sadindent/app/routes.php",
-		"/C/xampp/htdocs/vhosts/sadindent/app/database/seeds/UserTableSeeder.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/controllers/ErrorController.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/views/error/notfound.blade.php",
+		"/C/xampp/htdocs/vhosts/sadindent/public/templates/default/js/script.js",
+		"/C/xampp/htdocs/vhosts/sadindent/app/views/group/index.blade.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/controllers/ResourceController.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/views/resource/index.blade.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/controllers/BaseController.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/filters.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/database/migrations/2014_03_05_101002_create_resources_table.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/controllers/ResourceRouteController.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/views/route/index.blade.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/models/Resource.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/controllers/RouteController.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/models/Route.php",
 		"/C/xampp/htdocs/vhosts/sadindent/vendor/cartalyst/sentry/src/migrations/2012_12_06_225921_migration_cartalyst_sentry_install_users.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/controllers/GroupController.php.php",
 		"/C/xampp/htdocs/vhosts/sadindent/app/views/auth/login.blade.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/views/layout/partial/language.blade.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/controllers/RegistrationController.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/views/registration/index.blade.php",
 		"/C/xampp/htdocs/vhosts/sadindent/app/controllers/AuthController.php",
 		"/C/xampp/htdocs/vhosts/sadindent/vendor/cartalyst/sentry/src/config/config.php",
+		"/C/xampp/htdocs/vhosts/sadindent/composer.json",
+		"/C/xampp/htdocs/vhosts/sadindent/app/routes.php",
+		"/C/xampp/htdocs/vhosts/sadindent/app/database/seeds/UserTableSeeder.php",
 		"/C/xampp/htdocs/vhosts/sadindent/app/config/packages/cartalyst/sentry/config.php",
 		"/C/xampp/htdocs/vhosts/sadindent/app/controllers/HomeController.php",
 		"/C/xampp/htdocs/vhosts/sadindent/app/config/app.php",
 		"/C/xampp/htdocs/vhosts/sadindent/app/database/seeds/GroupTableSeeder.php",
 		"/C/xampp/htdocs/vhosts/sadindent/app/views/home/index.blade.php",
 		"/C/xampp/htdocs/vhosts/sadindent/app/views/layout/main.blade.php",
-		"/C/xampp/htdocs/vhosts/sadindent/public/templates/default/js/script.js",
 		"/C/xampp/htdocs/vhosts/sadindent/app/database/seeds/DatabaseSeeder.php",
 		"/C/xampp/htdocs/vhosts/sadindent/app/views/layout/partial/menu.blade.php",
 		"/C/xampp/htdocs/vhosts/sadindent/app/views/layout/partial/header.blade.php",
-		"/C/xampp/htdocs/vhosts/sadindent/app/views/layout/partial/language.blade.php",
 		"/C/xampp/htdocs/vhosts/sadindent/app/views/layout/partial/footer.blade.php",
 		"/C/xampp/htdocs/vhosts/sadindent/public/sad-proto/script/jquery.easydropdown.min.js",
 		"/C/xampp/htdocs/vhosts/sadindent/public/templates/default/lib/js/jquery.easydropdown.min.js",
@@ -140,7 +142,6 @@
 		"/C/xampp/htdocs/vhosts/sadindent/public/templates/default/css/login.css",
 		"/C/xampp/htdocs/vhosts/sadindent/public/96266.htm",
 		"/C/Users/Alan Pachuau/Downloads/96266.htm",
-		"/C/xampp/htdocs/vhosts/sadindent/app/filters.php",
 		"/C/xampp/htdocs/vhosts/nielitcms/public/test.php",
 		"/C/xampp/apache/conf/httpd.conf",
 		"/C/Users/Alan Pachuau/Downloads/Compressed/semantic/examples/homepage.html",
@@ -164,10 +165,7 @@
 		"/C/xampp/htdocs/vhosts/sadindent/app/database/migrations/2014_02_25_114309_create_stores_table.php",
 		"/C/xampp/htdocs/vhosts/sadindent/app/database/migrations/2014_02_25_102909_create_indents_table.php",
 		"/C/xampp/htdocs/vhosts/sadindent/app/models/Product.php",
-		"/C/xampp/htdocs/vhosts/sadindent/app/controllers/GroupController.php.php",
-		"/C/xampp/htdocs/vhosts/sadindent/composer.json",
 		"/C/xampp/htdocs/vhosts/sadindent/app/controllers/UserController.php",
-		"/C/xampp/htdocs/vhosts/sadindent/app/controllers/BaseController.php",
 		"/C/xampp/htdocs/vhosts/sadindent/app/models/User.php",
 		"/C/xampp/htdocs/vhosts/sadindent/app/database/migrations/2014_02_25_095324_create_department_table.php",
 		"/C/xampp/htdocs/vhosts/sadindent/app/views/hello.php",
@@ -204,7 +202,7 @@
 	],
 	"find":
 	{
-		"height": 34.0
+		"height": 27.0
 	},
 	"find_in_files":
 	{
@@ -218,6 +216,19 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"$route",
+			"denied",
+			"());",
+			"'login'",
+			"route",
+			"routes",
+			"route",
+			"$resource",
+			"resources",
+			"groups",
+			"Redirect::to",
+			"register",
+			"login",
 			"username",
 			"/login",
 			"email",
@@ -270,7 +281,7 @@
 	"groups":
 	[
 		{
-			"selected": 7,
+			"selected": 4,
 			"sheets":
 			[
 				{
@@ -279,15 +290,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6891,
+						"buffer_size": 6987,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								38,
-								38
+								6565,
+								6565
 							]
 						],
 						"settings":
@@ -297,91 +308,34 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "app/controllers/AuthController.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2354,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								273,
-								273
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 6441.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 1,
 					"file": "app/views/layout/partial/menu.blade.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 633,
+						"buffer_size": 1061,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								109,
-								109
+								534,
+								534
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/PHP/PHP.tmLanguage"
 						},
-						"translation.x": 24.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "app/routes.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 716,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								511,
-								511
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage"
-						},
-						"translation.x": 0.0,
+						"translation.x": 218.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
@@ -389,48 +343,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "app/filters.php",
+					"buffer": 2,
+					"file": "app/controllers/AuthController.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2211,
+						"buffer_size": 2369,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1059,
-								1059
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 622.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "app/views/auth/login.blade.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1382,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								204,
-								204
+								269,
+								269
 							]
 						],
 						"settings":
@@ -446,27 +372,27 @@
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "app/views/layout/partial/language.blade.php",
+					"buffer": 3,
+					"file": "app/routes.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 412,
+						"buffer_size": 1164,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								214,
-								214
+								430,
+								430
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/PHP/PHP.tmLanguage"
 						},
-						"translation.x": 578.0,
+						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
@@ -474,32 +400,61 @@
 					"type": "text"
 				},
 				{
-					"buffer": 7,
-					"file": "app/database/migrations/2014_02_25_111724_create_products_table.php.bak",
-					"semi_transient": true,
+					"buffer": 4,
+					"file": "app/filters.php",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 618,
+						"buffer_size": 2510,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								437,
-								437
+								2380,
+								2380
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"syntax": "Packages/PHP/PHP.tmLanguage",
 							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1362.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "app/views/error/denied.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 551,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								551
+							]
+						],
+						"settings":
+						{
+							"auto_name": "notfound.blade.php",
+							"syntax": "Packages/PHP/PHP.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -507,7 +462,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 21.0
+		"height": 27.0
 	},
 	"input":
 	{
@@ -543,7 +498,7 @@
 	"project": "sad.sublime-project",
 	"replace":
 	{
-		"height": 38.0
+		"height": 50.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -577,7 +532,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 323.0,
+	"side_bar_width": 394.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

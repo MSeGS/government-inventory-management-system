@@ -2,6 +2,11 @@
 
 class GroupController extends \BaseController {
 
+	public function __construct()
+	{
+		// $this->beforeFilter('sentry');
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -9,6 +14,12 @@ class GroupController extends \BaseController {
 	 */
 	public function index()
 	{
+		$group = Sentry::findGroupById(1);
+		print_r($group->permissions);
+		$resources = Resource::all();
+		print_r($resources->toArray());
+		exit;
+
 		$groups = Sentry::findAllGroups();
 		return View::make('group.index')
 			->with('groups', $groups);
