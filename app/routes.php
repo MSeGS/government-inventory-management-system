@@ -21,10 +21,14 @@ Route::get('registration', array('uses'=>'RegistrationController@index', 'as'=>'
 Route::post('registration', array('uses'=>'RegistrationController@register', 'as'=>'registration.submit'));
 
 Route::resource('user', 'UserController');
+
 Route::get('group/{id}/permission', array('uses'=>'GroupController@permission', 'as'=>'group.permission'));
 Route::post('group/{id}/permission', array('uses'=>'GroupController@permission', 'as'=>'group.updatePermission'));
 Route::resource('group', 'GroupController');
+
 Route::resource('resource', 'ResourceController');
+
+Route::resource('store', 'StoreController');
 
 Route::get('denied', array('before'=>'sentry', 'uses'=>'ErrorController@denied', 'as'=>'denied'));
 Route::get('notfound', array('before'=>'sentry','uses'=>'ErrorController@notfound', 'as'=>'notfound'));
