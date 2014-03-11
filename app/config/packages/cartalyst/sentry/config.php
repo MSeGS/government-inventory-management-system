@@ -70,7 +70,7 @@ return array(
 		|
 		*/
 
-		'key' => 'cartalyst_sentry',
+		'key' => 'indent_requisition_system_cookie',
 
  	),
 

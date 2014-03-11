@@ -13,8 +13,10 @@ class GroupTableSeeder extends Seeder
 				'name'        => 'Public',
 				'permissions' => array(
 					'login' => 1,
+					'login.submit' => 1,
 					'help' => 1,
 					'registration' => 1,
+					'registration.submit' => 1,
 					'reset-password' => 1,
 					'retrieve-username' => 1
 				),
