@@ -21,8 +21,8 @@ Route::get('registration', array('uses'=>'RegistrationController@index', 'as'=>'
 Route::post('registration', array('uses'=>'RegistrationController@register'));
 
 Route::resource('user', 'UserController');
-Route::get('group/{id}/permission', array('before'=>'sentry', 'uses'=>'GroupController@permission', 'as'=>'group.permission'));
-Route::post('group/{id}/permission', array('before'=>'sentry', 'uses'=>'GroupController@permission', 'as'=>'group.updatePermission'));
+Route::get('group/{id}/permission', array('uses'=>'GroupController@permission', 'as'=>'group.permission'));
+Route::post('group/{id}/permission', array('uses'=>'GroupController@permission', 'as'=>'group.updatePermission'));
 Route::resource('group', 'GroupController');
 Route::resource('resource', 'ResourceController');
 
