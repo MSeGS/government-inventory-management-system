@@ -13,16 +13,18 @@
 
 Route::get('/', array('before'=>'sentry', 'uses'=>'HomeController@index', 'as'=>'home.index'));
 
-Route::get('login', array('uses'=>'AuthController@login', 'as'=>'login'));
-Route::post('login', 'AuthController@authenticate');
-Route::get('logout', array('uses'=>'AuthController@logout', 'as'=>'logout'));
+Route::get('login', array('before'=>'sentry', 'uses'=>'AuthController@login', 'as'=>'login'));
+Route::post('login', array('before'=>'sentry', 'uses'=>'AuthController@authenticate'));
+Route::get('logout', array('before'=>'sentry', 'uses'=>'AuthController@logout', 'as'=>'logout'));
 
 Route::get('registration', array('uses'=>'RegistrationController@index', 'as'=>'registration'));
-Route::post('registration', 'RegistrationController@register');
+Route::post('registration', array('uses'=>'RegistrationController@register'));
 
 Route::resource('user', 'UserController');
+Route::get('group/{id}/permission', array('before'=>'sentry', 'uses'=>'GroupController@permission', 'as'=>'group.permission'));
+Route::post('group/{id}/permission', array('before'=>'sentry', 'uses'=>'GroupController@permission', 'as'=>'group.updatePermission'));
 Route::resource('group', 'GroupController');
 Route::resource('resource', 'ResourceController');
 
-Route::get('denied', array('uses'=>'ErrorController@denied', 'as'=>'denied'));
-Route::get('notfound', array('uses'=>'ErrorController@notfound', 'as'=>'notfound'));
+Route::get('denied', array('before'=>'sentry', 'uses'=>'ErrorController@denied', 'as'=>'denied'));
+Route::get('notfound', array('before'=>'sentry','uses'=>'ErrorController@notfound', 'as'=>'notfound'));
