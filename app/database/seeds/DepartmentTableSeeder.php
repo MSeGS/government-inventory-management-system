@@ -1,0 +1,67 @@
+<?php
+class DepartmentTableSeeder extends Seeder
+{
+	public function run()
+	{
+		DB::table('departments')->delete();
+
+		DB::table('departments') -> insert(array(
+				array('name' => 'Administrative Training Institute', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Agriculture (Crop Husbandry)', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Agriculture (Research & Education)', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Animal Husbandry & Veterinary', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Art & Culture', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Chakma Autonomous District Council', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Cooperation', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Disaster Management & Rehabilitation', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Economics & Statistics', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Environment & Forest', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Finance (Fiscal Management Unit)', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Fire & Emergency Service', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Fisheries', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Food, Civil Supplies & Consumer Affairs', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Forensic Science Lab', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'General Administration Department', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'General Administration Department (Aviation)', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Geology & Mineral Resources', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Health Services', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Higher & Technical Education', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Horticulture', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Hospital & Medical Education', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Industries', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Information & Communication Technology', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Information & Public Relations', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Labour & Employment', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Lai Autonomous District Council', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Land Revenue & Settlement', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Law & Judicial', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Legal Metrology', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Local Area Development', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Mara Autonomous District Council', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Minor Irrigation', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Mizoram Scholarship Board', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Planning and Programme Implementation Department', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Police Housing', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Power & Electricity', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Printing & Stationary', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Prisons', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Public Health Engineering', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Public Works Department', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Rural Development', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Sainik Welfare & Resettlement', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'School Education', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Science, Technology & Environment', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Sericulture', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Sinlung Hill District Council', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Social Welfare', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Soil & Water Conservation', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Sports & Youth Services', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'State Council of Educational Research & Training', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Tourism', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Town & Country Planning', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Trade & Commerce', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Transport', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),
+				array('name' => 'Urban Development & Poverty Alleviation', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()'))
+			));
+	}
+}
