@@ -14,7 +14,7 @@ class GroupTableSeeder extends Seeder
 				'permissions' => array(
 					'login' => 1,
 					'help' => 1,
-					'register' => 1,
+					'registration' => 1,
 					'reset-password' => 1,
 					'retrieve-username' => 1
 				),
@@ -36,7 +36,7 @@ class GroupTableSeeder extends Seeder
 				array(
 				'name'        => 'Super Administrator',
 				'permissions' => array(
-					'home.index' => 1
+					'superuser' => 1
 				),
 			));
 		}

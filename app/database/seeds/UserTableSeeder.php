@@ -11,7 +11,7 @@ class UserTableSeeder extends Seeder
 		    $user = Sentry::createUser(array(
 		        'username'  => 'super',
 		        'password'  => 'pass',
-		        'activated' => true,
+		        'activated' => true
 		    ));
 
 		    // Find the group using the group name
