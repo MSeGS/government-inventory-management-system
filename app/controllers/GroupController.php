@@ -14,11 +14,13 @@ class GroupController extends \BaseController {
 	 */
 	public function index()
 	{
-		$group = Sentry::findGroupById(1);
-		print_r($group->permissions);
-		$resources = Resource::all();
-		print_r($resources->toArray());
-		exit;
+		// $group = Sentry::findGroupById(1);
+		// echo "<pre>";
+		// print_r($group->permissions);
+		// $resources = Resource::all();
+		// print_r($resources->toArray());
+		// echo "</pre>";
+		// exit;
 
 		$groups = Sentry::findAllGroups();
 		return View::make('group.index')
@@ -32,7 +34,7 @@ class GroupController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+
 	}
 
 	/**
@@ -42,7 +44,25 @@ class GroupController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$rules= array(
+			'name' 	=> 	'required',
+			);
+
+		$validator = Validator::make(Input::all(), $rules);
+
+			if ($validator->fails()){
+				return Redirect::to('group')
+					-withErrors($validator)
+					->withInput(Input::all());
+			}
+			else{
+				$group 			= 	new Group;
+				$group->name 	=	Input::get('name');	
+				$group->save();
+
+				Session::flash('message', 'Successfully Added');
+				return Redirect::to('group');
+			}
 	}
 
 	/**
@@ -53,7 +73,7 @@ class GroupController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+
 	}
 
 	/**
@@ -64,7 +84,10 @@ class GroupController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$groupById = Group::find($id);
+		$groups = Sentry::findAllGroups();
+		return View::make('group.edit')
+			->with(array('groups' => $groups, 'groupById' => $groupById));
 	}
 
 	/**
@@ -75,7 +98,26 @@ class GroupController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$rules = array(
+			'name' => 'required'
+			);
+
+		$validator = Validator::make(Input::all(), $rules);
+
+		if ($validator->fails()){
+			return Redirect::to('group'. $id .'/edit')
+				->withErrors($validator)
+				->withInput(Input::all());
+		}
+		else{
+			$group 			= Group::find($id);
+			$group->name 	= Input::get('name');
+			$group->save();
+
+			Session::flash('message', 'Successfully Edited');
+			return Redirect::to('group');
+		}
+
 	}
 
 	/**
@@ -86,7 +128,34 @@ class GroupController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		Group::destroy($id);
+
+		Session::flash('message', 'Group deleted');
+		return Redirect::to('group');
+	}
+
+	public function permission($id)
+	{
+		$groups = Sentry::findAllGroups();
+		$current_group = Sentry::findGroupById($id);
+		$resources = Resource::all();
+		return View::make('group.permission')
+			->with(array('resources'=>$resources, 'current_group'=>$current_group, 'groups'=>$groups));
+	}
+
+	public function updatePermission($id)
+	{
+		$group = Group::find($id);
+		$postData = $_POST;
+		unset($postData['_method']);
+		unset($postData['_token']);
+		$set = serialize($postData);
+		$set = json_encode($postData);
+		
+		$group->permissions = $set;
+		$group->save();
+
+		return Redirect::to('group/'.$group->id.'/permission');
 	}
 
 }

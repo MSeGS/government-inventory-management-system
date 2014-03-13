@@ -392,6 +392,10 @@ border-bottom: none !important;
 hr {
     border-color: #aaa;
 }
+.group-permissions-list {
+    height: 400px;
+    overflow: auto;
+}
 
 @media (min-width: 768px) and (max-width: 991px) {
     .headerBrand {
