@@ -3,7 +3,7 @@ class DepartmentTableSeeder extends Seeder
 {
 	public function run()
 	{
-		DB::table('departments')->delete();
+		DB::table('departments')->truncate();
 
 		DB::table('departments') -> insert(array(
 				array('name' => 'Administrative Training Institute', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()')),

@@ -3,6 +3,7 @@
         
         @if(Sentry::check())
         <li {{Request::path() == '/'?'class="active"':''}}><a href="{{url('/')}}">Main</a></li>
+        <li {{Request::path() == 'store'?'class="active"':''}}><a href="{{url('/store')}}">Stores</a></li>
         <li {{Request::path() == 'user'?'class="active"':''}}><a href="{{url('/user')}}">Users</a></li>
         <li {{Request::path() == 'group'?'class="active"':''}}><a href="{{url('/group')}}">Groups</a></li>
         <li {{Request::path() == 'resource'?'class="active"':''}}><a href="{{url('/resource')}}">Resource</a></li>

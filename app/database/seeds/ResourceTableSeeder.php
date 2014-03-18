@@ -3,7 +3,7 @@ class ResourceTableSeeder extends Seeder
 {
 	public function run()
 	{
-		DB::table('resources')->delete();
+		DB::table('resources')->truncate();
 
 		DB::table('resources')->insert(array(
 			array('route'=>'login', 'name'=>'Login Page', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
