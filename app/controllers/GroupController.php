@@ -146,11 +146,8 @@ class GroupController extends \BaseController {
 	public function updatePermission($id)
 	{
 		$group = Group::find($id);
-		$postData = $_POST;
-		unset($postData['_method']);
-		unset($postData['_token']);
-		$set = serialize($postData);
-		$set = json_encode($postData);
+		$postData = Input::get('permission');
+		$set = json_encode(serialize($postData));
 		
 		$group->permissions = $set;
 		$group->save();

@@ -4,7 +4,7 @@ class ResourceController extends \BaseController {
 
 	public function __construct()
 	{
-		$this->beforeFilter('sentry');
+		//$this->beforeFilter('sentry');
 	}
 
 	/**
@@ -55,6 +55,8 @@ class ResourceController extends \BaseController {
 
 			Session::flash('message', 'Successfully added');
 			return Redirect::to('resource');
+
+			
 
 		}
 	}
