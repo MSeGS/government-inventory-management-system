@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="col-md-7">
-	<table class="table table-condensed table-striped table-bordered">
+	<table class="table table-striped table-bordered">
 		<thead>
 			<tr>
 				<th class="col-md-1">#</th>
@@ -52,7 +52,7 @@
 			</div>
 
 			<div class="form-group">
-				<button type="submit" name="submit" class="btn btn-primary btn-sm">Edit Resource</button>
+				<button type="submit" name="submit" class="btn btn-primary btn-sm pull-right">Edit Resource</button>
 			</div>
 
 			{{Form::close()}}

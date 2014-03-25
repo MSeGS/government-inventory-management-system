@@ -1,11 +1,13 @@
 @extends('layout.main')
 @section('content')
+
+
 	<div class="col-md-7">
-	<table class="table table-condensed table-striped table-bordered">
+	<table class="table table-striped table-bordered">
 		<thead>
 			<tr>
 				<th class="col-md-1">#</th>
-				<th class="col-md-8">GROUP NAME</th>
+				<th class="col-md-8">{{_('GROUP NAME')}}</th>
 				<th class="col-md-3"></th>
 			</tr>
 		</thead>
@@ -30,17 +32,17 @@
 </div>
 <div class="col-md-5">
 	<div class="panel panel-default">
-		<div class="panel-heading"><h5 class="text-center">EDIT GROUP</h5></div>
+		<div class="panel-heading"><h5 class="text-center">{{_('EDIT GROUP')}}</h5></div>
 		<div class="panel-body">
 			{{Form::model($groupById, array('url'=>'group/'.$groupById->id, 'method'=>'put', 'class'=>'form-vertical'))}}
 
 			<div class="form-group">
-				{{Form::label('name', 'Group Name', array('class'=>'control-label'))}}
+				{{Form::label('name', _('Group Name'), array('class'=>'control-label'))}}
 				{{Form::text('name', Input::old('name'), array('class'=>'form-control input-sm'))}}
 			</div>
 
 			<div class="form-group">
-				<button type="submit" name="submit" class="btn btn-primary btn-sm">Edit Group</button>
+				<button type="submit" name="submit" class="btn btn-primary btn-sm">{{_('Edit Group')}}</button>
 			</div>
 
 			{{Form::close()}}

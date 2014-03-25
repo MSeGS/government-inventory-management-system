@@ -147,7 +147,7 @@ class GroupController extends \BaseController {
 	{
 		$group = Group::find($id);
 		$postData = Input::get('permission');
-		$set = json_encode(serialize($postData));
+		$set = json_encode($postData);
 		
 		$group->permissions = $set;
 		$group->save();
