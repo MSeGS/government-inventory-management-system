@@ -9,38 +9,68 @@ class UserController extends \BaseController {
 	 */
 	public function index()
 	{
+		$filter = array(
+			'department' => Input::get('department'),
+			'username' => Input::get('username'),
+			'group' => Input::get('group')
+			);
+
+		if(Input::get('search')){
+			
+			$users = User::where(function($query){
+						$filter = array(
+							'department' => Input::get('department'),
+							'username' => Input::get('username'),
+							'group' => Input::get('group')
+							);
+
+						if($filter['department'] != 0 && $filter['department'] != "")
+							$query->where('department_id', '=', $filter['department']);
+						
+						 //->where('group_id','=',"$group_id")
+						if($filter['username'] != "")
+							$query->where('username', 'like', "%" . $filter['username'] . "%");
+
+					})->paginate();
+		}
+		else {
+				$users = User::orderBy('full_name', 'asc')->paginate();
+		}
 		$departments = array();
-		$ds = Department::orderBy('name', 'asc')->paginate(15);
+		$ds = Department::orderBy('name', 'asc')->get();
+		$departments['']="Select Department";
 		foreach($ds as $d){
 			$departments[$d->id] = $d->name;
 			
 		}
 		
 		$stores = array();
-		$Ss = Store::orderBy('id', 'asc')->paginate(15);
+		$Ss = Store::orderBy('id', 'asc')->get();
+		$stores['']="Select Store id";
 		foreach($Ss as $s){
 			$stores[$s->id] = $s->id;
 		}
 
 		$groups = array();
-		$Gs = Group::orderBy('id', 'asc')->paginate(5);
+		$Gs = Group::orderBy('name', 'asc')->get();
+		$groups['']="Select Role";
 		foreach($Gs as $s){
-			$groups[$s->id] = $s->id;
-
+				$groups[$s->id] = $s->name;
 		}
 
-		$groups2 = array();
+		/*$groups2 = array();
 		$G2 = Group::orderBy('name', 'asc')->paginate(5);
 		foreach($G2 as $s2){
 			$groups2[$s2->name] = $s2->name;
 
-		}
+		}*/
 		
 		return View::make('user.index')
 			->with('departments', $departments)
 			->with('stores', $stores)
 			->with('groups', $groups)
-			->with('groups2', $groups2);
+			->with('users', $users)
+			->with('filter', $filter);
 			
 	}
 
@@ -51,49 +81,9 @@ class UserController extends \BaseController {
 	 */
 	public function create()
 	{
-		$rules = array(
-			'full_name' 	=> 	'required',
-			'username'		=>	'required',
-			'password'		=> 	'required',
-			'email_id'		=> 	'required',
-			'designation'	=>	'required'
-			);
-		$validator = Validator::make(Input::all(), $rules);
-
-		if ($validator -> fails()) {
-			return Redirect::to('user')
-				->withErrors($validator)
-				->withInput(Input::all());
-		}
-		else
 		
-				{
-					// Create the user
-				    $user = Sentry::createUser(array(
-				    'department'	=> Input::get('department'),
-				    'full_name'		=> Input::get('full_name'),
-				    'username' 		=> Input::get('username'),
-				    'password'		=> Input::get('password'),
-					'email_id' 		=> Input::get('email_id'),
-					'phone_no' 		=> Input::get('phone_no'),
-					'address' 		=> Input::get('address'),
-					'store_id'		=> Input::get('store_id'),
-					'designation' 	=> Input::get('designation'),
-					'activated'		=> 'false',
-					));	
-				  
-		Session::flash('message', 'Successfully created');
-		return Redirect::to('user');
 
-		}
-
-			$adminGroup = Sentry::findGroupById(4);
-
-		    // Assign the group to the user
-		    $user->addGroup($adminGroup);
-		    return Redirect::to('login');
-
-
+			
 			    /*
 			   	$adminGroup = Sentry::findGroupByname('Administrator');																												
 			    $superGroup = Sentry::findGroupByName('Super Administrator');
@@ -115,8 +105,48 @@ class UserController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$rules = array(
+			'group_id'		=>  'required',
+			'department'	=> 	'required',
+			'full_name' 	=> 	'required',
+			'username'		=>	'required',
+			'password'		=> 	'required|min:5',
+			'email_id'		=> 	'required|email',
+			'store_id'		=>	'required',
+			'designation'	=>	'required'
+			);
+		$validator = Validator::make(Input::all(), $rules);
+
+		if ($validator -> fails()) {
+			return Redirect::to('user')
+				->withErrors($validator)
+				->withInput(Input::all());
+		}
+		else
+		{
+			// Create the user
+		    $user = Sentry::createUser(array(
+		    	//'group_id'		=> Input::get('group_id'),
+		    	'department_id'	=> Input::get('department'),
+		    	'full_name'		=> Input::get('full_name'),
+		    	'username'		=> Input::get('username'),
+		    	'password'		=> Input::get('password'),
+				'email_id'		=> Input::get('email_id'),
+				'phone_no'		=> Input::get('phone_no'),
+				'address' 		=> Input::get('address'),
+				'store_id'		=> Input::get('store_id'),
+				'designation' 	=> Input::get('designation')
+		  	));
+
+			$group = Sentry::findGroupByname(Input::get('group_id'));
+			
+			// Assign the group to the user
+		    $user->addGroup($group);
+
+			return Redirect::to('user')->with('message', 'Successfully created');
+		}
 	}
+
 
 	/**
 	 * Display the specified resource.
@@ -137,7 +167,11 @@ class UserController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		// $userById = User::find($id);
+		// $users = User::orderBy('name', 'asc')->paginate();
+		// return View::make('user.edit')
+		// 	->with(array('users'=> $users, 'userById' => $userById));
+			//return Redirect::to('user.edit');
 	}
 
 	/**
