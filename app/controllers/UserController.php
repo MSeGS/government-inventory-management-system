@@ -167,11 +167,7 @@ class UserController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		// $userById = User::find($id);
-		// $users = User::orderBy('name', 'asc')->paginate();
-		// return View::make('user.edit')
-		// 	->with(array('users'=> $users, 'userById' => $userById));
-			//return Redirect::to('user.edit');
+		
 	}
 
 	/**
