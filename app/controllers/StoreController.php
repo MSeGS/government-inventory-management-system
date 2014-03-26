@@ -14,14 +14,21 @@ class StoreController extends \BaseController {
 	 */
 	public function index()
 	{ 
-		$stores = Store::with(array('Department' =>function($query){
+		$stores = Store::with(array('Department' => function($query){
 			$query->orderBy('name', 'asc');
 		}))->paginate(20);
+
+		$departments = Department::where(function($query){
+			$existing_stores = Store::lists('department_id');
+			if(!empty($existing_stores))
+				$query->whereNotIn('id', $existing_stores);
+
+		})->orderBy('name', 'asc')->lists('name', 'id');
 
 		return View::make('store.index')
 			->with(array(
 				'stores' => $stores,
-				'departments' => Department::whereNotIn('id', Store::lists('department_id'))->orderBy('name', 'asc')->lists('name', 'id')
+				'departments' => $departments
 				));
 	}
 
@@ -32,7 +39,6 @@ class StoreController extends \BaseController {
 	 */
 	public function create()
 	{
-		
 	}
 
 	/**
@@ -43,26 +49,24 @@ class StoreController extends \BaseController {
 	public function store()
 	{
 		$rules = array(
-			'name' 	=> 	'required',
-			'route' =>	'required',
+			'department_id'		=> 'required',
+			'store_code'		=> 'required|alpha_dash|unique:stores,store_code'
 			);
+
 		$validator = Validator::make(Input::all(), $rules);
 
 		if ($validator -> fails()) {
-			return Redirect::to('resource')
+			return Redirect::route('store.index')
 				->withErrors($validator)
 				->withInput(Input::all());
 		}
-		else{
-			$resource = new Resource;
-			$resource->name 	= 	Input::get('name');
-			$resource->route 	= 	Input::get('route');
-			$resource->save();
 
-			Session::flash('message', 'Successfully added');
-			return Redirect::to('resource');
+		$store = new Store;
+		$store->department_id = Input::get('department_id');
+		$store->store_code = Input::get('store_code');
+		$store->save();
 
-		}
+		return Redirect::route('store.index')->with('message', 'Store created successfully');
 	}
 
 	/**
@@ -84,10 +88,25 @@ class StoreController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$resourceById = Resource::find($id);
-		$resources = Resource::orderBy('name', 'asc')->paginate(30);
-		return View::make('resource.edit')
-			->with(array('resources'=> $resources, 'resourceById' => $resourceById));
+		$current_store = Store::with('Department')->find($id);
+		
+		$stores = Store::with(array('Department' => function($query){
+			$query->orderBy('name', 'asc');
+		}))->paginate(20);
+
+		$departments = Department::where(function($query){
+			$existing_stores = Store::lists('department_id');
+			if(!empty($existing_stores))
+				$query->whereNotIn('id', $existing_stores);
+
+		})->orderBy('name', 'asc')->lists('name', 'id');
+
+		return View::make('store.edit')
+			->with(array(
+				'stores'=> $stores,
+				'current_store' => $current_store,
+				'departments' => $departments
+				));
 	}
 
 	/**
@@ -99,25 +118,22 @@ class StoreController extends \BaseController {
 	public function update($id)
 	{
 		$rules = array(
-			'name' 	=> 	'required',
-			'route' =>	'required'
+			'store_code'		=> 'required|alpha_dash|unique:stores,store_code,' . $id
 			);
+
 		$validator = Validator::make(Input::all(), $rules);
 
 		if ($validator -> fails()) {
-			return Redirect::to('resource/'. $id. '/edit')
+			return Redirect::route('store.edit', $id)
 				->withErrors($validator)
 				->withInput(Input::all());
 		}
-		else{
-			$resource = Resource::find($id);
-			$resource->name 	= 	Input::get('name');
-			$resource->route 	= 	Input::get('route');
-			$resource->save();
 
-			Session::flash('message', 'Successfully edited');
-			return Redirect::to('resource');
-		}
+		$store = Store::find($id);
+		$store->store_code = Input::get('store_code');
+		$store->save();
+
+		return Redirect::route('store.edit', $id)->with('message', '<i class="fa fa-check"></i> Store updated successfully');
 	}
 
 	/**

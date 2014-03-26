@@ -42,12 +42,12 @@ class MigrationCartalystSentryInstallUsers extends Migration {
 			$table->timestamp('last_login')->nullable();
 			$table->string('persist_code')->nullable();
 			$table->string('reset_password_code')->nullable();
-			$table->integer('store_id');
-			$table->string('email_id',100);
-			$table->string('phone_no', 250);
-			$table->text('address');
-			$table->integer('department_id');
-			$table->string('designation', 250);
+			$table->integer('store_id')->default(0);
+			$table->string('email_id', 100);
+			$table->string('phone_no', 250)->nullable();
+			$table->text('address')->nullable();
+			$table->integer('department_id')->nullable();
+			$table->string('designation', 250)->nullable();
 
 			$table->timestamps();
 

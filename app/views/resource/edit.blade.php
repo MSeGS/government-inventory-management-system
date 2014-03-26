@@ -17,7 +17,7 @@
 			<tr>
 				<td>{{++$i}}</td>
 				<td>{{$resource->name}}</td>
-				<td><strong>{{$resource->route}}</strong></td>
+				<td>{{$resource->route}}</td>
 				<td>
 					{{Form::open(array('url'=>'resource/'.$resource->id, 'method'=>'delete'))}}
 					<?php if($resource->id == $resourceById->id){ ?>
@@ -51,8 +51,8 @@
 				{{Form::text('route', Input::old('route'), array('class'=>'form-control input-sm'))}}
 			</div>
 
-			<div class="form-group">
-				<button type="submit" name="submit" class="btn btn-primary btn-sm pull-right">Edit Resource</button>
+			<div class="form-group text-right">
+				<button type="submit" name="submit" class="btn btn-primary btn-sm">Save</button>
 			</div>
 
 			{{Form::close()}}

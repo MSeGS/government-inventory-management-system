@@ -2,6 +2,12 @@
 
 class BaseController extends Controller {
 
+	public function __construct()
+	{
+		$this->per_page = 30;
+		$this->current_route = Route::getCurrentRoute()->getName();
+	}
+
 	/**
 	 * Setup the layout used by the controller.
 	 *
@@ -13,8 +19,6 @@ class BaseController extends Controller {
 		{
 			$this->layout = View::make($this->layout);
 		}
-
-		$per_page = 30;
 	}
 
 }

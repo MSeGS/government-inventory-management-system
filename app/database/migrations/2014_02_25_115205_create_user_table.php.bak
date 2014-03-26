@@ -30,7 +30,7 @@ class CreateUserTable extends Migration {
 			$table->string('designation', 250);
 			$table->datetime('last_login_at');
 			$table->timestamps();
-			$table->integer('store_id');
+			$table->integer('store_id')->default(0);
 		});
 	}
 

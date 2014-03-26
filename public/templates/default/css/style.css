@@ -19,7 +19,7 @@ html, body {
 }
 
 /** Bootstrap Overwrite **/
-
+.alert {padding: 8px 10px 6px;}
 input[type='text'], input[type='password'], input[type='email'], textarea {
     -webkit-box-shadow: none !important; 
     box-shadow: none !important; 

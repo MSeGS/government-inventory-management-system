@@ -3,17 +3,18 @@
 @section('content')
 <div class="col-md-8">
 	{{Form::open(array('url'=>'user','method'=>'get','class'=>'form-vertical'))}}
-		<div class="col-md-4">
-			<div class="form-group">
-				{{Form::select('department', $departments, $filter['department'], array('class' =>'input-sm form-control'))}}
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					{{Form::select('department', $departments, $filter['department'], array('class' =>'input-sm form-control'))}}
+				</div>
 			</div>
-		</div>
 
-		<div class="col-md-4 ">
-			<div class="form-group">
-				{{Form::select('group', $groups, 'null', array('class' =>'input-sm form-control'))}}
+			<div class="col-md-4 ">
+				<div class="form-group">
+					{{Form::select('group', $groups, 'null', array('class' =>'input-sm form-control'))}}
+				</div>
 			</div>
-		</div>
 			<div class="col-md-4" >
 				<div class="form-group">
 					<div class="input-group">
@@ -24,7 +25,8 @@
 		    		</div>
 				</div>
 			</div>
-		{{Form::close()}}
+		</div>
+	{{Form::close()}}
 				
 	<table class="table table-striped table-hover table-bordered">
 		<thead>
@@ -121,15 +123,15 @@
 				<div class="form-group">
 					{{Form::label('address', 'Address', array('class'=>'control-label'))}}
 					
-						{{Form::textarea('address', '', array('class'=>'input-sm form-control','style'=>'height:100px', 'placeholder'=>'Address'))}}
+						{{Form::textarea('address', '', array('class'=>'input-sm form-control','rows'=>'2', 'placeholder'=>'Address'))}}
 					
 				</div>
 				<div class="form-group">
-					{{Form::label('store_id', 'Store Id', array('class'=>'control-label'))}}
+					{{Form::label('store', 'Store', array('class'=>'control-label'))}}
 					
-						{{Form::select('store_id', $stores, 'null', array('class' =>'input-sm form-control'))}}
-						@if($errors->has('store_id'))
-						<p class="help-block"><span class="text-danger">{{$errors->first('store_id')}}</span></p>
+						{{Form::select('store', $stores, 'null', array('class' =>'input-sm form-control'))}}
+						@if($errors->has('store'))
+						<p class="help-block"><span class="text-danger">{{$errors->first('store')}}</span></p>
 						@endif
 					
 				</div>
@@ -142,10 +144,8 @@
 						@endif
 					
 				</div>
-				<div class="form-group">
-					<div class="col-md-8"></div>
-						<button type="submit" class="btn btn-primary">Create User</button>
-						{{ Form::token() }}
+				<div class="form-group text-right">
+					<button type="submit" class="btn btn-sm btn-primary">Submit</button>
 				</div>
 			</div>
 	</div>

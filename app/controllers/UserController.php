@@ -46,9 +46,9 @@ class UserController extends \BaseController {
 		
 		$stores = array();
 		$Ss = Store::orderBy('id', 'asc')->get();
-		$stores['']="Select Store id";
+		$stores['']="Select Store";
 		foreach($Ss as $s){
-			$stores[$s->id] = $s->id;
+			$stores[$s->id] = Department::find($s->department_id)->name . ' (' . $s->store_code . ')';
 		}
 
 		$groups = array();
@@ -112,7 +112,7 @@ class UserController extends \BaseController {
 			'username'		=>	'required',
 			'password'		=> 	'required|min:5',
 			'email_id'		=> 	'required|email',
-			'store_id'		=>	'required',
+			'store'		=>	'required',
 			'designation'	=>	'required'
 			);
 		$validator = Validator::make(Input::all(), $rules);
@@ -134,7 +134,7 @@ class UserController extends \BaseController {
 				'email_id'		=> Input::get('email_id'),
 				'phone_no'		=> Input::get('phone_no'),
 				'address' 		=> Input::get('address'),
-				'store_id'		=> Input::get('store_id'),
+				'store_id'		=> Input::get('store'),
 				'designation' 	=> Input::get('designation')
 		  	));
 

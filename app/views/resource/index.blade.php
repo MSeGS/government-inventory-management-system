@@ -17,7 +17,7 @@
 			<tr>
 				<td>{{++$i}}</td>
 				<td>{{$resource->name}}</td>
-				<td><strong>{{$resource->route}}</strong></td>
+				<td>{{$resource->route}}</td>
 				<td>
 					{{Form::open(array('url'=>'resource/'.$resource->id, 'method'=>'delete'))}}
 					<a href="{{route('resource.edit', array($resource->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Resource"><i class="fa fa-pencil"></i></a>
@@ -47,8 +47,8 @@
 				{{Form::text('route', '', array('class'=>'form-control input-sm'))}}
 			</div>
 
-			<div class="form-group">
-				<button type="submit" name="submit" class="btn btn-primary btn-sm pull-right">Add Resource</button>
+			<div class="form-group text-right">
+				<button type="submit" name="submit" class="btn btn-primary btn-sm pull-right">Submit</button>
 			</div>
 			{{Form::close()}}
 		</div>
