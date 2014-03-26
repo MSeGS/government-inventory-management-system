@@ -395,6 +395,7 @@ hr {
 .group-permissions-list {
     height: 400px;
     overflow: auto;
+    margin-bottom:20px;
 }
 
 @media (min-width: 768px) and (max-width: 991px) {

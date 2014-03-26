@@ -34,8 +34,8 @@
 <div class="col-md-5">
 	<div class="panel panel-default">
 		<div class="panel-heading"><h5 class="text-center">NEW RESOURCE</h5></div>
-		<div class="panel-body">
 			{{Form::open(array('url'=>'resource', 'method'=>'post', 'class'=>'form-vertical'))}}
+		<div class="panel-body">
 
 			<div class="form-group">
 				{{Form::label('name', 'Resource Name', array('class'=>'control-label'))}}
@@ -48,9 +48,8 @@
 			</div>
 
 			<div class="form-group">
-				<button type="submit" name="submit" class="btn btn-primary btn-sm">Add Resource</button>
+				<button type="submit" name="submit" class="btn btn-primary btn-sm pull-right">Add Resource</button>
 			</div>
-
 			{{Form::close()}}
 		</div>
 	</div>
