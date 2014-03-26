@@ -10,6 +10,16 @@ $(document).ready(function(){
 	});
 
 	initTooltips();
+
+	var $selects = $('select');
+						
+	$selects.easyDropDown({
+		cutOff: 10,
+		wrapperClass: 'easydropdown',
+		onChange: function(selected){
+			// do something
+		}
+	});
 });
 
 function initTooltips()
