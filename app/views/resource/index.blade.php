@@ -2,7 +2,12 @@
 
 @section('content')
 <div class="col-md-7">
-	<table class="table table-condensed table-striped table-bordered">
+	@if(Session::has('delete'))
+		<div class="alert alert-danger">
+			{{Session::get('delete')}}	
+		</div>
+	@endif
+	<table class="table table-striped table-bordered">
 		<thead>
 			<tr>
 				<th class="col-md-1">#</th>
@@ -36,19 +41,31 @@
 		<div class="panel-heading"><h5 class="text-center">NEW RESOURCE</h5></div>
 			{{Form::open(array('url'=>'resource', 'method'=>'post', 'class'=>'form-vertical'))}}
 		<div class="panel-body">
-
+			@if(Session::has('message'))
+				<div class="alert alert-success">
+					{{Session::get('message')}}	
+				</div>
+			@endif
 			<div class="form-group">
 				{{Form::label('name', 'Resource Name', array('class'=>'control-label'))}}
 				{{Form::text('name', '', array('class'=>'form-control input-sm'))}}
+
+				@if($errors->has('name'))
+				<p class="help-block"><span class="text-danger">{{$errors->first('name')}}</span></p>
+				@endif
 			</div>
 
 			<div class="form-group">
 				{{Form::label('route', 'Resource Route', array('class'=>'control-label'))}}
 				{{Form::text('route', '', array('class'=>'form-control input-sm'))}}
+
+				@if($errors->has('route'))
+				<p class="help-block"><span class="text-danger">{{$errors->first('route')}}</span></p>
+				@endif
 			</div>
 
 			<div class="form-group text-right">
-				<button type="submit" name="submit" class="btn btn-primary btn-sm pull-right">Submit</button>
+				<button type="submit" name="submit" class="btn btn-primary btn-sm pull-right">{{_('Submit')}}</button>
 			</div>
 			{{Form::close()}}
 		</div>

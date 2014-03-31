@@ -1,6 +1,6 @@
 @extends('layout.main')
-
 @section('content')
+
 <div class="col-md-7">
 	<table class="table table-striped table-bordered">
 		<thead>
@@ -14,7 +14,7 @@
 		<tbody>
 			<?php $i=0; ?>
 			@foreach($resources as $resource)
-			<tr>
+			<tr {{($resourceById->id == $resource->id)?'class="success"':''}}>
 				<td>{{++$i}}</td>
 				<td>{{$resource->name}}</td>
 				<td>{{$resource->route}}</td>
@@ -51,9 +51,14 @@
 				{{Form::text('route', Input::old('route'), array('class'=>'form-control input-sm'))}}
 			</div>
 
-			<div class="form-group text-right">
-				<button type="submit" name="submit" class="btn btn-primary btn-sm">Save</button>
-			</div>
+			<div class="form-inline text-right">
+				<div class="form-group">
+					<button type="submit" name="submit" class="btn btn-primary btn-sm">{{_('Save')}}</button>
+				</div>
+				<div class="form-group">
+					<a href="{{ URL::previous() }}"><span class="btn btn-primary btn-sm">{{_('Cancel')}}</span></a>
+				</div>
+			</div>	
 
 			{{Form::close()}}
 		</div>

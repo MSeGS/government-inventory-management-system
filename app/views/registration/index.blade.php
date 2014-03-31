@@ -6,7 +6,7 @@
 	<hr>
 	{{Form::open(array('url'=>'/registration', 'method'=>'post', 'class'=>'form-vertical'))}}
 	<div class="form-group">
-		{{Form::text('full_name', '', array('class'=>'form-control input-sm', 'placeholder'=>'Full Name'))}}
+		{{Form::text('full_name', Input::old(''), array('class'=>'form-control input-sm', 'placeholder'=>'Full Name'))}}
 		
 		@if($errors->has('full_name'))
 		<p class="help-block"><span class="text-danger">{{$errors->first('full_name')}}</span></p>
@@ -14,7 +14,7 @@
 	</div>
 	
 	<div class="form-group ">
-		{{Form::text('username', '', array('class'=>'form-control input-sm', 'placeholder'=>'Username'))}}
+		{{Form::text('username', Input::old('username'), array('class'=>'form-control input-sm', 'placeholder'=>'Username'))}}
 
 		@if($errors->has('username'))
 		<p class="help-block"><span class="text-danger">{{$errors->first('username')}}</span></p>
@@ -38,7 +38,7 @@
 	</div>	
 
 	<div class="form-group">
-		{{Form::textarea('address', '', array('class'=>'form-control input-sm', 'placeholder'=>'Address', 'rows'=>'3'))}}
+		{{Form::textarea('address', Input::old('address'), array('class'=>'form-control input-sm', 'placeholder'=>'Address', 'rows'=>'3'))}}
 
 		@if($errors->has('address'))
 		<p class="help-block"><span class="text-danger">{{$errors->first('address')}}</span></p>
@@ -46,7 +46,7 @@
 	</div>
 
 	<div class="form-group">
-		{{Form::text('email_id', '', array('class'=>'form-control input-sm', 'placeholder'=>'Email Address'))}}
+		{{Form::text('email_id', Input::old('email_id'), array('class'=>'form-control input-sm', 'placeholder'=>'Email Address'))}}
 
 		@if($errors->has('email_id'))
 		<p class="help-block"><span class="text-danger">{{$errors->first('email_id')}}</span></p>
@@ -54,7 +54,7 @@
 	</div>
 
 	<div class="form-group">
-		{{Form::text('phone_no', '', array('class'=>'form-control input-sm', 'placeholder'=>'Phone Number'))}}
+		{{Form::text('phone_no', Input::old('phone_no'), array('class'=>'form-control input-sm', 'placeholder'=>'Phone Number'))}}
 
 		@if($errors->has('phone_no'))
 		<p class="help-block"><span class="text-danger">{{$errors->first('phone_no')}}</span></p>

@@ -126,7 +126,7 @@ class ResourceController extends \BaseController {
 	{
 		Resource::destroy($id);
 
-		Session::flash('message', 'Resource Deleted');
+		Session::flash('delete', 'Resource Deleted');
 		return Redirect::to('resource');
 	}
 

@@ -52,7 +52,7 @@ class GroupController extends \BaseController {
 
 			if ($validator->fails()){
 				return Redirect::to('group')
-					-withErrors($validator)
+					->withErrors($validator)
 					->withInput(Input::all());
 			}
 			else{
@@ -105,7 +105,7 @@ class GroupController extends \BaseController {
 		$validator = Validator::make(Input::all(), $rules);
 
 		if ($validator->fails()){
-			return Redirect::to('group'. $id .'/edit')
+			return Redirect::to('group/'. $id .'/edit')
 				->withErrors($validator)
 				->withInput(Input::all());
 		}
@@ -130,7 +130,7 @@ class GroupController extends \BaseController {
 	{
 		Group::destroy($id);
 
-		Session::flash('message', 'Group deleted');
+		Session::flash('delete', 'Group deleted');
 		return Redirect::to('group');
 	}
 
@@ -152,6 +152,7 @@ class GroupController extends \BaseController {
 		$group->permissions = $set;
 		$group->save();
 
+		Session::flash('message', 'Successfully Saved');
 		return Redirect::to('group/'.$group->id.'/permission');
 	}
 
