@@ -11,7 +11,7 @@ $(document).ready(function(){
 
 	initTooltips();
 
-	var $selects = $('select');
+	var $selects = $('select.dropdown');
 						
 	$selects.easyDropDown({
 		cutOff: 10,

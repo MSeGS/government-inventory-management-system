@@ -1,8 +1,8 @@
 <?php
-class Product extends BaseStore
+class Stock extends BaseStore
 {
 	
-	protected $table = 'products';
+	protected $table = 'stocks';
 
 
 	public function __construct()

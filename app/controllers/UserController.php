@@ -9,69 +9,40 @@ class UserController extends \BaseController {
 	 */
 	public function index()
 	{
+		// We need to pass these filters to view to populate filter form
 		$filter = array(
 			'department' => Input::get('department'),
 			'username' => Input::get('username'),
 			'group' => Input::get('group')
 			);
 
-		if(Input::get('search')){
-			
-			$users = User::where(function($query){
-						$filter = array(
-							'department' => Input::get('department'),
-							'username' => Input::get('username'),
-							'group' => Input::get('group')
-							);
 
-						if($filter['department'] != 0 && $filter['department'] != "")
-							$query->where('department_id', '=', $filter['department']);
-						
-						 //->where('group_id','=',"$group_id")
-						if($filter['username'] != "")
-							$query->where('username', 'like', "%" . $filter['username'] . "%");
+		$users = User::with('department', 'store', 'groups')->where(function($query){
+				if(Input::get('username', null))
+					$query->where('username', 'LIKE', '%' . Input::get('username') . '%');
 
-					})->paginate();
-		}
-		else {
-				$users = User::orderBy('full_name', 'asc')->paginate();
-		}
-		$departments = array();
-		$ds = Department::orderBy('name', 'asc')->get();
-		$departments['']="Select Department";
-		foreach($ds as $d){
-			$departments[$d->id] = $d->name;
-			
-		}
+				if(Input::get('department', null))
+					$query->where('department_id', '=', Input::get('department'));
+			})
+			->orderBy('username', 'asc')
+			->paginate(30);
+
+		$departments = array(''=>'Select Department') + Department::orderBy('name', 'asc')->lists('name', 'id');
 		
 		$stores = array();
-		$Ss = Store::orderBy('id', 'asc')->get();
-		$stores['']="Select Store";
-		foreach($Ss as $s){
-			$stores[$s->id] = Department::find($s->department_id)->name . ' (' . $s->store_code . ')';
+		$stores_temp = Store::with('department')->orderBy('store_code', 'asc')->get();
+		foreach($stores_temp as $s){
+			$stores[$s->id] = $s->department->name . ' (' . $s->store_code . ')';
 		}
 
-		$groups = array();
-		$Gs = Group::orderBy('name', 'asc')->get();
-		$groups['']="Select Role";
-		foreach($Gs as $s){
-				$groups[$s->id] = $s->name;
-		}
+		$groups = array(''=>'Select Group') + Group::where('name', '<>', 'Public')->orderBy('name', 'asc')->lists('name', 'id');
 
-		/*$groups2 = array();
-		$G2 = Group::orderBy('name', 'asc')->paginate(5);
-		foreach($G2 as $s2){
-			$groups2[$s2->name] = $s2->name;
-
-		}*/
-		
 		return View::make('user.index')
 			->with('departments', $departments)
 			->with('stores', $stores)
 			->with('groups', $groups)
 			->with('users', $users)
 			->with('filter', $filter);
-			
 	}
 
 	/**
@@ -81,21 +52,7 @@ class UserController extends \BaseController {
 	 */
 	public function create()
 	{
-		
 
-			
-			    /*
-			   	$adminGroup = Sentry::findGroupByname('Administrator');																												
-			    $superGroup = Sentry::findGroupByName('Super Administrator');
-		    	$inventorGroup = Sentry::findGroupByName('Indentor')
-
-			    /* Assign the group to the user
-			     $user->addGroup($adminGroup);
-			     $user->addGroup($superGroup);
-			     $user->addGroup($indentorGroup);*/
-		
-			  
-		
 	}
 
 	/**
@@ -106,15 +63,16 @@ class UserController extends \BaseController {
 	public function store()
 	{
 		$rules = array(
-			'group_id'		=>  'required',
-			'department'	=> 	'required',
-			'full_name' 	=> 	'required',
-			'username'		=>	'required',
-			'password'		=> 	'required|min:5',
-			'email_id'		=> 	'required|email',
-			'store'		=>	'required',
-			'designation'	=>	'required'
+			'group' => 'required|integer|min:1',
+			'department' => 'required|integer|min:1',
+			'full_name' => 'required',
+			'username' => 'required',
+			'password' => 'required|min:5',
+			'email_id' => 'required|email',
+			'store' => 'required|integer|min:1',
+			'designation' => 'required'
 			);
+
 		$validator = Validator::make(Input::all(), $rules);
 
 		if ($validator -> fails()) {
@@ -124,9 +82,12 @@ class UserController extends \BaseController {
 		}
 		else
 		{
+			$group = Sentry::findGroupById(Input::get('group'));
+			$public_group = Sentry::findGroupByName('Public');
+			$group_permissions = $group->getPermissions();
+
 			// Create the user
 		    $user = Sentry::createUser(array(
-		    	//'group_id'		=> Input::get('group_id'),
 		    	'department_id'	=> Input::get('department'),
 		    	'full_name'		=> Input::get('full_name'),
 		    	'username'		=> Input::get('username'),
@@ -135,15 +96,17 @@ class UserController extends \BaseController {
 				'phone_no'		=> Input::get('phone_no'),
 				'address' 		=> Input::get('address'),
 				'store_id'		=> Input::get('store'),
-				'designation' 	=> Input::get('designation')
+				'designation' 	=> Input::get('designation'),
+				'activated' 	=> Input::get('activated'),
+				'permissions'	=> $group_permissions
 		  	));
 
-			$group = Sentry::findGroupByname(Input::get('group_id'));
-			
 			// Assign the group to the user
 		    $user->addGroup($group);
+		    // We assign every user to public group by default.
+		    $user->addGroup($public_group);
 
-			return Redirect::to('user')->with('message', 'Successfully created');
+			return Redirect::to('user')->with('message', 'User created successfully.');
 		}
 	}
 

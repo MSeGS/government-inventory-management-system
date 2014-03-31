@@ -2,26 +2,27 @@
 
 @section('content')
 <div class="col-md-8">
+
 	{{Form::open(array('url'=>'user','method'=>'get','class'=>'form-vertical'))}}
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group">
-					{{Form::select('department', $departments, $filter['department'], array('class' =>'input-sm form-control'))}}
+					{{Form::select('department', array_merge(array('0'=>'All Departments'), $departments), $filter['department'], array('class' =>'dropdown input-sm form-control'))}}
 				</div>
 			</div>
 
 			<div class="col-md-4 ">
 				<div class="form-group">
-					{{Form::select('group', $groups, 'null', array('class' =>'input-sm form-control'))}}
+					{{Form::select('group', array_merge(array('0'=>'All Groups'), $groups), 'null', array('class' =>'dropdown input-sm form-control'))}}
 				</div>
 			</div>
 			<div class="col-md-4" >
 				<div class="form-group">
 					<div class="input-group">
 						{{Form::text('username', $filter['username'], array('class'=>'form-control','placeholder'=>'Search User'))}}
-		      				<span class="input-group-btn">
-		        				<button class="btn btn-default" name="search" value="Search" type="submit"> <i class="glyphicon glyphicon-search"></i> </button>
-		      				</span>
+	      				<span class="input-group-btn">
+	        				<button class="btn btn-default" name="search" value="Search" type="submit"> <i class="glyphicon glyphicon-search"></i> </button>
+	      				</span>
 		    		</div>
 				</div>
 			</div>
@@ -32,23 +33,38 @@
 		<thead>
 			<tr>
 				<th class="col-md-1">#</th>
-				<th class="col-md-3">USERNAME</th>
-				<th class="col-md-3">DEPARTMENT</th>
-				<th class="col-md-2">STORE ID</th>
-				<th class="col-md-3">ROLE</th>
-				<!-- <th class="col-md-1"></th> -->
+				<th class="col-md-2">USERNAME</th>
+				<th class="col-md-2">DEPARTMENT</th>
+				<th class="col-md-2">STORE CODE</th>
+				<th>GROUPS</th>
+				<th></th>
 
 			</tr>
 		</thead>
 			<tbody>
 				<?php $i=0; ?>
 				@foreach($users as $user)
+					<?php
+					$user_groups = $user->groups()->lists('name');
+
+					if(!empty($user_groups)) {
+						$user_groups = implode(', ', $user_groups);
+					}
+					else
+						$user_groups = '-';
+					?>
 					<tr>	
 						<td>{{++$i}}</td>
 						<td>{{$user->username}}</td>
-						<td>{{Department::find($user->department_id)['name']}}</td>
-						<td>{{$user->store_id}}</td>
-						<td>{{ucwords(str_replace("_","",$user->getgroup_id))}}</td>
+						<td>{{!empty($user->department)?$user->department->name:'-'}}</td>
+						<td>{{!empty($user->store)?$user->store->store_code:'-'}}</td>
+						<td>{{$user_groups}}</td>
+						<td>
+							{{Form::open(array('url'=>route('user.destroy', $user->id), 'method'=>'delete'))}}
+							<a href="{{route('user.edit', $user->id)}}" class="btn btn-xs btn-success tooltip-top" title="Edit User"><i class="fa fa-pencil"></i></a>
+							<button type="submit" onclick="return confirm('Are you sure?');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove User" value="{{$user->id}}"><i class="fa fa-times"></i></a>
+							{{Form::close()}}
+						</td>
 					</tr>
 				@endforeach
 			</tbody>
@@ -58,94 +74,122 @@
 
 <div class="col-md-4">
 	<div class="panel panel-default" >
-		<div class="panel-heading" ><h5 class="text-center"> CREATE USER </h5></div>
+		<div class="panel-heading" ><h5 class="text-center"> {{_('CREATE USER')}}</h5></div>
 			<div class="panel-body">
+
+				@if(Session::has('message'))
+				<div class="alert alert-success">
+					{{Session::get('message')}}	
+				</div>
+				@endif
+
 				{{Form::open(array('url'=>'user','method'=>'post','class'=>'form-vertical'))}}
 					
 				<div class="form-group">
-				{{Form::Label('group_id', 'Role', array('class'=>'control-label'))}}
-						{{Form::select('group_id', $groups, 'null', array('class' =>'input-sm form-control'))}}
-						@if($errors->has('group_id'))
-						<p class="help-block"><span class="text-danger">{{"The Role field is required"}}</span></p>
-						@endif
+					{{Form::label('store', _('Store'), array('class'=>'control-label'))}}
+					
+					{{Form::select('store', $stores, 'null', array('class' =>'dropdown input-sm form-control'))}}
+					
+					@if($errors->has('store'))
+					<p class="help-block"><span class="text-danger">{{$errors->first('store')}}</span></p>
+					@endif
 				</div>
+
 				<div class="form-group">
-					{{Form::label('dept', 'Department',  array('class'=>'control-label'))}}
+					{{Form::Label('group', _('Group'), array('class'=>'control-label'))}}
+					{{Form::select('group', $groups, 'null', array('class' =>'dropdown input-sm form-control'))}}
 					
-						{{Form::select('department', $departments, 'null', array('class' =>'input-sm form-control'))}}
-						@if($errors->has('department'))
-						<p class="help-block"><span class="text-danger">{{$errors->first('department')}}</span></p>
-						@endif
-				
+					@if($errors->has('group'))
+					<p class="help-block"><span class="text-danger">{{$errors->first('group')}}</span></p>
+					@endif
 				</div>
+
 				<div class="form-group">
-					{{Form::label('full_name', 'Full Name', array('class'=>'control-label'))}}
+					{{Form::label('dept', _('Department'),  array('class'=>'control-label'))}}
+					{{Form::select('department', $departments, 'null', array('class' =>'dropdown input-sm form-control'))}}
 					
-						{{Form::text('full_name', '',  array('class'=>'input-sm form-control', 'placeholder'=>'Full Name'))}}
-						@if($errors->has('full_name'))
-						<p class="help-block"><span class="text-danger">{{$errors->first('full_name')}}</span></p>
-						@endif
-					
+					@if($errors->has('department'))
+					<p class="help-block"><span class="text-danger">{{_($errors->first('department'))}}</span></p>
+					@endif				
 				</div>
+
 				<div class="form-group">
-					{{Form::label('username', 'Username', array('class'=>'control-label'))}}
-					
-						{{Form::text('username', '', array('class'=>'input-sm form-control', 'placeholder'=>'Username' ))}}
-						@if($errors->has('username'))
-						<p class="help-block"><span class="text-danger">{{$errors->first('username')}}</span></p>
-						@endif
-					
+					{{Form::label('full_name', _('Full Name'), array('class'=>'control-label'))}}
+					{{Form::text('full_name', '',  array('class'=>'input-sm form-control'))}}
+
+					@if($errors->has('full_name'))
+					<p class="help-block"><span class="text-danger">{{$errors->first('full_name')}}</span></p>
+					@endif
 				</div>
+
 				<div class="form-group">
-					{{Form::label('password', 'Password', array('class'=>'control-label'))}}
+					{{Form::label('username', _('Username'), array('class'=>'control-label'))}}
+					{{Form::text('username', '', array('class'=>'input-sm form-control'))}}
 					
-						{{Form::password('password', array('class'=>'input-sm form-control', 'placeholder'=>'Password'))}}
-						@if($errors->has('password'))
-						<p class="help-block"><span class="text-danger">{{$errors->first('password')}}</span></p>
-						@endif
-					
+					@if($errors->has('username'))
+					<p class="help-block"><span class="text-danger">{{$errors->first('username')}}</span></p>
+					@endif
 				</div>
+
 				<div class="form-group">
-					{{Form::label('email_id', 'Email Id', array('class'=>'control-label'))}}
+					{{Form::label('password', _('Password'), array('class'=>'control-label'))}}
 					
-						{{Form::text('email_id', '', array('class'=>'input-sm form-control', 'placeholder'=>'Email address'))}}
-						@if($errors->has('email_id'))
-						<p class="help-block"><span class="text-danger">{{$errors->first('email_id')}}</span></p>
-						@endif
-					
+					{{Form::password('password', array('class'=>'input-sm form-control'))}}
+					@if($errors->has('password'))
+					<p class="help-block"><span class="text-danger">{{$errors->first('password')}}</span></p>
+					@endif
 				</div>
+
 				<div class="form-group">
-					{{Form::label('phone_no', 'Phone No.', array('class'=>'control-label'))}}
+					{{Form::label('email_id', _('Email Id'), array('class'=>'control-label'))}}
 					
-						{{Form::text('phone_no', '', array('class'=>'input-sm form-control', 'placeholder'=>'Phone Number'))}}
-					
+					{{Form::text('email_id', '', array('class'=>'input-sm form-control'))}}
+					@if($errors->has('email_id'))
+					<p class="help-block"><span class="text-danger">{{$errors->first('email_id')}}</span></p>
+					@endif
 				</div>
+
 				<div class="form-group">
-					{{Form::label('address', 'Address', array('class'=>'control-label'))}}
-					
-						{{Form::textarea('address', '', array('class'=>'input-sm form-control','rows'=>'2', 'placeholder'=>'Address'))}}
-					
+					{{Form::label('phone_no', _('Phone Number'), array('class'=>'control-label'))}}					
+					{{Form::text('phone_no', '', array('class'=>'input-sm form-control'))}}
+
+					@if($errors->has('phone_no'))
+					<p class="help-block"><span class="text-danger">{{$errors->first('phone_no')}}</span></p>
+					@endif
 				</div>
+
 				<div class="form-group">
-					{{Form::label('store', 'Store', array('class'=>'control-label'))}}
+					{{Form::label('address', _('Address'), array('class'=>'control-label'))}}
 					
-						{{Form::select('store', $stores, 'null', array('class' =>'input-sm form-control'))}}
-						@if($errors->has('store'))
-						<p class="help-block"><span class="text-danger">{{$errors->first('store')}}</span></p>
-						@endif
-					
+					{{Form::textarea('address', '', array('class'=>'input-sm form-control','rows'=>'2'))}}
+
+					@if($errors->has('address'))
+					<p class="help-block"><span class="text-danger">{{$errors->first('address')}}</span></p>
+					@endif
 				</div>
+
 				<div class="form-group">
-					{{Form::label('designation', 'Designation', array('class'=>'control-label'))}}
+					{{Form::label('designation', _('Designation'), array('class'=>'control-label'))}}
 					
-						{{Form::text('designation', '', array('class'=>'input-sm form-control','placeholder'=>'Designation'))}}
-						@if($errors->has('designation'))
-						<p class="help-block"><span class="text-danger">{{$errors->first('designation')}}</span></p>
-						@endif
+					{{Form::text('designation', '', array('class'=>'input-sm form-control'))}}
 					
+					@if($errors->has('designation'))
+					<p class="help-block"><span class="text-danger">{{$errors->first('designation')}}</span></p>
+					@endif
 				</div>
+
+				<div class="form-group">
+					{{Form::label('activated', _('Activated'), array('class'=>'control-label'))}}
+					
+					{{Form::select('activated', array(0=>'No', 1=>'Yes'), 0, array('class'=>'dropdown input-sm form-control'))}}
+
+					@if($errors->has('activated'))
+					<p class="help-block"><span class="text-danger">{{$errors->first('activated')}}</span></p>
+					@endif
+				</div>
+
 				<div class="form-group text-right">
-					<button type="submit" class="btn btn-sm btn-primary">Submit</button>
+					<button type="submit" class="btn btn-sm btn-primary">{{_('Submit')}}</button>
 				</div>
 			</div>
 	</div>

@@ -1,8 +1,8 @@
 <?php
-class Product extends BaseStore
+class IndentItem extends BaseStore
 {
 	
-	protected $table = 'products';
+	protected $table = 'indents_items';
 
 
 	public function __construct()

@@ -66,6 +66,8 @@ class StoreController extends \BaseController {
 		$store->store_code = Input::get('store_code');
 		$store->save();
 
+		$store->prepareDbTables($store->id);
+
 		return Redirect::route('store.index')->with('message', 'Store created successfully');
 	}
 
@@ -132,6 +134,8 @@ class StoreController extends \BaseController {
 		$store = Store::find($id);
 		$store->store_code = Input::get('store_code');
 		$store->save();
+
+		$store->prepareDbTables($store->id);
 
 		return Redirect::route('store.edit', $id)->with('message', '<i class="fa fa-check"></i> Store updated successfully');
 	}
