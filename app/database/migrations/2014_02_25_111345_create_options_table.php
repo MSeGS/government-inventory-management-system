@@ -16,6 +16,7 @@ class CreateOptionsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('option_key',250);
+			$table->text('option_title');
 			$table->text('option_data');
 		});
 	}

@@ -32,3 +32,6 @@ Route::resource('store', 'StoreController');
 
 Route::get('denied', array('before'=>'sentry', 'uses'=>'ErrorController@denied', 'as'=>'denied'));
 Route::get('notfound', array('before'=>'sentry','uses'=>'ErrorController@notfound', 'as'=>'notfound'));
+
+Route::resource('option', 'OptionController');
+
