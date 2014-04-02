@@ -54,10 +54,6 @@
 				{{Form::text('name', Input::old('name'), array('class'=>'form-control input-sm'))}}
 			</div>
 			
-			<!-- @if($errors->has('name'))
-			<p class="help-block"><span class="text-danger">{{$errors->first('name')}}</span></p>
-			@endif -->
-
 			<div class="form-inline text-right">
 				<div class="form-group">
 					<button type="submit" name="submit" class="btn btn-primary btn-sm"><?php echo _('Save'); ?></button>

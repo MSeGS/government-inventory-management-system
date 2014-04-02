@@ -24,11 +24,14 @@ Route::resource('user', 'UserController');
 
 Route::get('group/{id}/permission', array('before'=>'sentry', 'uses'=>'GroupController@permission', 'as'=>'group.permission'));
 Route::put('group/{id}/permission', array('before'=>'sentry', 'uses'=>'GroupController@updatePermission', 'as'=>'group.updatePermission'));
+
+
 Route::resource('group', 'GroupController');
-
 Route::resource('resource', 'ResourceController');
-
 Route::resource('store', 'StoreController');
+Route::resource('product', 'ProductController');
+Route::resource('category', 'CategoryController');
+Route::resource('setting', 'SettingController');
 
 Route::get('denied', array('before'=>'sentry', 'uses'=>'ErrorController@denied', 'as'=>'denied'));
 Route::get('notfound', array('before'=>'sentry','uses'=>'ErrorController@notfound', 'as'=>'notfound'));
