@@ -59,7 +59,7 @@
 					<button type="submit" name="submit" class="btn btn-primary btn-sm"><?php echo _('Save'); ?></button>
 				</div>
 				<div class="form-group">
-					<a href="{{ URL::previous() }}"><span class="btn btn-primary btn-sm"><?php echo _('Cancel');?></span></a>
+					<a href="{{route('group.index')}}"><span class="btn btn-primary btn-sm"><?php echo _('Cancel');?></span></a>
 				</div>
 			</div>	
 			{{Form::close()}}

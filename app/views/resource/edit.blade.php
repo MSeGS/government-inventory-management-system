@@ -53,10 +53,10 @@
 
 			<div class="form-inline text-right">
 				<div class="form-group">
-					<button type="submit" name="submit" class="btn btn-primary btn-sm">{{_('Save')}}</button>
+					<button type="submit" name="submit" class="btn btn-primary btn-sm"><?php echo _('Save'); ?></button>
 				</div>
 				<div class="form-group">
-					<a href="{{ URL::previous() }}"><span class="btn btn-primary btn-sm">{{_('Cancel')}}</span></a>
+					<a href="{{route('resource.index')}}"><span class="btn btn-primary btn-sm"><?php echo _('Cancel');?></span></a>
 				</div>
 			</div>	
 

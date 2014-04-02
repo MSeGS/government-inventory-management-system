@@ -84,9 +84,14 @@
 			@if($errors->has('reserved_amount'))
 			<p class="help-block"><span class="text-danger">{{$errors->first('reserved_amount')}}</span></p>
 			@endif
-			<div class="form-group text-right">
-				{{Form::submit('Save', array("class"=>"btn btn-primary btn-sm"))}}
-			</div>
+			<div class="form-inline text-right">
+				<div class="form-group">
+					<button type="submit" name="submit" class="btn btn-primary btn-sm"><?php echo _('Save'); ?></button>
+				</div>
+				<div class="form-group">
+					<a href="{{route('product.index')}}"><span class="btn btn-primary btn-sm"><?php echo _('Cancel');?></span></a>
+				</div>
+			</div>	
 
 		</div>
 	</div>

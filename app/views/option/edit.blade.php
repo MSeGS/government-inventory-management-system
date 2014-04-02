@@ -58,9 +58,14 @@
 				{{Form::text('option_data', Input::old('option_data'), array('class'=>'form-control input-sm'))}}
 			</div>
 
-			<div class="form-group text-right">
-				<button type="submit" name="submit" class="btn btn-primary btn-sm"><?php echo _("Save") ?></button>
-			</div>
+			<div class="form-inline text-right">
+				<div class="form-group">
+					<button type="submit" name="submit" class="btn btn-primary btn-sm"><?php echo _('Save'); ?></button>
+				</div>
+				<div class="form-group">
+					<a href="{{route('option.index')}}"><span class="btn btn-primary btn-sm"><?php echo _('Cancel');?></span></a>
+				</div>
+			</div>	
 
 			{{Form::close()}}
 		</div>
