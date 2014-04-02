@@ -20,7 +20,7 @@
         <li {{Request::path() == 'option'?'class="active"':''}}><a href="{{url('/option')}}">Options</a></li>
 
         @elseif($user->inGroup($admin))
-        <li><a href="">TESt</a></li>
+        <li {{Request::path() == 'setting'?'class="active"':''}}><a href="{{url('/setting')}}">Settings</a></li>
 
         @elseif($user->inGroup($indentor))
         <li><a href="">TESt</a></li>
