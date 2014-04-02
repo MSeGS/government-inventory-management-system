@@ -4,6 +4,34 @@
 		"selected_items":
 		[
 			[
+				"public",
+				"public_group"
+			],
+			[
+				"array_merg",
+				"array_merge_recursive"
+			],
+			[
+				"department",
+				"department_id"
+			],
+			[
+				"depar",
+				"Department"
+			],
+			[
+				"de",
+				"department"
+			],
+			[
+				"store",
+				"stores"
+			],
+			[
+				"me",
+				"metaphone"
+			],
+			[
 				"publ",
 				"publicGroup"
 			],
@@ -24,52 +52,35 @@
 	"buffers":
 	[
 		{
-			"file": "public/templates/default/css/style.css",
-			"settings":
-			{
-				"buffer_size": 6987,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "app/views/layout/partial/menu.blade.php",
 			"settings":
 			{
-				"buffer_size": 1061,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/controllers/AuthController.php",
-			"settings":
-			{
-				"buffer_size": 2369,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/routes.php",
-			"settings":
-			{
-				"buffer_size": 1164,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/filters.php",
-			"settings":
-			{
-				"buffer_size": 2510,
+				"buffer_size": 1929,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/views/error/denied.blade.php",
+			"file": "app/models/Product.php",
 			"settings":
 			{
-				"buffer_size": 551,
-				"line_ending": "Windows",
-				"name": "notfound.blade.php"
+				"buffer_size": 139,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/group/edit.blade.php",
+			"settings":
+			{
+				"buffer_size": 2636,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/lang/mz/mz_IN.po",
+			"settings":
+			{
+				"buffer_size": 2563,
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -100,6 +111,43 @@
 	},
 	"file_history":
 	[
+		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/lang/en/pagination.php",
+		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/views/hello.php",
+		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/views/hello.blade.php",
+		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/controllers/AuthController.php",
+		"/Users/alanpachuau/Sites/gov/gomindent.dev/sad.sublime-project",
+		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/controllers/HomeController.php",
+		"/Applications/XAMPP/xamppfiles/etc/extra/httpd-vhosts.conf",
+		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/controllers/StoreController.php",
+		"/Users/alanpachuau/Sites/gomindent.dev/app/models/Category.php",
+		"/Users/alanpachuau/Sites/gomindent.dev/app/models/Notification.php",
+		"/Users/alanpachuau/Sites/gomindent.dev/app/models/IndentItem.php",
+		"/Users/alanpachuau/Sites/gomindent.dev/app/models/Damage.php",
+		"/Users/alanpachuau/Sites/gomindent.dev/app/models/Indent.php",
+		"/Users/alanpachuau/Sites/gomindent.dev/app/models/Stock.php",
+		"/Users/alanpachuau/Sites/gomindent.dev/app/models/BaseStore.php",
+		"/Users/alanpachuau/Sites/gomindent.dev/app/views/user/index.blade.php",
+		"/Users/alanpachuau/Sites/gomindent.dev/app/controllers/UserController.php",
+		"/Users/alanpachuau/Sites/gomindent.dev/app/views/group/permission.blade.php",
+		"/Users/alanpachuau/Sites/gomindent.dev/app/database/seeds/ResourceTableSeeder.php",
+		"/Users/alanpachuau/Sites/gomindent.dev/public/templates/default/css/style.css",
+		"/Users/alanpachuau/Sites/gomindent.dev/app/models/Store.php",
+		"/Users/alanpachuau/Sites/gomindent.dev/app/controllers/StoreController.php",
+		"/Users/alanpachuau/Sites/gomindent.dev/app/models/User.php",
+		"/Users/alanpachuau/Sites/gomindent.dev/public/templates/default/js/script.js",
+		"/Users/alanpachuau/Sites/gomindent.dev/app/views/resource/edit.blade.php",
+		"/Users/alanpachuau/Sites/gomindent.dev/app/views/resource/index.blade.php",
+		"/Users/alanpachuau/Sites/gomindent.dev/app/views/store/index.blade.php",
+		"/Users/alanpachuau/Sites/gomindent.dev/app/views/store/edit.blade.php",
+		"/Users/alanpachuau/Sites/gomindent.dev/app/views/layout/partial/menu.blade.php",
+		"/Users/alanpachuau/Sites/gomindent.dev/app/models/Department.php",
+		"/Users/alanpachuau/Sites/gomindent.dev/app/controllers/BaseController.php",
+		"/Users/alanpachuau/Sites/gomindent.dev/app/views/registration/index.blade.php",
+		"/Users/alanpachuau/Sites/gomindent.dev/app/start/local.php",
+		"/Users/alanpachuau/Sites/gomindent.dev/app/views/error/denied.blade.php",
+		"/Users/alanpachuau/Sites/gomindent.dev/app/filters.php",
+		"/Users/alanpachuau/Sites/gomindent.dev/app/routes.php",
+		"/Users/alanpachuau/Sites/gomindent.dev/app/controllers/AuthController.php",
 		"/C/xampp/htdocs/vhosts/sadindent/app/controllers/ErrorController.php",
 		"/C/xampp/htdocs/vhosts/sadindent/app/views/error/notfound.blade.php",
 		"/C/xampp/htdocs/vhosts/sadindent/public/templates/default/js/script.js",
@@ -190,15 +238,7 @@
 		"/C/xampp/htdocs/php/4.php",
 		"/C/Users/Alan Pachuau/External Backup/MAC Backup/Documents/Jet Airways/Jet Airways.txt",
 		"/C/xampp/apache/conf/extra/httpd-ssl.conf",
-		"/C/xampp/apache/conf/extra/httpd-dav.conf",
-		"/C/xampp/security/webdav.htpasswd",
-		"/C/xampp/htdocs/vhosts/git/sadindent.git/config",
-		"/C/Users/Alan Pachuau/External Backup/MAC Backup/Accounts/Dict CMS/Mizoram.gov.in.txt",
-		"/C/Users/Alan Pachuau/External Backup/MAC Backup/Accounts/Dict CMS/git.mizoram.gov.in.txt",
-		"/C/xampp/security/git.htpasswd",
-		"/C/xampp/htdocs/php/1.php",
-		"/C/xampp/htdocs/php/2.php",
-		"/C/xampp/php/php.ini"
+		"/C/xampp/apache/conf/extra/httpd-dav.conf"
 	],
 	"find":
 	{
@@ -216,6 +256,42 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			")}}",
+			"{{_",
+			"status",
+			"indents_requirements",
+			"Blueprint ",
+			"Schema::create(",
+			"dropIfExists(",
+			"// Create ",
+			"Schema::create",
+			"		});\n",
+			" -> ",
+			"easydropdown ",
+			"select(",
+			"stores",
+			"@endif",
+			"<div class=\"form-group\">",
+			"username",
+			"@if($errors->has(''))",
+			"<div class=\"col-md-12\">",
+			"'class'=>'form-control'",
+			"col-md-9",
+			"'form-control'",
+			"col-md-8",
+			"col-md-4 ",
+			"col-md-7",
+			"this->",
+			"current_store",
+			"store",
+			"$store",
+			"resource",
+			"$resource",
+			"resourceById",
+			"resources",
+			"route",
+			"name",
+			"resource",
 			"$route",
 			"denied",
 			"());",
@@ -281,88 +357,59 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 3,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "public/templates/default/css/style.css",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6987,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6565,
-								6565
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 6441.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
 					"file": "app/views/layout/partial/menu.blade.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1061,
+						"buffer_size": 1929,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								534,
-								534
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage"
-						},
-						"translation.x": 218.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "app/controllers/AuthController.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2369,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								269,
-								269
+								1230,
+								1230
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/models/Product.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 139,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								74,
+								74
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -372,48 +419,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "app/routes.php",
+					"buffer": 2,
+					"file": "app/views/group/edit.blade.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1164,
+						"buffer_size": 2636,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								430,
-								430
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "app/filters.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2510,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2380,
-								2380
+								2388,
+								2388
 							]
 						],
 						"settings":
@@ -421,40 +440,39 @@
 							"syntax": "Packages/PHP/PHP.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 0.0,
-						"translation.y": 1362.0,
+						"translation.x": 12.0,
+						"translation.y": 400.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "app/views/error/denied.blade.php",
-					"semi_transient": false,
+					"buffer": 3,
+					"file": "app/lang/mz/mz_IN.po",
+					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 551,
+						"buffer_size": 2563,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								551
+								1201,
+								1201
 							]
 						],
 						"settings":
 						{
-							"auto_name": "notfound.blade.php",
-							"syntax": "Packages/PHP/PHP.tmLanguage"
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 340.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -532,7 +550,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 394.0,
+	"side_bar_width": 194.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

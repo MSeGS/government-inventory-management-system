@@ -143,6 +143,18 @@ class Store extends Eloquent
 				$table->engine = 'InnoDb';
 			});
 		}
+
+		// Create options table
+		if(!Schema::hasTable($store_prefix . 'options')) {
+			Schema::create($store_prefix . 'options', function($table)
+			{
+				$table->increments('id');
+				$table->integer('option_key');
+				$table->integer('option_data');
+				
+				$table->engine = 'InnoDb';
+			});
+		}
 	}
 
 	public function dropDbTables($store_id)
@@ -172,5 +184,8 @@ class Store extends Eloquent
 
 		// Create stocks table
 		Schema::dropIfExists($store_prefix . 'stocks');
+
+		// Create stocks table
+		Schema::dropIfExists($store_prefix . 'options');
 	}
 }
