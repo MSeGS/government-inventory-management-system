@@ -85,10 +85,10 @@ class SettingController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$optionById = Option::find($id);
-		$options = Option::orderBy('option_data', 'asc')->get();
-		return View::make('option.edit')
-			->with(array('options'=> $options, 'optionById' => $optionById));
+		$currentSetting = Setting::find($id);
+		$settings = Setting::orderBy('option_key', 'asc')->paginate(25);
+		return View::make('setting.edit')
+			->with(array('settings'=> $settings, 'currentSetting' => $currentSetting));
 	}
 
 	/**
@@ -99,7 +99,25 @@ class SettingController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$rules = array(
+			'option_data'	=>	'required',
+			);
+		$validator = Validator::make(Input::all(), $rules);
+
+		if ($validator -> fails()) {
+			return Redirect::to('setting/'. $id. '/edit')
+				->withErrors($validator)
+				->withInput(Input::all());
+		}
+		else{
+			$setting = Setting::find($id);
+			$setting->option_key = 	Input::get('option_key');
+			$setting->option_data =	Input::get('option_data');
+			$setting->save();
+
+			Session::flash('message', 'Successfully edited');
+			return Redirect::to('setting');
+		}
 	}
 
 	/**
@@ -110,7 +128,10 @@ class SettingController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		setting::destroy($id);
+
+		Session::flash('message', 'Setting Deleted');
+		return Redirect::to('setting');
 	}
 
 }
