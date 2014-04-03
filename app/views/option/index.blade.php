@@ -2,18 +2,7 @@
 
 
 @section('content')
-@if(Session::has('message'))
-	
-<div class="alert alert-success">
-	@if(Session::get('message')=='Option Deleted')
-		<p> 
-	@else
-		<p class="pull-right">
-	@endif
-		{{Session::get('message')}}	
-	</p> &nbsp;
-</div>
-@endif
+
 	<div class="col-md-8">
 		<table class="table table-striped table-bordered">
 			<thead>
@@ -52,7 +41,13 @@
 <div class="col-md-4">
 	<div class="panel panel-default">
 		<div class="panel-heading"><h5 class="text-center"><?php echo _("NEW OPTION") ?></h5></div>
-			{{Form::open(array('url'=>'option', 'method'=>'post', 'class'=>'form-vertical'))}}
+		{{Form::open(array('url'=>'option', 'method'=>'post', 'class'=>'form-vertical'))}}
+
+			@if(Session::has('message'))
+				<div class="alert alert-success">
+					{{Session::get('message')}}	
+				</div>
+			@endif
 		<div class="panel-body">
 
 			<div class="form-group">

@@ -149,8 +149,8 @@ class Store extends Eloquent
 			Schema::create($store_prefix . 'options', function($table)
 			{
 				$table->increments('id');
-				$table->integer('option_key');
-				$table->integer('option_data');
+				$table->text('option_key');
+				$table->text('option_data')->nullable();
 				
 				$table->engine = 'InnoDb';
 			});
