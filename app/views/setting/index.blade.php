@@ -1,7 +1,14 @@
 @extends('layout.main')
 
 @section('content')
+
 <div class="col-md-8">
+	@if(Session::has('delete'))
+	<div class="alert alert-danger">
+		{{Session::get('delete')}}
+	</div>
+	@endif
+	<div class="col-mid-7">
 	<table class="table table-striped table-bordered">
 		<thead>
 			<tr>
@@ -32,42 +39,42 @@
 	</table>
 		{{$settings->links()}}
 </div>
+</div>
 
 
 <div class="col-md-4">
 	<div class="panel panel-default">
 		<div class="panel-heading"><h5 class="text-center"><?php echo _("NEW SETTING") ?></h5></div>
-			
-				@if(Session::has('message'))
-					<div class="alert alert-success">
-						{{Session::get('message')}}	
-					</div>
-				@endif
-				{{Form::open(array('url'=>'setting', 'method'=>'post', 'class'=>'form-vertical'))}}
-				<div class="panel-body">	
-					<div class="form-group">
-						<?php echo Form::label('option_key', _('Setting Name'), array('class'=>'control-label')) ?>
-						{{Form::select('option_key', $optionSelect, 'null',array('class' =>'dropdown input-sm form-control'))}}
-						@if($errors->has('option_key'))
-								<p class="help-block"><span class="text-danger">{{$errors->first('option_key')}}</span></p>
-								@endif
-					</div>
-
-					<div class="form-group">
-						<?php echo Form::label('option_data', _('Setting Value'), array('class'=>'control-label'))?>
-						{{Form::textarea('option_data', '', array('class'=>'form-control input-sm','rows'=>'3'))}}
-						@if($errors->has('option_data'))
-								<p class="help-block"><span class="text-danger">{{$errors->first('option_data')}}</span></p>
-								@endif
-					</div>
-
-					
-					<div class="form-group text-right">
-						<button type="submit" name="submit" class="btn btn-primary btn-sm pull-right"><?php echo _('Submit') ?></button>
-					</div>
-					{{Form::close()}}
+			<div class="panel-body">
+			@if(Session::has('message'))
+				<div class="alert alert-success">
+					{{Session::get('message')}}	
 				</div>
-		
+			@endif
+			{{Form::open(array('url'=>'setting', 'method'=>'post', 'class'=>'form-vertical'))}}
+				
+				<div class="form-group">
+					<?php echo Form::label('option_key', _('Setting Name'), array('class'=>'control-label')) ?>
+					{{Form::select('option_key', $optionSelect, 'null',array('class' =>'dropdown input-sm form-control'))}}
+					@if($errors->has('option_key'))
+							<p class="help-block"><span class="text-danger">{{$errors->first('option_key')}}</span></p>
+							@endif
+				</div>
+
+				<div class="form-group">
+					<?php echo Form::label('option_data', _('Setting Value'), array('class'=>'control-label'))?>
+					{{Form::textarea('option_data', '', array('class'=>'form-control input-sm','rows'=>'3'))}}
+					@if($errors->has('option_data'))
+							<p class="help-block"><span class="text-danger">{{$errors->first('option_data')}}</span></p>
+							@endif
+				</div>
+
+				
+				<div class="form-group text-right">
+					<button type="submit" name="submit" class="btn btn-primary btn-sm pull-right"><?php echo _('Submit') ?></button>
+				</div>
+				{{Form::close()}}
+			</div>
 	</div>
 </div>
 @stop

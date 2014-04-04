@@ -10,9 +10,12 @@ class SettingController extends \BaseController {
 	public function index()
 	{
 		$settings = Setting::orderBy('id', 'asc')->paginate();
-		$setting_keys = $settings->lists('option_key');
 		$options = Option::orderBy('option_title', 'asc')
-			->whereNotIn('option_key', $setting_keys)
+			->where(function($query){
+				$setting_keys = Setting::orderBy('id', 'asc')->get()->lists('option_key');
+				if($setting_keys)
+					$query->whereNotIn('option_key', $setting_keys);
+			})
 			->get()
 			->lists('option_title','option_key');
 		
@@ -85,6 +88,7 @@ class SettingController extends \BaseController {
 	 */
 	public function edit($id)
 	{
+
 		$currentSetting = Setting::find($id);
 		$settings = Setting::orderBy('option_key', 'asc')->paginate(25);
 		return View::make('setting.edit')
@@ -111,7 +115,6 @@ class SettingController extends \BaseController {
 		}
 		else{
 			$setting = Setting::find($id);
-			$setting->option_key = 	Input::get('option_key');
 			$setting->option_data =	Input::get('option_data');
 			$setting->save();
 
@@ -130,7 +133,7 @@ class SettingController extends \BaseController {
 	{
 		setting::destroy($id);
 
-		Session::flash('message', 'Setting Deleted');
+		Session::flash('delete', '<strong>Setting Deleted</strong>');
 		return Redirect::to('setting');
 	}
 
