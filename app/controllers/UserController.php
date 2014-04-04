@@ -67,7 +67,7 @@ class UserController extends \BaseController {
 			'department' => 'required|integer|min:1',
 			'full_name' => 'required',
 			'username' => 'required',
-			'password' => 'required|min:5',
+			'password' => 'required',
 			'email_id' => 'required|email',
 			'store' => 'required|integer|min:1',
 			'designation' => 'required'
