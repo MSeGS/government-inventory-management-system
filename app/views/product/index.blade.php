@@ -15,29 +15,30 @@
 			<thead>
 				<tr>
 					<th class="col-md-1">#</th>
-					<th class="col-md-2"><?php echo _('Name') ?></th>
+					<th><?php echo _('Name') ?></th>
 					<th class="col-md-3"><?php echo _('Description') ?></th>
-					<th class="col-md-2"><?php echo _('Reserved Amount'); ?></th>
+					<th class="col-md-3"><?php echo _('Reserved Amount'); ?></th>
+					<th class="col-md-2"></th>
 				</tr>
 			</thead>
 			<tbody>
 				<?php $i=0 ?>
 				@foreach($products as $product)
 				<tr>
-					<td class="col-md-1">
+					<td>
 						 {{++$i}} 
 					</td>
-					<td class="col-md-2">
+					<td>
 						{{$product->name}}
 					</td>
-					<td class="col-md-2">
+					<td>
 						{{$product->description}}
 					</td>
-					<td class="col-md-2">
+					<td>
 						{{$product->reserved_amount}}
 					</td>
-					<td class="col-md-2">
-						{{Form::open(array('url'=>'product/'.$product->id, 'method'=>'delete'))}}
+					<td>
+						{{Form::open(array('url'=>route('product.destroy', array($product->id)), 'method'=>'delete'))}}
 						<a href="{{route('product.edit', array($product->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit product Name"><i class="fa fa-pencil"></i></a>
 						<button type="submit" onclick="return confirm('Are you sure');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove product" value="{{$product->id}}"><i class="fa fa-times"></i></a>
 						{{Form::close()}}
@@ -51,7 +52,7 @@
 
 
 <div class="col-md-5">
-		{{Form::open(array('url'=>'/product', 'method'=>'post', 'class'=>'form-vertical'))}}				
+		{{Form::open(array('url'=>route('product.index'), 'method'=>'post', 'class'=>'form-vertical'))}}				
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<h5 class="text-center">New Product</h5>

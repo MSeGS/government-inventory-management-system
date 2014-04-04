@@ -4,7 +4,7 @@ class ResourceController extends \BaseController {
 
 	public function __construct()
 	{
-		//$this->beforeFilter('sentry');
+		$this->beforeFilter('sentry');
 	}
 
 	/**
@@ -38,7 +38,7 @@ class ResourceController extends \BaseController {
 	{
 		$rules = array(
 			'name' 	=> 	'required',
-			'route' =>	'unique:resources',
+			'route' =>	'unique:resourcesh',
 			);
 		$validator = Validator::make(Input::all(), $rules);
 

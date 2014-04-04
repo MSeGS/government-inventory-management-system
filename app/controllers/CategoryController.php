@@ -2,13 +2,18 @@
 
 class CategoryController extends \BaseController {
 
+	public function __construct()
+	{
+		$this->beforeFilter('sentry');
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
 	public function index()
-	{
+	{		
 		$categories = Category::orderBy('category_name','asc')->paginate(10);
 		return View::make('category.index')
 			->with('categories', $categories);
@@ -31,8 +36,10 @@ class CategoryController extends \BaseController {
 	 */
 	public function store()
 	{
+		$category_model = new Category;
+
 		$rules = array(
-			'category_name' => 'required'
+			'category_name' => 'required|alpha_num_spaces|unique:' . $category_model->getTableName() . ',category_name'
 			);
 
 		$validator = Validator::make(Input::all(), $rules);
@@ -85,8 +92,10 @@ class CategoryController extends \BaseController {
 	 */
 	public function update($id)
 	{
+		$category_model = new Category;
+
 		$rules = array(
-			'category_name' => 'required'
+			'category_name' => 'required|alpha_num_spaces|unique:' . $category_model->getTableName() . ',category_name,' . $id
 			);
 
 		$validator = Validator::make(Input::all(), $rules);

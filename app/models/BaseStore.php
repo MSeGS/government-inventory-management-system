@@ -11,4 +11,9 @@ class BaseStore extends Eloquent
 		}
 	}
 
+	public function getTableName()
+	{
+		return $this->table;
+	}
+
 }
