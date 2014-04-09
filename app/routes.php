@@ -32,6 +32,7 @@ Route::resource('store', 'StoreController');
 Route::resource('product', 'ProductController');
 Route::resource('category', 'CategoryController');
 Route::resource('setting', 'SettingController');
+Route::resource('department','DepartmentController');
 
 Route::get('denied', array('before'=>'sentry', 'uses'=>'ErrorController@denied', 'as'=>'denied'));
 Route::get('notfound', array('before'=>'sentry','uses'=>'ErrorController@notfound', 'as'=>'notfound'));
