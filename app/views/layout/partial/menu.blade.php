@@ -18,6 +18,7 @@
         <li {{Request::path() == 'group'?'class="active"':''}}><a href="{{url('/group')}}">Groups</a></li>
         <li {{Request::path() == 'resource'?'class="active"':''}}><a href="{{url('/resource')}}">Resource</a></li>
         <li {{Request::path() == 'option'?'class="active"':''}}><a href="{{url('/option')}}">Options</a></li>
+        <li {{Request::path() == 'department'?'class="active"':''}}><a href="{{url('/department')}}">Department</a></li>
 
         @elseif($user->inGroup($admin))
         <li {{Request::path() == 'setting'?'class="active"':''}}><a href="{{url('/setting')}}">Settings</a></li>
