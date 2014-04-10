@@ -2,56 +2,60 @@
 
 @section('content')
 
-<div class="col-md-7">
+<div class="col-md-8">
 @if(Session::has('delete'))
 <div class="alert alert-danger">
 	{{Session::get('delete')}}
 </div>
 @endif
-
-
-	<div class="col-md-12">
-		<table class="table table-striped table-bordered">
-			<thead>
-				<tr>
-					<th class="col-md-1">#</th>
-					<th><?php echo _('Name') ?></th>
-					<th class="col-md-3"><?php echo _('Description') ?></th>
-					<th class="col-md-3"><?php echo _('Reserved Amount'); ?></th>
-					<th class="col-md-2"></th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php $i=0 ?>
-				@foreach($products as $product)
-				<tr>
-					<td>
-						 {{++$i}} 
-					</td>
-					<td>
-						{{$product->name}}
-					</td>
-					<td>
-						{{$product->description}}
-					</td>
-					<td>
-						{{$product->reserved_amount}}
-					</td>
-					<td>
-						{{Form::open(array('url'=>route('product.destroy', array($product->id)), 'method'=>'delete'))}}
-						<a href="{{route('product.edit', array($product->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit product Name"><i class="fa fa-pencil"></i></a>
-						<button type="submit" onclick="return confirm('Are you sure');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove product" value="{{$product->id}}"><i class="fa fa-times"></i></a>
-						{{Form::close()}}
-					</td>
-				</tr>
-				@endforeach
-			</tbody>
-		</table>
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-striped table-bordered">
+				<thead>
+					<tr>
+						<th class="col-md-1">#</th>
+						<th ckass="col-md-3"><?php echo _('Name') ?></th>
+						<th class="col-md-3"><?php echo _('Description') ?></th>
+						<th class="col-md-1"><?php echo _('Reserved'); ?></th>
+						<th class="col-md-2"><?php echo _('Stock'); ?></th>
+						<th class="col-md-2"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php $i=0 ?>
+					@foreach($products as $product)
+					<tr>
+						<td>
+							 {{++$i}} 
+						</td>
+						<td>
+							{{$product->name}}
+						</td>
+						<td>
+							{{$product->description}}
+						</td>
+						<td>
+							{{$product->reserved_amount}}
+						</td>
+						<td>
+							{{Product::stock($product->id)}}
+						</td>
+						<td>
+							{{Form::open(array('url'=>route('product.destroy', array($product->id)), 'method'=>'delete'))}}
+							<a href="{{route('product.edit', array($product->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit product Name"><i class="fa fa-pencil"></i></a>
+							<button type="submit" onclick="return confirm('Are you sure');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove product" value="{{$product->id}}"><i class="fa fa-times"></i></a>
+							{{Form::close()}}
+						</td>
+					</tr>
+					@endforeach
+				</tbody>
+			</table>
+		</div>
 	</div>
 </div>
 
 
-<div class="col-md-5">
+<div class="col-md-4">
 		{{Form::open(array('url'=>route('product.index'), 'method'=>'post', 'class'=>'form-vertical'))}}				
 	<div class="panel panel-default">
 		<div class="panel-heading">

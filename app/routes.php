@@ -32,6 +32,7 @@ Route::resource('store', 'StoreController');
 Route::resource('product', 'ProductController');
 Route::resource('category', 'CategoryController');
 Route::resource('setting', 'SettingController');
+Route::resource('stock', 'StockController');
 Route::resource('department','DepartmentController');
 
 Route::get('denied', array('before'=>'sentry', 'uses'=>'ErrorController@denied', 'as'=>'denied'));

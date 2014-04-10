@@ -24,6 +24,7 @@
         <li {{Request::path() == 'setting'?'class="active"':''}}><a href="{{url('/setting')}}">Settings</a></li>
         <li {{Request::path() == 'category'?'class="active"':''}}><a href="{{url('/category')}}">Categories</a></li>
         <li {{Request::path() == 'product'?'class="active"':''}}><a href="{{url('/product')}}">Products</a></li>
+        <li {{Request::path() == 'stock'?'class="active"':''}}><a href="{{url('/stock')}}">Stocks</a></li>
 
         @elseif($user->inGroup($indentor))
         <li><a href="">TESt</a></li>
