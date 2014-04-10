@@ -45,7 +45,7 @@ class DamageController extends \BaseController {
 	public function store()
 	{
 		$damage = new Damage;
-
+			$damage->product_id = Input::get('name');
 			$damage->quantity =	Input::get('quantity');
 			$damage->note = Input::get('note');
 			$damage->report_at = Input::get('report_at');
@@ -96,7 +96,10 @@ class DamageController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		Damage::destroy($id);
+
+		Session::flash('delete', 'Item Deleted');
+		return Redirect::to('damage');
 	}
 
 }
