@@ -21,9 +21,11 @@ class DamageController extends \BaseController {
 		$productSelect = array(''=>'Select Product Name', $products);
 
 		return View::make('damage.index')
-		->with('damages',$damages)
-		->with('productSelect', $productSelect)
-		->with('categorySelect',$categorySelect);
+		->with(array(
+			'damages'=> $damages,
+			'productSelect'=> $productSelect,
+			'categorySelect'=> $categorySelect
+			));
 	}
 
 	/**
@@ -49,7 +51,7 @@ class DamageController extends \BaseController {
 			$damage->report_at = Input::get('report_at');
 			$damage->save();
 
-		Session::flash('message', 'Successfully added');
+		Session::flash('message', 'Report Successful');
 		return Redirect::to('damage');
 	}
 
