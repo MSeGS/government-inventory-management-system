@@ -10,4 +10,10 @@ class Stock extends BaseStore
 		parent::__construct();
 	}
 
+	public function product()
+	{
+		$product = $this->belongsTo('Product');
+		return $product;
+	}
+
 }

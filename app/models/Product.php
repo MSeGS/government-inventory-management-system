@@ -9,4 +9,10 @@ class Product extends BaseStore
 		parent::__construct();
 	}
 
+	public static function stock($product_id)
+	{
+		$stock = Stock::where('product_id', '=', $product_id)->pluck(DB::raw('SUM(`quantity`)'));
+		return $stock;
+	}
+
 }
