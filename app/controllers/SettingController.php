@@ -17,9 +17,9 @@ class SettingController extends \BaseController {
 		$settings = Setting::orderBy('id', 'asc')->paginate();
 		$options = Option::orderBy('option_title', 'asc')
 			->where(function($query){
-				$setting_keys = Setting::orderBy('id', 'asc')->get()->lists('option_key');
-				if($setting_keys)
-					$query->whereNotIn('option_key', $setting_keys);
+				$setting_kes = Setting::orderBy('id', 'asc')->get()->lists('option_key');
+				if($setting_kes)
+					$query->whereNotIn('option_key', $setting_kes);
 			})
 			->get()
 			->lists('option_title','option_key');

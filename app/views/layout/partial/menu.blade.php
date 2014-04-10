@@ -26,10 +26,10 @@
         <li {{Request::path() == 'product'?'class="active"':''}}><a href="{{url('/product')}}">Products</a></li>
 
         @elseif($user->inGroup($indentor))
-        <li><a href="">TESt</a></li>
+         <li><a href="">TESt</a></li>
 
         @elseif($user->inGroup($store_keeper))
-        <li><a href="">TESt</a></li>
+        <li {{Request::path() == 'damage'?'class="active"':''}}><a href="{{url('/damage')}}">Damage</a></li>
         @endif
 
         <li {{Request::path() == 'logout'?'class="active"':''}}><a href="{{url('/logout')}}">Sign Out</a></li>
