@@ -21,7 +21,7 @@
 				<thead>
 					<tr>
 						<th class="col-md-1">#</th>
-						<th class="col-md-5"><?php echo _("DEPARTMENT NAME") ?></th>
+						<th class="col-md-5"><?php echo _("Department Name") ?></th>
 						<th class="col-md-1"></th>
 					</tr>
 				</thead>

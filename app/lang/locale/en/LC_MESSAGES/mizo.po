@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Government of Mizoram Online Indent System\n"
-"POT-Creation-Date: 2014-04-12 18:32+0530\n"
-"PO-Revision-Date: 2014-04-12 18:59+0530\n"
+"POT-Creation-Date: 2014-04-12 19:14+0530\n"
+"PO-Revision-Date: 2014-04-12 19:14+0530\n"
 "Last-Translator: Alan Pachuau <alanpachuau@gmail.com>\n"
 "Language-Team: MSeGS <sad.msegs-mz@nic.in>\n"
 "Language: en_IN\n"
@@ -14,315 +14,353 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-KeywordsList: {{_()}}\n"
-"X-Poedit-SearchPath-0: /Users/alanpachuau/Sites/gov/gomindent.dev/app\n"
+"X-Poedit-SearchPath-0: ./../../../..\n"
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/controllers/AuthController.php:47
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/controllers/AuthController.php:51
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/controllers/AuthController.php:55
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/controllers/AuthController.php:59
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/controllers/AuthController.php:63
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/controllers/AuthController.php:67
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/controllers/AuthController.php:72
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/controllers/AuthController.php:76
+#: ../../../../controllers/AuthController.php:47
+#: ../../../../controllers/AuthController.php:51
+#: ../../../../controllers/AuthController.php:55
+#: ../../../../controllers/AuthController.php:59
+#: ../../../../controllers/AuthController.php:63
+#: ../../../../controllers/AuthController.php:67
+#: ../../../../controllers/AuthController.php:72
+#: ../../../../controllers/AuthController.php:76
 msgid "Login failed. Please check your credentials."
 msgstr "Login"
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/controllers/DamageController.php:70
+#: ../../../../controllers/DamageController.php:70
 msgid "Product Damage Report Submitted Successfully"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/controllers/ProductController.php:13
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/controllers/ProductController.php:29
+#: ../../../../controllers/ProductController.php:13
+#: ../../../../controllers/ProductController.php:29
 msgid "Select Category"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/controllers/ProductController.php:67
+#: ../../../../controllers/ProductController.php:67
 msgid "New product added successfully"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/controllers/UserController.php:30
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/controllers/UserController.php:159
+#: ../../../../controllers/UserController.php:30
+#: ../../../../controllers/UserController.php:159
 msgid "Select Department"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/controllers/UserController.php:32
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/controllers/UserController.php:161
+#: ../../../../controllers/UserController.php:32
+#: ../../../../controllers/UserController.php:161
 msgid "Select Store"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/controllers/UserController.php:116
+#: ../../../../controllers/UserController.php:116
 msgid "New user created successfully."
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/controllers/UserController.php:235
+#: ../../../../controllers/UserController.php:235
 msgid "User created successfully."
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/auth/login.blade.php:6
+#: ../../../../views/auth/login.blade.php:6
 msgid "Sign In"
 msgstr "Sign In"
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/category/edit.blade.php:18
+#: ../../../../views/category/edit.blade.php:18
 msgid "Category Name"
-msgstr ""
+msgstr "Category Hming"
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/category/edit.blade.php:71
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/department/edit.blade.php:73
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/group/edit.blade.php:59
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/option/edit.blade.php:63
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/product/edit.blade.php:90
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/resource/edit.blade.php:56
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/setting/edit.blade.php:74
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/stock/edit.blade.php:76
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/store/edit.blade.php:74
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/user/edit.blade.php:209
+#: ../../../../views/category/edit.blade.php:71
+#: ../../../../views/department/edit.blade.php:73
+#: ../../../../views/group/edit.blade.php:59
+#: ../../../../views/option/edit.blade.php:63
+#: ../../../../views/product/edit.blade.php:90
+#: ../../../../views/resource/edit.blade.php:56
+#: ../../../../views/setting/edit.blade.php:74
+#: ../../../../views/stock/edit.blade.php:76
+#: ../../../../views/store/edit.blade.php:74
+#: ../../../../views/user/edit.blade.php:209
 msgid "Save"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/category/edit.blade.php:72
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/department/edit.blade.php:77
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/group/edit.blade.php:62
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/group/permission.blade.php:99
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/option/edit.blade.php:66
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/product/edit.blade.php:93
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/resource/edit.blade.php:59
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/setting/edit.blade.php:77
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/stock/edit.blade.php:79
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/store/edit.blade.php:77
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/user/edit.blade.php:210
+#: ../../../../views/category/edit.blade.php:72
+#: ../../../../views/department/edit.blade.php:77
+#: ../../../../views/group/edit.blade.php:62
+#: ../../../../views/group/permission.blade.php:99
+#: ../../../../views/option/edit.blade.php:66
+#: ../../../../views/product/edit.blade.php:93
+#: ../../../../views/resource/edit.blade.php:59
+#: ../../../../views/setting/edit.blade.php:77
+#: ../../../../views/stock/edit.blade.php:79
+#: ../../../../views/store/edit.blade.php:77
+#: ../../../../views/user/edit.blade.php:210
 msgid "Cancel"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/damage/create.blade.php:7
+#: ../../../../views/damage/create.blade.php:7
 msgid "Product Damage Report"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/damage/create.blade.php:19
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/damage/index.blade.php:18
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/product/edit.blade.php:19
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/product/index.blade.php:44
+#: ../../../../views/damage/create.blade.php:19
+#: ../../../../views/damage/index.blade.php:18
+#: ../../../../views/product/edit.blade.php:19
+#: ../../../../views/product/index.blade.php:44
 msgid "Category"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/damage/create.blade.php:24
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/damage/index.blade.php:17
+#: ../../../../views/damage/create.blade.php:24
+#: ../../../../views/damage/index.blade.php:17
 msgid "Product Name"
-msgstr ""
+msgstr "Bungraw Hming"
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/damage/create.blade.php:29
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/damage/index.blade.php:20
+#: ../../../../views/damage/create.blade.php:29
+#: ../../../../views/damage/index.blade.php:20
 msgid "Report Date"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/damage/create.blade.php:34
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/damage/index.blade.php:19
+#: ../../../../views/damage/create.blade.php:34
+#: ../../../../views/damage/index.blade.php:19
 msgid "Quantity"
-msgstr ""
+msgstr "A Zat"
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/damage/create.blade.php:39
+#: ../../../../views/damage/create.blade.php:39
 msgid "Note"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/damage/create.blade.php:44
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/department/index.blade.php:75
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/option/index.blade.php:79
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/setting/index.blade.php:74
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/user/index.blade.php:198
+#: ../../../../views/damage/create.blade.php:44
+#: ../../../../views/department/index.blade.php:75
+#: ../../../../views/group/index.blade.php:63
+#: ../../../../views/option/index.blade.php:79
+#: ../../../../views/setting/index.blade.php:74
+#: ../../../../views/user/index.blade.php:198
 msgid "Submit"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/damage/index.blade.php:21
+#: ../../../../views/damage/index.blade.php:21
 msgid "Status"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/department/edit.blade.php:24
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/department/index.blade.php:26
-msgid "DEPARTMENT NAME"
-msgstr ""
+#: ../../../../views/department/edit.blade.php:24
+#: ../../../../views/department/index.blade.php:26
+#: ../../../../views/department/index.blade.php:64
+msgid "Department Name"
+msgstr "Department Hming"
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/department/edit.blade.php:53
+#: ../../../../views/department/edit.blade.php:53
 msgid "Edit Department"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/department/index.blade.php:51
+#: ../../../../views/department/index.blade.php:15
+msgid "Search Department"
+msgstr "Department Zawnna"
+
+#: ../../../../views/department/index.blade.php:51
 msgid "Add Department"
-msgstr ""
+msgstr "Department Thar"
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/group/edit.blade.php:17
-msgid "GROUP NAME"
-msgstr ""
+#: ../../../../views/group/edit.blade.php:17
+#: ../../../../views/group/index.blade.php:18
+#: ../../../../views/group/index.blade.php:55
+msgid "Group Name"
+msgstr "Group Hming"
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/group/edit.blade.php:31
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/group/edit.blade.php:33
+#: ../../../../views/group/edit.blade.php:31
+#: ../../../../views/group/edit.blade.php:33
+#: ../../../../views/group/index.blade.php:30
 msgid "Edit Group Name"
-msgstr ""
+msgstr "Group Hming Edit-na"
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/group/edit.blade.php:36
+#: ../../../../views/group/edit.blade.php:36
+#: ../../../../views/group/index.blade.php:31
 msgid "Manage Group Permissions"
 msgstr "Group Permission Siamna"
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/group/edit.blade.php:37
+#: ../../../../views/group/edit.blade.php:37
+#: ../../../../views/group/index.blade.php:32
 msgid "Are you sure"
-msgstr ""
+msgstr "I duh tak tak em?"
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/group/edit.blade.php:37
+#: ../../../../views/group/edit.blade.php:37
+#: ../../../../views/group/index.blade.php:32
 msgid "Remove Group"
-msgstr ""
+msgstr "Group Paihna"
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/group/edit.blade.php:48
+#: ../../../../views/group/edit.blade.php:48
 msgid "EDIT GROUP"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/hello.blade.php:38
+#: ../../../../views/group/index.blade.php:43
+msgid "New Group"
+msgstr "Group Thar Siamna"
+
+#: ../../../../views/hello.blade.php:38
 msgid "Laravel PHP Framework"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/hello.blade.php:39
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/hello.php:39
+#: ../../../../views/hello.blade.php:39 ../../../../views/hello.php:39
 msgid "You have arrived."
 msgstr "Mizo tawng"
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/option/edit.blade.php:9
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/option/index.blade.php:11
+#: ../../../../views/layout/partial/language.blade.php:7
+#: ../../../../views/layout/partial/language.blade.php:26
+msgid "English"
+msgstr ""
+
+#: ../../../../views/layout/partial/language.blade.php:11
+msgid "Switch language to English"
+msgstr ""
+
+#: ../../../../views/layout/partial/language.blade.php:16
+#: ../../../../views/layout/partial/language.blade.php:35
+msgid "Mizo Language"
+msgstr ""
+
+#: ../../../../views/layout/partial/language.blade.php:20
+#: ../../../../views/layout/partial/language.blade.php:30
+msgid "Current system language"
+msgstr ""
+
+#: ../../../../views/layout/partial/language.blade.php:39
+msgid "Switch language to Mizo"
+msgstr ""
+
+#: ../../../../views/option/edit.blade.php:9
+#: ../../../../views/option/index.blade.php:11
 msgid "OPTION KEY"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/option/edit.blade.php:10
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/option/index.blade.php:12
+#: ../../../../views/option/edit.blade.php:10
+#: ../../../../views/option/index.blade.php:12
 msgid "OPTION TITLE"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/option/edit.blade.php:11
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/option/index.blade.php:13
+#: ../../../../views/option/edit.blade.php:11
+#: ../../../../views/option/index.blade.php:13
 msgid "OPTION DATA"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/option/edit.blade.php:42
+#: ../../../../views/option/edit.blade.php:42
 msgid "EDIT OPTION"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/option/edit.blade.php:47
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/option/index.blade.php:54
+#: ../../../../views/option/edit.blade.php:47
+#: ../../../../views/option/index.blade.php:54
 msgid "Option Key"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/option/edit.blade.php:52
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/option/index.blade.php:62
+#: ../../../../views/option/edit.blade.php:52
+#: ../../../../views/option/index.blade.php:62
 msgid "Option Title"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/option/index.blade.php:43
+#: ../../../../views/option/index.blade.php:43
 msgid "NEW OPTION"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/option/index.blade.php:70
+#: ../../../../views/option/index.blade.php:70
 msgid "Option Data"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/product/edit.blade.php:18
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/product/index.blade.php:43
+#: ../../../../views/product/edit.blade.php:18
+#: ../../../../views/product/index.blade.php:43
 msgid "Name"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/product/edit.blade.php:20
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/product/index.blade.php:46
+#: ../../../../views/product/edit.blade.php:20
+#: ../../../../views/product/index.blade.php:46
 msgid "Reserved"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/product/edit.blade.php:21
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/product/index.blade.php:47
+#: ../../../../views/product/edit.blade.php:21
+#: ../../../../views/product/index.blade.php:47
 msgid "Stock"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/product/index.blade.php:45
+#: ../../../../views/product/index.blade.php:45
 msgid "Description"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/setting/edit.blade.php:15
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/setting/index.blade.php:16
+#: ../../../../views/setting/edit.blade.php:15
+#: ../../../../views/setting/index.blade.php:16
 msgid "SETTING NAME"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/setting/edit.blade.php:16
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/setting/index.blade.php:17
+#: ../../../../views/setting/edit.blade.php:16
+#: ../../../../views/setting/index.blade.php:17
 msgid "SETTING VALUE"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/setting/edit.blade.php:47
+#: ../../../../views/setting/edit.blade.php:47
 msgid "EDIT SETTING"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/setting/edit.blade.php:58
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/setting/index.blade.php:57
+#: ../../../../views/setting/edit.blade.php:58
+#: ../../../../views/setting/index.blade.php:57
 msgid "Setting Name"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/setting/edit.blade.php:63
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/setting/index.blade.php:65
+#: ../../../../views/setting/edit.blade.php:63
+#: ../../../../views/setting/index.blade.php:65
 msgid "Setting Value"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/setting/index.blade.php:47
+#: ../../../../views/setting/index.blade.php:47
 msgid "NEW SETTING"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/stock/edit.blade.php:55
+#: ../../../../views/stock/edit.blade.php:55
 msgid "Edit Stock Quantity"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/stock/index.blade.php:51
+#: ../../../../views/stock/index.blade.php:51
 msgid "Add Stock Quantity"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/user/edit.blade.php:82
+#: ../../../../views/user/edit.blade.php:82
 msgid "EDIT USER"
 msgstr "User Edit-na"
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/user/edit.blade.php:114
+#: ../../../../views/user/edit.blade.php:114
 msgid "Group"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/user/edit.blade.php:150
+#: ../../../../views/user/edit.blade.php:150
 msgid "Password"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/user/edit.blade.php:154
+#: ../../../../views/user/edit.blade.php:154
 msgid "Leave blank to retain current password."
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/user/edit.blade.php:199
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/user/index.blade.php:188
+#: ../../../../views/user/edit.blade.php:199
+#: ../../../../views/user/index.blade.php:188
 msgid "Activated"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/user/index.blade.php:42
+#: ../../../../views/user/index.blade.php:42
 msgid "USERNAME"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/user/index.blade.php:43
+#: ../../../../views/user/index.blade.php:43
 msgid "DEPARTMENT"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/user/index.blade.php:44
+#: ../../../../views/user/index.blade.php:44
 msgid "STORE CODE"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/user/index.blade.php:83
+#: ../../../../views/user/index.blade.php:83
 msgid "CREATE USER"
 msgstr "USER SIAMNA"
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/user/index.blade.php:168
+#: ../../../../views/user/index.blade.php:168
 msgid "Address"
 msgstr ""
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/user/index.blade.php:178
+#: ../../../../views/user/index.blade.php:178
 msgid "Designation"
 msgstr "Hnathawh Hming"
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/user/index.blade.php:190
+#: ../../../../views/user/index.blade.php:190
 msgid "No"
 msgstr "Aih"
 
-#: /Users/alanpachuau/Sites/gov/gomindent.dev/app/views/user/index.blade.php:190
+#: ../../../../views/user/index.blade.php:190
 msgid "Yes"
 msgstr "Aw"

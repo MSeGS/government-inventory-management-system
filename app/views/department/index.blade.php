@@ -12,7 +12,7 @@
 				<div class="form-group">
 					<div class="input-group">
 						<?php if(isset($_GET['deptsearch'])) { $deptsearch=$_GET['deptsearch'];} else { $deptsearch='';} ?>
-						{{Form::text('deptsearch',$deptsearch, array('class'=>'form-control','placeholder'=>'Search Department'))}}
+						<?php echo Form::text('deptsearch',$deptsearch, array('class'=>'form-control','placeholder'=>_('Search Department')));?>
 	      				<span class="input-group-btn">
 	        				<button class="btn btn-default" name="search" value="Search" type="submit"> <i class="glyphicon glyphicon-search"></i> </button>
 	      				</span>
@@ -23,7 +23,7 @@
 				<thead>
 					<tr>
 						<th class="col-md-1">#</th>
-						<th class="col-md-5"><?php echo _("DEPARTMENT NAME") ?></th>
+						<th class="col-md-5"><?php echo _("Department Name") ?></th>
 						<th class="col-md-1"></th>
 					</tr>
 				</thead>
@@ -61,7 +61,7 @@
 						
 					
 					<div class="form-group">
-						{{Form::label('name', _('Department Name'), array('class'=>'control-label'))}}
+						<?php echo Form::label('name', _('Department Name'), array('class'=>'control-label'));?>
 						{{Form::text('name', '',  array('class'=>'input-sm form-control'))}}
 
 						@if($errors->has('name'))

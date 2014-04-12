@@ -14,7 +14,7 @@
 		<thead>
 			<tr>
 				<th class="col-md-1">#</th>
-				<th class="col-md-8"><?php echo _('GROUP NAME');?></th>
+				<th class="col-md-8"><?php echo _('Group Name');?></th>
 				<th class="col-md-3"></th>
 			</tr>
 		</thead>
