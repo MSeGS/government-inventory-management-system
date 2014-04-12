@@ -21,13 +21,13 @@
 		<tbody>
 			<?php $i=0; ?>
 			@foreach($groups as $group)
-			<tr {{($groupById->id == $group->id)?'class="success"':''}}>
+			<tr {{($current_group->id == $group->id)?'class="success"':''}}>
 				<td>{{++$i}}</td>
 				<td>{{$group->name}}</td>
 				<td>
 
 					{{Form::open(array('url'=>'group/'.$group->id, 'method'=>'delete'))}}
-					@if($groupById->id == $group->id)
+					@if($current_group->id == $group->id)
 					<a href="{{route('group.edit', array($group->id))}}" class="btn btn-xs btn-success tooltip-top disabled" title="<?php echo _('Edit Group Name');?>"><i class="fa fa-pencil"></i></a>
 					@else
 					<a href="{{route('group.edit', array($group->id))}}" class="btn btn-xs btn-success tooltip-top" title="<?php echo _('Edit Group Name');?>"><i class="fa fa-pencil"></i></a>

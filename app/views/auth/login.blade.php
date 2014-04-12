@@ -3,7 +3,7 @@
 @section('content')
 <div class="login-form">
 	<div class="col-md-4 col-md-offset-1">
-		<h3><span class="fa fa-sign-in"></span> Sign In</h3>
+		<h3><span class="fa fa-sign-in"></span> <?php echo _('Sign In'); ?></h3>
 		<hr>
 
 		@if(Session::has('error'))

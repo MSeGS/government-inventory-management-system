@@ -6,8 +6,6 @@ class BaseController extends Controller {
 	{
 		$this->per_page = 30;
 		$this->current_route = Route::getCurrentRoute()->getName();
-		putenv('LC_ALL=en_US');
-		setlocale(LC_ALL, 'mz_IN');
 	}
 
 	/**
@@ -21,6 +19,21 @@ class BaseController extends Controller {
 		{
 			$this->layout = View::make($this->layout);
 		}
+
+		$this->setLocale();
 	}
 
+	protected function setLocale()
+	{
+		$domain = 'english';
+
+		if(!Cookie::get('lang'))
+			Cookie::queue('lang', $domain, 1440);
+		else
+			$domain = Cookie::get('lang');
+		
+		setlocale( LC_MESSAGES, 'en_IN');
+		bindtextdomain($domain, app_path('lang/locale'));
+		textdomain($domain);
+	}
 }

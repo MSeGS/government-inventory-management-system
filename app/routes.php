@@ -17,6 +17,13 @@ Route::get('login', array('before'=>'sentry', 'uses'=>'AuthController@login', 'a
 Route::post('login', array('uses'=>'AuthController@authenticate', 'as'=>'login.submit'));
 Route::get('logout', array('before'=>'sentry', 'uses'=>'AuthController@logout', 'as'=>'logout'));
 
+Route::post('/lang', function()
+{
+    $lang = Cookie::forever('lang', Input::get('language'));
+    return Redirect::to(Input::get('redirect_to', '/'))->withCookie($lang);
+});
+
+
 Route::get('registration', array('uses'=>'RegistrationController@index', 'as'=>'registration'));
 Route::post('registration', array('uses'=>'RegistrationController@register', 'as'=>'registration.submit'));
 
