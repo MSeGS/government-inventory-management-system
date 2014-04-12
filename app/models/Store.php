@@ -121,7 +121,7 @@ class Store extends Eloquent
 				$table->integer('user_id');
 				$table->enum('status', array('approved', 'pending', 'declined'));
 				$table->text('note');
-				$table->datetime('report_at');
+				$table->datetime('reported_at');
 				$table->timestamps();
 				$table->softDeletes();
 				

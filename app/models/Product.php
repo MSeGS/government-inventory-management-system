@@ -12,7 +12,11 @@ class Product extends BaseStore
 	public static function stock($product_id)
 	{
 		$stock = Stock::where('product_id', '=', $product_id)->pluck(DB::raw('SUM(`quantity`)'));
-		return $stock;
+		return $stock?$stock:0;
 	}
 
+	public function category()
+	{
+		return $this->belongsTo('Category');
+	}
 }

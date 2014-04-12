@@ -27,9 +27,9 @@ class UserController extends \BaseController {
 			->orderBy('username', 'asc')
 			->paginate(30);
 
-		$departments = array(''=>'Select Department') + Department::orderBy('name', 'asc')->lists('name', 'id');
+		$departments = array(''=>_('Select Department')) + Department::orderBy('name', 'asc')->lists('name', 'id');
 		
-		$stores = array();
+		$stores = array(''=>_('Select Store'));
 		$stores_temp = Store::with('department')->orderBy('store_code', 'asc')->get();
 		foreach($stores_temp as $s){
 			$stores[$s->id] = $s->department->name . ' (' . $s->store_code . ')';
@@ -63,15 +63,22 @@ class UserController extends \BaseController {
 	public function store()
 	{
 		$rules = array(
-			'group' => 'required|integer|min:1',
-			'department' => 'required|integer|min:1',
+			'group' => 'required',
+			'department' => 'required',
 			'full_name' => 'required',
 			'username' => 'required',
 			'password' => 'required',
 			'email_id' => 'required|email',
-			'store' => 'required|integer|min:1',
 			'designation' => 'required'
 			);
+
+		// Get the current group as Sentry object and check if Super Administrator group is selected or not.
+		if(Input::get('group') != 0) {
+			$group = Sentry::findGroupById(Input::get('group'));
+			$group_permissions = $group->getPermissions();
+			if( !(array_key_exists('superuser', $group_permissions) && $group_permissions['superuser']) )
+				$rules['store'] = 'required|integer|min:1';
+		}
 
 		$validator = Validator::make(Input::all(), $rules);
 
@@ -80,8 +87,7 @@ class UserController extends \BaseController {
 				->withErrors($validator)
 				->withInput(Input::all());
 		}
-		else
-		{
+		else {
 			$group = Sentry::findGroupById(Input::get('group'));
 			$public_group = Sentry::findGroupByName('Public');
 			$group_permissions = $group->getPermissions();
@@ -106,7 +112,8 @@ class UserController extends \BaseController {
 		    // We assign every user to public group by default.
 		    $user->addGroup($public_group);
 
-			return Redirect::to('user')->with('message', 'User created successfully.');
+			return Redirect::to('user')
+				->with('message', _('New user created successfully.'));
 		}
 	}
 
@@ -149,9 +156,9 @@ class UserController extends \BaseController {
 			->orderBy('username', 'asc')
 			->paginate(30);
 
-		$departments = array(''=>'Select Department') + Department::orderBy('name', 'asc')->lists('name', 'id');
+		$departments = array(''=>_('Select Department')) + Department::orderBy('name', 'asc')->lists('name', 'id');
 		
-		$stores = array();
+		$stores = array(''=>_('Select Store'));
 		$stores_temp = Store::with('department')->orderBy('store_code', 'asc')->get();
 		foreach($stores_temp as $s){
 			$stores[$s->id] = $s->department->name . ' (' . $s->store_code . ')';
@@ -176,7 +183,57 @@ class UserController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$user = Sentry::findUserById($id);
+
+		$rules = array(
+			'group' => 'required',
+			'department' => 'required',
+			'full_name' => 'required',
+			'username' => 'required',
+			'email_id' => 'required|email',
+			'designation' => 'required'
+			);
+
+		if(!$user->isSuperUser())
+			$rules['store'] = 'required';
+
+		$validator = Validator::make(Input::all(), $rules);
+
+		if ($validator -> fails()) {
+			return Redirect::to('user')
+				->withErrors($validator)
+				->withInput(Input::all());
+		}
+		else {
+			$group = Sentry::findGroupById(Input::get('group'));
+			$public_group = Sentry::findGroupByName('Public');
+			$group_permissions = $group->getPermissions();
+
+			// Update the user
+		    $user = Sentry::findUserById($id);
+		    $user->department_id = Input::get('department');
+		    $user->full_name = Input::get('full_name');
+		    $user->username = Input::get('username');
+		    
+		    if(strlen(trim(Input::get('password'))) > 0)
+		    	$user->password = Input::get('password');
+			
+			$user->email_id = Input::get('email_id');
+			$user->phone_no = Input::get('phone_no');
+			$user->address = Input::get('address');
+			$user->store_id = Input::get('store');
+			$user->designation = Input::get('designation');
+			$user->activated = Input::get('activated');
+			$user->permissions = $group_permissions;
+			$user->save();
+
+			// Assign the group to the user
+		    $user->addGroup($group);
+		    // We assign every user to public group by default.
+		    $user->addGroup($public_group);
+
+			return Redirect::to('user')->with('message', _('User created successfully.'));
+		}
 	}
 
 	/**

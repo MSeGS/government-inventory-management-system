@@ -2,7 +2,7 @@
 @section('content')
 
 
-	<div class="col-md-7">
+	<div class="col-md-8">
 
 	@if(Session::has('delete'))
 	<div class="alert alert-danger">
@@ -43,11 +43,11 @@
 		</tbody>
 	</table>
 </div>
-<div class="col-md-5">
+<div class="col-md-4">
 	<div class="panel panel-default">
 		<div class="panel-heading"><h5 class="text-center"><?php echo _('EDIT GROUP'); ?></h5></div>
 		<div class="panel-body">
-			{{Form::model($groupById, array('url'=>'group/'.$groupById->id, 'method'=>'put', 'class'=>'form-vertical'))}}
+			{{Form::model($current_group, array('url'=>route('group.edit', $current_group->id), 'method'=>'put', 'class'=>'form-vertical'))}}
 
 			<div class="form-group">
 				{{Form::label('name', _('Group Name'), array('class'=>'control-label'))}}

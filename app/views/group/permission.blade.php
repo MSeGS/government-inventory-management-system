@@ -88,8 +88,16 @@
 						</tbody>
 					</table>
 				</div>
-				<div class="form-group">
-					<button type="submit" class="btn btn-primary btn-sm pull-right">Save</button>
+				<div class="form-inline text-right">
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary btn-sm pull-right">Save</button>
+					</div>
+					<div class="form-group">
+						<button type="reset" class="btn btn-primary btn-sm pull-right">Reset</button>
+					</div>
+					<div class="form-group">
+						<a href="{{route('group.index')}}"><span class="btn btn-primary btn-sm"><?php echo _('Cancel');?></span></a>
+					</div>
 				</div>
 			</div>
 		{{Form::close()}}

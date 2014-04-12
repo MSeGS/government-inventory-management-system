@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="col-md-7">
+<div class="col-md-8">
 	<div class="row">
 		<div class="col-md-12">
 			@if(Session::has('delete'))
@@ -15,7 +15,7 @@
 				<thead>
 					<tr>
 						<th class="col-md-1">#</th>
-						<th>Category Name</th>
+						<th><?php echo _('Category Name'); ?></th>
 						<th class="col-md-2"></th>
 					</tr>
 				</thead>
@@ -23,13 +23,13 @@
 					<?php $i=0; ?>
 					@foreach ($categories as $category)
 					<tr {{($categoryById->id == $category->id)?'class="success"':''}}>
-						<td class="col-md-1">
+						<td>
 							{{++$i}}
 						</td>
-						<td class="col-md-3">
+						<td>
 							{{$category->category_name}}
 						</td>
-						<td class="col-md-2">
+						<td>
 							{{Form::open(array('url'=>'category/'.$category->id, 'method'=>'delete'))}}
 							@if($categoryById->id == $category->id)
 							<a href="{{route('category.edit', array($category->id))}}" class="btn btn-xs btn-success tooltip-top disabled" title="Edit Category Name"><i class="fa fa-pencil"></i></a>
@@ -47,7 +47,7 @@
 	</div>
 </div>
 
-<div class="col-md-5">
+<div class="col-md-4">
 	{{Form::model($categoryById, array('url'=>'/category/'. $categoryById->id, 'method'=>'put', 'class'=>'form-vertical'))}}				
 	<div class="panel panel-default">
 		<div class="panel-heading text-center">
@@ -66,13 +66,10 @@
 				@if($errors->has('category_name'))
 				<p class="help-block"><span class="text-danger">{{$errors->first('category_name')}}</span></p>
 				@endif
-				<div class="form-inline text-right">
-					<div class="form-group">
-						<button type="submit" name="submit" class="btn btn-primary btn-sm"><?php echo _('Save'); ?></button>
-					</div>
-					<div class="form-group">
-						<a href="{{route('category.index')}}"><span class="btn btn-primary btn-sm"><?php echo _('Cancel');?></span></a>
-					</div>
+
+				<div class="form-group text-right">
+					<button type="submit" name="submit" class="btn btn-primary btn-sm"><?php echo _('Save'); ?></button>
+					<a href="{{route('category.index')}}"><span class="btn btn-primary btn-sm"><?php echo _('Cancel');?></span></a>
 				</div>	
 			</div>
 	</div>

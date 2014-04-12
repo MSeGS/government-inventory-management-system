@@ -3,6 +3,12 @@
 @section('content')
 <div class="col-md-8">
 
+	@if(Session::has('delete'))
+	<div class="alert alert-danger">
+		{{Session::get('delete')}}	
+	</div>
+	@endif
+
 	{{Form::open(array('url'=>route('user.index'),'method'=>'get','class'=>'form-vertical'))}}
 		<div class="row">
 			<div class="col-md-4">
@@ -28,14 +34,14 @@
 			</div>
 		</div>
 	{{Form::close()}}
-				
+
 	<table class="table table-striped table-hover table-bordered">
 		<thead>
 			<tr>
 				<th class="col-md-1">#</th>
-				<th class="col-md-2">USERNAME</th>
-				<th class="col-md-2">DEPARTMENT</th>
-				<th class="col-md-2">STORE CODE</th>
+				<th class="col-md-2"><?php echo _('USERNAME'); ?></th>
+				<th class="col-md-2"><?php echo _('DEPARTMENT'); ?></th>
+				<th class="col-md-2"><?php echo _('STORE CODE'); ?></th>
 				<th>GROUPS</th>
 				<th></th>
 
@@ -75,20 +81,20 @@
 <div class="col-md-4">
 	<div class="panel panel-default" >
 		<div class="panel-heading" ><h5 class="text-center"> <?php echo _('CREATE USER');?></h5></div>
-			<div class="panel-body">
+		<div class="panel-body">
 
-				@if(Session::has('message'))
-				<div class="alert alert-success">
-					{{Session::get('message')}}	
-				</div>
-				@endif
+			@if(Session::has('message'))
+			<div class="alert alert-success">
+				{{Session::get('message')}}	
+			</div>
+			@endif
 
-				{{Form::open(array('url'=>route('user.index'),'method'=>'post','class'=>'form-vertical'))}}
-					
+			{{Form::open(array('url'=>route('user.index'),'method'=>'post','class'=>'form-vertical'))}}
+				
 				<div class="form-group">
 					{{Form::label('store', _('Store'), array('class'=>'control-label'))}}
 					
-					{{Form::select('store', $stores, 'null', array('class' =>'dropdown input-sm form-control'))}}
+					{{Form::select('store', $stores, Input::old('store'), array('class' =>'dropdown input-sm form-control'))}}
 					
 					@if($errors->has('store'))
 					<p class="help-block"><span class="text-danger">{{$errors->first('store')}}</span></p>
@@ -97,7 +103,7 @@
 
 				<div class="form-group">
 					{{Form::Label('group', _('Group'), array('class'=>'control-label'))}}
-					{{Form::select('group', $groups, 'null', array('class' =>'dropdown input-sm form-control'))}}
+					{{Form::select('group', $groups, Input::old('group'), array('class' =>'dropdown input-sm form-control'))}}
 					
 					@if($errors->has('group'))
 					<p class="help-block"><span class="text-danger">{{$errors->first('group')}}</span></p>
@@ -159,7 +165,7 @@
 				</div>
 
 				<div class="form-group">
-					{{Form::label('address', _('Address'), array('class'=>'control-label'))}}
+					<?php echo Form::label('address', _('Address'), array('class'=>'control-label')); ?>
 					
 					{{Form::textarea('address', '', array('class'=>'input-sm form-control','rows'=>'2'))}}
 
@@ -169,7 +175,7 @@
 				</div>
 
 				<div class="form-group">
-					{{Form::label('designation', _('Designation'), array('class'=>'control-label'))}}
+					<?php echo Form::label('designation', _('Designation'), array('class'=>'control-label')); ?>
 					
 					{{Form::text('designation', '', array('class'=>'input-sm form-control'))}}
 					
@@ -191,9 +197,9 @@
 				<div class="form-group text-right">
 					<button type="submit" class="btn btn-sm btn-primary"><?php echo _('Submit');?></button>
 				</div>
-			</div>
+			{{Form::close()}}
+		</div>
 	</div>
-		{{Form::close()}}
 </div>
 	
 

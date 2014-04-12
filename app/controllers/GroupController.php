@@ -84,10 +84,10 @@ class GroupController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$groupById = Group::find($id);
+		$group = Group::find($id);
 		$groups = Sentry::findAllGroups();
 		return View::make('group.edit')
-			->with(array('groups' => $groups, 'groupById' => $groupById));
+			->with(array('groups' => $groups, 'current_group' => $group));
 	}
 
 	/**

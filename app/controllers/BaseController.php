@@ -6,6 +6,8 @@ class BaseController extends Controller {
 	{
 		$this->per_page = 30;
 		$this->current_route = Route::getCurrentRoute()->getName();
+		putenv('LC_ALL=en_US');
+		setlocale(LC_ALL, 'mz_IN');
 	}
 
 	/**

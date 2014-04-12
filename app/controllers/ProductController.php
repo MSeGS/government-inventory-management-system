@@ -10,8 +10,13 @@ class ProductController extends \BaseController {
 	public function index()
 	{
 		$products = Product::orderBy('name', 'asc')->paginate(30);
+		$categories = array('' => _('Select Category'));
+		$categories = $categories + Category::orderBy('category_name', 'asc')->get()->lists('category_name', 'id');
 		return View::make('product.index')
-			->with('products', $products);
+			->with(array(
+				'products' => $products,
+				'categories' => $categories
+				));
 	}
 
 	/**
@@ -21,7 +26,12 @@ class ProductController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		$categories = array('' => _('Select Category'));
+		$categories = $categories + Category::orderBy('category_name', 'asc')->get()->lists('category_name', 'id');
+		return View::make('product.create')
+			->with(array(
+				'categories' => $categories
+				));
 	}
 
 	/**
@@ -32,6 +42,7 @@ class ProductController extends \BaseController {
 	public function store()
 	{
 		$rules = array(
+				'category' 			=> 'required',
 				'name' 				=> 'required',
 				'reserved_amount'	=> 'required'
 			);
@@ -46,13 +57,14 @@ class ProductController extends \BaseController {
 
 		else{
 			$products 					= new Product;
+			$products->category_id 		= Input::get('category');
 			$products->name 			= Input::get('name');
 			$products->description 		= Input::get('description');
 			$products->reserved_amount	= Input::get('reserved_amount');
 			$products->save();
 
-			Session::flash('message', 'Successfully submitted');
-			return Redirect::to('product');
+			return Redirect::to('product')
+				->with('message', _('New product added successfully'));
 		}
 	}
 
@@ -75,7 +87,7 @@ class ProductController extends \BaseController {
 	public function edit($id)
 	{
 		$productById = Product::find($id);
-		$products    = Product::orderBy('name', 'asc')->paginate(20);
+		$products    = Product::with('category')->orderBy('name', 'asc')->paginate(20);
 		return View::make('product.edit')
 			->with(array('productById'=> $productById, 'products' => $products));
 		

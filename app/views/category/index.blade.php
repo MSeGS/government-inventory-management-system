@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="col-md-7">
+<div class="col-md-8">
 	<div class="row">
 		<div class="col-md-12">
 			@if(Session::has('delete'))
@@ -23,13 +23,13 @@
 					<?php $i=0; ?>
 					@foreach ($categories as $category)
 					<tr>
-						<td class="col-md-1">
+						<td>
 							{{++$i}}
 						</td>
-						<td class="col-md-3">
+						<td>
 							{{$category->category_name}}
 						</td>
-						<td class="col-md-2">
+						<td>
 							{{Form::open(array('url'=>route('category.destroy', array($category->id)), 'method'=>'delete'))}}
 							<a href="{{route('category.edit', array($category->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Category Name"><i class="fa fa-pencil"></i></a>
 							<button type="submit" onclick="return confirm('Are you sure');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Category" value="{{$category->id}}"><i class="fa fa-times"></i></a>
@@ -44,7 +44,7 @@
 </div>
 
 
-<div class="col-md-5">
+<div class="col-md-4">
 	{{Form::open(array('url'=>route('category.index'), 'method'=>'post', 'class'=>'form-vertical'))}}				
 	<div class="panel panel-default">
 		<div class="panel-heading text-center" >
