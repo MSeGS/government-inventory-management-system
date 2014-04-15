@@ -33,9 +33,9 @@
 		<thead>
 			<tr>
 				<th class="col-md-1">#</th>
-				<th class="col-md-2">USERNAME</th>
-				<th class="col-md-2">DEPARTMENT</th>
-				<th class="col-md-2">STORE CODE</th>
+				<th class="col-md-2">Username</th>
+				<th class="col-md-2">Department</th>
+				<th class="col-md-2">Store Code</th>
 				<th>GROUPS</th>
 				<th></th>
 

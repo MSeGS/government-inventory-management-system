@@ -44,7 +44,7 @@ class ProductController extends \BaseController {
 		$rules = array(
 				'category' 					=> 'required',
 				'name' 						=> 'required',
-				'reserved_amount'			=> 'required'
+				'reserved_amount'			=> 'required|integer'
 			);
 
 		$validator = Validator::make(Input::all(), $rules);
@@ -103,7 +103,7 @@ class ProductController extends \BaseController {
 	{
 		$rules = array(
 			'name' => 'required',
-			'reserved_amount' => 'required'
+			'reserved_amount' => 'required|integer|min:0'
 			);
 
 		$validator = Validator::make(Input::all(), $rules);
@@ -136,7 +136,7 @@ class ProductController extends \BaseController {
 	public function destroy($id)
 	{
 		Product::destroy($id);
-		Stock::where('product_id','=', $id)->destroy();
+		Stock::where('product_id','=', $id)->delete();
 		Session::flash('delete', 'Product deleted');
 		return Redirect::to('product');
 	}

@@ -1,48 +1,48 @@
 @extends('layout.main')
 @section('content')
 <div class="col-md-7">
-
 	@if(Session::has('delete'))
 	<div class="alert alert-success">
 		{{Session::get('delete')}}	
 	</div>
 	@endif
+	<div class="row">
+		<table class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th class="col-md-1">#</th>
+					<th class="col-md-8">GROUP NAME</th>
+					<th class="col-md-3"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php $i=0; ?>
+				@foreach($groups as $group)
+				<tr {{($current_group->id == $group->id)?'class="success"':''}}>
+					<td>{{++$i}}</td>
+					<td>{{$group->name}}</td>
+					<td>
+						{{Form::open(array('url'=>'group/'.$group->id, 'method'=>'delete'))}}
+						<a href="{{route('group.edit', array($group->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Group Name"><i class="fa fa-pencil"></i></a>
+						@if($current_group->id== $group->id)
+						<a href="{{route('group.permission', array($group->id))}}" class="btn btn-xs btn-primary tooltip-top disabled" title="Manage Group Permissions"><i class="fa fa-cog"></i></a>
+						@else
+						<a href="{{route('group.permission', array($group->id))}}" class="btn btn-xs btn-primary tooltip-top" title="Manage Group Permissions"><i class="fa fa-cog"></i></a>
+						@endif
+						<button type="submit" onclick="return confirm('Are you sure');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Group" value="{{$group->id}}"><i class="fa fa-times"></i></a>
 
-	<table class="table table-striped table-bordered">
-		<thead>
-			<tr>
-				<th class="col-md-1">#</th>
-				<th class="col-md-8">GROUP NAME</th>
-				<th class="col-md-3"></th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php $i=0; ?>
-			@foreach($groups as $group)
-			<tr {{($current_group->id == $group->id)?'class="success"':''}}>
-				<td>{{++$i}}</td>
-				<td>{{$group->name}}</td>
-				<td>
-					{{Form::open(array('url'=>'group/'.$group->id, 'method'=>'delete'))}}
-					<a href="{{route('group.edit', array($group->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Group Name"><i class="fa fa-pencil"></i></a>
-					@if($current_group->id== $group->id)
-					<a href="{{route('group.permission', array($group->id))}}" class="btn btn-xs btn-primary tooltip-top disabled" title="Manage Group Permissions"><i class="fa fa-cog"></i></a>
-					@else
-					<a href="{{route('group.permission', array($group->id))}}" class="btn btn-xs btn-primary tooltip-top" title="Manage Group Permissions"><i class="fa fa-cog"></i></a>
-					@endif
-					<button type="submit" onclick="return confirm('Are you sure');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Group" value="{{$group->id}}"><i class="fa fa-times"></i></a>
-
-					{{Form::close()}}	
-				</td>
-			</tr>
-			@endforeach
-		</tbody>
-	</table>
+						{{Form::close()}}	
+					</td>
+				</tr>
+				@endforeach
+			</tbody>
+		</table>
+	</div>
 </div>
 <div class="col-md-5">
 	<div class="panel panel-default">
 			<div class="panel-heading">
-				<h5 class="text-center">{{strtoupper($current_group->getName())}} GROUP PERMISSION</h5>
+				<h5 class="text-center">{{strtoupper($current_group->getName())}} Group Permission</h5>
 			</div>
 			<div class="panel-body">
 
@@ -52,7 +52,7 @@
 				</div>
 				@endif
 
-			{{Form::open(array('url'=>'group/'.$current_group->id.'/permission', 'method'=>'put'))}}
+			{{Form::open(array('url'=>route('group.updatePermission', $current_group->id), 'method'=>'put'))}}
 				<div class="group-permissions-list">
 					<?php
 					$permissions = $current_group->getPermissions();
@@ -91,14 +91,9 @@
 						</tbody>
 					</table>
 				</div>
-				<div class="form-inline text-right">
-					<div class="form-group">
-						<button type="submit" class="btn btn-primary btn-sm pull-right">Save</button>
-					</div>
-					<div class="form-group">
-						<button type="reset" class="btn btn-primary btn-sm pull-right">Reset</button>
-					</div>
-					<div class="form-group">
+					<div class="form-group text-right">
+						<button type="submit" class="btn btn-primary btn-sm"><?php echo _('Save') ?></button>
+						<button type="reset" class="btn btn-primary btn-sm"><?php echo _('Reset') ?></button>
 						<a href="{{route('group.index')}}"><span class="btn btn-primary btn-sm"><?php echo _('Cancel');?></span></a>
 					</div>
 				</div>

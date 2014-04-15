@@ -3,53 +3,55 @@
 @section('content')
 
 <div class="col-md-8">
-	<table class="table table-striped table-bordered">
-		<thead>
-			<tr>
-				<th class="col-md-1">#</th>
-				<th class="col-md-5">DEPARTMENT</th>
-				<th class="col-md-3">STORE CODE</th>
-				<th class="col-md-3"></th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php $i=0; ?>
+	<div class="row">
+		<table class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th class="col-md-1">#</th>
+					<th class="col-md-5">DEPARTMENT</th>
+					<th class="col-md-3">STORE CODE</th>
+					<th class="col-md-3"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php $i=0; ?>
 
-			@if($stores->count())
+				@if($stores->count())
 
-			@foreach($stores as $store)
-			<tr {{($current_store->id == $store->id)?'class="success"':''}}>
-				<td>{{++$i}}</td>
-				<td>{{$store->department->name}}</td>
-				<td><strong>{{$store->store_code}}</strong></td>
-				<td>
-					{{Form::open(array('url'=>'store/'.$store->id, 'method'=>'delete'))}}
-					
-					@if($current_store->id == $store->id)
-					<a href="{{route('store.edit', array($store->id))}}" class="btn btn-xs btn-success tooltip-top disabled" title="Edit Store"><i class="fa fa-pencil"></i></a>
-					@else
-					<a href="{{route('store.edit', array($store->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Store"><i class="fa fa-pencil"></i></a>
-					@endif
+				@foreach($stores as $store)
+				<tr {{($current_store->id == $store->id)?'class="success"':''}}>
+					<td>{{++$i}}</td>
+					<td>{{$store->department->name}}</td>
+					<td><strong>{{$store->store_code}}</strong></td>
+					<td>
+						{{Form::open(array('url'=>'store/'.$store->id, 'method'=>'delete'))}}
+						
+						@if($current_store->id == $store->id)
+						<a href="{{route('store.edit', array($store->id))}}" class="btn btn-xs btn-success tooltip-top disabled" title="Edit Store"><i class="fa fa-pencil"></i></a>
+						@else
+						<a href="{{route('store.edit', array($store->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Store"><i class="fa fa-pencil"></i></a>
+						@endif
 
-					<button type="submit" onclick="return confirm('Are you sure?');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Store" value="{{$store->id}}"><i class="fa fa-times"></i></a>
-					{{Form::close()}}
-				</td>
-			</tr>
-			@endforeach
+						<button type="submit" onclick="return confirm('Are you sure?');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Store" value="{{$store->id}}"><i class="fa fa-times"></i></a>
+						{{Form::close()}}
+					</td>
+				</tr>
+				@endforeach
 
-			@else
+				@else
 
-			<tr><td colspan="4" class="text-center text-danger"><em>{{_("Right now, we don't have store to display. Create store on the right side.")}}</em></td></tr>
+				<tr><td colspan="4" class="text-center text-danger"><em>{{_("Right now, we don't have store to display. Create store on the right side.")}}</em></td></tr>
 
-			@endif
-		</tbody>
-	</table>
+				@endif
+			</tbody>
+		</table>
+	</div>	
 
 	{{$stores->links()}}
 </div>
 <div class="col-md-4">
 	<div class="panel panel-default">
-		<div class="panel-heading"><h5 class="text-center">EDIT STORE CODE</h5></div>
+		<div class="panel-heading"><h5 class="text-center">Edit Store Code</h5></div>
 		<div class="panel-body">
 
 			@if(Session::has('message'))

@@ -125,8 +125,10 @@ class CategoryController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
+		Stock::where('category_id','=',$id)->delete();
+		Product::where('category_id','=',$id)->delete();
 		Category::destroy($id);
-
+		
 		Session::flash('delete', 'Category deleted');
 		return Redirect::to('category');
 	}

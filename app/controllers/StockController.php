@@ -11,9 +11,9 @@ class StockController extends \BaseController {
 	{
 		$stocks = Stock::with('product')->orderBy('id', 'desc')->paginate();
 		$products = array( '' => _('Select Product'));
-		$categories = array( '' => _('Select Category'));
 		$products = $products + Product::orderBy('name', 'asc')
 			->get()->lists('name','id');
+		$categories = array( '' => _('Select Category'));
 		$categories = $categories + Category::orderBy('category_name', 'asc')
 			->get()->lists('category_name','id');
 		
@@ -55,10 +55,10 @@ class StockController extends \BaseController {
 		}
 		else{
 				$stock = new Stock;
-				$stock->product_id 	= Input::get('product_name');
-				$stock->category_id 	= Input::get('product_name');
-				$stock->note 		= Input::get('note');
-				$stock->quantity	= Input::get('quantity');
+				$stock->product_id 		= Input::get('product_name');
+				$stock->category_id 	= Input::get('category_name');
+				$stock->note 			= Input::get('note');
+				$stock->quantity		= Input::get('quantity');
 				$stock->save();
 
 				return Redirect::route('stock.index')->with('message', 'Store created successfully');
@@ -85,13 +85,16 @@ class StockController extends \BaseController {
 	public function edit($id)
 	{
 		$stockById = Stock::find($id);
-		$stocks = Stock::with('product')->orderBy('id','desc')->paginate();
+		$stocks = Stock::with('product')->orderBy('id','desc')->paginate(10);
 		$products = Product::orderBy('name','asc')
 			->get()->lists('name', 'id');
+		$categories = Category::orderBy('category_name', 'asc')
+			->get()->lists('category_name','id');
 		return View::make('stock.edit')
 			->with(array(
 				'stocks' => $stocks,
 				'products' => $products,
+				'categories'=> $categories,
 				'stockById' => $stockById
 				));	
 	}
@@ -106,6 +109,7 @@ class StockController extends \BaseController {
 	{
 		$rules = array(
 			'product_name' => 'required',
+			'category_name' => 'required',
 			'quantity' => 'required'
 			);
 
@@ -120,6 +124,7 @@ class StockController extends \BaseController {
 		else{
 			$stock						= Stock::find($id);
 			$stock->product_id 			= Input::get('product_name');
+			$stock->category_id			= Input::get('category_name');
 			$stock->note 				= Input::get('note');
 			$stock->quantity 			= Input::get('quantity');
 			$stock->save();

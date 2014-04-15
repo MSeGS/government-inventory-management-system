@@ -7,7 +7,7 @@
 		{{Session::get('delete')}}
 	</div>
 	@endif
-	<div class="col-mid-7">
+	<div class="row">
 		<table class="table table-striped  table-bordered">
 			<thead>
 				<tr>
@@ -38,8 +38,8 @@
 				@endforeach
 			</tbody>
 		</table>
-		{{$settings->links()}}
 	</div>
+		{{$settings->links()}}
 </div>
 
 <div class="col-md-4">
