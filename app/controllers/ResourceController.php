@@ -38,7 +38,7 @@ class ResourceController extends \BaseController {
 	{
 		$rules = array(
 			'name' 	=> 	'required',
-			'route' =>	'unique:resourcesh',
+			'route' =>	'unique:resources,route',
 			);
 		$validator = Validator::make(Input::all(), $rules);
 
