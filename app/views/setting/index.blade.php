@@ -21,7 +21,6 @@
 		<tbody>
 			<?php $i=0; ?>
 			@foreach($settings as $setting)
-
 			<tr>
 				<td>{{++$i}}</td>
 				<td>{{Option::getTitle($setting->option_key)}}</td>
