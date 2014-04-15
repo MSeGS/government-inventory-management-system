@@ -39,10 +39,10 @@
 		<thead>
 			<tr>
 				<th class="col-md-1">#</th>
-				<th class="col-md-2"><?php echo _('USERNAME'); ?></th>
-				<th class="col-md-2"><?php echo _('DEPARTMENT'); ?></th>
-				<th class="col-md-2"><?php echo _('STORE CODE'); ?></th>
-				<th>GROUPS</th>
+				<th class="col-md-2"><?php echo _('Username'); ?></th>
+				<th class="col-md-2"><?php echo _('Department'); ?></th>
+				<th class="col-md-2"><?php echo _('Store Code'); ?></th>
+				<th class="col-md-3"><?php echo _('Groups'); ?></th>
 				<th></th>
 
 			</tr>
@@ -80,7 +80,7 @@
 
 <div class="col-md-4">
 	<div class="panel panel-default" >
-		<div class="panel-heading" ><h5 class="text-center"> <?php echo _('CREATE USER');?></h5></div>
+		<div class="panel-heading" ><h5 class="text-center"> <?php echo _('Create User');?></h5></div>
 		<div class="panel-body">
 
 			@if(Session::has('message'))

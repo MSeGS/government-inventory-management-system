@@ -2,9 +2,8 @@
 
 @section('content')
 
-<div class="col-md-8">
+<div class="col-md-7">
 	<div class="row">
-		<div class="col-md-12">
 			@if(Session::has('delete'))
 			<div class="alert alert-danger">
 				{{Session::get('delete')}}
@@ -39,12 +38,11 @@
 					@endforeach
 				</tbody>
 			</table>
-		</div>
 	</div>
 </div>
 
 
-<div class="col-md-4">
+<div class="col-md-5">
 	{{Form::open(array('url'=>route('category.index'), 'method'=>'post', 'class'=>'form-vertical'))}}				
 	<div class="panel panel-default">
 		<div class="panel-heading text-center" >
