@@ -134,6 +134,7 @@ class Store extends Eloquent
 			Schema::create($store_prefix . 'stocks', function($table)
 			{
 				$table->increments('id');
+				$table->integer('category_id');
 				$table->integer('product_id');
 				$table->integer('quantity');
 				$table->string('note');

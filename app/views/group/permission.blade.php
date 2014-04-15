@@ -63,7 +63,10 @@
 							<tr>
 								<th class="col-md-1">#</th>
 								<th class="col-md-5">Resource Name</th>
-								<th class="col-md-3">Allowed</th>
+								<th class="col-md-3">
+									Allowed
+									<input type="checkbox" id="checkAll" onclick="checkAll(this)">
+								</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -79,7 +82,7 @@
 									    	@if(array_key_exists($resource->route, $permissions) && $permissions[$resource->route] == 1)
 									    	checked="checked"
 									    	@endif
-									    	value="1" />
+									    	value="1", id="checkitem" />
 									  </label>
 									</div>
 								</td>

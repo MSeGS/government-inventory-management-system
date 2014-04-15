@@ -29,3 +29,7 @@ function initTooltips()
 	$('.tooltip-left').tooltip({'placement':'left'});
 	$('.tooltip-right').tooltip({'placement':'right'});
 }
+
+$('#checkAll').click(function () {    
+     $('input:checkbox').prop('checked', this.checked);    
+ });

@@ -32,13 +32,13 @@
 						<td>{{$product->reserved_amount}}</td>
 						<td>{{$product->stock($product->id)}}</td>
 						<td>
-							{{Form::open(array('url'=>'product/'.$product->id, 'method'=>'delete'))}}
+							{{Form::open(array('url'=>route('product.destroy'), 'method'=>'delete'))}}
 								@if($productById->id == $product->id)
 								<a href="{{route('product.edit', array($product->id))}}" class="btn btn-xs btn-success tooltip-top disabled" title="Edit product Name"><i class="fa fa-pencil"></i></a>
 								@else
 								<a href="{{route('product.edit', array($product->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Product Name"><i class="fa fa-pencil"></i></a>
 								@endif
-								<button type="submit" onclick="" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Product" value="{{$product->id}}"><i class="fa fa-times"></i></button>
+								<button type="submit" onclick="return confirm('Are you sure');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Product" value="{{$product->id}}"><i class="fa fa-times"></i></button>
 							{{Form::close()}}
 						</td>
 					</tr>
@@ -85,13 +85,9 @@
 					<p class="help-block"><span class="text-danger">{{$errors->first('reserved_amount')}}</span></p>
 					@endif
 				</div>
-				<div class="form-inline text-right">
-					<div class="form-group">
-						<button type="submit" name="submit" class="btn btn-primary btn-sm"><?php echo _('Save'); ?></button>
-					</div>
-					<div class="form-group">
-						<a href="{{route('product.index')}}"><span class="btn btn-primary btn-sm"><?php echo _('Cancel');?></span></a>
-					</div>
+				<div class="form-group text-right">
+					<button type="submit" name="submit" class="btn btn-primary btn-sm"><?php echo _('Save'); ?></button>
+					<a href="{{route('product.index')}}"><span class="btn btn-primary btn-sm"><?php echo _('Cancel');?></span></a>
 				</div>
 			{{Form::close()}}
 		</div>

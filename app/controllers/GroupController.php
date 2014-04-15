@@ -138,7 +138,7 @@ class GroupController extends \BaseController {
 	{
 		$groups = Sentry::findAllGroups();
 		$current_group = Sentry::findGroupById($id);
-		$resources = Resource::all();
+		$resources = Resource::orderBy('name', 'asc')->get();
 		return View::make('group.permission')
 			->with(array('resources'=>$resources, 'current_group'=>$current_group, 'groups'=>$groups));
 	}

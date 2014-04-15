@@ -3,6 +3,7 @@ class Product extends BaseStore
 {
 	
 	protected $table = 'products';
+	protected $softDelete = true;
 
 	public function __construct()
 	{

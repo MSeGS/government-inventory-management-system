@@ -10,12 +10,17 @@ class StockController extends \BaseController {
 	public function index()
 	{
 		$stocks = Stock::with('product')->orderBy('id', 'desc')->paginate();
-		$products = Product::orderBy('name', 'asc')
+		$products = array( '' => _('Select Product'));
+		$categories = array( '' => _('Select Category'));
+		$products = $products + Product::orderBy('name', 'asc')
 			->get()->lists('name','id');
+		$categories = $categories + Category::orderBy('category_name', 'asc')
+			->get()->lists('category_name','id');
 		
 		return View::make('stock.index')
 			->with(array(
 				'stocks' => $stocks,	
+				'categories' => $categories,	
 				'products' => $products));	
 	}
 
@@ -51,6 +56,7 @@ class StockController extends \BaseController {
 		else{
 				$stock = new Stock;
 				$stock->product_id 	= Input::get('product_name');
+				$stock->category_id 	= Input::get('product_name');
 				$stock->note 		= Input::get('note');
 				$stock->quantity	= Input::get('quantity');
 				$stock->save();

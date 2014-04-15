@@ -3,6 +3,7 @@ class Stock extends BaseStore
 {
 	
 	protected $table = 'stocks';
+	protected $softDelete = true;
 
 
 	public function __construct()
@@ -14,6 +15,11 @@ class Stock extends BaseStore
 	{
 		$product = $this->belongsTo('Product');
 		return $product;
+	}
+
+	public function category()
+	{
+		return $this->belongsTo('Category');
 	}
 
 }

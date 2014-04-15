@@ -48,7 +48,7 @@
 </div>
 
 <div class="col-md-4">
-	{{Form::model($categoryById, array('url'=>'/category/'. $categoryById->id, 'method'=>'put', 'class'=>'form-vertical'))}}				
+	{{Form::model($categoryById, array('url'=>route('category.update', $categoryById->id), 'method'=>'put', 'class'=>'form-vertical'))}}				
 	<div class="panel panel-default">
 		<div class="panel-heading text-center">
 			<h5>Edit Category</h5>

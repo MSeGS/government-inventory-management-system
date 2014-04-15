@@ -9,6 +9,11 @@
 			{{Session::get('delete')}}
 		</div>
 		@endif
+		@if(Session::has('message'))
+		<div class="alert alert-success">
+			{{Session::get('message')}}
+		</div>
+		@endif
 
 		<div class="col-md-12">
 			<div class="row">
@@ -29,7 +34,7 @@
 						</div>
 					</div>
 					<div class="col-md-2 pull-right text-right">
-						<a href="{{route('product.create')}}" class="btn btn-primary btn-sm">Add New Product</a>
+						<a href="{{route('product.create')}}" class="btn btn-primary btn-sm"><?php echo _('Add New Product') ?></a>
 					</div>
 				{{Form::close()}}
 			</div>
