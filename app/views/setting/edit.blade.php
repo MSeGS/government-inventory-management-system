@@ -12,8 +12,8 @@
 			<thead>
 				<tr>
 					<th class="col-md-1">#</th>
-					<th class="col-md-3"><?php echo _("SETTING NAME") ?></th>
-					<th class="col-md-3"><?php echo _("SETTING VALUE") ?></th>
+					<th class="col-md-3"><?php echo _("Setting Name") ?></th>
+					<th class="col-md-3"><?php echo _("Setting Value") ?></th>
 					<th class="col-md-1"></th>
 				</tr>
 			</thead>
@@ -44,7 +44,7 @@
 
 <div class="col-md-4">
 	<div class="panel panel-default">
-		<div class="panel-heading"><h5 class="text-center"><?php echo _("EDIT SETTING"); ?></h5></div>
+		<div class="panel-heading"><h5 class="text-center"><?php echo _("Edit Setting"); ?></h5></div>
 		<div class="panel-body">
 			@if(Session::has('message'))
 				<div class="alert alert-success">
