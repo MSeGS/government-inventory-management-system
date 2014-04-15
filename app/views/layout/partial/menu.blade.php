@@ -38,19 +38,19 @@
         <li {{Request::path() == 'department'?'class="active"':''}}><a href="{{url('/department')}}">Department</a></li>
         @endif
 
-        @if($user->hasAccess('settings.index') && !$user->isSuperUser())
+        @if($user->hasAccess('setting.index') && !$user->isSuperUser())
         <li {{Request::path() == 'setting'?'class="active"':''}}><a href="{{url('/setting')}}">Settings</a></li>
         @endif
         
-        @if($user->hasAccess('categories.index') && !$user->isSuperUser())
+        @if($user->hasAccess('category.index') && !$user->isSuperUser())
         <li {{Request::path() == 'category'?'class="active"':''}}><a href="{{url('/category')}}">Categories</a></li>
         @endif
         
-        @if($user->hasAccess('products.index') && !$user->isSuperUser())
+        @if($user->hasAccess('product.index') && !$user->isSuperUser())
         <li {{Request::path() == 'product'?'class="active"':''}}><a href="{{url('/product')}}">Products</a></li>
         @endif
         
-        @if($user->hasAccess('stocks.index') && !$user->isSuperUser())
+        @if($user->hasAccess('stock.index') && !$user->isSuperUser())
         <li {{Request::path() == 'stock'?'class="active"':''}}><a href="{{url('/stock')}}">Stocks</a></li>
         @endif
 
