@@ -4,6 +4,11 @@
 @section('content')
 
 	<div class="col-md-8">
+		@if(Session::has('delete'))
+		<div class="alert alert-danger">
+		{{Session::get('delete')}}	
+		</div>
+		@endif
 		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
@@ -42,13 +47,12 @@
 	<div class="panel panel-default">
 		<div class="panel-heading"><h5 class="text-center"><?php echo _("NEW OPTION") ?></h5></div>
 		{{Form::open(array('url'=>'option', 'method'=>'post', 'class'=>'form-vertical'))}}
-
+		<div class="panel-body">
 			@if(Session::has('message'))
 				<div class="alert alert-success">
 					{{Session::get('message')}}	
 				</div>
 			@endif
-		<div class="panel-body">
 
 			<div class="form-group">
 				<?php echo Form::label('option_key', _('Option Key'), array('class'=>'control-label')) ?>
