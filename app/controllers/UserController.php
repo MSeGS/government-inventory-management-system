@@ -227,12 +227,17 @@ class UserController extends \BaseController {
 			$user->permissions = $group_permissions;
 			$user->save();
 
+			$user_groups = $user->getGroups();
+			// Remove group from user
+			foreach ($user_groups as $user_group)
+				$user->removeGroup($user_group);
+
 			// Assign the group to the user
 		    $user->addGroup($group);
 		    // We assign every user to public group by default.
 		    $user->addGroup($public_group);
-
-			return Redirect::to('user')->with('message', _('User created successfully.'));
+		    
+			return Redirect::to('user')->with('message', _('User updated successfully.'));
 		}
 	}
 

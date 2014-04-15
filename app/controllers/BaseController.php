@@ -32,7 +32,7 @@ class BaseController extends Controller {
 		else
 			$domain = Cookie::get('lang');
 		
-		setlocale( LC_MESSAGES, 'en_IN');
+		setlocale( LC_ALL, 'en_IN');
 		bindtextdomain($domain, app_path('lang/locale'));
 		textdomain($domain);
 	}

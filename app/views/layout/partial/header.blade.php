@@ -7,7 +7,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 	
-	<title>Indent Requisition System</title>
+	<title>{{Option::getData('site_title')}}</title>
 
 	<!-- Bootstrap CSS -->
 	<link href="{{ asset('templates/default/lib/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
