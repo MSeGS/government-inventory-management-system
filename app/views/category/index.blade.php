@@ -4,40 +4,40 @@
 
 <div class="col-md-7">
 	<div class="row">
-			@if(Session::has('delete'))
-			<div class="alert alert-danger">
-				{{Session::get('delete')}}
-			</div>
-			@endif
-			
-			<table class="table table-striped table-bordered">
-				<thead>
-					<tr>
-						<th class="col-md-1">#</th>
-						<th>Category Name</th>
-						<th class="col-md-2"></th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php $i=0; ?>
-					@foreach ($categories as $category)
-					<tr>
-						<td>
-							{{++$i}}
-						</td>
-						<td>
-							{{$category->category_name}}
-						</td>
-						<td>
-							{{Form::open(array('url'=>route('category.destroy', array($category->id)), 'method'=>'delete'))}}
-							<a href="{{route('category.edit', array($category->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Category Name"><i class="fa fa-pencil"></i></a>
-							<button type="submit" onclick="return confirm('Are you sure');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Category" value="{{$category->id}}"><i class="fa fa-times"></i></a>
-							{{Form::close()}}
-						</td>
-					</tr>
-					@endforeach
-				</tbody>
-			</table>
+		@if(Session::has('delete'))
+		<div class="alert alert-danger">
+			{{Session::get('delete')}}
+		</div>
+		@endif
+		
+		<table class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th class="col-md-1">#</th>
+					<th>Category Name</th>
+					<th class="col-md-2"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php $i=0; ?>
+				@foreach ($categories as $category)
+				<tr>
+					<td>
+						{{++$i}}
+					</td>
+					<td>
+						{{$category->category_name}}
+					</td>
+					<td>
+						{{Form::open(array('url'=>route('category.destroy', array($category->id)), 'method'=>'delete'))}}
+						<a href="{{route('category.edit', array($category->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Category Name"><i class="fa fa-pencil"></i></a>
+						<button type="submit" onclick="return confirm('Are you sure');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Category" value="{{$category->id}}"><i class="fa fa-times"></i></a>
+						{{Form::close()}}
+					</td>
+				</tr>
+				@endforeach
+			</tbody>
+		</table>
 	</div>
 </div>
 

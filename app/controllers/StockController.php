@@ -7,6 +7,12 @@ class StockController extends \BaseController {
 	 *
 	 * @return Response
 	 */
+	
+	public function __construct()
+	{
+		$this->beforeFilter('sentry');
+	}
+
 	public function index()
 	{
 		$stocks = Stock::with('product')->orderBy('id', 'desc')->paginate();

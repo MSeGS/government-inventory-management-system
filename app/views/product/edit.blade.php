@@ -23,9 +23,9 @@
 			</thead>
 			<tbody>
 				<?php $i=0 ?>
-				@foreach($products as $product)
+				@foreach($products as $key=>$product)
 				<tr {{($productById->id == $product->id)?'class="success"':''}}>
-					<td>{{++$i}}</td>
+					<td>{{($products->getPerPage() * ($products->getCurrentPage()-1) ) + (++$key) }} </td>
 					<td>{{$product->name}}</td>
 					<td>{{$product->category->category_name}}</td>
 					<td>{{$product->reserved_amount}}</td>
@@ -33,7 +33,7 @@
 					<td>
 						{{Form::open(array('url'=>route('product.destroy'), 'method'=>'delete'))}}
 							@if($productById->id == $product->id)
-							<a href="{{route('product.edit', array($product->id))}}" class="btn btn-xs btn-success tooltip-top disabled" title="Edit product Name"><i class="fa fa-pencil"></i></a>
+							<a href="{{route('product.edit', array($product->id,'page='.$products->getCurrentPage()))}}" class="btn btn-xs btn-success tooltip-top disabled" title="Edit product Name"><i class="fa fa-pencil"></i></a>
 							@else
 							<a href="{{route('product.edit', array($product->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Product Name"><i class="fa fa-pencil"></i></a>
 							@endif

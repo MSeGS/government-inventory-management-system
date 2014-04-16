@@ -37,7 +37,7 @@
 			</tbody>
 		</table>
 	</div>
-	{{$stocks->links}}	
+	{{$stocks->links()}}	
 </div>
 
 <div class="col-md-4">

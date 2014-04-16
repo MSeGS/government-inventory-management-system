@@ -7,15 +7,35 @@ class ProductController extends \BaseController {
 	 *
 	 * @return Response
 	 */
+	public function __construct()
+	{
+		$this->beforeFilter('sentry');
+	}
+
 	public function index()
 	{
-		$products = Product::orderBy('name', 'asc')->paginate(30);
-		$categories = array('' => _('Select Category'));
+		$filter = array(
+			'name' 			=> Input::get('name'),
+			'category_id'	=> Input::get('category')
+			);
+		
+		$products = Product::where(function($query){
+			if(Input::get('name', null))
+				$query->where('name', 'LIKE', '%' . Input::get('name') . '%');
+			
+			if(Input::get('category', null))
+				$query->where('category_id', 'LIKE', '%' . Input::get('category') . '%');
+		})
+		->orderBy('name', 'asc')
+		->paginate();	
+
+		$categories = array();
 		$categories = $categories + Category::orderBy('category_name', 'asc')->get()->lists('category_name', 'id');
 		return View::make('product.index')	
 			->with(array(
-				'products' => $products,
-				'categories' => $categories
+				'products' 		=> $products,
+				'categories' 	=> $categories,
+				'filter'		=> $filter
 				));
 	}
 
@@ -95,7 +115,7 @@ class ProductController extends \BaseController {
 	public function edit($id)
 	{
 		$productById = Product::find($id);
-		$products    = Product::with('category')->orderBy('name', 'asc')->paginate(20);
+		$products    = Product::with('category')->orderBy('name', 'asc')->paginate(4);
 		return View::make('product.edit')
 			->with(array('productById'=> $productById, 'products' => $products));
 		

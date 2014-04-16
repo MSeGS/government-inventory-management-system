@@ -20,13 +20,13 @@
 				{{Form::open(array('url'=>route('product.index'),'method'=>'get','class'=>'form-vertical'))}}
 					<div class="col-md-2">
 						<div class="form-group">
-							{{Form::select('category', array('0'=>'All Category'), 'null', array('class' =>'dropdown input-sm form-control'))}}
+							{{Form::select('category', array('0'=>'All Categories')+ $categories, $filter['category_id'], array('class' =>'dropdown input-sm form-control'))}}
 						</div>
 					</div>
 					<div class="col-md-3">
 						<div class="form-group">
 							<div class="input-group">
-								{{Form::text('username', '', array('class'=>'form-control','placeholder'=>'Search User'))}}
+								{{Form::text('name', $filter['name'], array('class'=>'form-control','placeholder'=>'Search Product'))}}
 			      				<span class="input-group-btn">
 			        				<button class="btn btn-default" name="search" value="Search" type="submit"> <i class="glyphicon glyphicon-search"></i> </button>
 			      				</span>
@@ -55,10 +55,10 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php $i=0 ?>
-					@foreach($products as $product)
+					<?php $i=1; ?>
+					@foreach($products as $key=>$product)
 					<tr>
-						<td>{{++$i}} </td>
+						<td>{{( $products->getPerPage() * ($products->getCurrentPage()-1) ) + (++$key) }} </td>
 						<td>{{$product->name}}</td>
 						<td>{{$product->category->category_name}}</td>
 						<td>{{$product->description}}</td>
