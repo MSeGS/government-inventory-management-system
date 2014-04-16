@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"init",
+				"initDropdown"
+			],
+			[
 				"array_ke",
 				"array_key_exists"
 			],
@@ -60,66 +64,74 @@
 	"buffers":
 	[
 		{
-			"file": "app/views/group/edit.blade.php",
+			"file": "app/controllers/UserController.php",
 			"settings":
 			{
-				"buffer_size": 2529,
+				"buffer_size": 7093,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/views/group/index.blade.php",
+			"file": "app/views/layout/partial/header.blade.php",
 			"settings":
 			{
-				"buffer_size": 2260,
+				"buffer_size": 1839,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/views/department/edit.blade.php",
+			"file": "app/views/layout/partial/menu.blade.php",
 			"settings":
 			{
-				"buffer_size": 3278,
+				"buffer_size": 3298,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/views/department/index.blade.php",
+			"file": "app/views/product/create.blade.php",
 			"settings":
 			{
-				"buffer_size": 2839,
+				"buffer_size": 4126,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/views/auth/login.blade.php",
+			"file": "app/controllers/ProductController.php",
 			"settings":
 			{
-				"buffer_size": 1569,
+				"buffer_size": 3396,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/routes.php",
+			"contents": "<?php\n\nclass ProductController extends \\BaseController {\n\n	/**\n	 * Display a listing of the resource.\n	 *\n	 * @return Response\n	 */\n	public function index()\n	{\n		$products = Product::orderBy('name', 'asc')->paginate(30);\n		$categories = array('' => _('Select Category'));\n		$categories = $categories + Category::orderBy('category_name', 'asc')->get()->lists('category_name', 'id');\n		return View::make('product.index')\n			->with(array(\n				'products' => $products,\n				'categories' => $categories\n				));\n	}\n\n	/**\n	 * Show the form for creating a new resource.\n	 *\n	 * @return Response\n	 */\n	public function create()\n	{\n		$categories = Category::orderBy('category_name', 'asc')->get()->lists('category_name', 'id');\n		return View::make('product.create')\n			->with(array(\n				'categories' => $categories\n				));\n	}\n\n	/**\n	 * Store a newly created resource in storage.\n	 *\n	 * @return Response\n	 */\n	public function store()\n	{\n		$rules = array();\n		$items = array();\n		foreach(Input::get('name') as $k=>$v) {\n			$items[] = $k;\n			if($k != 0) {\n				$rules['name.' . $k ] = 'required';\n				$rules['reserved_amount.' . $k ] = 'required';\n			}\n		}\n\n		$validator = Validator::make(Input::all(), $rules);\n\n		if($validator->fails()){\n			return Redirect::to('product/create')\n				->withErrors($validator)\n				->withInput(Input::all())\n				->with('items', $items);\n			}\n\n		else{\n			foreach(Input::get('name') as $key => $value) {\n				if($key != 0) {\n					$products = new Product;\n					$products->category_id = Input::get('category.' . $key);\n					$products->name = $value;\n					$products->description = Input::get('description.' . $key);\n					$products->reserved_amount = Input::get('reserved_amount.' . $key);\n					$products->save();\n				}\n			}\n\n			return Redirect::to('product')\n				->with('message', _('New product added successfully'));\n		}\n	}\n\n	/**\n	 * Display the specified resource.\n	 *\n	 * @param  int  $id\n	 * @return Response\n	 */\n	public function show($id)\n	{\n	}\n\n	/**\n	 * Show the form for editing the specified resource.\n	 *\n	 * @param  int  $id\n	 * @return Response\n	 */\n	public function edit($id)\n	{\n		$productById = Product::find($id);\n		$products    = Product::with('category')->orderBy('name', 'asc')->paginate(20);\n		return View::make('product.edit')\n			->with(array('productById'=> $productById, 'products' => $products));\n		\n	}\n\n	/**\n	 * Update the specified resource in storage.\n	 *\n	 * @param  int  $id\n	 * @return Response\n	 */\n	public function update($id)\n	{\n		$rules = array(\n			'name' => 'required',\n			'reserved_amount' => 'required'\n			);\n\n		$validator = Validator::make(Input::all(), $rules);\n\n		if($validator->fails()){\n			return Redirect::to('/product/'. $id. '/edit')\n				->withErrors($validator)\n				->withInput(Input::all());\n		}\n\n		else{\n			$product					= Product::find($id);\n			$product->name				= Input::get('name');\n			$product->description 		= Input::get('description');\n			$product->reserved_amount 	= Input::get('reserved_amount');\n 			$product->save();\n\n			Session::flash('message', 'Successfully edited');\n			return Redirect::to('/product');\n\n		}\n	}\n\n	/**\n	 * Remove the specified resource from storage.\n	 *\n	 * @param  int  $id\n	 * @return Response\n	 */\n	public function destroy($id)\n	{\n		Product::destroy($id);\n		Stock::where('product_id','=', $id)->destroy();\n		Session::flash('delete', 'Product deleted');\n		return Redirect::to('product');\n	}\n\n}",
 			"settings":
 			{
-				"buffer_size": 2160,
+				"buffer_size": 3382,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/controllers/BaseController.php",
+			"file": "public/templates/default/js/script.js",
 			"settings":
 			{
-				"buffer_size": 687,
+				"buffer_size": 802,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/views/layout/partial/language.blade.php",
+			"file": "app/views/group/permission.blade.php",
 			"settings":
 			{
-				"buffer_size": 1327,
+				"buffer_size": 3493,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/controllers/ResourceController.php",
+			"settings":
+			{
+				"buffer_size": 2530,
 				"line_ending": "Unix"
 			}
 		},
@@ -128,62 +140,6 @@
 			"settings":
 			{
 				"buffer_size": 2429,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/views/damage/index.blade.php",
-			"settings":
-			{
-				"buffer_size": 1674,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/models/Store.php",
-			"settings":
-			{
-				"buffer_size": 4932,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/views/damage/create.blade.php",
-			"settings":
-			{
-				"buffer_size": 1883,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/views/product/edit.blade.php",
-			"settings":
-			{
-				"buffer_size": 3555,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/controllers/ProductController.php",
-			"settings":
-			{
-				"buffer_size": 3175,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/models/Product.php",
-			"settings":
-			{
-				"buffer_size": 380,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/views/user/edit.blade.php",
-			"settings":
-			{
-				"buffer_size": 8180,
 				"line_ending": "Unix"
 			}
 		}
@@ -215,27 +171,39 @@
 	},
 	"file_history":
 	[
+		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/database/seeds/OptionTableSeeder.php",
+		"/Users/alanpachuau/Sites/gov/gomindent.dev/public/templates/default/css/style.css",
+		"/Users/alanpachuau/Sites/gov/gomindent.dev/public/templates/default/js/script.js",
+		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/controllers/BaseController.php",
+		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/views/user/edit.blade.php",
+		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/models/Product.php",
+		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/controllers/ProductController.php",
+		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/views/product/edit.blade.php",
+		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/views/damage/create.blade.php",
+		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/models/Store.php",
+		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/views/damage/index.blade.php",
+		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/controllers/DamageController.php",
+		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/views/layout/partial/language.blade.php",
+		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/views/group/edit.blade.php",
+		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/views/group/index.blade.php",
+		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/views/department/edit.blade.php",
+		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/views/department/index.blade.php",
+		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/views/auth/login.blade.php",
+		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/routes.php",
 		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/views/category/edit.blade.php",
 		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/views/category/index.blade.php",
 		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/views/product/create.blade.php",
 		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/views/product/index.blade.php",
 		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/views/user/index.blade.php",
 		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/controllers/UserController.php",
-		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/controllers/BaseController.php",
-		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/routes.php",
 		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/views/group/permission.blade.php",
 		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/views/layout/partial/menu.blade.php",
 		"/Users/alanpachuau/Sites/gov/eplan.mizoram.gov.in/application/configs/application.ini",
 		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/views/resource/index.blade.php",
 		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/controllers/GroupController.php",
-		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/views/group/edit.blade.php",
-		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/views/group/index.blade.php",
 		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/views/resource/edit.blade.php",
 		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/controllers/HomeController.php",
-		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/views/auth/login.blade.php",
 		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/views/home/admin.blade.php",
-		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/models/Product.php",
-		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/models/Store.php",
 		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/lang/en/pagination.php",
 		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/views/hello.php",
 		"/Users/alanpachuau/Sites/gov/gomindent.dev/app/views/hello.blade.php",
@@ -330,19 +298,7 @@
 		"/C/xampp/htdocs/vhosts/sadindent/app/database/migrations/2014_02_25_111345_create_options_table.php",
 		"/C/xampp/htdocs/vhosts/sadindent/app/database/migrations/2014_02_25_105846_create_indent_requirements_table.php.bak",
 		"/C/xampp/htdocs/vhosts/sadindent/app/database/migrations/2014_02_25_110624_create_notifications_table.php.bak",
-		"/C/xampp/htdocs/vhosts/sadindent/app/database/migrations/2014_02_25_111724_create_products_table.php.bak",
-		"/C/xampp/htdocs/vhosts/sadindent/app/database/migrations/2014_02_25_112441_create_categories_table.php.bak",
-		"/C/xampp/htdocs/vhosts/sadindent/app/database/migrations/2014_02_25_112821_create_damages_table.php.bak",
-		"/C/xampp/htdocs/vhosts/sadindent/app/database/migrations/2014_02_25_113655_create_stocks_table.php.bak",
-		"/C/xampp/htdocs/vhosts/sadindent/app/database/migrations/2014_02_25_114309_create_stores_table.php",
-		"/C/xampp/htdocs/vhosts/sadindent/app/database/migrations/2014_02_25_102909_create_indents_table.php",
-		"/C/xampp/htdocs/vhosts/sadindent/app/models/Product.php",
-		"/C/xampp/htdocs/vhosts/sadindent/app/controllers/UserController.php",
-		"/C/xampp/htdocs/vhosts/sadindent/app/models/User.php",
-		"/C/xampp/htdocs/vhosts/sadindent/app/database/migrations/2014_02_25_095324_create_department_table.php",
-		"/C/xampp/htdocs/vhosts/sadindent/app/views/hello.php",
-		"/C/xampp/htdocs/php/test.php",
-		"/C/xampp/htdocs/php/array.php"
+		"/C/xampp/htdocs/vhosts/sadindent/app/database/migrations/2014_02_25_111724_create_products_table.php.bak"
 	],
 	"find":
 	{
@@ -361,6 +317,21 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"name",
+			"$rows",
+			"> ",
+			"sm",
+			"row = '",
+			"h3",
+			"h2",
+			"</td>",
+			"{{",
+			"th",
+			"md",
+			"md-",
+			"<div class=\"col-md-3\">",
+			"form-group",
+			"<li",
 			"groupby",
 			"'data-toggle' => \"tooltip\"",
 			"button",
@@ -484,29 +455,202 @@
 	"groups":
 	[
 		{
-			"selected": 5,
+			"selected": 3,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "app/views/group/edit.blade.php",
+					"file": "app/controllers/UserController.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2529,
+						"buffer_size": 7093,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1988,
-								1988
+								2477,
+								2477
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 50.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/views/layout/partial/header.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1839,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								291,
+								291
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 25.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/views/layout/partial/menu.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3298,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1977,
+								1977
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 370.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/views/product/create.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4126,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								66,
+								66
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "app/controllers/ProductController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3396,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								811,
+								811
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 235.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3382,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								622,
+								810
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 244.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "public/templates/default/js/script.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 802,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								29,
+								29
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
@@ -517,20 +661,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "app/views/group/index.blade.php",
+					"buffer": 7,
+					"file": "app/views/group/permission.blade.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2260,
+						"buffer_size": 3493,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2187,
-								2187
+								2887,
+								2887
 							]
 						],
 						"settings":
@@ -539,187 +683,43 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 390.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "app/views/department/edit.blade.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3278,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								879,
-								879
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 505.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "app/views/department/index.blade.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2839,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								594,
-								594
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 168.0,
-						"translation.y": 14.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "app/views/auth/login.blade.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1569,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								163,
-								152
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "app/routes.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2160,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								808,
-								808
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 105.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "app/controllers/BaseController.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 687,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								501,
-								501
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 846.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
-					"file": "app/views/layout/partial/language.blade.php",
+					"buffer": 8,
+					"file": "app/controllers/ResourceController.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1327,
+						"buffer_size": 2530,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								578,
-								578
+								59,
+								129
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"word_wrap": true
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 9,
 					"file": "app/controllers/DamageController.php",
 					"semi_transient": false,
 					"settings":
@@ -731,8 +731,8 @@
 						"selection":
 						[
 							[
-								1684,
-								1684
+								1009,
+								1009
 							]
 						],
 						"settings":
@@ -741,214 +741,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 396.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "app/views/damage/index.blade.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1674,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1060,
-								1060
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 100.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "app/models/Store.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4932,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3286,
-								3286
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1635.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 12,
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "app/views/damage/create.blade.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1883,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1210,
-								1210
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 41.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 11,
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"file": "app/views/product/edit.blade.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3555,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1781,
-								1781
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false,
-							"word_wrap": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 643.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 13,
-					"type": "text"
-				},
-				{
-					"buffer": 13,
-					"file": "app/controllers/ProductController.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3175,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								701,
-								701
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 107.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 14,
-					"file": "app/models/Product.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 380,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								300,
-								300
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 14,
-					"type": "text"
-				},
-				{
-					"buffer": 15,
-					"file": "app/views/user/edit.blade.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8180,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2945,
-								3068
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 869.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 15,
+					"stack_index": 7,
 					"type": "text"
 				}
 			]

@@ -12,7 +12,7 @@ class ProductController extends \BaseController {
 		$products = Product::orderBy('name', 'asc')->paginate(30);
 		$categories = array('' => _('Select Category'));
 		$categories = $categories + Category::orderBy('category_name', 'asc')->get()->lists('category_name', 'id');
-		return View::make('product.index')
+		return View::make('product.index')	
 			->with(array(
 				'products' => $products,
 				'categories' => $categories
@@ -26,8 +26,7 @@ class ProductController extends \BaseController {
 	 */
 	public function create()
 	{
-		$categories = array('' => _('Select Category'));
-		$categories = $categories + Category::orderBy('category_name', 'asc')->get()->lists('category_name', 'id');
+		$categories = Category::orderBy('category_name', 'asc')->get()->lists('category_name', 'id');
 		return View::make('product.create')
 			->with(array(
 				'categories' => $categories
@@ -41,27 +40,36 @@ class ProductController extends \BaseController {
 	 */
 	public function store()
 	{
-		$rules = array(
-				'category' 					=> 'required',
-				'name' 						=> 'required',
-				'reserved_amount'			=> 'required|integer'
-			);
+		$rules = array();
+		$items = array();
+		foreach(Input::get('name') as $k=>$v) {
+			$items[] = $k;
+			if($k != 0) {
+				$rules['name.' . $k ] = 'required';
+				$rules['reserved_amount.' . $k ] = 'required';
+			}
+		}
 
 		$validator = Validator::make(Input::all(), $rules);
 
 		if($validator->fails()){
 			return Redirect::to('product/create')
 				->withErrors($validator)
-				->withInput(Input::all());
+				->withInput(Input::all())
+				->with('items', $items);
 			}
 
 		else{
-			$products 					= new Product;
-			$products->category_id 		= Input::get('category');
-			$products->name 			= Input::get('name');
-			$products->description 		= Input::get('description');
-			$products->reserved_amount	= Input::get('reserved_amount');
-			$products->save();
+			foreach(Input::get('name') as $key => $value) {
+				if($key != 0) {
+					$products = new Product;
+					$products->category_id = Input::get('category.' . $key);
+					$products->name = $value;
+					$products->description = Input::get('description.' . $key);
+					$products->reserved_amount = Input::get('reserved_amount.' . $key);
+					$products->save();
+				}
+			}
 
 			return Redirect::to('product')
 				->with('message', _('New product added successfully'));

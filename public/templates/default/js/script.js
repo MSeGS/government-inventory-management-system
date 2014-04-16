@@ -11,14 +11,10 @@ $(document).ready(function(){
 
 	initTooltips();
 
-	var $selects = $('select.dropdown');
-						
-	$selects.easyDropDown({
-		cutOff: 10,
-		wrapperClass: 'easydropdown',
-		onChange: function(selected){
-			// do something
-		}
+	initDropdown();
+	
+	$('#checkAll').click(function () {    
+	    $('input.checkall:checkbox').prop('checked', this.checked);    
 	});
 });
 
@@ -30,6 +26,13 @@ function initTooltips()
 	$('.tooltip-right').tooltip({'placement':'right'});
 }
 
-$('#checkAll').click(function () {    
-     $('input:checkbox').prop('checked', this.checked);    
- });
+function initDropdown () {
+	var $selects = $('select.dropdown');
+	$selects.easyDropDown({
+		cutOff: 10,
+		wrapperClass: 'easydropdown',
+		onChange: function(selected){
+			// do something
+		}
+	});
+}
