@@ -35,7 +35,6 @@
 			</tbody>
 		</table>
 	</div>
-
 	{{$resources->links()}}
 </div>
 <div class="col-md-4">

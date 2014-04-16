@@ -36,7 +36,8 @@
 				@endforeach
 			</tbody>
 		</table>
-	</div>	
+	</div>
+	{{$stocks->links}}	
 </div>
 
 <div class="col-md-4">

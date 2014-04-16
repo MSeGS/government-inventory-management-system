@@ -38,6 +38,7 @@
 					</div>
 				{{Form::close()}}
 			</div>
+				{{$products->links()}}
 		</div>
 
 		<div class="col-md-12">

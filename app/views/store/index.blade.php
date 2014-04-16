@@ -31,16 +31,12 @@
 					</td>
 				</tr>
 				@endforeach
-
 				@else
-
 				<tr><td colspan="4" class="text-center text-danger"><em>{{_("Right now, we don't have store to display. Create store on the right side.")}}</em></td></tr>
-
 				@endif
 			</tbody>
 		</table>
 	</div>
-
 	{{$stores->links()}}
 </div>
 <div class="col-md-4">

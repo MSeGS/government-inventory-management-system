@@ -43,7 +43,8 @@ class StockController extends \BaseController {
 	{
 		$rules = array(
 			'product_name'		=> 'required',
-			'quantity'			=> 'required'
+			'category_name'		=> 'required',
+			'quantity'			=> 'required|integer|min:0'
 			);
 
 		$validator = Validator::make(Input::all(), $rules);
@@ -110,7 +111,7 @@ class StockController extends \BaseController {
 		$rules = array(
 			'product_name' => 'required',
 			'category_name' => 'required',
-			'quantity' => 'required'
+			'quantity' => 'required|integer|min:0'
 			);
 
 		$validator = Validator::make(Input::all(), $rules);
@@ -123,8 +124,8 @@ class StockController extends \BaseController {
 
 		else{
 			$stock						= Stock::find($id);
-			$stock->product_id 			= Input::get('product_name');
 			$stock->category_id			= Input::get('category_name');
+			$stock->product_id 			= Input::get('product_name');
 			$stock->note 				= Input::get('note');
 			$stock->quantity 			= Input::get('quantity');
 			$stock->save();
