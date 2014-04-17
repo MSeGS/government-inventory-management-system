@@ -32,6 +32,7 @@ Route::resource('user', 'UserController');
 Route::get('group/{id}/permission', array('before'=>'sentry', 'uses'=>'GroupController@permission', 'as'=>'group.permission'));
 Route::put('group/{id}/permission', array('before'=>'sentry', 'uses'=>'GroupController@updatePermission', 'as'=>'group.updatePermission'));
 
+Route::get('damage/trash', array('before'=>'sentry', 'uses'=>'DamageController@trash', 'as'=>'damage.trash'));
 
 Route::resource('group', 'GroupController');
 Route::resource('resource', 'ResourceController');

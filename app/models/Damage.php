@@ -3,6 +3,7 @@ class Damage extends BaseStore
 {
 	
 	protected $table = 'damages';
+	protected $softDelete = true;
 	
 
 	public function __construct()

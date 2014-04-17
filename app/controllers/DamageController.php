@@ -1,15 +1,29 @@
 <?php
 
 class DamageController extends \BaseController {
+	public function __construct()
+	{
+		$this->beforeFilter('sentry');
+	}
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
 	public function index()
 	{
-		$damages = Damage::with('product')->orderBy('id', 'asc')->paginate();
+		$product = new Product;
+		$damage = new Damage;
+		$damages = Damage::join($product->getTable(), $damage->getTable().'.product_id', '=', $product->getTable().'.id')
+			->where(function($query){
+				$search = Input::get('prodsearch');
+				$product = new Product;
+				if( strlen($search) > 0 )
+					$query->where($product->getTable().'.name', 'LIKE', '%' . $search . '%');
+
+				if(Input::get('category', null))
+					$query->where('category_id', '=', Input::get('category'));
+			})
+			->select(array($damage->getTable().".*", $product->getTable().'.name'))
+			->orderBy($damage->getTable().'.id', 'asc')
+			->paginate();
+
 		$categories = category::orderBy('id','asc')
 			->get()
 			->lists('category_name','id');
@@ -24,7 +38,46 @@ class DamageController extends \BaseController {
 			->with(array(
 				'damages'=> $damages,
 				'productSelect'=> $productSelect,
-				'categorySelect'=> $categorySelect
+				'categorySelect'=> $categorySelect,
+				'categories'=> $categories
+				));
+	}
+
+	public function trash()
+	{
+		$product = new Product;
+		$damage = new Damage;
+		$damages = Damage::onlyTrashed()->join($product->getTable(), $damage->getTable().'.product_id', '=', $product->getTable().'.id')
+			->where(function($query){
+				$search = Input::get('prodsearch');
+				$product = new Product;
+				if( strlen($search) > 0 )
+					$query->where($product->getTable().'.name', 'LIKE', '%' . $search . '%');
+
+				if(Input::get('category', null))
+					$query->where('category_id', '=', Input::get('category'));
+			})
+			->select(array($damage->getTable().".*", $product->getTable().'.name'))
+			->orderBy($damage->getTable().'.id', 'asc')
+			->paginate();
+
+		$categories = category::orderBy('id','asc')
+			->get()
+			->lists('category_name','id');
+		$categorySelect = array(''=>'Select Category',$categories);
+
+		$products = Product::orderBy('id', 'asc')
+			->get()
+			->lists('name','id');
+		$productSelect = array(''=>'Select Product Name', $products);
+
+		return View::make('damage.trash')
+			->with(array(
+				
+				'damages'=> $damages,
+				'productSelect'=> $productSelect,
+				'categorySelect'=> $categorySelect,
+				'categories'=> $categories
 				));
 	}
 
@@ -57,8 +110,11 @@ class DamageController extends \BaseController {
 	 * @return Response
 	 */
 	public function store()
-	{
+	{ 
+		
+		$user = Sentry::getUser();
 		$damage = new Damage;
+		$damage->user_id = $user->id; 
 		$damage->product_id = Input::get('product');
 		$damage->quantity =	Input::get('quantity');
 		$damage->note = Input::get('note');
@@ -89,7 +145,26 @@ class DamageController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		
+		$product = new Product;
+		$damage = new Damage;
+		$current_damage = Damage::find($id);
+		$damages = Damage::join($product->getTable(), $damage->getTable().'.product_id', '=', $product->getTable().'.id')
+			->select(array($damage->getTable().".*", $product->getTable().'.name'))
+			->orderBy($damage->getTable().'.id', 'asc')
+			->paginate();
+
+		$products = Product::orderBy('id', 'asc')
+			->get()
+			->lists('name','id');
+		$productSelect = array(''=>'Select Product Name', $products);
+		
+		return View::make('damage.edit')
+			->with(array(
+				'damages'=> $damages,
+				'productSelect'=> $productSelect,
+				'current_damage'=>$current_damage
+				));
 	}
 
 	/**
@@ -100,7 +175,14 @@ class DamageController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$damage	= Damage::find($id);
+		$damage->quantity =	Input::get('quantity');
+		$damage->note = Input::get('note');
+		$damage->reported_at = date('Y-m-d H:i:s', strtotime(Input::get('reported_at')));
+		$damage->save();
+
+		return Redirect::to('damage')
+			->with('message', _('Product Damage Report Updated Successfully'));
 	}
 
 	/**
@@ -117,4 +199,5 @@ class DamageController extends \BaseController {
 		return Redirect::to('damage');
 	}
 
+	
 }

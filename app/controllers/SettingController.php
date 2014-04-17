@@ -95,7 +95,7 @@ class SettingController extends \BaseController {
 	{
 
 		$currentSetting = Setting::find($id);
-		$settings = Setting::orderBy('option_key', 'asc')->paginate(25);
+		$settings = Setting::orderBy('option_key', 'asc')->paginate();
 		return View::make('setting.edit')
 			->with(array('settings'=> $settings, 'currentSetting' => $currentSetting));
 	}
@@ -136,7 +136,10 @@ class SettingController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		setting::destroy($id);
+
+		$option = new Option;
+		$option::find($id);
+		$option->delete();
 
 		Session::flash('delete', '<strong>Setting Deleted</strong>');
 		return Redirect::to('setting');

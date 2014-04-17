@@ -29,10 +29,6 @@
 						</div>
 					</div>
 					
-					<div class="col-md-4 pull-right text-right">
-						<a href="{{route('damage.trash')}}" class="btn btn-primary btn-sm" >Trash</a>
-						<a href="{{route('damage.create')}}" class="btn btn-primary btn-sm">Add New Product</a>
-					</div>
 				{{Form::close()}}
 			</div>
 		</div>
@@ -47,7 +43,7 @@
 						<th class="col-md-1"><?php echo _("Quantity") ?></th>
 						<th class="col-md-2"><?php echo _("Report Date") ?></th>
 						<th class="col-md-2"><?php echo _("Status") ?></th>
-						<th class="col-md-1"></th>
+						<th class="col-md-2"></th>
 					</tr>
 				</thead>
 				<tbody>
