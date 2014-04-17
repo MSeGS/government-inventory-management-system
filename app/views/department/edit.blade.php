@@ -10,9 +10,9 @@
 		{{Form::open(array('url'=>route('department.index'),'method'=>'get','class'=>'form-vertical'))}}
 				<div class="form-group">
 					<div class="input-group">
-						{{Form::text('username', '', array('class'=>'form-control','placeholder'=>'Search Department'))}}
+						{{Form::text('username', '', array('class'=>'input-sm form-control','placeholder'=>'Search Department'))}}
 	      				<span class="input-group-btn">
-	        				<button class="btn btn-default" name="search" value="Search" type="submit"> <i class="glyphicon glyphicon-search"></i> </button>
+	        				<button class="input-sm btn btn-default" name="search" value="Search" type="submit"> <i class="glyphicon glyphicon-search"></i> </button>
 	      				</span>
 		    		</div>
 				</div>

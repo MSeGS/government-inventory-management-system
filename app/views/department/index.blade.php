@@ -12,9 +12,9 @@
 				<div class="form-group">
 					<div class="input-group">
 						<?php if(isset($_GET['deptsearch'])) { $deptsearch=$_GET['deptsearch'];} else { $deptsearch='';} ?>
-						<?php echo Form::text('deptsearch',$deptsearch, array('class'=>'form-control','placeholder'=>_('Search Department')));?>
+						<?php echo Form::text('deptsearch',$deptsearch, array('class'=>'input-sm form-control','placeholder'=>_('Search Department')));?>
 	      				<span class="input-group-btn">
-	        				<button class="btn btn-default" name="search" value="Search" type="submit"> <i class="glyphicon glyphicon-search"></i> </button>
+	        				<button class="input-sm btn btn-default" name="search" value="Search" type="submit"> <i class="glyphicon glyphicon-search"></i> </button>
 	      				</span>
 		    		</div>
 				</div>
