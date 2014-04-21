@@ -2,6 +2,28 @@
 
 @section('content')
 
+<div class="col-md-12">
+	<div class="row">
+		{{Form::open(array('url'=>route('product.edit', $productById->id),'method'=>'get','class'=>'form-vertical'))}}
+			<div class="col-md-2">
+				<div class="form-group">
+					{{Form::select('category', array('0'=>'All Categories')+ $categories, $filter['category_id'], array('class' =>'dropdown input-sm form-control'))}}
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<div class="input-group">
+						{{Form::text('name', $filter['name'], array('class'=>'form-control input-sm','placeholder'=>'Search Product'))}}
+	      				<span class="input-group-btn">
+	        				<button class="btn btn-default btn-sm" name="search" value="Search" type="submit"> <i class="glyphicon glyphicon-search"></i> </button>
+	      				</span>
+		    		</div>
+				</div>
+			</div>
+		{{Form::close()}}
+	</div>
+</div>
+
 <div class="col-md-8" >
 	<div class="row">
 		@if(Session::has('delete'))
@@ -25,17 +47,17 @@
 				<?php $i=0 ?>
 				@foreach($products as $key=>$product)
 				<tr {{($productById->id == $product->id)?'class="success"':''}}>
-					<td>{{($products->getPerPage() * ($products->getCurrentPage()-1) ) + (++$key) }} </td>
+					<td>{{$index+$key}}</td>
 					<td>{{$product->name}}</td>
 					<td>{{$product->category->category_name}}</td>
 					<td>{{$product->reserved_amount}}</td>
 					<td>{{$product->stock($product->id)}}</td>
 					<td>
-						{{Form::open(array('url'=>route('product.destroy'), 'method'=>'delete'))}}
+						{{Form::open(array('url'=>route('product.destroy', array($product->id, $products->getCurrentPage())), 'method'=>'delete'))}}
 							@if($productById->id == $product->id)
-							<a href="{{route('product.edit', array($product->id,'page='.$products->getCurrentPage()))}}" class="btn btn-xs btn-success tooltip-top disabled" title="Edit product Name"><i class="fa fa-pencil"></i></a>
+							<a href="{{route('product.edit', array($product->id))}}" class="btn btn-xs btn-success tooltip-top disabled" title="Edit product Name"><i class="fa fa-pencil"></i></a>
 							@else
-							<a href="{{route('product.edit', array($product->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Product Name"><i class="fa fa-pencil"></i></a>
+							<a href="{{route('product.edit', array($product->id,'page='.$products->getCurrentPage()))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Product Name"><i class="fa fa-pencil"></i></a>
 							@endif
 							<button type="submit" onclick="return confirm('Are you sure');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Product" value="{{$product->id}}"><i class="fa fa-times"></i></button>
 						{{Form::close()}}
@@ -44,7 +66,7 @@
 				@endforeach
 			</tbody>
 		</table>
-		{{$products->links()}}
+		{{$products->appends(array('category'=>$category,'name'=>$name,'search'=>'Search'))->links()}}
 	</div>
 </div>
 
@@ -55,7 +77,7 @@
 			<h5 class="text-center">Edit Product</h5>
 		</div>
 		<div class="panel-body">
-			{{Form::model($productById, array('url'=>route('product.update', $productById->id), 'method'=>'put', 'class'=>'form-vertical'))}}
+			{{Form::model($productById, array('url'=>route('product.update', array($productById->id)), 'method'=>'put', 'class'=>'form-vertical'))}}
 				
 				@if(Session::has('message'))
 				<div class="alert alert-success">

@@ -20,7 +20,7 @@
 					<td>{{$resource->name}}</td>
 					<td>{{$resource->route}}</td>
 					<td>
-						{{Form::open(array('url'=>'resource/'.$resource->id, 'method'=>'delete'))}}
+						{{Form::open(array('url'=>route('resource.destroy',$resource->id), 'method'=>'delete'))}}
 						<?php if($resource->id == $resourceById->id){ ?>
 							<a href="{{route('resource.edit', array($resource->id))}}" class="btn btn-xs btn-success tooltip-top disabled" title="Edit Resource"><i class="fa fa-pencil"></i></a>
 						<?php } else { ?>

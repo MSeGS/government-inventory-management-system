@@ -40,8 +40,8 @@
 <div class="col-md-4">
 	<div class="panel panel-default">
 		<div class="panel-heading"><h5 class="text-center">NEW RESOURCE</h5></div>
-			{{Form::open(array('url'=>'resource', 'method'=>'post', 'class'=>'form-vertical'))}}
 		<div class="panel-body">
+			{{Form::open(array('url'=>'resource', 'method'=>'post', 'class'=>'form-vertical'))}}
 			@if(Session::has('message'))
 				<div class="alert alert-success">
 					{{Session::get('message')}}	

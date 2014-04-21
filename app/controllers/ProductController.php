@@ -30,12 +30,18 @@ class ProductController extends \BaseController {
 		->paginate();	
 
 		$categories = array();
+		$index = $products->getPerPage() * ($products->getCurrentPage()-1) + 1;
+
 		$categories = $categories + Category::orderBy('category_name', 'asc')->get()->lists('category_name', 'id');
 		return View::make('product.index')	
 			->with(array(
 				'products' 		=> $products,
 				'categories' 	=> $categories,
-				'filter'		=> $filter
+				'filter'		=> $filter,
+				'index'			=> $index,
+				'current_page'	=> $products->getCurrentPage(),
+				'category'		=> Input::get('category',null),
+				'name'			=> Input::get('name',null),
 				));
 	}
 
@@ -114,10 +120,35 @@ class ProductController extends \BaseController {
 	 */
 	public function edit($id)
 	{
+		$filter = array(
+			'name' 			=> Input::get('name'),
+			'category_id'	=> Input::get('category')
+			);
+		
+		$products = Product::where(function($query){
+			if(Input::get('name', null))
+				$query->where('name', 'LIKE', '%' . Input::get('name') . '%');
+			
+			if(Input::get('category', null))
+				$query->where('category_id', 'LIKE', '%' . Input::get('category') . '%');
+		})
+		->orderBy('name', 'asc')
+		->paginate();
+
+		$categories = array();
+		$categories = $categories + Category::orderBy('category_name', 'asc')->get()->lists('category_name', 'id');
 		$productById = Product::find($id);
-		$products    = Product::with('category')->orderBy('name', 'asc')->paginate(4);
+		$index = $products->getPerPage() * ($products->getCurrentPage()-1) + 1;
 		return View::make('product.edit')
-			->with(array('productById'=> $productById, 'products' => $products));
+			->with(array(	'productById'	=> $productById,
+							'products' 		=> $products,
+							'index'			=> $index,
+							'current_page'  => $products->getCurrentPage(),
+							'filter'		=> $filter,
+							'categories'	=> $categories,
+							'category'		=> Input::get('category',null),
+							'name'			=> Input::get('name',null),
+		));
 		
 	}
 

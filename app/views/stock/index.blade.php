@@ -18,10 +18,9 @@
 				<th></th>
 			</thead>
 			<tbody>
-				<?php $i=0 ?>
-				@foreach($stocks as $stock)
+				@foreach($stocks as $key=>$stock)
 				<tr>
-					<td>{{++$i}}</td>
+					<td>{{$index+$key}}</td>
 					<td>{{$stock->category->category_name}}</td>
 					<td>{{$stock->product->name}} </td>
 					<td>{{$stock->note}} </td>

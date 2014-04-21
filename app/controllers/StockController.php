@@ -15,19 +15,22 @@ class StockController extends \BaseController {
 
 	public function index()
 	{
-		$stocks = Stock::with('product')->orderBy('id', 'desc')->paginate();
+		$stocks = Stock::with('product')->orderBy('id', 'desc')->paginate(1);
 		$products = array( '' => _('Select Product'));
 		$products = $products + Product::orderBy('name', 'asc')
 			->get()->lists('name','id');
 		$categories = array( '' => _('Select Category'));
 		$categories = $categories + Category::orderBy('category_name', 'asc')
 			->get()->lists('category_name','id');
+		$index = $stocks->getPerPage() * ($stocks->getCurrentPage()-1) + 1;
+
 		
 		return View::make('stock.index')
 			->with(array(
-				'stocks' => $stocks,	
-				'categories' => $categories,	
-				'products' => $products));	
+				'stocks' 	=> $stocks,	
+				'categories'=> $categories,	
+				'products' 	=> $products,
+				'index'		=> $index));	
 	}
 
 	/**
@@ -68,7 +71,7 @@ class StockController extends \BaseController {
 				$stock->quantity		= Input::get('quantity');
 				$stock->save();
 
-				return Redirect::route('stock.index')->with('message', 'Store created successfully');
+				return Redirect::route('stock.index')->with('message', 'Stock created successfully');
 		}
 	}
 
@@ -97,12 +100,14 @@ class StockController extends \BaseController {
 			->get()->lists('name', 'id');
 		$categories = Category::orderBy('category_name', 'asc')
 			->get()->lists('category_name','id');
+		$index = $stocks->getPerPage() * ($stocks->getCurrentPage()-1) + 1;
 		return View::make('stock.edit')
 			->with(array(
 				'stocks' => $stocks,
 				'products' => $products,
 				'categories'=> $categories,
-				'stockById' => $stockById
+				'stockById' => $stockById,
+				'index'		=> $index
 				));	
 	}
 
