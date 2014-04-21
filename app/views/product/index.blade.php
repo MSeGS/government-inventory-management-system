@@ -50,6 +50,7 @@
 						<th class="col-md-3"><?php echo _('Description') ?></th>
 						<th class="col-md-1"><?php echo _('Reserved'); ?></th>
 						<th class="col-md-1"><?php echo _('Stock'); ?></th>
+						<th class="col-md-1"><?php echo _('Damage'); ?></th>
 						<th class="col-md-1"></th>
 					</tr>
 				</thead>
@@ -62,6 +63,7 @@
 						<td>{{$product->description}}</td>
 						<td>{{$product->reserved_amount}}</td>
 						<td>{{Product::stock($product->id)}}</td>
+						<td>{{Product::damage($product->id)}}</td>
 						<td>
 							{{Form::open(array('url'=>route('product.destroy', array($product->id, $products->getCurrentPage())), 'method'=>'delete'))}}
 							<a href="{{route('product.edit', array($product->id, 'page'=>$current_page))}}" class="btn btn-xs btn-success tooltip-top" title="Edit product Name"><i class="fa fa-pencil"></i></a>

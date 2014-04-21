@@ -16,6 +16,14 @@ class Product extends BaseStore
 		return $stock?$stock:0;
 	}
 
+	public static function damage($product_id)
+	{
+		$damage = Damage::where('product_id', '=', $product_id)
+			->where('status', '=', 'approved')
+			->pluck(DB::raw('SUM(`quantity`)'));
+		return $damage?$damage:0;
+	}
+
 	public function category()
 	{
 		return $this->belongsTo('Category');

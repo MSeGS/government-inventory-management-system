@@ -40,9 +40,10 @@ CREATE TABLE IF NOT EXISTS `store1_categories` (
 --
 
 INSERT INTO `store1_categories` (`id`, `category_name`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Stationery', '2014-04-16 04:34:13', '2014-04-16 04:34:13', NULL),
-(2, 'Furniture', '2014-04-16 06:00:58', '2014-04-16 06:00:58', NULL),
-(3, 'Electrical Goods', '2014-04-16 06:15:01', '2014-04-16 06:15:01', NULL);
+(1, 'Uncategorized', '2014-04-16 04:34:13', '2014-04-16 04:34:13', NULL),
+(2, 'Stationery', '2014-04-16 04:34:13', '2014-04-16 04:34:13', NULL),
+(3, 'Furniture', '2014-04-16 06:00:58', '2014-04-16 06:00:58', NULL),
+(4, 'Electrical Goods', '2014-04-16 06:15:01', '2014-04-16 06:15:01', NULL);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
