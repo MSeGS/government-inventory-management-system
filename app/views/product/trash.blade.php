@@ -1,5 +1,4 @@
 @extends('layout.main')
-
 @section('content')
 
 <div class="col-md-12">
@@ -17,7 +16,7 @@
 
 		<div class="col-md-12">
 			<div class="row">
-				{{Form::open(array('url'=>route('product.index'),'method'=>'get','class'=>'form-vertical'))}}
+				{{Form::open(array('url'=>route('product.trash'),'method'=>'get','class'=>'form-vertical'))}}
 					<div class="col-md-2">
 						<div class="form-group">
 							{{Form::select('category', array('0'=>'All Categories')+ $categories, $filter['category_id'], array('class' =>'dropdown input-sm form-control'))}}
@@ -34,8 +33,7 @@
 						</div>
 					</div>
 					<div class="col-md-4 pull-right text-right">
-						<a href="{{route('product.create')}}" class="btn btn-primary btn-sm"><?php echo _('Add New Product') ?></a>
-						<a href="{{route('product.trash')}}" class="btn btn-primary btn-sm" >Trash</a>
+						<a href="{{route('product.index')}}" class="btn btn-primary btn-sm">Back</a>
 					</div>
 				{{Form::close()}}
 			</div>
@@ -66,10 +64,19 @@
 						<td>{{Product::stock($product->id)}}</td>
 						<td>{{Product::damage($product->id)}}</td>
 						<td>
-							{{Form::open(array('url'=>route('product.destroy', array($product->id, $products->getCurrentPage())), 'method'=>'delete'))}}
-							<a href="{{route('product.edit', array($product->id, 'page'=>$current_page))}}" class="btn btn-xs btn-success tooltip-top" title="Edit product Name"><i class="fa fa-pencil"></i></a>
-							<button type="submit" onclick="return confirm('Are you sure to put it in trash?');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove product" value="{{$product->id}}"><i class="fa fa-times"></i></button>
-							{{Form::close()}}
+								<div class="form-inline pull-right text-right">
+									{{Form::open(array('url'=>route('product.restore', array($product->id, $products->getCurrentPage())), 'method'=>'put'))}}
+								
+									<button type="submit" onclick="return confirm('Are you sure you want to restore?');" name="id" class="btn btn-xs btn-success tooltip-top" title="Restore product" value="{{$product->id}}"><i class="fa fa-check"></i></button>
+								{{Form::close()}}
+							</div>
+
+								{{Form::open(array('url'=>route('product.delete', array($product->id, $products->getCurrentPage())), 'method'=>'delete'))}}
+									
+									<button type="submit" onclick="return confirm('Are you sure you want to permanently delete the product?');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Delete Permanently" value="{{$product->id}}"><i class="fa fa-times"></i></button>
+								{{Form::close()}}
+								</div>
+							</div>
 						</td>
 					</tr>
 					@endforeach

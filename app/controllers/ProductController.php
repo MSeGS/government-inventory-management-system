@@ -18,6 +18,14 @@ class ProductController extends \BaseController {
 			'name' 			=> Input::get('name'),
 			'category_id'	=> Input::get('category')
 			);
+
+		if(Request::ajax()) { 
+			$products = Product::where('category_id', '=', $filter['category_id']) 
+				->orderBy('name', 'asc') 
+				->select('id', 'category_id', 'name') 
+				->get(); 
+			return Response::json($products); 
+		}
 		
 		$products = Product::where(function($query){
 			if(Input::get('name', null))
@@ -196,8 +204,63 @@ class ProductController extends \BaseController {
 	{
 		Product::destroy($id);
 		Stock::where('product_id','=', $id)->delete();
-		Session::flash('delete', 'Product deleted');
+		Session::flash('delete', 'Product trashed');
 		return Redirect::to('product');
 	}
+
+	public function trash()
+	{
+		$filter = array(
+			'name' 			=> Input::get('name'),
+			'category_id'	=> Input::get('category')
+			);
+		
+		$products = Product::onlyTrashed()->where(function($query){
+			if(Input::get('name', null))
+				$query->where('name', 'LIKE', '%' . Input::get('name') . '%');
+			
+			if(Input::get('category', null))
+				$query->where('category_id', 'LIKE', '%' . Input::get('category') . '%');
+		})
+		->orderBy('name', 'asc')
+		->paginate();
+
+		$categories = array();
+		$index = $products->getPerPage() * ($products->getCurrentPage()-1) + 1;
+
+		$categories = $categories + Category::orderBy('category_name', 'asc')->get()->lists('category_name', 'id');
+		return View::make('product.trash')	
+			->with(array(
+				'products' 		=> $products,
+				'categories' 	=> $categories,
+				'filter'		=> $filter,
+				'index'			=> $index,
+				'current_page'	=> $products->getCurrentPage(),
+				'category'		=> Input::get('category',null),
+				'name'			=> Input::get('name',null),
+				));	
+	}
+
+	public function restore($id){
+		$product = Product::onlyTrashed()->find($id);
+		$product -> restore();
+
+		Stock::where('product_id','=', $id)->restore();
+
+		return Redirect::to('product/trash')
+			->with('message', 'Product Restored');
+	}
+
+	public function delete($id){
+		$product = Product::withTrashed()->find($id);
+		$product -> forceDelete($id);
+
+		Stock::where('product_id','=', $id)->forceDelete();
+
+		return Redirect::to('product/trash')
+			->with('delete', 'Product Permanently Deleted');
+	}
+
+
 
 }
