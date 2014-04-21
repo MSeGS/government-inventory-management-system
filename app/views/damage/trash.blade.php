@@ -60,9 +60,9 @@
 						<td>{{date('dS F, Y h:iA', strtotime($damage->reported_at))}}</td>
 						<td>{{ucfirst($damage->status)}}</td>
 						<td>
-							{{Form::open(array('url'=>'damage/'.$damage->id, 'method'=>'delete'))}}
-							<a href="{{route('damage.edit', array($damage->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Damage"><i class="fa fa-pencil"></i></a>
-							<button type="submit" onclick="return confirm('Are you sure');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Damage" value="{{$damage->id}}"><i class="fa fa-times"></i></button>
+							{{Form::open(array('url'=>route('damage.delete', $damage->id), 'method'=>'delete'))}}
+							<a href="{{route('damage.restore', $damage->id)}}" class="btn btn-xs btn-success tooltip-top" title="Restore Damage"><i class="fa fa-chevron-circle-left"></i></a>
+							<button type="submit" onclick="return confirm('Are you sure');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Damage Permanently" value="{{$damage->id}}"><i class="fa fa-times"></i></button>
 							{{Form::close()}}
 						</td>
 					</tr>

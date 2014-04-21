@@ -195,9 +195,26 @@ class DamageController extends \BaseController {
 	{
 		Damage::destroy($id);
 
-		Session::flash('delete', 'Item Deleted');
+		Session::flash('delete', 'Item Moved to trash');
 		return Redirect::to('damage');
 	}
 
-	
+	public function restore($id)
+	{
+		$damage	= Damage::onlyTrashed()->find($id);
+		$damage->restore();
+
+		Session::flash('delete', 'Product Damage Report Restored');
+		return Redirect::to('damage');
+		
+	}
+
+	public function delete($id)
+	{
+		$damage	= Damage::withTrashed()->find($id);
+		$damage->forceDelete();
+
+		Session::flash('delete', 'Product Damage Report Remove Permanently');
+		return Redirect::to('damage');
+	}
 }
