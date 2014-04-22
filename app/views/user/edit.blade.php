@@ -90,6 +90,8 @@
 
 			{{Form::model($current_user, array('url'=>route('user.update', $current_user->id),'method'=>'put','class'=>'form-vertical'))}}
 				
+				<?php $current_login_user = Sentry::getUser(); ?>
+				@if($current_login_user->isSuperUser())
 				<div class="form-group">
 					{{Form::label('store', _('Store'), array('class'=>'control-label'))}}
 					
@@ -99,6 +101,9 @@
 					<p class="help-block"><span class="text-danger">{{$errors->first('store')}}</span></p>
 					@endif
 				</div>
+				@else
+				{{Form::hidden('store', $current_login_user->store_id)}}
+				@endif
 
 				<div class="form-group">
 					<?php

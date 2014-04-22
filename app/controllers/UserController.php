@@ -21,13 +21,17 @@ class UserController extends \BaseController {
 			'group' => Input::get('group')
 			);
 
-
 		$users = User::with('department', 'store', 'groups')->where(function($query){
 				if(Input::get('username', null))
 					$query->where('username', 'LIKE', '%' . Input::get('username') . '%');
 
 				if(Input::get('department', null))
 					$query->where('department_id', '=', Input::get('department'));
+
+				$user = Sentry::getUser();
+				if(!$user->isSuperUser()) {
+					$query->where('store_id', '=', $user->store_id);
+				}
 			})
 			->orderBy('username', 'asc')
 			->paginate(30);
@@ -40,7 +44,14 @@ class UserController extends \BaseController {
 			$stores[$s->id] = $s->department->name . ' (' . $s->store_code . ')';
 		}
 
-		$groups = array(''=>_('Select Group')) + Group::where('name', '<>', 'Public')->orderBy('name', 'asc')->lists('name', 'id');
+		$groups = array(''=>_('Select Group')) + Group::where('name', '<>', 'Public')
+			->where(function($query){
+				$user = Sentry::getUser();
+				if(!$user->isSuperUser()) {
+					$query->where('name', '<>', 'Super Administrator');
+				}
+			})
+			->orderBy('name', 'asc')->lists('name', 'id');
 
 		return View::make('user.index')
 			->with('departments', $departments)
@@ -157,6 +168,11 @@ class UserController extends \BaseController {
 
 				if(Input::get('department', null))
 					$query->where('department_id', '=', Input::get('department'));
+
+				$user = Sentry::getUser();
+				if(!$user->isSuperUser()) {
+					$query->where('store_id', '=', $user->store_id);
+				}
 			})
 			->orderBy('username', 'asc')
 			->paginate(30);
