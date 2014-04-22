@@ -22,7 +22,7 @@
 					<td>{{++$i}}</td>
 					<td>{{$group->name}}</td>
 					<td>
-						{{Form::open(array('url'=>route('group.delete'), 'method'=>'delete'))}}
+						{{Form::open(array('url'=>route('group.destroy'), 'method'=>'delete'))}}
 						<a href="{{route('group.edit', array($group->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Group Name"><i class="fa fa-pencil"></i></a>
 						@if($current_group->id== $group->id)
 						<a href="{{route('group.permission', array($group->id))}}" class="btn btn-xs btn-primary tooltip-top disabled" title="Manage Group Permissions"><i class="fa fa-cog"></i></a>
