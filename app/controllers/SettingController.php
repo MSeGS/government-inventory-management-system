@@ -146,7 +146,7 @@ class SettingController extends \BaseController {
 		$option::find($id);
 		$option->delete();
 
-		Session::flash('delete', _('<strong>Setting Deleted</strong>'));
+		Session::flash('delete', _('Setting Deleted'));
 		return Redirect::to('setting');
 	}
 
