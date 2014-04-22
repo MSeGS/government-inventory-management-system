@@ -59,6 +59,12 @@
 					@endif
 
 					{{Form::open(array('url'=>route('damage.update',array($current_damage->id)),'method'=>'put','class'=>'form-vertical'))}}
+
+						<div class="form-group">
+						<?php echo Form::label('product', _('Product Name'), array('class'=>'control-label')); ?>
+						<p class="form-control-static">{{$current_damage->product->name}}</p>
+						</div>
+
 						<div class="form-group">
 							<?php echo Form::label('reported_at', _('Report Date'), array('class'=>'control-label')) ?>
 							{{Form::text('reported_at', Input::old('reported_at', $current_damage->reported_at),  array('class'=>'datepicker input-sm form-control', 'placeholder'=>'Pick a date'))}}
