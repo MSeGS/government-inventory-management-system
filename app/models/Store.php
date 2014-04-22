@@ -109,6 +109,10 @@ class Store extends Eloquent
 				
 				$table->engine = 'InnoDb';
 			});
+
+			DB::table($store_prefix . 'categories') -> insert(array(
+				array('category_name' => 'Uncategorized', 'created_at'=>DB::raw('NOW()'), 'updated_at' => DB::raw('NOW()'))
+			));
 		}
 
 		// Create damages table

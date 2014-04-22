@@ -19,9 +19,9 @@
 			<div class="col-md-4" >
 				<div class="form-group">
 					<div class="input-group">
-						<?php echo Form::text('username', $filter['username'], array('class'=>'form-control','placeholder'=>_('Search User')));?>
+						<?php echo Form::text('username', $filter['username'], array('class'=>'input-sm form-control','placeholder'=>_('Search User')));?>
 	      				<span class="input-group-btn">
-	        				<button class="btn btn-default" name="search" value="<?php echo _('Search'); ?>" type="submit"> <i class="glyphicon glyphicon-search"></i> </button>
+	        				<button class="btn btn-sm btn-default" name="search" value="<?php echo _('Search'); ?>" type="submit"> <i class="glyphicon glyphicon-search"></i> </button>
 	      				</span>
 		    		</div>
 				</div>

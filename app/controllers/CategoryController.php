@@ -138,7 +138,7 @@ class CategoryController extends \BaseController {
 		// Assign all products and stocks to Uncategorized category.
 		Stock::where('category_id','=',$id)->update(array('category_id'=>1));
 		Product::where('category_id','=',$id)->update(array('category_id'=>1));
-		Category::destroy($id);
+		Category::forceDelete($id);
 		
 		return Redirect::route('category.index')
 			->with('delete', _('Category deleted and category products moved to Uncategorized.'));
