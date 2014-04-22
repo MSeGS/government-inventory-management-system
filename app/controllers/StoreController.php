@@ -68,7 +68,7 @@ class StoreController extends \BaseController {
 
 		$store->prepareDbTables($store->id);
 
-		return Redirect::route('store.index')->with('message', 'Store created successfully');
+		return Redirect::route('store.index')->with('message', _('Store created successfully'));
 	}
 
 	/**
@@ -137,7 +137,7 @@ class StoreController extends \BaseController {
 
 		$store->prepareDbTables($store->id);
 
-		return Redirect::route('store.edit', $id)->with('message', '<i class="fa fa-check"></i> Store updated successfully');
+		return Redirect::route('store.edit', $id)->with('message', '<i class="fa fa-check"></i> ' . _('Store updated successfully'));
 	}
 
 	/**
@@ -150,8 +150,8 @@ class StoreController extends \BaseController {
 	{
 		Resource::destroy($id);
 
-		Session::flash('message', 'Resource Deleted');
-		return Redirect::to('resource');
+		return Redirect::route('resource.index')
+			->with('message', _('Resource deleted'));
 	}
 
 }

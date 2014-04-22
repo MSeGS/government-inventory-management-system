@@ -13,21 +13,21 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group">
-					{{Form::select('department', array_merge(array('0'=>'All Departments'), $departments), $filter['department'], array('class' =>'dropdown input-sm form-control'))}}
+					<?php echo Form::select('department', array_merge(array('0'=>_('All Departments')), $departments), $filter['department'], array('class' =>'dropdown input-sm form-control'));?>
 				</div>
 			</div>
 
 			<div class="col-md-4 ">
 				<div class="form-group">
-					{{Form::select('group', array_merge(array('0'=>'All Groups'), $groups), 'null', array('class' =>'dropdown input-sm form-control'))}}
+					<?php echo Form::select('group', array_merge(array('0'=>_('All Groups')), $groups), 'null', array('class' =>'dropdown input-sm form-control'));?>
 				</div>
 			</div>
 			<div class="col-md-4" >
 				<div class="form-group">
 					<div class="input-group">
-						{{Form::text('username', $filter['username'], array('class'=>'form-control','placeholder'=>'Search User'))}}
+						<?php echo Form::text('username', $filter['username'], array('class'=>'form-control','placeholder'=>_('Search User')));?>
 	      				<span class="input-group-btn">
-	        				<button class="btn btn-default" name="search" value="Search" type="submit"> <i class="glyphicon glyphicon-search"></i> </button>
+	        				<button class="btn btn-default" name="search" value="<?php echo _('Search'); ?>" type="submit"> <i class="glyphicon glyphicon-search"></i> </button>
 	      				</span>
 		    		</div>
 				</div>
@@ -67,8 +67,8 @@
 						<td>{{$user_groups}}</td>
 						<td>
 							{{Form::open(array('url'=>route('user.destroy', $user->id), 'method'=>'delete'))}}
-							<a href="{{route('user.edit', $user->id)}}" class="btn btn-xs btn-success tooltip-top" title="Edit User"><i class="fa fa-pencil"></i></a>
-							<button type="submit" onclick="return confirm('Are you sure?');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove User" value="{{$user->id}}"><i class="fa fa-times"></i></a>
+							<a href="{{route('user.edit', $user->id)}}" class="btn btn-xs btn-success tooltip-top" title="<?php echo _('Edit User'); ?>"><i class="fa fa-pencil"></i></a>
+							<button type="submit" onclick="return confirm('<?php echo _('Are you sure?'); ?>');" name="id" class="btn btn-xs btn-danger tooltip-top" title="<?php echo _('Remove User'); ?>" value="{{$user->id}}"><i class="fa fa-times"></i></a>
 							{{Form::close()}}
 						</td>
 					</tr>
@@ -92,7 +92,7 @@
 			{{Form::open(array('url'=>route('user.index'),'method'=>'post','class'=>'form-vertical'))}}
 				
 				<div class="form-group">
-					{{Form::label('store', _('Store'), array('class'=>'control-label'))}}
+					<?php echo Form::label('store', _('Store'), array('class'=>'control-label'));?>
 					
 					{{Form::select('store', $stores, Input::old('store'), array('class' =>'dropdown input-sm form-control'))}}
 					
@@ -102,7 +102,7 @@
 				</div>
 
 				<div class="form-group">
-					{{Form::Label('group', _('Group'), array('class'=>'control-label'))}}
+					<?php echo Form::Label('group', _('Group'), array('class'=>'control-label'));?>
 					{{Form::select('group', $groups, Input::old('group'), array('class' =>'dropdown input-sm form-control'))}}
 					
 					@if($errors->has('group'))
@@ -111,7 +111,7 @@
 				</div>
 
 				<div class="form-group">
-					{{Form::label('dept', _('Department'),  array('class'=>'control-label'))}}
+					<?php echo Form::label('dept', _('Department'),  array('class'=>'control-label'));?>
 					{{Form::select('department', $departments, 'null', array('class' =>'dropdown input-sm form-control'))}}
 					
 					@if($errors->has('department'))
@@ -120,7 +120,7 @@
 				</div>
 
 				<div class="form-group">
-					{{Form::label('full_name', _('Full Name'), array('class'=>'control-label'))}}
+					<?php echo Form::label('full_name', _('Full Name'), array('class'=>'control-label'));?>
 					{{Form::text('full_name', '',  array('class'=>'input-sm form-control'))}}
 
 					@if($errors->has('full_name'))
@@ -129,7 +129,7 @@
 				</div>
 
 				<div class="form-group">
-					{{Form::label('username', _('Username'), array('class'=>'control-label'))}}
+					<?php echo Form::label('username', _('Username'), array('class'=>'control-label'));?>
 					{{Form::text('username', '', array('class'=>'input-sm form-control'))}}
 					
 					@if($errors->has('username'))
@@ -138,7 +138,7 @@
 				</div>
 
 				<div class="form-group">
-					{{Form::label('password', _('Password'), array('class'=>'control-label'))}}
+					<?php echo Form::label('password', _('Password'), array('class'=>'control-label'));?>
 					
 					{{Form::password('password', array('class'=>'input-sm form-control'))}}
 					@if($errors->has('password'))
@@ -147,7 +147,7 @@
 				</div>
 
 				<div class="form-group">
-					{{Form::label('email_id', _('Email Id'), array('class'=>'control-label'))}}
+					<?php echo Form::label('email_id', _('Email Id'), array('class'=>'control-label'));?>
 					
 					{{Form::text('email_id', '', array('class'=>'input-sm form-control'))}}
 					@if($errors->has('email_id'))
@@ -156,7 +156,7 @@
 				</div>
 
 				<div class="form-group">
-					{{Form::label('phone_no', _('Phone Number'), array('class'=>'control-label'))}}					
+					<?php echo Form::label('phone_no', _('Phone Number'), array('class'=>'control-label'));?>
 					{{Form::text('phone_no', '', array('class'=>'input-sm form-control'))}}
 
 					@if($errors->has('phone_no'))

@@ -40,7 +40,7 @@ class UserController extends \BaseController {
 			$stores[$s->id] = $s->department->name . ' (' . $s->store_code . ')';
 		}
 
-		$groups = array(''=>'Select Group') + Group::where('name', '<>', 'Public')->orderBy('name', 'asc')->lists('name', 'id');
+		$groups = array(''=>_('Select Group')) + Group::where('name', '<>', 'Public')->orderBy('name', 'asc')->lists('name', 'id');
 
 		return View::make('user.index')
 			->with('departments', $departments)
@@ -169,7 +169,7 @@ class UserController extends \BaseController {
 			$stores[$s->id] = $s->department->name . ' (' . $s->store_code . ')';
 		}
 
-		$groups = array(''=>'Select Group') + Group::where('name', '<>', 'Public')->orderBy('name', 'asc')->lists('name', 'id');
+		$groups = array(''=>_('Select Group')) + Group::where('name', '<>', 'Public')->orderBy('name', 'asc')->lists('name', 'id');
 
 		return View::make('user.edit')
 			->with('departments', $departments)
@@ -205,7 +205,7 @@ class UserController extends \BaseController {
 		$validator = Validator::make(Input::all(), $rules);
 
 		if ($validator -> fails()) {
-			return Redirect::to('user')
+			return Redirect::route('user.index')
 				->withErrors($validator)
 				->withInput(Input::all());
 		}
@@ -242,7 +242,7 @@ class UserController extends \BaseController {
 		    // We assign every user to public group by default.
 		    $user->addGroup($public_group);
 		    
-			return Redirect::to('user')->with('message', _('User updated successfully.'));
+			return Redirect::route('user.index')->with('message', _('User updated successfully.'));
 		}
 	}
 
