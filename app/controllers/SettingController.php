@@ -69,7 +69,7 @@ class SettingController extends \BaseController {
 			$setting->option_data = Input::get('option_data');
 			$setting->save();
 
-			Session::flash('message', 'Successfully added');
+			Session::flash('message', _('Successfully added'));
 			return Redirect::to('setting');
 		}
 	}
@@ -128,7 +128,7 @@ class SettingController extends \BaseController {
 			$setting->option_data =	Input::get('option_data');
 			$setting->save();
 
-			Session::flash('message', 'Successfully edited');
+			Session::flash('message', _('Successfully edited'));
 			return Redirect::to('setting');
 		}
 	}
@@ -146,7 +146,7 @@ class SettingController extends \BaseController {
 		$option::find($id);
 		$option->delete();
 
-		Session::flash('delete', '<strong>Setting Deleted</strong>');
+		Session::flash('delete', _('<strong>Setting Deleted</strong>'));
 		return Redirect::to('setting');
 	}
 

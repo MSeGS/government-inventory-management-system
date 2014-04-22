@@ -38,7 +38,7 @@
 							<?php } else { ?>
 								<a href="{{route('department.edit', array($department->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Resource"><i class="fa fa-pencil"></i></a>
 							<?php } ?>
-							<button type="submit" onclick="return confirm('Are you sure');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Resource" value="{{$department->id}}"><i class="fa fa-times"></i></a>
+							<button type="submit" onclick="return confirm('<?php echo _('Are you sure') ?>');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Resource" value="{{$department->id}}"><i class="fa fa-times"></i></a>
 							{{Form::close()}}
 						</td>
 					</tr>
@@ -57,8 +57,8 @@
 						{{Session::get('message')}}	
 					</div>
 					@endif
-					{{Form::model($departmentById, array('url'=>'department/'.$departmentById->id, 'method'=>'put', 'class'=>'form-vertical'))}}
-					
+					{{Form::model($departmentById,array('url'=>route('department.update', $departmentById->id),'method'=>'put','class'=>'form-vertical'))}}
+
 					<div class="form-group">
 						{{Form::label('name', _('Department Name'), array('class'=>'control-label'))}}
 						{{Form::text('name', $departmentById->name,  array('class'=>'input-sm form-control'))}}

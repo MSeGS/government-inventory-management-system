@@ -30,11 +30,11 @@
 							<td>
 								{{Form::open(array('url'=>route('damage.destroy'), 'method'=>'delete'))}}
 								@if($current_damage->id == $damage->id)
-								<a href="{{route('damage.edit', array($damage->id))}}" class="btn btn-xs btn-success tooltip-top disabled" title="Edit Damage Report"><i class="fa fa-pencil"></i></a>
+								<a href="{{route('damage.edit', array($damage->id))}}" class="btn btn-xs btn-success tooltip-top disabled" title="<?php echo _('Edit Damage Report') ?>"><i class="fa fa-pencil"></i></a>
 								@else
-								<a href="{{route('damage.edit', array($damage->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Damage Report"><i class="fa fa-pencil"></i></a>
+								<a href="{{route('damage.edit', array($damage->id))}}" class="btn btn-xs btn-success tooltip-top" title="<?php echo _('Edit Damage Report') ?>"><i class="fa fa-pencil"></i></a>
 								@endif
-								<button type="submit" onclick="return confirm('Are you sure');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Damage Item" value="{{$damage->id}}"><i class="fa fa-times"></i></button>
+								<button type="submit" onclick="return confirm <?php echo _('Are you sure') ?>;" name="id" class="btn btn-xs btn-danger tooltip-top" title="<?php echo _('Remove Damage Item') ?>" value="{{$damage->id}}"><i class="fa fa-times"></i></button>
 								{{Form::close()}}
 							</td>
 						</tr>

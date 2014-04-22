@@ -55,7 +55,7 @@ class OptionController extends \BaseController {
 			$option->option_data 	= 	Input::get('option_data');
 			$option->save();
 
-			Session::flash('message', 'Successfully added');
+			Session::flash('message', _('Successfully added'));
 			return Redirect::to('option');
 		}
 	}
@@ -112,7 +112,7 @@ class OptionController extends \BaseController {
 			$option->option_data 	= 	Input::get('option_data');
 			$option->save();
 
-			Session::flash('message', 'Successfully edited');
+			Session::flash('message', _('Successfully edited'));
 			return Redirect::to('option');
 		}
 	}
@@ -127,7 +127,7 @@ class OptionController extends \BaseController {
 	{
 		option::destroy($id);
 
-		Session::flash('message', 'Option Deleted');
+		Session::flash('message', _('Option Deleted'));
 		return Redirect::to('option');
 	}
 

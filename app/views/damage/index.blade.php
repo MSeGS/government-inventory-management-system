@@ -23,15 +23,15 @@
 								<?php if(isset($_GET['prodsearch'])) { $prodsearch=$_GET['prodsearch'];} else { $prodsearch='';} ?>
 								<?php echo Form::text('prodsearch',$prodsearch, array('class'=>'input-sm form-control','placeholder'=>_('Search Product')));?>
 			      				<span class="input-group-btn">
-			        				<button class="input-sm btn btn-default" name="search" value="Search" type="submit"> <i class="glyphicon glyphicon-search"></i> </button>
+			        				<button class="input-sm btn btn-default" name="search" value="Search" type=submit> <i class="glyphicon glyphicon-search"></i> </button>
 			      				</span>
 				    		</div>
 						</div>
 					</div>
 					
 					<div class="col-md-4 pull-right text-right">
-						<a href="{{route('damage.trash')}}" class="btn btn-primary btn-sm" >Trash</a>
-						<a href="{{route('damage.create')}}" class="btn btn-primary btn-sm">Add New Product</a>
+						<a href="{{route('damage.trash')}}" class="btn btn-primary btn-sm" ><?php echo _("Trash") ?></a>
+						<a href="{{route('damage.create')}}" class="btn btn-primary btn-sm"><?php echo _("Add New Product") ?></a>
 					</div>
 				{{Form::close()}}
 			</div>
@@ -66,8 +66,8 @@
 						<td>
 							{{Form::open(array('url'=>route('damage.destroy', array($damage->id)),'method'=>'delete'))}}
 
-							<a href="{{route('damage.edit', array($damage->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Damage"><i class="fa fa-pencil"></i></a>
-							<button type="submit" onclick="return confirm('Are you sure');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Damage" value="{{$damage->id}}"><i class="fa fa-times"></i></button>
+							<a href="{{route('damage.edit', array($damage->id))}}" class="btn btn-xs btn-success tooltip-top" title="<?php echo _('Edit Damage') ?>"><i class="fa fa-pencil"></i></a>
+							<button type="submit" onclick="return confirm <?php echo _('Are you sure') ?>);" name="id" class="btn btn-xs btn-danger tooltip-top" title="<?php echo _('Remove Damage') ?>" value="{{$damage->id}}"><i class="fa fa-times"></i></button>
 							{{Form::close()}}
 						</td>
 					</tr>

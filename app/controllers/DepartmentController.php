@@ -62,7 +62,7 @@ class DepartmentController extends \BaseController {
 			$department->name 	= 	Input::get('name');
 			$department->save();
 
-			Session::flash('message', 'Successfully added');
+			Session::flash('message', _('Successfully added'));
 			return Redirect::to('department');
 		}
 
@@ -125,7 +125,7 @@ class DepartmentController extends \BaseController {
 			$department->name 	= 	Input::get('name');
 			$department->save();
 
-			Session::flash('message', 'Successfully edited');
+			Session::flash('message', _('Successfully edited'));
 			return Redirect::to('department');
 		}
 	}
@@ -140,7 +140,7 @@ class DepartmentController extends \BaseController {
 	{
 		Department::destroy($id);
 
-		Session::flash('delete', 'Department Deleted');
+		Session::flash('delete', _('Department Deleted'));
 		return Redirect::to('department');
 	}
 

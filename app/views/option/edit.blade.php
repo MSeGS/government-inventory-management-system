@@ -24,11 +24,11 @@
 					{{Form::open(array('url'=>route('option.destroy', array($option->id)),'method'=>'delete'))}}
 
 					<?php if($option->id == $optionById->id){ ?>
-						<a href="{{route('option.edit', array($option->id))}}" class="btn btn-xs btn-success tooltip-top disabled" title="Edit option"><i class="fa fa-pencil"></i></a>
+						<a href="{{route('option.edit', array($option->id))}}" class="btn btn-xs btn-success tooltip-top disabled" title="<?php echo _('Edit option') ?>"> <i class="fa fa-pencil"></i></a>
 					<?php } else { ?>
-						<a href="{{route('option.edit', array($option->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit option"><i class="fa fa-pencil"></i></a>
+						<a href="{{route('option.edit', array($option->id))}}" class="btn btn-xs btn-success tooltip-top" title="<?php echo _('Edit option') ?>"><i class="fa fa-pencil"></i></a>
 					<?php } ?>
-					<button type="submit" onclick="return confirm('Are you sure');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove option" value="{{$option->id}}"><i class="fa fa-times"></i></a>
+					<button type="submit" onclick="return confirm('<?php echo _('Are you sure') ?>)';" name="id" class="btn btn-xs btn-danger tooltip-top" title="<?php echo _('Remove option')?>" value="{{$option->id}}"><i class="fa fa-times"></i></a>
 					{{Form::close()}}
 				</td>
 			</tr>
@@ -42,7 +42,7 @@
 	<div class="panel panel-default">
 		<div class="panel-heading"><h5 class="text-center"><?php echo _("EDIT OPTION") ?></h5></div>
 		<div class="panel-body">
-			{{Form::model($optionById, array('url'=>'option/'.$optionById->id, 'method'=>'put', 'class'=>'form-vertical'))}}
+			{{Form::model($optionById, array('url'=>route('option.update', $optionById->id), 'method'=>'put', 'class'=>'form-vertical'))}}
 
 			<div class="form-group">
 				<?php echo Form::label('option_key', _('Option Key'), array('class'=>'control-label'))?>

@@ -27,17 +27,12 @@ class DamageController extends \BaseController {
 		$categories = category::orderBy('id','asc')
 			->get()
 			->lists('category_name','id');
-		$categorySelect = array(''=>'Select Category',$categories);
+		$categorySelect = array(''=> _('Select Category') , $categories);
 
-		$products = Product::orderBy('id', 'asc')
-			->get()
-			->lists('name','id');
-		$productSelect = array(''=>'Select Product Name', $products);
 
 		return View::make('damage.index')
 			->with(array(
 				'damages'=> $damages,
-				'productSelect'=> $productSelect,
 				'categorySelect'=> $categorySelect,
 				'categories'=> $categories
 				));
@@ -64,18 +59,12 @@ class DamageController extends \BaseController {
 		$categories = category::orderBy('id','asc')
 			->get()
 			->lists('category_name','id');
-		$categorySelect = array(''=>'Select Category',$categories);
-
-		$products = Product::orderBy('id', 'asc')
-			->get()
-			->lists('name','id');
-		$productSelect = array(''=>'Select Product Name', $products);
+		$categorySelect = array(''=> _('Select Category') ,$categories);
 
 		return View::make('damage.trash')
 			->with(array(
 				
 				'damages'=> $damages,
-				'productSelect'=> $productSelect,
 				'categorySelect'=> $categorySelect,
 				'categories'=> $categories
 				));
@@ -102,17 +91,12 @@ class DamageController extends \BaseController {
 		$categories = category::orderBy('id','asc')
 			->get()
 			->lists('category_name','id');
-		$categorySelect = array(''=>'Select Category',$categories);
+		$categorySelect = array(''=> _('Select Category') ,$categories);
 
-		$products = Product::orderBy('id', 'asc')
-			->get()
-			->lists('name','id');
-		$productSelect = array(''=>'Select Product Name', $products);
 
 		return View::make('damage.manage')
 			->with(array(
 				'damages'=> $damages,
-				'productSelect'=> $productSelect,
 				'categorySelect'=> $categorySelect,
 				'categories'=> $categories
 				));
@@ -156,12 +140,12 @@ class DamageController extends \BaseController {
 		$categories = category::orderBy('id','asc')
 			->get()
 			->lists('category_name','id');
-		$categorySelect = array(''=>'Select Category') + $categories;
+		$categorySelect = array(''=> _('Select Category')) + $categories;
 
 		$products = Product::orderBy('id', 'asc')
 			->get()
 			->lists('name','id');
-		$productSelect = array(''=>'Select Product Name') + $products;
+		$productSelect = array(''=> _('Select Product Name')) + $products;
 
 		return View::make('damage.create')
 			->with(array(
@@ -222,7 +206,7 @@ class DamageController extends \BaseController {
 		$products = Product::orderBy('id', 'asc')
 			->get()
 			->lists('name','id');
-		$productSelect = array(''=>'Select Product Name', $products);
+		$productSelect = array(''=> _('Select Product Name') , $products);
 		
 		return View::make('damage.edit')
 			->with(array(
@@ -269,7 +253,7 @@ class DamageController extends \BaseController {
 		$damage	= Damage::onlyTrashed()->find($id);
 		$damage->restore();
 
-		Session::flash('delete', 'Product Damage Report Restored');
+		Session::flash('delete', _('Product Damage Report Restored'));
 		return Redirect::to('damage');
 		
 	}
@@ -279,7 +263,7 @@ class DamageController extends \BaseController {
 		$damage	= Damage::withTrashed()->find($id);
 		$damage->forceDelete();
 
-		Session::flash('delete', 'Product Damage Report Remove Permanently');
+		Session::flash('delete', _('Product Damage Report Remove Permanently'));
 		return Redirect::to('damage');
 	}
 }

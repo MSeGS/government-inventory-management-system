@@ -34,9 +34,10 @@
 						<td>{{++$i}}</td>
 						<td>{{$department->name}}</td>
 						<td>
-							{{Form::open(array('url'=>'department/'.$department->id, 'method'=>'delete'))}}
+							{{Form::open(array('url'=>route('department.destroy', array($department->id)),'method'=>'delete'))}}
+
 							<a href="{{route('department.edit', array($department->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Department"><i class="fa fa-pencil"></i></a>
-							<button type="submit" onclick="return confirm('Are you sure');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Department" value="{{$department->id}}"><i class="fa fa-times"></i></a>
+							<button type="submit" onclick="return confirm('<?php echo _('Are you sure') ?>');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Department" value="{{$department->id}}"><i class="fa fa-times"></i></a>
 							{{Form::close()}}
 						</td>
 					</tr>

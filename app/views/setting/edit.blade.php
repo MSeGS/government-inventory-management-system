@@ -27,11 +27,11 @@
 					<td>
 						{{Form::open(array('url'=>route('setting.destroy', array($setting->id)), 'method'=>'delete'))}}
 						@if($currentSetting->id == $setting->id)
-							<a href="{{route('setting.edit', array($setting->id))}}" class="btn btn-xs btn-success tooltip-top disabled" title="Edit setting"><i class="fa fa-pencil"></i></a>
+							<a href="{{route('setting.edit', array($setting->id))}}" class="btn btn-xs btn-success tooltip-top disabled" title="<?php echo _('Edit setting') ?>"><i class="fa fa-pencil"></i></a>
 						@else
-							<a href="{{route('setting.edit', array($setting->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit setting"><i class="fa fa-pencil"></i></a>
+							<a href="{{route('setting.edit', array($setting->id))}}" class="btn btn-xs btn-success tooltip-top" title="<?php echo _('Edit setting') ?>"><i class="fa fa-pencil"></i></a>
 						@endif
-						<button type="submit" onclick="return confirm('Are you sure');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove setting" value="{{$setting->id}}"><i class="fa fa-times"></i></a>
+						<button type="submit" onclick="return confirm('<?php echo _('Are you sure') ?>');" name="id" class="btn btn-xs btn-danger tooltip-top" title="<?php echo _('Remove setting') ?>" value="{{$setting->id}}"><i class="fa fa-times"></i></a>
 						{{Form::close()}}
 					</td>
 				</tr>
