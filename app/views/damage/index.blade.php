@@ -30,8 +30,8 @@
 					</div>
 					
 					<div class="col-md-4 pull-right text-right">
+						<a href="{{route('damage.create')}}" class="btn btn-primary btn-sm"><?php echo _("Report Damage Product") ?></a>
 						<a href="{{route('damage.trash')}}" class="btn btn-primary btn-sm" ><?php echo _("Trash") ?></a>
-						<a href="{{route('damage.create')}}" class="btn btn-primary btn-sm"><?php echo _("Add New Product") ?></a>
 					</div>
 				{{Form::close()}}
 			</div>
