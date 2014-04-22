@@ -24,7 +24,7 @@
 					<td>{{++$i}}</td>
 					<td>{{$group->name}}</td>
 					<td>
-						{{Form::open(array('url'=>route('group.index'), 'method'=>'delete'))}}
+						{{Form::open(array('url'=>route('group.destroy', $group->id), 'method'=>'delete'))}}
 						<a href="{{route('group.edit', array($group->id))}}" class="btn btn-xs btn-success tooltip-top" title="<?php echo _("Edit Group Name");?>"><i class="fa fa-pencil"></i></a>
 						<a href="{{route('group.permission', array($group->id))}}" class="btn btn-xs btn-primary tooltip-top" title="<?php echo _("Manage Group Permissions");?>"><i class="fa fa-cog"></i></a>
 						<button type="submit" onclick="return confirm('<?php echo _('Are you sure');?>');" name="id" class="btn btn-xs btn-danger tooltip-top" title="<?php echo _("Remove Group");?>" value="{{$group->id}}"><i class="fa fa-times"></i></button>

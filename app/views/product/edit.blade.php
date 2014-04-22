@@ -55,18 +55,18 @@
 					<td>
 						{{Form::open(array('url'=>route('product.destroy', array($product->id, $products->getCurrentPage())), 'method'=>'delete'))}}
 							@if($productById->id == $product->id)
-							<a href="{{route('product.edit', array($product->id))}}" class="btn btn-xs btn-success tooltip-top disabled" title="Edit product Name"><i class="fa fa-pencil"></i></a>
+							<a href="{{route('product.edit', array($product->id, 'page='.$products->getCurrentPage(),'category'=>$category))}}" class="btn btn-xs btn-success tooltip-top disabled" title="Edit product Name"><i class="fa fa-pencil"></i></a>
 							@else
-							<a href="{{route('product.edit', array($product->id,'page='.$products->getCurrentPage()))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Product Name"><i class="fa fa-pencil"></i></a>
+							<a href="{{route('product.edit', array($product->id,'page='.$products->getCurrentPage(),'category='.$category))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Product Name"><i class="fa fa-pencil"></i></a>
 							@endif
-							<button type="submit" onclick="return confirm('Are you sure');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Product" value="{{$product->id}}"><i class="fa fa-times"></i></button>
+							<button type="submit" onclick="return confirm( <?php echo _('Are you sure?') ?>);" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Product" value="{{$product->id}}"><i class="fa fa-times"></i></button>
 						{{Form::close()}}
 					</td>
 				</tr>
 				@endforeach
 			</tbody>
 		</table>
-		{{$products->appends(array('category'=>$category,'name'=>$name,'search'=>'Search'))->links()}}
+		{{$products->appends(array('category'=>$category,'name'=>$name))->links()}}
 	</div>
 </div>
 
@@ -86,7 +86,7 @@
 				@endif
 				
 				<div class="form-group">
-					{{Form::label('product_name', 'Product Name',array('control-label'))}}
+					{{Form::label('product_name', _('Product Name'),array('control-label'))}}
 					{{Form::text('name', Input::old('name'), array('class'=>'form-control input-sm'))}}
 					@if($errors->has('name'))
 					<p class="help-block"><span class="text-danger">{{$errors->first('name')}}</span></p>
@@ -94,12 +94,12 @@
 				</div>
 
 				<div class="form-group">
-					{{Form::label('description', 'Description (Optional)',array('control-label'))}}
+					{{Form::label('description', _('Description (Optional)'),array('control-label'))}}
 					{{Form::text('description', Input::old('name'), array('class'=>'form-control input-sm'))}}
 				</div>
 
 				<div class="form-group">
-					{{Form::label('reserved_amount', 'Reserved Amount',array('control-label'))}}
+					{{Form::label('reserved_amount', _('Reserved Amount'),array('control-label'))}}
 					{{Form::text('reserved_amount', Input::old('name'), array('class'=>'form-control input-sm'))}}
 					
 					@if($errors->has('reserved_amount'))

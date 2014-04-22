@@ -42,7 +42,7 @@ Route::put('damage/{id}/restore', array('before'=>'sentry', 'uses'=>'DamageContr
 Route::put('damage/{id}/delete', array('before'=>'sentry', 'uses'=>'DamageController@delete', 'as'=>'damage.delete'));
 
 Route::put('product/{id}/trash', array('before'=>'sentry', 'uses'=>'ProductController@restore', 'as'=>'product.restore'));
-Route::delete('product/{id}', array('before'=>'sentry', 'uses'=>'ProductController@delete', 'as'=>'product.delete'));
+Route::post('product/{id}', array('before'=>'sentry', 'uses'=>'ProductController@delete', 'as'=>'product.delete'));
 Route::get('product/trash', array('before'=>'sentry', 'uses'=>'ProductController@trash', 'as'=>'product.trash'));
 
 Route::resource('group', 'GroupController');

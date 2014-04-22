@@ -8,8 +8,8 @@
 			<thead>
 				<tr>
 					<th class="col-md-1">#</th>
-					<th class="col-md-5">DEPARTMENT</th>
-					<th class="col-md-3">STORE CODE</th>
+					<th class="col-md-5"><?php echo _('Department') ?></th>
+					<th class="col-md-3"><?php echo _('Store Code') ?></th>
 					<th class="col-md-3"></th>
 				</tr>
 			</thead>
@@ -24,7 +24,7 @@
 					<td>{{$store->department->name}}</td>
 					<td><strong>{{$store->store_code}}</strong></td>
 					<td>
-						{{Form::open(array('url'=>'store/'.$store->id, 'method'=>'delete'))}}
+						{{Form::open(array('url'=>route('store.destroy', $store->id), 'method'=>'delete'))}}
 						
 						@if($current_store->id == $store->id)
 						<a href="{{route('store.edit', array($store->id))}}" class="btn btn-xs btn-success tooltip-top disabled" title="Edit Store"><i class="fa fa-pencil"></i></a>
@@ -51,7 +51,7 @@
 </div>
 <div class="col-md-4">
 	<div class="panel panel-default">
-		<div class="panel-heading"><h5 class="text-center">Edit Store Code</h5></div>
+		<div class="panel-heading"><h5 class="text-center"><?php echo _('Edit Store Code') ?>e</h5></div>
 		<div class="panel-body">
 
 			@if(Session::has('message'))
@@ -60,7 +60,7 @@
 			</div>
 			@endif
 
-			{{Form::open(array('url'=>url('store', $current_store->id), 'method'=>'put', 'class'=>'form-vertical'))}}
+			{{Form::open(array('url'=> route('store.update', $current_store->id), 'method'=>'put', 'class'=>'form-vertical'))}}
 
 			<div class="form-group">
 				{{Form::label('store_code', 'Store Code', array('class'=>'control-label'))}}

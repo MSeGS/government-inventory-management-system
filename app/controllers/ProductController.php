@@ -243,9 +243,9 @@ class ProductController extends \BaseController {
 
 	public function restore($id){
 		$product = Product::onlyTrashed()->find($id);
-		$product -> restore();
+		$product -> restore($id);
 
-		Stock::where('product_id','=', $id)->restore();
+		Stock::withTrashed()->where('product_id','=', $id)->restore();
 
 		return Redirect::to('product/trash')
 			->with('message', 'Product Restored');
@@ -255,7 +255,7 @@ class ProductController extends \BaseController {
 		$product = Product::withTrashed()->find($id);
 		$product -> forceDelete($id);
 
-		Stock::where('product_id','=', $id)->forceDelete();
+		Stock::withTrashed()->where('product_id','=', $id)->forceDelete();
 
 		return Redirect::to('product/trash')
 			->with('delete', 'Product Permanently Deleted');
