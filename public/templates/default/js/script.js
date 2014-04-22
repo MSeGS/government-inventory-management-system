@@ -26,7 +26,7 @@ function initTooltips()
 	$('.tooltip-right').tooltip({'placement':'right'});
 }
 
-function initDropdown () {
+function initDropdown() {
 	var $selects = $('select.dropdown');
 	$selects.easyDropDown({
 		cutOff: 10,
@@ -35,4 +35,9 @@ function initDropdown () {
 			// do something
 		}
 	});
+}
+
+function destroyDropdown() {
+	$('.dropdown').easyDropDown('destroy');
+	$('.dropdown').removeAttr("id");
 }

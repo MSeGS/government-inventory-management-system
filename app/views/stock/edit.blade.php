@@ -52,11 +52,11 @@
 			{{Form::model($stockById, array('url'=>route('stock.update', $stockById->id), 'method'=>'put', 'class'=>'form-vertical'))}}
 			<div class="form-group">
 				{{Form::label('category_name','Category', array('class'=>'control-label'))}}
-				{{Form::select('category_name',$categories, Input::old('category_name'), array('class'=>'dropdown form-control input-sm'))}}
+				{{Form::select('category_name',$categories, Input::old('category_name'), array('class'=>'form-control input-sm'))}}
 			</div>
 			<div class="form-group">
 				{{Form::label('product_name','Product', array('class'=>'control-label'))}}
-				{{Form::select('product_name',$products, Input::old('product_name'), array('class'=>'dropdown form-control input-sm'))}}
+				{{Form::select('product_name',$products, Input::old('product_name'), array('class'=>'form-control input-sm'))}}
 			</div>
 			<div class="form-group">
 				{{Form::label('note', 'Note', array('class'=>'control-label'))}}
@@ -79,4 +79,38 @@
 	</div>
 </div>
 
+@stop
+
+@section('scripts')
+<script type="text/javascript">
+$(function(){
+	populate_product('load');
+
+	$('#category_name').on('change', function(){
+		populate_product('');
+	});
+});
+
+function populate_product(status) {
+	var html = '<option value="">Select Product</option>';
+	if($('#category_name').val() != 0 && $('#category_name').val() != "") {
+		
+		$('#product_name').html('<option value="">Loading...</option>');
+
+		$.get("{{route('product.index')}}?category=" + $('#category_name').val(), function(data){
+			$.each(data, function(index, product){
+				html += '<option value="'+product['id']+'">'+product['name']+'</option>';
+			});
+		})
+		.done(function() {
+			$('#product_name').html(html);
+			if(status == 'load')
+				$('#product_name').val({{$stockById->product_id}});
+		});
+	}
+	else
+		$('#product_name').html(html);
+
+}
+</script>
 @stop

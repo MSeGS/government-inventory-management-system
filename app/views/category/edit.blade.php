@@ -29,6 +29,8 @@
 						{{$category->category_name}}
 					</td>
 					<td>
+						@if(!($category->id == 1 || $category->id == "Uncategorized"))
+						
 						{{Form::open(array('url'=>'category/'.$category->id, 'method'=>'delete'))}}
 						@if($categoryById->id == $category->id)
 						<a href="{{route('category.edit', array($category->id))}}" class="btn btn-xs btn-success tooltip-top disabled" title="Edit Category Name"><i class="fa fa-pencil"></i></a>
@@ -37,6 +39,8 @@
 						@endif
 						<button type="submit" onclick="return confirm('Are you sure');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Category" value="{{$category->id}}"><i class="fa fa-times"></i></a>
 						{{Form::close()}}	
+
+						@endif
 					</td>
 				</tr>
 				@endforeach

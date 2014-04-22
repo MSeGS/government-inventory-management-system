@@ -53,7 +53,7 @@
 			{{Form::open(array('url'=>route('stock.index'), 'method'=>'post', 'class'=>'form-vertical'))}}
 			<div class="form-group">
 				{{Form::label('category_name','Category', array('class'=>'control-label'))}}
-				{{Form::select('category_name',$categories, Input::old('category_name'), array('class'=>'dropdown form-control input-sm'))}}
+				{{Form::select('category_name',$categories, Input::old('category_name'), array('class'=>'form-control input-sm'))}}
 
 				@if($errors->has('category_name'))
 				<p class="help-block"><span class="text-danger">{{$errors->first('category_name')}}</span></p>
@@ -61,7 +61,7 @@
 			</div>
 			<div class="form-group">
 				{{Form::label('product_name','Product', array('class'=>'control-label'))}}
-				{{Form::select('product_name',$products, Input::old('product_name'), array('class'=>'dropdown form-control input-sm'))}}
+				{{Form::select('product_name',array('' => 'Select Product'), Input::old('product_name'), array('class'=>'form-control input-sm'))}}
 
 				@if($errors->has('product_name'))
 				<p class="help-block"><span class="text-danger">{{$errors->first('product_name')}}</span></p>
@@ -87,4 +87,38 @@
 	</div>
 </div>
 
+@stop
+
+@section('scripts')
+<script type="text/javascript">
+$(function(){
+	populate_product();
+
+	$('#category_name').on('change', function(){
+		populate_product();
+	});
+});
+
+function populate_product() {
+	var html = '<option value="">Select Product</option>';
+
+	if($('#category_name').val() != 0 && $('#category_name').val() != "") {
+		
+		$('#product_name').html('<option value="">Loading...</option>');
+
+		$.get("{{route('product.index')}}?category=" + $('#category_name').val(), function(data){
+			$.each(data, function(index, product){
+				html += '<option value="'+product['id']+'">'+product['name']+'</option>';
+			});
+		})
+		.done(function() {
+			$('#product_name').html(html);
+		});
+	}
+	else
+		$('#product_name').html(html);
+
+	
+}
+</script>
 @stop

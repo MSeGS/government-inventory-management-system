@@ -29,10 +29,12 @@
 						{{$category->category_name}}
 					</td>
 					<td>
+						@if(!($category->id == 1 || $category->id == "Uncategorized"))
 						{{Form::open(array('url'=>route('category.destroy', array($category->id)), 'method'=>'delete'))}}
-						<a href="{{route('category.edit', array($category->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Category Name"><i class="fa fa-pencil"></i></a>
-						<button type="submit" onclick="return confirm('Are you sure');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Category" value="{{$category->id}}"><i class="fa fa-times"></i></a>
+						<a href="{{route('category.edit', array($category->id))}}" class="btn btn-xs btn-success tooltip-top" title="<?php echo _('Edit Category Name');?>"><i class="fa fa-pencil"></i></a>
+						<button type="submit" onclick="return confirm('<?php echo _('Are you sure you want to delete? If you delete this category, all products under this category will be moved to Uncategorized.');?>');" name="id" class="btn btn-xs btn-danger tooltip-top" title="<?php echo _('Remove Category');?>" value="{{$category->id}}"><i class="fa fa-times"></i></a>
 						{{Form::close()}}
+						@endif
 					</td>
 				</tr>
 				@endforeach

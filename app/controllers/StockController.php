@@ -15,10 +15,10 @@ class StockController extends \BaseController {
 
 	public function index()
 	{
+		// $products = array( '' => _('Select Product'));
+		// $products = $products + Product::orderBy('name', 'asc')
+		// 	->get()->lists('name','id');
 		$stocks = Stock::with('product')->orderBy('id', 'desc')->paginate(1);
-		$products = array( '' => _('Select Product'));
-		$products = $products + Product::orderBy('name', 'asc')
-			->get()->lists('name','id');
 		$categories = array( '' => _('Select Category'));
 		$categories = $categories + Category::orderBy('category_name', 'asc')
 			->get()->lists('category_name','id');
@@ -29,7 +29,7 @@ class StockController extends \BaseController {
 			->with(array(
 				'stocks' 	=> $stocks,	
 				'categories'=> $categories,	
-				'products' 	=> $products,
+				// 'products' 	=> $products,
 				'index'		=> $index));	
 	}
 

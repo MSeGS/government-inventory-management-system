@@ -9,13 +9,13 @@
 
 				<div class="form-group">
 					<?php echo Form::label('category', _('Category'), array('class'=>'control-label')) ?>
-					{{Form::select('category', $categorySelect, 'null',array('class' =>'dropdown input-sm form-control'))}}
+					{{Form::select('category', $categorySelect, 'null',array('class' =>'input-sm form-control'))}}
 					
 				</div>	
 
 				<div class="form-group">
 					<?php echo Form::label('product', _('Product Name'), array('class'=>'control-label')) ?>
-					{{Form::select('product', $productSelect, 'null',array('class' =>'dropdown input-sm form-control'))}}
+					{{Form::select('product', $productSelect, 'null',array('class' =>'input-sm form-control'))}}
 				</div>
 
 				<div class="form-group">
@@ -45,3 +45,34 @@
 </div>
 @stop
 
+@section('scripts')
+<script type="text/javascript">
+$(function(){
+	populate_product();
+
+	$('#category').on('change', function(){
+		populate_product();
+	});
+});
+
+function populate_product(status) {
+	var html = '<option value="">Select Product</option>';
+	if($('#category').val() != 0 && $('#category').val() != "") {
+		
+		$('#product').html('<option value="">Loading...</option>');
+
+		$.get("{{route('product.index')}}?category=" + $('#category').val(), function(data){
+			$.each(data, function(index, product){
+				html += '<option value="'+product['id']+'">'+product['name']+'</option>';
+			});
+		})
+		.done(function() {
+			$('#product').html(html);
+		});
+	}
+	else
+		$('#product').html(html);
+
+}
+</script>
+@stop

@@ -45,7 +45,7 @@ class CategoryController extends \BaseController {
 		$validator = Validator::make(Input::all(), $rules);
 
 		if ($validator->fails()) {
-			return Redirect::to('category')
+			return Redirect::route('category.index')
 				->withErrors($validator)
 				->withInput(Input::all());
 		}
@@ -55,7 +55,7 @@ class CategoryController extends \BaseController {
 			$categories->save();
 
 			Session::flash('message', 'Successfully submitted');
-			return Redirect::to('category');
+			return Redirect::route('category.index');
 		} 
 	}
 
@@ -78,6 +78,9 @@ class CategoryController extends \BaseController {
 	 */
 	public function edit($id)
 	{
+		if($id == 1)
+			return Redirect::route('category.index');
+
 		$categoryById	 	= Category::find($id);
 		$categories			= Category::orderBy('category_name', 'asc')->paginate(20);
 		return View::make('category.edit')
@@ -92,6 +95,9 @@ class CategoryController extends \BaseController {
 	 */
 	public function update($id)
 	{
+		if($id == 1)
+			return Redirect::route('category.index');
+
 		$category_model = new Category;
 
 		$rules = array(
@@ -101,7 +107,7 @@ class CategoryController extends \BaseController {
 		$validator = Validator::make(Input::all(), $rules);
 
 		if($validator->fails()){
-			return Redirect::to('/category/'.$id.'/edit')
+			return Redirect::route('category.edit', $id)
 				->withErrors($validator)
 				->withInput(Input::all());
 		}
@@ -111,8 +117,8 @@ class CategoryController extends \BaseController {
 			$category->category_name	= Input::get('category_name');
  			$category->save();
 
-			Session::flash('message', 'Successfully edited');
-			return Redirect::to('/category');
+			return Redirect::route('category.index')
+				->with('message', _('Category successfully updated'));
 		}
 	}
 
@@ -125,12 +131,17 @@ class CategoryController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		Stock::where('category_id','=',$id)->delete();
-		Product::where('category_id','=',$id)->delete();
+		// Check if uncategorized category
+		if($id == 1)
+			return Redirect::route('category.index');
+
+		// Assign all products and stocks to Uncategorized category.
+		Stock::where('category_id','=',$id)->update(array('category_id'=>1));
+		Product::where('category_id','=',$id)->update(array('category_id'=>1));
 		Category::destroy($id);
 		
-		Session::flash('delete', 'Category deleted');
-		return Redirect::to('category');
+		return Redirect::route('category.index')
+			->with('delete', _('Category deleted and category products moved to Uncategorized.'));
 	}
 
 }

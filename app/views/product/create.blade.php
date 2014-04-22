@@ -113,8 +113,7 @@ function removeRow (button) {
 }
 
 function addRow (button) {
-	$('.dropdown').easyDropDown('destroy');
-	$('.dropdown').removeAttr("id");
+	destroyDropdown();
 	var rows = $('.table tbody tr').size();	
 	var new_row = $('.table tbody tr#prod_0').clone();
 	var new_row_id = (rows-1);
