@@ -11,7 +11,7 @@
 
 		<div class="col-md-12">
 			<div class="row">
-				{{Form::open(array('url'=>route('damage.index'),'method'=>'get','class'=>'form-vertical'))}}
+				{{Form::open(array('url'=>route('damage.manage'),'method'=>'get','class'=>'form-vertical'))}}
 					<div class="col-md-2">
 						<div class="form-group">
 							{{Form::select('category', $categorySelect, 'null', array('class' =>'dropdown input-sm form-control'))}}
@@ -29,10 +29,6 @@
 						</div>
 					</div>
 					
-					<div class="col-md-4 pull-right text-right">
-						<a href="{{route('damage.trash')}}" class="btn btn-primary btn-sm" >Trash</a>
-						<a href="{{route('damage.create')}}" class="btn btn-primary btn-sm">Add New Product</a>
-					</div>
 				{{Form::close()}}
 			</div>
 		</div>
@@ -47,7 +43,7 @@
 						<th class="col-md-1"><?php echo _("Quantity") ?></th>
 						<th class="col-md-2"><?php echo _("Report Date") ?></th>
 						<th class="col-md-2"><?php echo _("Status") ?></th>
-						<th class="col-md-1"></th>
+						<th class="col-md-2"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -62,13 +58,29 @@
 						<td>{{$damage->product->category->category_name}}</td>
 						<td>{{$damage->quantity}}</td>
 						<td>{{date('dS F, Y h:iA', strtotime($damage->reported_at))}}</td>
-						<td>{{ucfirst($damage->status)}}</td>
 						<td>
-							{{Form::open(array('url'=>route('damage.destroy', array($damage->id)),'method'=>'delete'))}}
+							@if($damage->status == 'declined')
+							<span class="label label-danger">
+							@elseif($damage->status == 'approved')
+							<span class="label label-success">
+							@elseif($damage->status == 'pending')
+							<span class="label label-warning">
+							@endif
+								{{strtoupper($damage->status)}}
+							</span>
+						</td>
+						<td class="tools">
+							@if($damage->status == 'pending' || $damage->status == 'declined')
+								{{Form::open(array('url'=>route('damage.approve', $damage->id), 'method'=>'post', 'style'=>'display:inline'))}}	
+									{{Form::button('<i class="fa fa-check"></i> Approve', array('value'=>$damage->id, 'type'=>'submit', 'name'=>'id', 'class'=>'btn btn-xs btn-success'))}}
+								{{Form::close()}}
+							@endif
 
-							<a href="{{route('damage.edit', array($damage->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Damage"><i class="fa fa-pencil"></i></a>
-							<button type="submit" onclick="return confirm('Are you sure');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Damage" value="{{$damage->id}}"><i class="fa fa-times"></i></button>
-							{{Form::close()}}
+							@if($damage->status == 'pending' || $damage->status == 'approved')
+								{{Form::open(array('url'=>route('damage.decline', $damage->id), 'method'=>'post', 'style'=>'display:inline'))}}
+									{{Form::button('<i class="fa fa-times"></i> Decline', array('value'=>$damage->id, 'type'=>'submit', 'name'=>'id', 'class'=>'btn btn-xs btn-danger'))}}
+								{{Form::close()}}
+							@endif
 						</td>
 					</tr>
 					@endforeach

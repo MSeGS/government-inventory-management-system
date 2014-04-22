@@ -54,10 +54,14 @@
         <li {{in_array(Route::currentRouteName(), array('stock'))?'class="active"':''}}><a href="{{url('/stock')}}">Stocks</a></li>
         @endif
 
-        @if($user->hasAccess('damage.index') && !$user->isSuperUser())
+        @if($user->hasAccess('damage.index','damage.edit','damage.restore','damage.update','damage.trash','damage.create','damage.store','damage.restore','damage.delete') && !$user->isSuperUser())
         <li {{in_array(Route::currentRouteName(), array('damage'))?'class="active"':''}}><a href="{{url('/damage')}}">Damage</a></li>
         @endif
         
+        @if($user->hasAccess('damage.manage') && !$user->isSuperUser())
+        <li {{in_array(Route::currentRouteName(), array('damage.manage'))?'class="active"':''}}><a href="{{route('damage.manage')}}"><?php echo _('Damage Report'); ?></a></li>
+        @endif
+       
         @if($user->hasAccess('logout'))
         <li {{in_array(Route::currentRouteName(), array('logout'))?'class="active"':''}}><a href="{{url('/logout')}}">Sign Out</a></li>
         @endif

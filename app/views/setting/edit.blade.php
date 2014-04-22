@@ -26,7 +26,7 @@
 					<td>{{$setting->option_data}}</td>
 					<td>
 						{{Form::open(array('url'=>route('setting.destroy', array($setting->id)), 'method'=>'delete'))}}
-						@if($setting->id == $currentSetting->id)
+						@if($currentSetting->id == $setting->id)
 							<a href="{{route('setting.edit', array($setting->id))}}" class="btn btn-xs btn-success tooltip-top disabled" title="Edit setting"><i class="fa fa-pencil"></i></a>
 						@else
 							<a href="{{route('setting.edit', array($setting->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit setting"><i class="fa fa-pencil"></i></a>
@@ -52,7 +52,7 @@
 				</div>
 			@endif
 
-			{{Form::open(array('url'=>route('setting.update', array($currentSetting->id)), 'method'=>'put', 'class'=>'form-vertical'))}}
+			{{Form::open(array('url'=>route('setting.update', array($currentOption->id)), 'method'=>'put', 'class'=>'form-vertical'))}}
 
 			<div class="form-group">
 				<?php echo Form::label('option_key', _('Setting Name'), array('class'=>'control-label')); ?>

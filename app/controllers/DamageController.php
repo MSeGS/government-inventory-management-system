@@ -81,6 +81,71 @@ class DamageController extends \BaseController {
 				));
 	}
 
+	public function manage()
+	{
+		$product = new Product;
+		$damage = new Damage;
+		$damages = Damage::join($product->getTable(), $damage->getTable().'.product_id', '=', $product->getTable().'.id')
+			->where(function($query){
+				$search = Input::get('prodsearch');
+				$product = new Product;
+				if( strlen($search) > 0 )
+					$query->where($product->getTable().'.name', 'LIKE', '%' . $search . '%');
+
+				if(Input::get('category', null))
+					$query->where('category_id', '=', Input::get('category'));
+			})
+			->select(array($damage->getTable().".*", $product->getTable().'.name'))
+			->orderBy($damage->getTable().'.id', 'asc')
+			->paginate();
+
+		$categories = category::orderBy('id','asc')
+			->get()
+			->lists('category_name','id');
+		$categorySelect = array(''=>'Select Category',$categories);
+
+		$products = Product::orderBy('id', 'asc')
+			->get()
+			->lists('name','id');
+		$productSelect = array(''=>'Select Product Name', $products);
+
+		return View::make('damage.manage')
+			->with(array(
+				'damages'=> $damages,
+				'productSelect'=> $productSelect,
+				'categorySelect'=> $categorySelect,
+				'categories'=> $categories
+				));
+	}
+
+	/** 
+	* Function for approving the damage
+	* report for administrator
+	*/
+	public function approve($id)
+	{
+		$damage	= Damage::find($id);
+		$damage->status = 'approved';
+		$damage->save();
+
+		return Redirect::route('damage.manage')
+			->with('message', _('Product Damage Report Successfully Approved'));
+	}
+
+	/** 
+	* Function for declining the damage
+	* report for administrator
+	*/
+	public function decline($id)
+	{
+		$damage	= Damage::find($id);
+		$damage->status='declined';
+		$damage->save();
+
+		return Redirect::route('damage.manage')
+			->with('message', _('Product Damage Report Declined'));
+	}
+
 	/**
 	 * Show the form for creating a new resource.
 	 *

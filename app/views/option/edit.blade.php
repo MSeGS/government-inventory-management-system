@@ -21,7 +21,8 @@
 				<td>{{$option->option_title}}</td>
 				<td>{{$option->option_data}}</td>
 				<td>
-					{{Form::open(array('url'=>'option/'.$option->id, 'method'=>'delete'))}}
+					{{Form::open(array('url'=>route('option.destroy', array($option->id)),'method'=>'delete'))}}
+
 					<?php if($option->id == $optionById->id){ ?>
 						<a href="{{route('option.edit', array($option->id))}}" class="btn btn-xs btn-success tooltip-top disabled" title="Edit option"><i class="fa fa-pencil"></i></a>
 					<?php } else { ?>

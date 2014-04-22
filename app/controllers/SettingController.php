@@ -93,11 +93,16 @@ class SettingController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-
+		
 		$currentSetting = Setting::find($id);
+		$currentOption = Option::find($id);
 		$settings = Setting::orderBy('option_key', 'asc')->paginate();
 		return View::make('setting.edit')
-			->with(array('settings'=> $settings, 'currentSetting' => $currentSetting));
+			->with(array(
+				'settings'=> $settings, 
+				'currentOption' => $currentOption,
+				'currentSetting' => $currentSetting
+				));
 	}
 
 	/**
