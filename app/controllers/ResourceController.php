@@ -14,9 +14,11 @@ class ResourceController extends \BaseController {
 	 */
 	public function index()
 	{
-		$resources = Resource::orderBy('name', 'asc')->paginate(30);
+		$resources = Resource::orderBy('name', 'asc')->paginate();
+		$index = $resources->getPerPage() * ($resources->getCurrentPage()-1) + 1;
 		return View::make('resource.index')
-			->with('resources', $resources);
+			->with('resources', $resources)
+			->with('index', $index);
 	}
 
 	/**
@@ -81,9 +83,14 @@ class ResourceController extends \BaseController {
 	public function edit($id)
 	{
 		$resourceById = Resource::find($id);
-		$resources = Resource::orderBy('name', 'asc')->paginate(30);
+		$resources = Resource::orderBy('name', 'asc')->paginate();
+		$index = $resources->getPerPage() * ($resources->getCurrentPage()-1) + 1;
 		return View::make('resource.edit')
-			->with(array('resources'=> $resources, 'resourceById' => $resourceById));
+			->with(array(
+				'resources'=> $resources,
+				 'resourceById' => $resourceById,
+				 'index'		=> $index
+				 ));
 	}
 
 	/**

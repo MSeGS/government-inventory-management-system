@@ -18,7 +18,7 @@ class StockController extends \BaseController {
 		// $products = array( '' => _('Select Product'));
 		// $products = $products + Product::orderBy('name', 'asc')
 		// 	->get()->lists('name','id');
-		$stocks = Stock::with('product')->orderBy('id', 'desc')->paginate(1);
+		$stocks = Stock::with('product')->orderBy('id', 'desc')->paginate();
 		$categories = array( '' => _('Select Category'));
 		$categories = $categories + Category::orderBy('category_name', 'asc')
 			->get()->lists('category_name','id');
@@ -141,7 +141,7 @@ class StockController extends \BaseController {
 			$stock->quantity 			= Input::get('quantity');
 			$stock->save();
 
-			Session::flash('message', 'Successfully edited');
+			Session::flash('message', _('Successfully edited'));
 			return Redirect::to('/stock');
 
 		}

@@ -35,7 +35,7 @@
 					</div>
 					<div class="col-md-4 pull-right text-right">
 						<a href="{{route('product.create')}}" class="btn btn-primary btn-sm"><?php echo _('Add New Product') ?></a>
-						<a href="{{route('product.trash')}}" class="btn btn-primary btn-sm" >Trash</a>
+						<a href="{{route('product.trash')}}" class="btn btn-primary btn-sm" ><?php echo _('Trash') ?></a>
 					</div>
 				{{Form::close()}}
 			</div>
@@ -67,16 +67,17 @@
 						<td>{{Product::damage($product->id)}}</td>
 						<td>
 							{{Form::open(array('url'=>route('product.destroy', array($product->id, $products->getCurrentPage())), 'method'=>'delete'))}}
-							<a href="{{route('product.edit', array($product->id, 'page'=>$current_page, 'name='.$name, 'category='.$category))}}" class="btn btn-xs btn-success tooltip-top" title="Edit product Name"><i class="fa fa-pencil"></i></a>
-							<button type="submit" onclick="return confirm( <?php echo _('Are you sure to put it in trash?') ?>);" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove product" value="{{$product->id}}"><i class="fa fa-times"></i></button>
+							<a href="{{route('product.edit', array($product->id, 'page='.$products->getCurrentPage(), 'name='.$name, 'category='.$filter['category_id']))}}" class="btn btn-xs btn-success tooltip-top" title="Edit product Name"><i class="fa fa-pencil"></i></a>
+							<button type="submit" onclick="return confirm (<?php echo _('\'Are you sure you want to put it in trash?\'') ?>);" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove product" value="{{$product->id}}"><i class="fa fa-times"></i></button>
 							{{Form::close()}}
+							
 						</td>
 					</tr>
 					@endforeach
 				</tbody>
 			</table>
+			{{$products->appends(array('category'=>$category,'name'=>$name))->links()}}
 		</div>
-			{{$products->appends(array('category'=>$category,'name'=>$name,'search'=>'Search'))->links()}}
 	</div>
 </div>
 @stop

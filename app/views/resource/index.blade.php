@@ -19,15 +19,15 @@
 			</thead>
 			<tbody>
 				<?php $i=0; ?>
-				@foreach($resources as $resource)
+				@foreach($resources as $key=>$resource)
 				<tr>
-					<td>{{++$i}}</td>
+					<td>{{$index+$key}}</td>
 					<td>{{$resource->name}}</td>
 					<td>{{$resource->route}}</td>
 					<td>
 						{{Form::open(array('url'=>route('resource.destroy',$resource->id), 'method'=>'delete'))}}
-						<a href="{{route('resource.edit', array($resource->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Resource"><i class="fa fa-pencil"></i></a>
-						<button type="submit" onclick="return confirm(<?php echo _('Are you sure') ?>);" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Resource" value="{{$resource->id}}"><i class="fa fa-times"></i></a>
+						<a href="{{route('resource.edit', array($resource->id, 'page='.$resources->getCurrentPage()))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Resource"><i class="fa fa-pencil"></i></a>
+						<button type="submit" onclick="return confirm('<?php echo _('Are you sure') ?>');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Resource" value="{{$resource->id}}"><i class="fa fa-times"></i></a>
 						{{Form::close()}}
 					</td>
 				</tr>
@@ -39,7 +39,7 @@
 </div>
 <div class="col-md-4">
 	<div class="panel panel-default">
-		<div class="panel-heading"><h5 class="text-center">New Resource</h5></div>
+		<div class="panel-heading"><h5 class="text-center"><?php _('New Resource') ?></h5></div>
 		<div class="panel-body">
 			{{Form::open(array('url'=>route('resource.index'), 'method'=>'post', 'class'=>'form-vertical'))}}
 			@if(Session::has('message'))

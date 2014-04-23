@@ -14,17 +14,12 @@ class GroupController extends \BaseController {
 	 */
 	public function index()
 	{
-		// $group = Sentry::findGroupById(1);
-		// echo "<pre>";
-		// print_r($group->permissions);
-		// $resources = Resource::all();
-		// print_r($resources->toArray());
-		// echo "</pre>";
-		// exit;
-
-		$groups = Sentry::findAllGroups();
+		
+		$groups = Group::orderBy('id', 'asc')->paginate(2);
+		$index 	= $groups->getPerPage() * ($groups->getCurrentPage()-1)+1; 
 		return View::make('group.index')
-			->with('groups', $groups);
+			->with('groups', $groups)
+			->with('index', $index);
 	}
 
 	/**
@@ -60,8 +55,8 @@ class GroupController extends \BaseController {
 				$group->name 	=	Input::get('name');	
 				$group->save();
 
-				Session::flash('message', 'Successfully Added');
-				return Redirect::to('group');
+				Session::flash('message', _('Successfully Added'));
+				return Redirect::route('group.index');
 			}
 	}
 
@@ -85,9 +80,13 @@ class GroupController extends \BaseController {
 	public function edit($id)
 	{
 		$group = Group::find($id);
-		$groups = Sentry::findAllGroups();
+		$groups = Group::orderBy('id', 'asc')->paginate(2);
+		$index 	= $groups->getPerPage() * ($groups->getCurrentPage()-1)+1; 
 		return View::make('group.edit')
-			->with(array('groups' => $groups, 'current_group' => $group));
+			->with(array(
+				'groups' 		=> $groups,
+				'current_group' => $group,
+				'index' 		=> $index));
 	}
 
 	/**
@@ -105,7 +104,7 @@ class GroupController extends \BaseController {
 		$validator = Validator::make(Input::all(), $rules);
 
 		if ($validator->fails()){
-			return Redirect::to('group/'. $id .'/edit')
+			return Redirect::route('group.edit')
 				->withErrors($validator)
 				->withInput(Input::all());
 		}
@@ -114,8 +113,8 @@ class GroupController extends \BaseController {
 			$group->name 	= Input::get('name');
 			$group->save();
 
-			Session::flash('message', 'Successfully Edited');
-			return Redirect::to('group');
+			Session::flash('message', _('Successfully Edited'));
+			return Redirect::route('group.index');
 		}
 
 	}
@@ -131,7 +130,7 @@ class GroupController extends \BaseController {
 		Group::destroy($id);
 
 		Session::flash('delete', 'Group deleted');
-		return Redirect::to('group');
+		return Redirect::route('group.index');
 	}
 
 	public function permission($id)
@@ -152,8 +151,8 @@ class GroupController extends \BaseController {
 		$group->permissions = $set;
 		$group->save();
 
-		Session::flash('message', 'Successfully Saved');
-		return Redirect::to('group/'.$group->id.'/permission');
+		Session::flash('message', _('Successfully Saved'));
+		return Redirect::route('group.permission', $group->id);
 	}
 
 }

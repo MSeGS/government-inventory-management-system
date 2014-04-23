@@ -14,17 +14,22 @@ class DepartmentController extends \BaseController {
 	public function index()
 	{
 		$filter = array(
-			'department' => Input::get('department')
+			'deptsearch' => Input::get('deptsearch')
 			);
 
-		if(isset($_GET['search'])){
+		if(isset($_GET['deptsearch']) && $_GET['deptsearch'] != ""){
 			$departments = Department::where('name', 'LIKE',  '%' . Input::get('deptsearch') . '%')->paginate();
+			$deptsearch=$_GET['deptsearch'];
 		}
 		else{
 			$departments = Department::orderBy('name', 'asc')->paginate();
+			$deptsearch='';
 		}
+		
+		$index = $departments->getPerPage() * ($departments->getCurrentPage()-1) + 1;
 		return View::make('department.index')
 			->with('departments', $departments)
+			->with('index', $index)
 			->with('filter', $filter);
 
 	}
@@ -53,7 +58,7 @@ class DepartmentController extends \BaseController {
 		$validator = Validator::make(Input::all(), $rules);
 
 		if ($validator -> fails()) {
-			return Redirect::to('department')
+			return Redirect::route('department.index')
 				->withErrors($validator)
 				->withInput(Input::all());
 		}
@@ -63,7 +68,7 @@ class DepartmentController extends \BaseController {
 			$department->save();
 
 			Session::flash('message', _('Successfully added'));
-			return Redirect::to('department');
+			return Redirect::route('department.index');
 		}
 
 	}
@@ -88,17 +93,28 @@ class DepartmentController extends \BaseController {
 	public function edit($id)
 	{
 		$filter = array(
-			'department' => Input::get('department'),
-			'username' => Input::get('username')
+			'deptsearch' 	=> Input::get('deptsearch')
 			);
 		
 		$departmentById = Department::find($id);
-		$departments = Department::orderBy('name', 'asc')->paginate(30);
+
+		if(isset($_GET['deptsearch']) && $_GET['deptsearch'] != ""){
+			$departments = Department::where('name', 'LIKE',  '%' . Input::get('deptsearch') . '%')->paginate();
+			$deptsearch=$_GET['deptsearch'];
+		}
+		else{
+			$departments = Department::orderBy('name', 'asc')->paginate();
+			$deptsearch='';
+		}
+
+
 		
+		$index = $departments->getPerPage() * ($departments->getCurrentPage()-1) + 1;
 		return View::make('department.edit')
 			->with(array('departments'=> $departments, 
 						 'departmentById' => $departmentById, 
-						 'filter'=>$filter
+						 'index' => $index,
+						 'filter'=>$filter,
 						 ));
 	}
 
@@ -116,7 +132,7 @@ class DepartmentController extends \BaseController {
 		$validator = Validator::make(Input::all(), $rules);
 
 		if ($validator -> fails()) {
-			return Redirect::to('department/'. $id. '/edit')
+			return Redirect::route('department.edit')
 				->withErrors($validator)
 				->withInput(Input::all());
 		}
@@ -126,7 +142,7 @@ class DepartmentController extends \BaseController {
 			$department->save();
 
 			Session::flash('message', _('Successfully edited'));
-			return Redirect::to('department');
+			return Redirect::route('department.index');
 		}
 	}
 

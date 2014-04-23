@@ -64,17 +64,16 @@
 						<td>{{Product::stock($product->id)}}</td>
 						<td>{{Product::damage($product->id)}}</td>
 						<td>
-								<div class="form-inline pull-right text-right">
+								<div class="col-md-1">
 									{{Form::open(array('url'=>route('product.restore', array($product->id, $products->getCurrentPage())), 'method'=>'put'))}}
-								
-									<button type="submit" onclick="return confirm('Are you sure you want to restore?');" name="id" class="btn btn-xs btn-success tooltip-top" title="Restore product" value="{{$product->id}}"><i class="fa fa-check"></i></button>
-								{{Form::close()}}
-							</div>
+										<button type="submit" onclick="return confirm('Are you sure you want to restore?');" name="id" class="btn btn-xs btn-success tooltip-top" title="Restore product" value="{{$product->id}}"><i class="fa fa-undo"></i></button>
+									{{Form::close()}}
+								</div>
 
-								{{Form::open(array('url'=>route('product.delete', array($product->id, $products->getCurrentPage())), 'method'=>'delete'))}}
-									
-									<button type="submit" onclick="return confirm('Are you sure you want to permanently delete the product?');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Delete Permanently" value="{{$product->id}}"><i class="fa fa-times"></i></button>
-								{{Form::close()}}
+								<div class="col-md-1">
+									{{Form::open(array('url'=>route('product.delete', array($product->id, $products->getCurrentPage())), 'method'=>'delete'))}}
+										<button type="submit" onclick="return confirm(<?php echo _('\'Are you sure you want to permanently delete the product?\'') ?>);" name="id" class="btn btn-xs btn-danger tooltip-top" title="Delete Permanently" value="{{$product->id}}"><i class="fa fa-times"></i></button>
+									{{Form::close()}}
 								</div>
 							</div>
 						</td>

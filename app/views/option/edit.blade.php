@@ -13,10 +13,9 @@
 			</tr>
 		</thead>
 		<tbody>
-			<?php $i=0; ?>
-			@foreach($options as $option)
-			<tr>
-				<td>{{++$i}}</td>
+			@foreach($options as $key=>$option)
+			<tr {{($optionById->id == $option->id)?'class="success"':''}}>
+				<td>{{$index+$key}}</td>
 				<td>{{$option->option_key}}</td>
 				<td>{{$option->option_title}}</td>
 				<td>{{$option->option_data}}</td>
@@ -26,7 +25,7 @@
 					<?php if($option->id == $optionById->id){ ?>
 						<a href="{{route('option.edit', array($option->id))}}" class="btn btn-xs btn-success tooltip-top disabled" title="<?php echo _('Edit option') ?>"> <i class="fa fa-pencil"></i></a>
 					<?php } else { ?>
-						<a href="{{route('option.edit', array($option->id))}}" class="btn btn-xs btn-success tooltip-top" title="<?php echo _('Edit option') ?>"><i class="fa fa-pencil"></i></a>
+						<a href="{{route('option.edit', array($option->id, 'page='.$options->getCurrentPage()))}}" class="btn btn-xs btn-success tooltip-top" title="<?php echo _('Edit option') ?>"><i class="fa fa-pencil"></i></a>
 					<?php } ?>
 					<button type="submit" onclick="return confirm('<?php echo _('Are you sure') ?>)';" name="id" class="btn btn-xs btn-danger tooltip-top" title="<?php echo _('Remove option')?>" value="{{$option->id}}"><i class="fa fa-times"></i></a>
 					{{Form::close()}}
@@ -35,8 +34,7 @@
 			@endforeach
 		</tbody>
 	</table>
-
-	
+	{{$options->links()}}
 </div>
 <div class="col-md-4">
 	<div class="panel panel-default">

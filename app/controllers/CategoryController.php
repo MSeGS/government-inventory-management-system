@@ -14,9 +14,12 @@ class CategoryController extends \BaseController {
 	 */
 	public function index()
 	{		
-		$categories = Category::orderBy('category_name','asc')->paginate(10);
+		$categories = Category::orderBy('category_name','asc')->paginate(get_setting('item_per_page', 10));
+		$index = $categories->getPerPage() * ($categories->getCurrentPage()-1) +1;
+
 		return View::make('category.index')
-			->with('categories', $categories);
+			->with('categories', $categories)
+			->with('index', $index);
 	}
 
 	/**
@@ -54,7 +57,7 @@ class CategoryController extends \BaseController {
 			$categories->category_name		= Input::get('category_name');
 			$categories->save();
 
-			Session::flash('message', 'Successfully submitted');
+			Session::flash('message', _('Successfully submitted'));
 			return Redirect::route('category.index');
 		} 
 	}
@@ -82,9 +85,10 @@ class CategoryController extends \BaseController {
 			return Redirect::route('category.index');
 
 		$categoryById	 	= Category::find($id);
-		$categories			= Category::orderBy('category_name', 'asc')->paginate(20);
+		$categories			= Category::orderBy('category_name', 'asc')->paginate(get_setting('item_per_page', 10));
+		$index = $categories->getPerPage() * ($categories->getCurrentPage()-1) +1;
 		return View::make('category.edit')
-			->with(array('categoryById'=> $categoryById, 'categories' => $categories));
+			->with(array('categoryById'=> $categoryById, 'categories' => $categories, 'index'=>$index));
 	}
 
 	/**

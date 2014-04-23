@@ -59,7 +59,7 @@
 							@else
 							<a href="{{route('product.edit', array($product->id,'page='.$products->getCurrentPage(),'category='.$category))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Product Name"><i class="fa fa-pencil"></i></a>
 							@endif
-							<button type="submit" onclick="return confirm( <?php echo _('Are you sure?') ?>);" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Product" value="{{$product->id}}"><i class="fa fa-times"></i></button>
+							<button type="submit" onclick="return confirm( <?php echo _('\'Are you sure?\'') ?>);" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Product" value="{{$product->id}}"><i class="fa fa-times"></i></button>
 						{{Form::close()}}
 					</td>
 				</tr>

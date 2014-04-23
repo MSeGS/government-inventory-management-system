@@ -14,13 +14,11 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php $i=0; ?>
-
 				@if($stores->count())
 
-				@foreach($stores as $store)
+				@foreach($stores as $key=>$store)
 				<tr {{($current_store->id == $store->id)?'class="success"':''}}>
-					<td>{{++$i}}</td>
+					<td>{{$index+$key}}</td>
 					<td>{{$store->department->name}}</td>
 					<td><strong>{{$store->store_code}}</strong></td>
 					<td>
@@ -29,7 +27,7 @@
 						@if($current_store->id == $store->id)
 						<a href="{{route('store.edit', array($store->id))}}" class="btn btn-xs btn-success tooltip-top disabled" title="Edit Store"><i class="fa fa-pencil"></i></a>
 						@else
-						<a href="{{route('store.edit', array($store->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Store"><i class="fa fa-pencil"></i></a>
+						<a href="{{route('store.edit', array($store->id, 'page='.$stores->getCurrentPage()))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Store"><i class="fa fa-pencil"></i></a>
 						@endif
 
 						<button type="submit" onclick="return confirm('Are you sure?');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Store" value="{{$store->id}}"><i class="fa fa-times"></i></a>
@@ -51,7 +49,7 @@
 </div>
 <div class="col-md-4">
 	<div class="panel panel-default">
-		<div class="panel-heading"><h5 class="text-center"><?php echo _('Edit Store Code') ?>e</h5></div>
+		<div class="panel-heading"><h5 class="text-center"><?php echo _('Edit Store Code') ?></h5></div>
 		<div class="panel-body">
 
 			@if(Session::has('message'))

@@ -105,7 +105,7 @@ class ProductController extends \BaseController {
 				}
 			}
 
-			return Redirect::to('product')
+			return Redirect::route('product.index')
 				->with('message', _('New product added successfully'));
 		}
 	}
@@ -176,7 +176,7 @@ class ProductController extends \BaseController {
 		$validator = Validator::make(Input::all(), $rules);
 
 		if($validator->fails()){
-			return Redirect::to('/product/'. $id. '/edit')
+			return Redirect::route('product.edit')
 				->withErrors($validator)
 				->withInput(Input::all());
 		}
@@ -189,7 +189,7 @@ class ProductController extends \BaseController {
  			$product->save();
 
 			Session::flash('message', 'Successfully edited');
-			return Redirect::to('/product');
+			return Redirect::route('product.index');
 
 		}
 	}
@@ -205,7 +205,7 @@ class ProductController extends \BaseController {
 		Product::destroy($id);
 		Stock::where('product_id','=', $id)->delete();
 		Session::flash('delete', 'Product trashed');
-		return Redirect::to('product');
+		return Redirect::route('product.index');
 	}
 
 	public function trash()
@@ -247,7 +247,7 @@ class ProductController extends \BaseController {
 
 		Stock::withTrashed()->where('product_id','=', $id)->restore();
 
-		return Redirect::to('product/trash')
+		return Redirect::route('product.trash')
 			->with('message', 'Product Restored');
 	}
 
@@ -257,7 +257,7 @@ class ProductController extends \BaseController {
 
 		Stock::withTrashed()->where('product_id','=', $id)->forceDelete();
 
-		return Redirect::to('product/trash')
+		return Redirect::route('product.trash')
 			->with('delete', 'Product Permanently Deleted');
 	}
 

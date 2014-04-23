@@ -7,10 +7,10 @@
 			<div class="alert alert-danger">
 			{{Session::get('delete')}}	
 			@endif
-		{{Form::open(array('url'=>route('department.index'),'method'=>'get','class'=>'form-vertical'))}}
+		{{Form::open(array('url'=>route('department.edit', $departmentById->id),'method'=>'get','class'=>'form-vertical'))}}
 				<div class="form-group">
 					<div class="input-group">
-						{{Form::text('username', '', array('class'=>'input-sm form-control','placeholder'=>'Search Department'))}}
+						{{Form::text('deptsearch', $filter['deptsearch'], array('class'=>'input-sm form-control','placeholder'=>'Search Department'))}}
 	      				<span class="input-group-btn">
 	        				<button class="input-sm btn btn-default" name="search" value="Search" type="submit"> <i class="glyphicon glyphicon-search"></i> </button>
 	      				</span>
@@ -26,17 +26,16 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php $i=0; ?>
-					@foreach($departments as $department)
-					<tr{{($departmentById->id == $department->id)?'class="success"':''}}>
-						<td>{{++$i}}</td>
+					@foreach($departments as $key=>$department)
+					<tr {{($department->id == $departmentById->id)?'class="success"':''}}>
+						<td>{{$index+$key}}</td>
 						<td>{{$department->name}}</td>
 						<td>
-							{{Form::open(array('url'=>'department/'.$department->id, 'method'=>'delete'))}}
+							{{Form::open(array('url'=>route('department.destroy',$department->id), 'method'=>'delete'))}}
 							<?php if($department->id == $departmentById->id){ ?>
 								<a href="{{route('department.edit', array($department->id))}}" class="btn btn-xs btn-success tooltip-top disabled" title="Edit Department"><i class="fa fa-pencil"></i></a>
 							<?php } else { ?>
-								<a href="{{route('department.edit', array($department->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Resource"><i class="fa fa-pencil"></i></a>
+								<a href="{{route('department.edit', array($department->id, 'page='.$departments->getCurrentPage(), 'deptsearch='.$filter['deptsearch']))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Resource"><i class="fa fa-pencil"></i></a>
 							<?php } ?>
 							<button type="submit" onclick="return confirm('<?php echo _('Are you sure') ?>');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Resource" value="{{$department->id}}"><i class="fa fa-times"></i></a>
 							{{Form::close()}}
@@ -45,7 +44,7 @@
 					@endforeach
 				</tbody>
 			</table>
-			{{$departments->links()}}
+			{{$departments->appends(array('deptsearch'=>$filter['deptsearch']))->links()}}
 	</div>
 
 	<div class="col-md-5">

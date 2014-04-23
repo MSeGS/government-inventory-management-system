@@ -11,8 +11,7 @@
 		{{Form::open(array('url'=>route('department.index'),'method'=>'get','class'=>'form-vertical'))}}
 				<div class="form-group">
 					<div class="input-group">
-						<?php if(isset($_GET['deptsearch'])) { $deptsearch=$_GET['deptsearch'];} else { $deptsearch='';} ?>
-						<?php echo Form::text('deptsearch',$deptsearch, array('class'=>'input-sm form-control','placeholder'=>_('Search Department')));?>
+						<?php echo Form::text('deptsearch',$filter['deptsearch'], array('class'=>'input-sm form-control','placeholder'=>_('Search Department')));?>
 	      				<span class="input-group-btn">
 	        				<button class="input-sm btn btn-default" name="search" value="Search" type="submit"> <i class="glyphicon glyphicon-search"></i> </button>
 	      				</span>
@@ -36,7 +35,7 @@
 						<td>
 							{{Form::open(array('url'=>route('department.destroy', array($department->id)),'method'=>'delete'))}}
 
-							<a href="{{route('department.edit', array($department->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Department"><i class="fa fa-pencil"></i></a>
+							<a href="{{route('department.edit', array($department->id, 'page='.$departments->getCurrentPage(), 'deptsearch='.$filter['deptsearch']))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Department"><i class="fa fa-pencil"></i></a>
 							<button type="submit" onclick="return confirm('<?php echo _('Are you sure') ?>');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Department" value="{{$department->id}}"><i class="fa fa-times"></i></a>
 							{{Form::close()}}
 						</td>
@@ -44,7 +43,7 @@
 					@endforeach
 				</tbody>
 			</table>
-			{{$departments->links()}}
+			{{$departments->appends(array('fdeptsearch'=>$filter['deptsearch']))->links()}}
 	</div>
 
 	<div class="col-md-5">

@@ -16,7 +16,7 @@ class StoreController extends \BaseController {
 	{ 
 		$stores = Store::with(array('Department' => function($query){
 			$query->orderBy('name', 'asc');
-		}))->paginate(20);
+		}))->paginate();
 
 		$departments = Department::where(function($query){
 			$existing_stores = Store::lists('department_id');
@@ -25,10 +25,13 @@ class StoreController extends \BaseController {
 
 		})->orderBy('name', 'asc')->lists('name', 'id');
 
+		$index = $stores->getPerPage() * ($stores->getCurrentPage()-1)+1;
+
 		return View::make('store.index')
 			->with(array(
-				'stores' => $stores,
-				'departments' => $departments
+				'stores'	  	=> $stores,
+				'departments' 	=> $departments,
+				'index'			=> $index
 				));
 	}
 
@@ -94,7 +97,7 @@ class StoreController extends \BaseController {
 		
 		$stores = Store::with(array('Department' => function($query){
 			$query->orderBy('name', 'asc');
-		}))->paginate(20);
+		}))->paginate();
 
 		$departments = Department::where(function($query){
 			$existing_stores = Store::lists('department_id');
@@ -103,11 +106,14 @@ class StoreController extends \BaseController {
 
 		})->orderBy('name', 'asc')->lists('name', 'id');
 
+		$index = $stores->getPerPage() * ($stores->getCurrentPage()-1)+1;
+
 		return View::make('store.edit')
 			->with(array(
 				'stores'=> $stores,
 				'current_store' => $current_store,
-				'departments' => $departments
+				'departments' => $departments,
+				'index'	=>	$index
 				));
 	}
 

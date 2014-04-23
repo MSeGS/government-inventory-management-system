@@ -19,18 +19,16 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php $i=0; ?>
-
 				@if($stores->count())
 
-				@foreach($stores as $store)
+				@foreach($stores as $key=>$store)
 				<tr>
-					<td>{{++$i}}</td>
+					<td>{{$index+$key}}</td>
 					<td>{{$store->department->name}}</td>
 					<td><strong>{{$store->store_code}}</strong></td>
 					<td>
 						{{Form::open(array('url'=>route('store.destroy', $store->id), 'method'=>'delete'))}}
-						<a href="{{route('store.edit', array($store->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Store"><i class="fa fa-pencil"></i></a>
+						<a href="{{route('store.edit', array($store->id, 'page='.$stores->getCurrentPage()))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Store"><i class="fa fa-pencil"></i></a>
 						<button type="submit" onclick="return confirm('Are you sure?');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Store" value="{{$store->id}}"><i class="fa fa-times"></i></a>
 						{{Form::close()}}
 					</td>

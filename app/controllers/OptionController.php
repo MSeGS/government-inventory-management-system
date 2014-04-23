@@ -14,9 +14,11 @@ class OptionController extends \BaseController {
 	 */
 	public function index()
 	{
-		$options = Option::orderBy('option_key', 'asc')->paginate(10);
+		$options = Option::orderBy('option_key', 'asc')->paginate();
+		$index = $options->getPerPage() *($options->getCurrentPage() -1) +1;
 		return View::make('option.index')
-			->with('options', $options);
+			->with('options', $options)
+			->with('index', $index);
 	}
 
 	/**
@@ -80,9 +82,10 @@ class OptionController extends \BaseController {
 	public function edit($id)
 	{
 		$optionById = Option::find($id);
-		$options = Option::orderBy('option_data', 'asc')->get();
+		$options = Option::orderBy('option_key', 'asc')->paginate();
+		$index = $options->getPerPage() *($options->getCurrentPage() -1) +1;
 		return View::make('option.edit')
-			->with(array('options'=> $options, 'optionById' => $optionById));
+			->with(array('options'=> $options, 'optionById' => $optionById, 'index' => $index));
 	}
 
 	/**
