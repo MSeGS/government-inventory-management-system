@@ -14,6 +14,14 @@
         <li {{in_array(Route::currentRouteName(), array('home.index'))?'class="active"':''}}><a href="{{route('home.index')}}"><?php echo _('Main');?></a></li>
         @endif
 
+        @if($user->hasAccess('indent.create') && !$user->isSuperUser())
+        <li {{in_array(Route::currentRouteName(), array('indent.create'))?'class="active"':''}}><a href="{{route('indent.create')}}"><?php echo _('Indent');?></a></li>
+        @endif
+
+        @if($user->hasAccess('indent.index') && !$user->isSuperUser())
+        <li {{in_array(Route::currentRouteName(), array('indent.index'))?'class="active"':''}}><a href="{{route('indent.index')}}"><?php echo _('Indent History');?></a></li>
+        @endif
+
         @if($user->hasAccess('store.index') && $user->isSuperUser())
         <li {{in_array(Route::currentRouteName(), array('store.index'))?'class="active"':''}}><a href="{{route('store.index')}}"><?php echo _('Stores'); ?></a></li>
         @endif

@@ -86,6 +86,12 @@ class ResourceTableSeeder extends Seeder
 			array('route'=>'store.destroy', 'name'=>'Store Remove', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'store.update', 'name'=>'Store Update', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'store.store', 'name'=>'Store Store', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
+
+			array('route'=>'indent.index', 'name'=>'Indent List/Create Page', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
+			array('route'=>'indent.edit', 'name'=>'Indent Edit Page', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
+			array('route'=>'indent.destroy', 'name'=>'Indent Remove', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
+			array('route'=>'indent.update', 'name'=>'Indent Update', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
+			array('route'=>'indent.store', 'name'=>'Indent Store', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			));
 	}
 }

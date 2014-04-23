@@ -10,3 +10,12 @@ function get_product_by_category($category_id = 0)
 			->lists('id', 'name');
 	}
 }
+
+function get_setting($setting_key, $default = null)
+{
+	$data = Option::getData($setting_key);
+	if($data)
+		return $data;
+	else
+		return $default;
+}
