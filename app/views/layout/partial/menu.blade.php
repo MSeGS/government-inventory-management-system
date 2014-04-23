@@ -21,6 +21,10 @@
         @if($user->hasAccess('user.index'))
         <li {{in_array(Route::currentRouteName(), array('user.index', 'user.edit'))?'class="active"':''}}><a href="{{route('user.index')}}"><?php echo _('Users'); ?></a></li>
         @endif
+
+        @if($user->hasAccess('user.profile') && !$user->isSuperUser())
+        <li {{in_array(Route::currentRouteName(), array('user.profile'))?'class="active"':''}}><a href="{{route('user.profile')}}"><?php echo _('Profile'); ?></a></li>
+        @endif
         
         @if($user->hasAccess('group.index'))
         <li {{in_array(Route::currentRouteName(), array('group.index', 'group.edit'))?'class="active"':''}}><a href="{{route('group.index')}}"><?php echo _('Groups'); ?></a></li>
@@ -54,7 +58,7 @@
         <li {{in_array(Route::currentRouteName(), array('stock.index', 'stock.edit'))?'class="active"':''}}><a href="{{url('/stock')}}"><?php echo _('Stocks'); ?></a></li>
         @endif
 
-        @if($user->hasAccess('damage.index', 'damage.trash') && !$user->isSuperUser())
+        @if($user->hasAnyAccess(array('damage.index', 'damage.trash')) && !$user->isSuperUser())
         <li {{in_array(Route::currentRouteName(), array('damage.index', 'damage.edit'))?'class="active"':''}}><a href="{{url('/damage')}}"><?php echo _('Damage'); ?></a></li>
         @endif
         
