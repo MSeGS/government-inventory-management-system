@@ -28,6 +28,8 @@ Route::get('registration', array('uses'=>'RegistrationController@index', 'as'=>'
 Route::post('registration', array('uses'=>'RegistrationController@register', 'as'=>'registration.submit'));
 
 Route::resource('user', 'UserController');
+Route::get('profile', array('before'=>'sentry', 'uses'=>'UserController@profile', 'as'=>'user.profile'));
+Route::put('profile', array('before'=>'sentry', 'uses'=>'UserController@profileUpdate', 'as'=>'user.profileUpdate'));
 
 Route::get('group/{id}/permission', array('before'=>'sentry', 'uses'=>'GroupController@permission', 'as'=>'group.permission'));
 Route::put('group/{id}/permission', array('before'=>'sentry', 'uses'=>'GroupController@updatePermission', 'as'=>'group.updatePermission'));

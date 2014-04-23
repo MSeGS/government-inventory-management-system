@@ -61,6 +61,53 @@ class UserController extends \BaseController {
 			->with('filter', $filter);
 	}
 
+	public function profile()
+	{
+		$user = Sentry::getUser();
+		$groups = $user->getGroups();
+		$department_name = Department::find($user->department_id);
+		return View::make('user.profile')
+			->with(array(
+				'department_name' => $department_name,
+				'groups' => $groups,
+				'user' => $user));				
+	}
+
+	public function profileUpdate()
+	{
+		$rules = array(
+			'full_name' => 'required',
+			'username' => 'required',
+			'email_id' => 'required|email',
+			'designation' => 'required'
+			);
+
+		$validator = Validator::make(Input::all(), $rules);
+
+		if ($validator -> fails()) {
+			dd(Input::all());
+			return Redirect::route('user.profile')
+				->withErrors($validator)
+				->withInput(Input::all());
+		}
+
+		$user = Sentry::getUser();
+		$profile = Sentry::findUserById($user->id);
+	    $profile->full_name = Input::get('full_name');
+	    $profile->username = Input::get('username');
+	    
+	    if(strlen(trim(Input::get('password'))) > 0)
+	    	$profile->password = Input::get('password');
+		
+		$profile->email_id = Input::get('email_id');
+		$profile->phone_no = Input::get('phone_no');
+		$profile->address = Input::get('address');
+		$profile->designation = Input::get('designation');
+		$profile->save();
+
+		return Redirect::route('user.profile')->with('message', _('Profile updated successfully.'));		
+	}
+
 	/**
 	 * Show the form for creating a new resource.
 	 *

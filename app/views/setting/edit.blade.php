@@ -26,11 +26,11 @@
 					<td>{{$setting->option_data}}</td>
 					<td>
 						{{Form::open(array('url'=>route('setting.destroy', array($setting->id)), 'method'=>'delete'))}}
-						@if($currentSetting->id == $setting->id)
+						<?php if($currentSetting->id == $setting->id){ ?>
 							<a href="{{route('setting.edit', array($setting->id))}}" class="btn btn-xs btn-success tooltip-top disabled" title="<?php echo _('Edit setting') ?>"><i class="fa fa-pencil"></i></a>
-						@else
+						<?php } else {?>
 							<a href="{{route('setting.edit', array($setting->id))}}" class="btn btn-xs btn-success tooltip-top" title="<?php echo _('Edit setting') ?>"><i class="fa fa-pencil"></i></a>
-						@endif
+						<?php } ?>
 						<button type="submit" onclick="return confirm('<?php echo _('Are you sure') ?>');" name="id" class="btn btn-xs btn-danger tooltip-top" title="<?php echo _('Remove setting') ?>" value="{{$setting->id}}"><i class="fa fa-times"></i></a>
 						{{Form::close()}}
 					</td>
@@ -46,13 +46,13 @@
 	<div class="panel panel-default">
 		<div class="panel-heading"><h5 class="text-center"><?php echo _("Edit Setting"); ?></h5></div>
 		<div class="panel-body">
+			{{Form::model($currentOption, array('url'=>route('setting.update', $currentOption->id), 'method'=>'put', 'class'=>'form-vertical'))}}
+
 			@if(Session::has('message'))
 				<div class="alert alert-success">
 					{{Session::get('message')}}	
 				</div>
 			@endif
-
-			{{Form::open(array('url'=>route('setting.update', array($currentOption->id)), 'method'=>'put', 'class'=>'form-vertical'))}}
 
 			<div class="form-group">
 				<?php echo Form::label('option_key', _('Setting Name'), array('class'=>'control-label')); ?>
@@ -61,7 +61,7 @@
 
 			<div class="form-group">
 				<?php echo Form::label('option_data', _('Setting Value'), array('class'=>'control-label'))?>
-				{{Form::textarea('option_data', Input::old('option_data', $setting->option_data), array('class'=>'form-control input-sm','rows'=>'3'))}}
+				{{Form::textarea('option_data', Input::old('option_data', $currentSetting->option_data), array('class'=>'form-control input-sm','rows'=>'3'))}}
 		
 				@if($errors->has('option_data'))
 				<p class="help-block"><span class="text-danger">{{$errors->first('option_data')}}</span></p>
