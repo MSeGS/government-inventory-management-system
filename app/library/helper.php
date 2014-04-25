@@ -19,3 +19,14 @@ function get_setting($setting_key, $default = null)
 	else
 		return $default;
 }
+
+function get_product_stock($product_id = null)
+{
+	if(!$product_id)
+		return 0;
+
+	$total_stock = Product::stock($product_id);
+	$total_damage = Product::damage($product_id);
+
+	return ($total_stock - $total_damage) > 0?($total_stock - $total_damage):0;
+}

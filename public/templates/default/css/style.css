@@ -407,6 +407,11 @@ hr {
     padding: 8px 12px;
 }
 
+.chit-form table textarea {
+    font-size:11px;
+    resize:vertical;
+}
+
 @media (min-width: 768px) and (max-width: 991px) {
     .headerBrand {
         font-size: 1.2em;
