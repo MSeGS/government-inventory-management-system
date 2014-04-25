@@ -25,7 +25,7 @@ class IndentController extends \BaseController {
 	public function create()
 	{
 		$filter = array(
-			'limit' 			=> Input::get('limit', 10),
+			'limit' 			=> Input::get('limit', get_setting('item_per_page')),
 			'name' 			=> Input::get('name'),
 			'category_id'	=> Input::get('category')
 		);
@@ -38,12 +38,14 @@ class IndentController extends \BaseController {
 				$query->where('category_id', 'LIKE', '%' . Input::get('category') . '%');
 		})
 		->orderBy('name', 'asc')
-		->paginate(get_setting('item_per_page', $filter['limit']));
+		->paginate($filter['limit']);
 
 		$categories = array();
 		$index = $products->getPerPage() * ($products->getCurrentPage()-1) + 1;
 
 		$categories = $categories + Category::orderBy('category_name', 'asc')->get()->lists('category_name', 'id');
+		
+		$chit = Cookie::queue('chit', Cookie::get('chit'), 60);
 		
 		return View::make('indent.create')
 			->with(array(
@@ -61,7 +63,17 @@ class IndentController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		if(Request::ajax()) {
+			$chit = Cookie::queue('chit', Input::all(), 60);
+			return Response::json(array('saved'=>date('dS F Y, h:iA')))
+				->setCallback(Input::get('callback'));
+		}
+
+		echo '<pre>';
+		dd(Input::all());
+		// $rules = array();
+
+		// $validator = Validatore::make(Input);
 	}
 
 	/**
