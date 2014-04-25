@@ -48,6 +48,7 @@ Route::post('product/{id}', array('before'=>'sentry', 'uses'=>'ProductController
 Route::get('product/trash', array('before'=>'sentry', 'uses'=>'ProductController@trash', 'as'=>'product.trash'));
 Route::post('message/{id}/read', array('before'=>'sentry', 'uses'=>'MessageController@read', 'as'=>'message.read'));
 Route::post('message/{id}/unread', array('before'=>'sentry', 'uses'=>'MessageController@unread', 'as'=>'message.unread'));
+Route::post('message', array('before'=>'sentry', 'uses'=>'MessageController@outbox', 'as'=>'message.outbox'));
 
 Route::resource('group', 'GroupController');
 Route::resource('resource', 'ResourceController');
