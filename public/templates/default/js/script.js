@@ -21,7 +21,7 @@ $(document).ready(function(){
 		e.preventDefault();
 		var theme = $(this).data('name');
 		if(theme != 'default')
-			$('#theme').attr('href','/templates/default/lib/bootstrap/themes/' + theme + '.min.css');
+			$('#theme').attr('href','/templates/default/lib/bootstrap/' + theme + '.min.css');
 		else
 			$('#theme').removeAttr('href');
 		$.get('/set-theme/'+theme);

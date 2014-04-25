@@ -13,7 +13,7 @@
 	<link href="{{ asset('templates/default/lib/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
 	
 	@if(Cookie::get('theme') != 'default')
-	<link id="theme" href="{{ asset('templates/default/lib/bootstrap/themes/'. Cookie::get('theme') . '.min.css') }}" rel="stylesheet">
+	<link id="theme" href="{{ asset('templates/default/lib/bootstrap/'. Cookie::get('theme') . '.min.css') }}" rel="stylesheet">
 	@else
 	<link rel="stylesheet" type="text/css" href="" id="theme">
 	@endif
