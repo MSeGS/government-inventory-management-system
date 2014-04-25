@@ -67,12 +67,16 @@
         @endif
 
         @if($user->hasAnyAccess(array('damage.index', 'damage.trash')) && !$user->isSuperUser())
-        <li {{in_array(Route::currentRouteName(), array('damage.index', 'damage.edit'))?'class="active"':''}}><a href="{{url('/damage')}}"><?php echo _('Damage'); ?></a></li>
+        <li {{in_array(Route::currentRouteName(), array('damage.index','damage.trash', 'damage.edit'))?'class="active"':''}}><a href="{{url('/damage')}}"><?php echo _('Damage'); ?></a></li>
         @endif
         
         @if($user->hasAccess('damage.manage') && !$user->isSuperUser())
         <li {{in_array(Route::currentRouteName(), array('damage.manage'))?'class="active"':''}}><a href="{{route('damage.manage')}}"><?php echo _('Damage Report'); ?></a></li>
         @endif
+
+        @if($user->hasAnyAccess(array('message.index','message.create')) && !$user->isSuperUser())
+        <li {{in_array(Route::currentRouteName(), array('message.index','message.create','message.read', 'message.store'))?'class="active"':''}}><a href="{{route('message.index')}}"><?php  echo _('Message'); ?> {{get_unread_message_count()}}</a></li>
+        @endif                                                                                                                                      
        
         @if($user->hasAccess('logout'))
         <li {{in_array(Route::currentRouteName(), array('logout'))?'class="active"':''}}><a href="{{url('/logout')}}"><?php echo _('Sign Out'); ?></a></li>

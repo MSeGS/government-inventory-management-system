@@ -92,6 +92,11 @@ class ResourceTableSeeder extends Seeder
 			array('route'=>'indent.destroy', 'name'=>'Indent Remove', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'indent.update', 'name'=>'Indent Update', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'indent.store', 'name'=>'Indent Store', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
+
+			array('route'=>'message.index', 'name'=>'Message Index', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
+			array('route'=>'message.read', 'name'=>'', 'Message Read'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
+			array('route'=>'message.outbox', 'name'=>'Message Outbox', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
+
 			));
 	}
 }

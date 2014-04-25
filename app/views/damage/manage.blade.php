@@ -38,7 +38,7 @@
 				<thead>
 					<tr>
 						<th class="col-md-1">#</th>
-						<th><?php echo _("Product Name") ?></th>
+						<th class="col-md-2"><?php echo _("Product Name") ?></th>
 						<th class="col-md-2"><?php echo _("Category") ?></th>
 						<th class="col-md-1"><?php echo _("Quantity") ?></th>
 						<th class="col-md-2"><?php echo _("Report Date") ?></th>

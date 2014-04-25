@@ -30,3 +30,12 @@ function get_product_stock($product_id = null)
 
 	return ($total_stock - $total_damage) > 0?($total_stock - $total_damage):0;
 }
+
+function get_unread_message_count()
+{
+	$user = Sentry:: getUser();
+	$count = Notification::where('receiver_id', '=', $user->id)
+		->where('status', '=', 'unread')->count();
+		
+	return ($count > 0)?'<span class="badge">'.$count.'</span>':null;
+}
