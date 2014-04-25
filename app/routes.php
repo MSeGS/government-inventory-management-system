@@ -62,3 +62,7 @@ Route::get('notfound', array('before'=>'sentry','uses'=>'ErrorController@notfoun
 
 Route::resource('option', 'OptionController');
 
+Route::get('set-theme/{theme}',function($theme){
+	$theme = Cookie::forever('theme',$theme);
+	return Response::json(array('status' => 'success'))->withCookie($theme);
+});

@@ -1,5 +1,6 @@
 	<div class="footerStyles">
 		<div class="container">
+	<hr />
 			<div class="row">
 				<div class="col-md-6 col-sm-6">
 					<div class="row">
@@ -17,9 +18,14 @@
 					</div>
 				</div>
 
-				<div class="col-md-6 col-sm-6">
+				<div class="col-md-3 col-sm-6">
 					<div class="row">
 						@include('layout.partial.language')
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="row">
+						@include('layout.partial.theme')
 					</div>
 				</div>
 			</div>

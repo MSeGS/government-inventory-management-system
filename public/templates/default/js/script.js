@@ -16,6 +16,17 @@ $(document).ready(function(){
 	$('#checkAll').click(function () {    
 	    $('input.checkall:checkbox').prop('checked', this.checked);    
 	});
+
+	$('.theme-list li a').click(function(e){
+		e.preventDefault();
+		var theme = $(this).data('name');
+		if(theme != 'default')
+			$('#theme').attr('href','/templates/default/lib/bootstrap/themes/' + theme + '.min.css');
+		else
+			$('#theme').removeAttr('href');
+		$.get('/set-theme/'+theme);
+		$(this).closest('.dropup').find('.theme-name').text(theme);
+	});
 });
 
 function initTooltips()
