@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Government of Mizoram Online Indent System\n"
 "POT-Creation-Date: 2014-04-12 19:14+0530\n"
-"PO-Revision-Date: 2014-04-12 19:14+0530\n"
+"PO-Revision-Date: 2014-04-25 15:22+0530\n"
 "Last-Translator: Alan Pachuau <alanpachuau@gmail.com>\n"
 "Language-Team: MSeGS <sad.msegs-mz@nic.in>\n"
 "Language: en_IN\n"
@@ -34,29 +34,29 @@ msgstr ""
 #: ../../../../controllers/ProductController.php:13
 #: ../../../../controllers/ProductController.php:29
 msgid "Select Category"
-msgstr ""
+msgstr "Category Thlanna"
 
 #: ../../../../controllers/ProductController.php:67
 msgid "New product added successfully"
-msgstr ""
+msgstr "Product Thar I Belh Zo Chiah E"
 
 #: ../../../../controllers/UserController.php:30
 #: ../../../../controllers/UserController.php:159
 msgid "Select Department"
-msgstr ""
+msgstr "Department Thlang Rawh"
 
 #: ../../../../controllers/UserController.php:32
 #: ../../../../controllers/UserController.php:161
 msgid "Select Store"
-msgstr ""
+msgstr "Store Thlang Rawh"
 
 #: ../../../../controllers/UserController.php:116
 msgid "New user created successfully."
-msgstr ""
+msgstr "User Thar I Siam Zo Chiah E"
 
 #: ../../../../controllers/UserController.php:235
 msgid "User created successfully."
-msgstr ""
+msgstr "User I Siam Zo Chiah E"
 
 #: ../../../../views/auth/login.blade.php:6
 msgid "Sign In"
@@ -95,7 +95,7 @@ msgstr ""
 
 #: ../../../../views/damage/create.blade.php:7
 msgid "Product Damage Report"
-msgstr ""
+msgstr "Product Chhia Report-na"
 
 #: ../../../../views/damage/create.blade.php:19
 #: ../../../../views/damage/index.blade.php:18
@@ -112,7 +112,7 @@ msgstr "Bungraw Hming"
 #: ../../../../views/damage/create.blade.php:29
 #: ../../../../views/damage/index.blade.php:20
 msgid "Report Date"
-msgstr ""
+msgstr "Report Ni"
 
 #: ../../../../views/damage/create.blade.php:34
 #: ../../../../views/damage/index.blade.php:19
@@ -130,7 +130,7 @@ msgstr ""
 #: ../../../../views/setting/index.blade.php:74
 #: ../../../../views/user/index.blade.php:198
 msgid "Submit"
-msgstr ""
+msgstr "Submit-na"
 
 #: ../../../../views/damage/index.blade.php:21
 msgid "Status"
@@ -204,21 +204,21 @@ msgstr ""
 
 #: ../../../../views/layout/partial/language.blade.php:11
 msgid "Switch language to English"
-msgstr ""
+msgstr "English-a Dahna"
 
 #: ../../../../views/layout/partial/language.blade.php:16
 #: ../../../../views/layout/partial/language.blade.php:35
 msgid "Mizo Language"
-msgstr ""
+msgstr "Mizo Tawng"
 
 #: ../../../../views/layout/partial/language.blade.php:20
 #: ../../../../views/layout/partial/language.blade.php:30
 msgid "Current system language"
-msgstr ""
+msgstr "Tawng Hman lai"
 
 #: ../../../../views/layout/partial/language.blade.php:39
 msgid "Switch language to Mizo"
-msgstr ""
+msgstr "Mizotawng a Dahna"
 
 #: ../../../../views/option/edit.blade.php:9
 #: ../../../../views/option/index.blade.php:11
@@ -260,7 +260,7 @@ msgstr ""
 #: ../../../../views/product/edit.blade.php:18
 #: ../../../../views/product/index.blade.php:43
 msgid "Name"
-msgstr ""
+msgstr "Hming"
 
 #: ../../../../views/product/edit.blade.php:20
 #: ../../../../views/product/index.blade.php:46
@@ -293,7 +293,7 @@ msgstr ""
 #: ../../../../views/setting/edit.blade.php:58
 #: ../../../../views/setting/index.blade.php:57
 msgid "Setting Name"
-msgstr ""
+msgstr "Setting Hming"
 
 #: ../../../../views/setting/edit.blade.php:63
 #: ../../../../views/setting/index.blade.php:65
@@ -306,11 +306,11 @@ msgstr ""
 
 #: ../../../../views/stock/edit.blade.php:55
 msgid "Edit Stock Quantity"
-msgstr ""
+msgstr "Stock Zat Siamthat-na"
 
 #: ../../../../views/stock/index.blade.php:51
 msgid "Add Stock Quantity"
-msgstr ""
+msgstr "Stock Dahluh Belh-na"
 
 #: ../../../../views/user/edit.blade.php:82
 msgid "EDIT USER"
@@ -326,7 +326,7 @@ msgstr ""
 
 #: ../../../../views/user/edit.blade.php:154
 msgid "Leave blank to retain current password."
-msgstr ""
+msgstr "Password Ngai Hman Theih Nan Dah blank rawh"
 
 #: ../../../../views/user/edit.blade.php:199
 #: ../../../../views/user/index.blade.php:188
