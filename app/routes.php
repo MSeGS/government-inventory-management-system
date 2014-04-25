@@ -60,6 +60,7 @@ Route::resource('stock', 'StockController');
 Route::resource('department','DepartmentController');
 Route::resource('damage','DamageController');
 Route::resource('message','MessageController');
+Route::resource('indent','IndentController');
 
 Route::get('denied', array('before'=>'sentry', 'uses'=>'ErrorController@denied', 'as'=>'denied'));
 Route::get('notfound', array('before'=>'sentry','uses'=>'ErrorController@notfound', 'as'=>'notfound'));

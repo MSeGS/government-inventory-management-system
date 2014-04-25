@@ -411,12 +411,16 @@ hr {
     font-size:11px;
     resize:vertical;
 }
+.chit-form table input {
+    font-size:11px;
+    padding: 5px 2px;
+}
+.dropup .theme-name{
+    text-transform: capitalize;
+}
 
 @media (min-width: 768px) and (max-width: 991px) {
     .headerBrand {
         font-size: 1.2em;
     }
-}
-.dropup .theme-name{
-    text-transform: capitalize;
 }

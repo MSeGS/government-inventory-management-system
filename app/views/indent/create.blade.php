@@ -67,9 +67,9 @@
 						<td><input type="number" name="qty[{{$product->id}}]" value="" id="quantity_{{$product->id}}" min="0" class="quantity input-sm form-control" /></td>
 						<td>
 							@if(get_product_stock($product->id) == 0)
-							<?php echo Form::button('Add <i class="fa fa-caret-right"></i>', array('class'=>'btn btn-sm btn-warning tooltip-top request', 'title'=>_('Request Item')));?>
+							<?php echo Form::button('<i class="fa fa-shopping-cart"></i>', array('class'=>'btn btn-sm btn-warning tooltip-right request', 'title'=>_('Request Item')));?>
 							@else
-							<?php echo Form::button('Add <i class="fa fa-caret-right"></i>', array('class'=>'btn btn-sm btn-success tooltip-top add', 'title'=>_('Indent Item')));?>
+							<?php echo Form::button('<i class="fa fa-shopping-cart"></i>', array('class'=>'btn btn-sm btn-success tooltip-right add', 'title'=>_('Indent Item')));?>
 							@endif
 						</td>
 					</tr>
@@ -133,11 +133,13 @@ $(function(){
 		var qty = productRow.find('.quantity').val() != ""?parseInt(productRow.find('.quantity').val()):0;
 		var name = productRow.find('.name').val();
 		var noOfRows = parseInt($('.chit-form table tbody tr').size());
+		var indented = ($("#indent_" + id).size())?$("#indent_" + id).val():0;
+		var requested = ($("#request_" + id).size())?$("#request_" + id).val():0;
 		
 		// Button loader
-		btn.html('&nbsp;&nbsp;<i class="fa fa-spinner spin"></i>&nbsp;&nbsp;&nbsp;');
+		btn.html('<i class="fa fa-spinner spin"></i>');
 		setTimeout(function(){
-			btn.html('Add <i class="fa fa-caret-right"></i>');
+			btn.html('<i class="fa fa-shopping-cart"></i>');
 		}, 250);
 
 		var row = "<td>"+(noOfRows)+"</td>";
@@ -150,25 +152,30 @@ $(function(){
 			row += '<td class="text-right"><span class="text-danger"><i class="fa fa-times"></i></span></td>';
 			row += "</tr>";
 			
-			addToChit(id, 'indent', qty, row);
+			addToChit(id, 'request', qty, row);
 		}
 		else if(stock < qty) {
-			var indentRow = '<tr class="success">' + row;
-			indentRow += '<td><input class="input-sm form-control" id="indent_'+id+'" type="text" name="indent['+id+']" value="'+stock+'" /></td>';
-			indentRow += "<td></td>";
-			indentRow += '<td class="text-right"><span class="text-danger"><i class="fa fa-times"></i></span></td>';
-			indentRow += "</tr>";
+			var toIndent = parseInt(stock) - parseInt(indented);
+			if(toIndent > 0) {
+				var indentRow = '<tr class="success">' + row;
+				indentRow += '<td><input class="input-sm form-control" id="indent_'+id+'" type="text" name="indent['+id+']" value="'+stock+'" /></td>';
+				indentRow += "<td></td>";
+				indentRow += '<td class="text-right"><span class="text-danger"><i class="fa fa-times"></i></span></td>';
+				indentRow += "</tr>";
 
-			addToChit(id, 'indent', stock, indentRow);
+				addToChit(id, 'indent', stock, indentRow);
+			}
 
-			var toRequest = parseInt(qty) - parseInt(stock);
-			var requestRow  = '<tr class="warning">' + row;
-			requestRow += '<td><input class="input-sm form-control" id="request_'+id+'" type="text" name="request['+id+']" value="'+toRequest+'" /></td>';
-			requestRow += '<td><textarea class="input-sm form-control" rows="3"></textarea></td>';
-			requestRow += '<td class="text-right"><span class="text-danger"><i class="fa fa-times"></i></span></td>';
-			requestRow += "</tr>";
-			
-			addToChit(id, 'request', toRequest, requestRow);
+			var toRequest = parseInt(qty) - parseInt(toIndent);
+			if(toRequest) {
+				var requestRow  = '<tr class="warning">' + row;
+				requestRow += '<td><input class="input-sm form-control" id="request_'+id+'" type="text" name="request['+id+']" value="'+toRequest+'" /></td>';
+				requestRow += '<td><textarea class="input-sm form-control" rows="3"></textarea></td>';
+				requestRow += '<td class="text-right"><span class="text-danger"><i class="fa fa-times"></i></span></td>';
+				requestRow += "</tr>";
+				
+				addToChit(id, 'request', toRequest, requestRow);
+			}
 			
 		}
 		else {
