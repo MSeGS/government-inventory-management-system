@@ -46,6 +46,9 @@ Route::put('damage/{id}/delete', array('before'=>'sentry', 'uses'=>'DamageContro
 Route::put('product/{id}/trash', array('before'=>'sentry', 'uses'=>'ProductController@restore', 'as'=>'product.restore'));
 Route::post('product/{id}', array('before'=>'sentry', 'uses'=>'ProductController@delete', 'as'=>'product.delete'));
 Route::get('product/trash', array('before'=>'sentry', 'uses'=>'ProductController@trash', 'as'=>'product.trash'));
+Route::post('message/{id}/read', array('before'=>'sentry', 'uses'=>'MessageController@read', 'as'=>'message.read'));
+Route::post('message/{id}/unread', array('before'=>'sentry', 'uses'=>'MessageController@unread', 'as'=>'message.unread'));
+Route::post('message', array('before'=>'sentry', 'uses'=>'MessageController@outbox', 'as'=>'message.outbox'));
 
 Route::resource('group', 'GroupController');
 Route::resource('resource', 'ResourceController');
@@ -56,6 +59,7 @@ Route::resource('setting', 'SettingController');
 Route::resource('stock', 'StockController');
 Route::resource('department','DepartmentController');
 Route::resource('damage','DamageController');
+Route::resource('message','MessageController');
 
 Route::get('denied', array('before'=>'sentry', 'uses'=>'ErrorController@denied', 'as'=>'denied'));
 Route::get('notfound', array('before'=>'sentry','uses'=>'ErrorController@notfound', 'as'=>'notfound'));

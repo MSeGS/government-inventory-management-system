@@ -15,7 +15,7 @@ class GroupController extends \BaseController {
 	public function index()
 	{
 		
-		$groups = Group::orderBy('id', 'asc')->paginate(2);
+		$groups = Group::orderBy('id', 'asc')->paginate();
 		$index 	= $groups->getPerPage() * ($groups->getCurrentPage()-1)+1; 
 		return View::make('group.index')
 			->with('groups', $groups)
@@ -80,7 +80,7 @@ class GroupController extends \BaseController {
 	public function edit($id)
 	{
 		$group = Group::find($id);
-		$groups = Group::orderBy('id', 'asc')->paginate(2);
+		$groups = Group::orderBy('id', 'asc')->paginate();
 		$index 	= $groups->getPerPage() * ($groups->getCurrentPage()-1)+1; 
 		return View::make('group.edit')
 			->with(array(
