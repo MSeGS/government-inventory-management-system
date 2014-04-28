@@ -1,6 +1,6 @@
 <p><strong>Theme</strong></p>
 <div class="btn-group dropup">
-  <button type="button" class="btn btn-default btn-sm btn-info theme-name">{{ucwords(Cookie::get('theme'))}}</button>
+  <button type="button" class="btn btn-default btn-sm btn-info theme-name">{{strlen(Cookie::get('theme')) == 0 ? 'Default' : ucwords(Cookie::get('theme'))}}</button>
   <button type="button" class="btn btn-default btn-info dropdown-toggle btn-sm" data-toggle="dropdown">
     <span class="caret"></span>
     <span class="sr-only">Toggle Theme Dropdown</span>

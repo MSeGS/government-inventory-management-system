@@ -2,12 +2,12 @@
 		<div class="container">
 	<hr />
 			<div class="row">
-				<div class="col-md-6 col-sm-6">
+				<div class="col-md-6 col-sm-6 col-xs-12">
 					<div class="row">
-						<div class="col-md-2 col-sm-3 text-right">
+						<div class="col-md-2 col-sm-3 col-xs-3">
 							<img src="{{asset('templates/default/images/logo.jpg')}}" alt="" width="83">
 						</div>
-						<div class="col-md-10 col-sm-9">
+						<div class="col-md-10 col-sm-9 col-xs-9">
 							<address>
 								<strong>Mizoram State e-Governance Society</strong><br>
 								(An Autonomous Society under the Govt of Mizoram)<br>
@@ -18,12 +18,12 @@
 					</div>
 				</div>
 
-				<div class="col-md-3 col-sm-6">
+				<div class="col-md-3 col-sm-3 col-xs-6">
 					<div class="row">
 						@include('layout.partial.language')
 					</div>
 				</div>
-				<div class="col-md-3 col-sm-6">
+				<div class="col-md-3 col-sm-3 col-xs-6">
 					<div class="row">
 						@include('layout.partial.theme')
 					</div>

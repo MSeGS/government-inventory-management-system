@@ -466,3 +466,35 @@ hr {
 .btn-badge{
     width:100%; 
 }
+
+
+.dashboard-icons .lead {
+    margin-bottom: 0;
+}
+
+@media (max-width: 767px){
+    .dashboard-icons i{
+        font-size: 2em;
+        float: none !important;
+    }
+    .dashboard-icons .btn span{
+        display: block;
+        text-align: center;
+        font-size: 1.4em;
+        float: none !important;
+    }
+}
+@media (min-width: 768px) and (max-width: 991px){
+    .dashboard-icons i{
+        font-size: 4em;
+    }
+    .dashboard-icons .btn span.counter{
+        font-size: 2.4em;
+    }
+    .dashboard-icons .btn span.icon-title{
+        display: block;
+        text-align: center;
+        font-size: 1.2em;
+        margin:8px 0 0;
+    }
+}
