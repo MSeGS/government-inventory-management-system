@@ -6,6 +6,8 @@ class BaseController extends Controller {
 	{
 		$this->per_page = 30;
 		$this->current_route = Route::getCurrentRoute()->getName();
+		$this->current_user = Sentry::getUser();
+		View::share('current_user', $this->current_user);
 	}
 
 	/**

@@ -10,6 +10,11 @@ class Indent extends BaseStore
 		parent::__construct();
 	}
 
+	public function indentor()
+	{
+		return $this->belongsTo('User', 'indentor_id', 'id');
+	}
+
 	public function items()
 	{
 		return $this->hasMany('IndentItem');

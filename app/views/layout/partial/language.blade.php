@@ -13,7 +13,7 @@
 			'type' => 'submit'
 			));
 		echo " ";
-		echo Form::button('<i class="fa fa-check"></i> ' . _('Mizo Language'), array(
+		echo Form::button('<i class="fa fa-check"></i> ' . _('Mizo'), array(
 			'name' => 'language',
 			'value' => 'mizo',
 			'class' => 'tooltip-bottom btn btn-success btn-sm', 
@@ -32,7 +32,7 @@
 			'type' => 'submit'
 			));
 		echo " ";
-		echo Form::button(_('Mizo Language'), array(
+		echo Form::button(_('Mizo'), array(
 			'name' => 'language',
 			'value' => 'mizo',
 			'class' => 'tooltip-bottom btn btn-primary btn-sm', 

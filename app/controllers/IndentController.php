@@ -14,7 +14,49 @@ class IndentController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$filter = array(
+			'limit' 			=> Input::get('limit', get_setting('item_per_page'))
+			// 'name' 			=> Input::get('name'),
+			// 'category_id'	=> Input::get('category')
+		);
+
+		$indents = Indent::with('indentor', 'items')
+			->orderBy('indent_date', 'desc')
+			->paginate($filter['limit']);
+
+		return View::make('indent.index', compact('indents'));
+	}
+
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function mine()
+	{
+		$status = array(
+			'' => 'All Status',
+			'pending_approval' => 'Pending Approval',
+			'dispatched' => 'Dispatched',
+			'approved' => 'Approved',
+			'rejected' => 'Rejected',
+			'partial_dispatched' => 'Partial Dispatched',
+			);
+		$filter = array(
+			'limit' => Input::get('limit', get_setting('item_per_page')),
+			'indent_date' => Input::get('indent_date'),
+			'status' => Input::get('status')
+		);
+
+		$indents = Indent::with('indentor', 'items')
+			->where(function($query){
+				$user = Sentry::getUser();
+				$query->where('indentor_id', '=', $user->id);
+			})
+			->orderBy('indent_date', 'desc')
+			->paginate($filter['limit']);
+
+		return View::make('indent.mine', compact('indents', 'filter', 'status'));
 	}
 
 	/**

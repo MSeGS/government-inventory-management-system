@@ -51,6 +51,8 @@ Route::put('message/{id}/read', array('before'=>'sentry', 'uses'=>'MessageContro
 Route::put('message', array('before'=>'sentry', 'uses'=>'MessageController@show', 'as'=>'message.show'));
 Route::get('message/outbox', array('before'=>'sentry', 'uses'=>'MessageController@outbox', 'as'=>'message.outbox'));
 
+Route::get('indent/mine', array('before'=>'sentry', 'uses'=>'IndentController@mine', 'as'=>'indent.mine'));
+
 Route::resource('group', 'GroupController');
 Route::resource('resource', 'ResourceController');
 Route::resource('store', 'StoreController');

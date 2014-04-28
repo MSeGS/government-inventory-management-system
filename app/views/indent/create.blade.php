@@ -185,8 +185,8 @@
 
 @section('scripts')
 <script type="text/javascript">
-var chitSize = {{$chit_size}};
-var chitIndex = {{++$chit_size}};//parseInt($('.chit-form table tbody tr').size());
+var chitIndex = {{$chit_size}};//parseInt($('.chit-form table tbody tr').size());
+var noOfRows = parseInt($('.chit-form table tbody tr').size());
 $(function(){
 	$('.product-list button.add, .product-list button.request').on('click', function(){
 		var btn = $(this);
@@ -197,7 +197,6 @@ $(function(){
 		var reserved = parseInt(productRow.find('.reserved').val());
 		var qty = productRow.find('.quantity').val() != ""?parseInt(productRow.find('.quantity').val()):0;
 		var name = productRow.find('.name').val();
-		var noOfRows = parseInt($('.chit-form table tbody tr').size());
 		var indented = ($("#indent_" + id).size())?$("#indent_" + id).val():0;
 		var requested = ($("#request_" + id).size())?$("#request_" + id).val():0;
 
@@ -216,7 +215,6 @@ $(function(){
 			row += "</tr>";
 			
 			addToChit(id, 'request', qty, row, btn);
-			chitIndex++;
 		}
 		else {
 			var toIndent = parseInt(stock) - parseInt(indented);
@@ -238,8 +236,6 @@ $(function(){
 				indentRow += "</tr>";
 
 				addToChit(id, 'indent', toIndent, indentRow, btn);
-				noOfRows++;
-				chitIndex++;
 			}
 
 			var toRequest = parseInt(qty) - parseInt(toIndent);
@@ -258,7 +254,6 @@ $(function(){
 				requestRow += "</tr>";
 				
 				addToChit(id, 'request', toRequest, requestRow, btn);
-				chitIndex++;
 			}
 		}
 
@@ -322,8 +317,11 @@ function addToChit(id, rowType, qty, row, btn)
 		}
 	}
 	
-	if(insert)
+	if(insert) {
 		$('.chit-form table tbody').append(row);
+		noOfRows++;
+		chitIndex++;
+	}
 
 	if($('.chit-form table tbody tr').size() > 1) {
 		$('.chit-form table thead tr').removeClass('hidden');
@@ -332,6 +330,7 @@ function addToChit(id, rowType, qty, row, btn)
 	}
 
 	$("#chit_size").val(chitIndex);
+
 	saveChitForm(btn);
 
 }

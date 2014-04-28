@@ -14,12 +14,36 @@
         <li {{in_array(Route::currentRouteName(), array('home.index'))?'class="active"':''}}><a href="{{route('home.index')}}"><?php echo _('Main');?></a></li>
         @endif
 
-        @if($user->hasAccess('indent.create') && !$user->isSuperUser())
-        <li {{in_array(Route::currentRouteName(), array('indent.create'))?'class="active"':''}}><a href="{{route('indent.create')}}"><?php echo _('Indent');?></a></li>
+        @if( $user->hasAnyAccess(array('indent.index', 'indent.create')) )
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Indent <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                @if($user->hasAccess('indent.create') && !$user->isSuperUser())
+                <li {{in_array(Route::currentRouteName(), array('indent.create'))?'class="active"':''}}><a href="{{route('indent.create')}}"><?php echo _('New Indent');?></a></li>
+                @endif
+                <li><a href="/">Item 1</a></li>
+                <li><a href="/">Item 1</a></li>
+                <li><a href="/">Item 1</a></li>
+                <li><a href="/">Item 1</a></li>
+                <li><a href="/">Item 1</a></li>
+                <li><a href="/">Item 1</a></li>
+                <li><a href="/">Item 1</a></li>
+                <li><a href="/">Item 1</a></li>
+                <li><a href="/">Item 1</a></li>
+            </ul>
+        </li>
         @endif
 
         @if($user->hasAccess('indent.index') && !$user->isSuperUser())
-        <li {{in_array(Route::currentRouteName(), array('indent.index'))?'class="active"':''}}><a href="{{route('indent.index')}}"><?php echo _('Indent History');?></a></li>
+        <li {{in_array(Route::currentRouteName(), array('indent.index'))?'class="active"':''}}><a href="{{route('indent.index')}}"><?php echo _('Indents');?></a></li>
+        @endif
+
+        @if($user->hasAccess('indent.mine') && !$user->isSuperUser())
+        <li {{in_array(Route::currentRouteName(), array('indent.mine'))?'class="active"':''}}><a href="{{route('indent.mine')}}"><?php echo _('My Indent');?></a></li>
+        @endif
+
+        @if($user->hasAccess('indent.requirement') && !$user->isSuperUser())
+        <li {{in_array(Route::currentRouteName(), array('indent.requirement'))?'class="active"':''}}><a href="{{route('indent.requirement')}}"><?php echo _('Requirements');?></a></li>
         @endif
 
         @if($user->hasAccess('store.index') && $user->isSuperUser())

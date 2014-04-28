@@ -1,4 +1,4 @@
-<?php 
+<?php
 function get_product_by_category($category_id = 0)
 {
 	if(!$category_id)
@@ -27,13 +27,13 @@ function get_product_stock($product_id = null)
 
 	$total_stock = Product::stock($product_id);
 	$total_damage = Product::damage($product_id);
-	$total_indented = get_product_indented($product_id);
+	$total_supplied = get_product_supplied($product_id);
 	
 
-	return ($total_stock - ($total_damage+$total_indented)) > 0?($total_stock - ($total_damage+$total_indented)):0;
+	return ($total_stock - ($total_damage+$total_supplied)) > 0?($total_stock - ($total_damage+$total_supplied)):0;
 }
 
-function get_product_indented($product_id = null)
+function get_product_supplied($product_id = null)
 {
 	if($product_id == null)
 		return 0;

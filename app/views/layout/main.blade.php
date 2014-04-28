@@ -2,9 +2,7 @@
 
 <div class="searchStyles">
 	<div class="container">
-		<div class="row">
-			@yield('contentTop')
-		</div>
+		@yield('contentTop')
 	</div>
 </div>
 
