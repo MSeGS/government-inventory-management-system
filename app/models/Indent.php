@@ -10,4 +10,13 @@ class Indent extends BaseStore
 		parent::__construct();
 	}
 
+	public function items()
+	{
+		return $this->hasMany('IndentItem');
+	}
+
+	public function requirements()
+	{
+		return $this->hasMany('Requirement');
+	}
 }

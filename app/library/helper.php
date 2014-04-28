@@ -27,8 +27,28 @@ function get_product_stock($product_id = null)
 
 	$total_stock = Product::stock($product_id);
 	$total_damage = Product::damage($product_id);
+	$total_indented = get_product_indented($product_id);
+	
 
-	return ($total_stock - $total_damage) > 0?($total_stock - $total_damage):0;
+	return ($total_stock - ($total_damage+$total_indented)) > 0?($total_stock - ($total_damage+$total_indented)):0;
+}
+
+function get_product_indented($product_id = null)
+{
+	if($product_id == null)
+		return 0;
+
+	$indent = new Indent;
+	$indent_item = new IndentItem;
+	$indent_table = $indent->getTableName();
+	$indent_item_table = $indent_item->getTableName();
+
+	$item = IndentItem::join($indent_table, $indent_item_table . '.indent_id', '=', $indent_table . '.id')
+				->whereIn('status', array('dispatched','partial_dispatched'))
+				->where('product_id', '=', $product_id)
+				->select(array(DB::raw('SUM(supplied) as supplied')))
+				->first();
+	return (int)$item->supplied;
 }
 
 function get_unread_message_count()
@@ -38,4 +58,10 @@ function get_unread_message_count()
 		->where('status', '=', 'unread')->count();
 		
 	return ($count > 0)?'<span class="badge">'.$count.'</span>':null;
+}
+
+function get_current_user_id()
+{
+	$user = Sentry:: getUser();
+	return $user->id;
 }

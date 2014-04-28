@@ -19,7 +19,7 @@ class Store extends Eloquent
 				$table->increments('id');
 				$table->integer('indentor_id');
 				$table->datetime('indent_date');
-				$table->enum('status', array('pending_approval','approved', 'partial_dispatched', 'dispatched', 'rejected'));
+				$table->enum('status', array('pending_approval','approved', 'partial_dispatched', 'dispatched', 'rejected'))->default('pending_approval');
 				
 				$table->timestamps();
 				$table->softDeletes();
@@ -36,8 +36,9 @@ class Store extends Eloquent
 				$table->integer('indent_id');
 				$table->integer('product_id');
 				$table->integer('quantity');
-				$table->text('indent_reason');
-				$table->text('reject_reason');
+				$table->integer('supplied')->default(0);
+				$table->text('indent_reason')->nullable();
+				$table->text('reject_reason')->nullable();
 				
 				$table->timestamps();
 				
@@ -53,7 +54,7 @@ class Store extends Eloquent
 				$table->integer('indent_id');
 				$table->integer('product_id');
 				$table->smallInteger('quantity');
-				$table->enum('status', array('procured', 'pending'));
+				$table->enum('status', array('procured', 'pending', 'rejected'))->default('pending');
 				
 				$table->timestamps();
 				$table->softDeletes();

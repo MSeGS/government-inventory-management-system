@@ -1,8 +1,8 @@
 <?php
-class Product extends BaseStore
+class Requirement extends BaseStore
 {
 	
-	protected $table = 'products';
+	protected $table = 'indent_requirements';
 
 
 	public function __construct()

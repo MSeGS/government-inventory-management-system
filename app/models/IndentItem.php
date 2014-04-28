@@ -10,4 +10,9 @@ class IndentItem extends BaseStore
 		parent::__construct();
 	}
 
+	public function indent()
+	{
+		return $this->hasOne('Indent', 'id', 'indent_id');
+	}
+
 }
