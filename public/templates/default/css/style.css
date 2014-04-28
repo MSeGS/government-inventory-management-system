@@ -409,17 +409,52 @@ hr {
 .easydropdown .selected {
     padding: 8px 12px;
 }
-
-.chit-form table textarea {
+/*chit-form {
+    position: absolute;
+    right: 0;
+    z-index: 100;
+    top:0;
+}*/
+.product-list .table-wrapper {
+    overflow-y: auto;
+    min-height: 400px;
+}
+.chit-form .panel .panel-heading {
+    position: relative;
+}
+.chit-form .panel .panel-heading span.saving {
+    position: absolute;
+    right: 10px;
+    font-style: italic;
+}
+.chit-form .panel .panel-heading span.saved {
+    position: absolute;
+    font-style: normal;
+    right: 10px;
+}
+.chit-form table td textarea {
     font-size:11px;
     resize:vertical;
+    padding: 2px 5px;
 }
 .chit-form table input {
     font-size:11px;
-    padding: 5px 2px;
+    padding: 2px;
+    height: 24px;
+}
+.chit-form table .remove-item {
+    cursor: pointer;
+}
+.chit-form .saving-chit-form {
+    font-size: 30px;
 }
 .dropup .theme-name{
     text-transform: capitalize;
+}
+.create-indent-page {
+    position: relative;
+    width: 100%;
+    float: left;
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
