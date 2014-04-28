@@ -18,6 +18,9 @@ html, body {
 
 }
 
+.mb20{
+    margin-bottom: 20px;
+}
 /** Bootstrap Overwrite **/
 .alert {padding: 8px 10px 6px;}
 input[type='text'], input[type='password'], input[type='email'], textarea {
@@ -423,4 +426,8 @@ hr {
     .headerBrand {
         font-size: 1.2em;
     }
+}
+
+.btn-badge{
+    width:100%; 
 }
