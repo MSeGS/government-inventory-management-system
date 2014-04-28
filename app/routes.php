@@ -46,8 +46,10 @@ Route::put('damage/{id}/delete', array('before'=>'sentry', 'uses'=>'DamageContro
 Route::put('product/{id}/trash', array('before'=>'sentry', 'uses'=>'ProductController@restore', 'as'=>'product.restore'));
 Route::post('product/{id}', array('before'=>'sentry', 'uses'=>'ProductController@delete', 'as'=>'product.delete'));
 Route::get('product/trash', array('before'=>'sentry', 'uses'=>'ProductController@trash', 'as'=>'product.trash'));
-Route::post('message/{id}/read', array('before'=>'sentry', 'uses'=>'MessageController@read', 'as'=>'message.read'));
-Route::post('message', array('before'=>'sentry', 'uses'=>'MessageController@outbox', 'as'=>'message.outbox'));
+
+Route::put('message/{id}/read', array('before'=>'sentry', 'uses'=>'MessageController@read', 'as'=>'message.read'));
+Route::put('message', array('before'=>'sentry', 'uses'=>'MessageController@show', 'as'=>'message.show'));
+Route::get('message/outbox', array('before'=>'sentry', 'uses'=>'MessageController@outbox', 'as'=>'message.outbox'));
 
 Route::resource('group', 'GroupController');
 Route::resource('resource', 'ResourceController');

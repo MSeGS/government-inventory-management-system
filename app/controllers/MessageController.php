@@ -2,10 +2,10 @@
 
 class messageController extends \BaseController {
 
-	public function __construct()
+/*	public function __construct()
 	{
 		$this->beforeFilter('sentry');
-	}
+	}*/
 
 	/**
 	 * Display a listing of the resource.
@@ -44,21 +44,30 @@ class messageController extends \BaseController {
 	public function create()
 	{
 		$currentUser = Sentry::getUser()->store_id;
-
-		$users = User::where('store_id','=', $currentUser)
+		 $users = User::where('store_id','=', $currentUser)
 			->get()
 			->lists('full_name','id');
 		$userSelect = array(''=> _('Select User') , $users);
 
+		return View::make('message.compose')
+		->with(array(
+			'currentUser' => $currentUser,
+			'users' => $users,
+			'userSelect' => $userSelect
+			));
+	}
+
+	public function outbox()
+	{
+		$currentUser = Sentry::getUser()->store_id;
 		$notifications = Notification::where('sender_id', '=', $currentUser)->paginate();
 		return View::make('message.outbox')
 		 ->with(array(
 		 		'notifications' => $notifications,
-		 		'currentUser' => $currentUser,
-		 		'userSelect' => $userSelect,
-		 		'users' => $users
+		 		'currentUser' => $currentUser
 		 		));
 	}
+	
 
 	/**
 	 * Store a newly created resource in storage.
@@ -100,7 +109,14 @@ class messageController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		$currentMessage = Notification::find($id);
+		$currentMessage->status = 'read';
+		$currentMessage->save();
+		return View::make('message.show')
+			->with(array(
+				'currentMessage' => $currentMessage
+				
+				));
 	}
 
 	/**
