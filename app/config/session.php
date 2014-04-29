@@ -96,7 +96,7 @@ return array(
 	|
 	*/
 
-	'cookie' => 'indent_requisition_system_session',
+	'cookie' => 'gom_inventory_system',
 
 	/*
 	|--------------------------------------------------------------------------

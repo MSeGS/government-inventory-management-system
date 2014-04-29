@@ -35,14 +35,14 @@
 					<th class="col-md-2"><?php echo _("Indent Items") ?></th>
 					<th class="col-md-2"><?php echo _("Requirements") ?></th>
 					<th class="col-md-2"><?php echo _("Status") ?></th>
-					<th class="col-md-1"></th>
+					<th class="col-md-2"></th>
 				</tr>
 			</thead>
 			<tbody>
 				@foreach($indents as $key => $indent)
 				<tr>
 					<td>{{++$key}}</td>
-					<td>{{date('dS F Y, h:iA', strtotime($indent->indent_date))}}</td>
+					<td><a href="{{route('indent.show', array($indent->id))}}"><strong>{{date('dS F Y, h:iA', strtotime($indent->indent_date))}}</strong></a></td>
 					<td>{{sizeof($indent->items)}}</td>
 					<td>{{sizeof($indent->requirements)}}</td>
 					<td>
@@ -62,8 +62,13 @@
 					<td>
 						{{Form::open(array('url'=>route('indent.destroy', array($indent->id)),'method'=>'delete'))}}
 
-						<a href="{{route('indent.edit', array($indent->id))}}" class="btn btn-xs btn-success tooltip-top" title="<?php echo _('Edit Indent') ?>"><i class="fa fa-pencil"></i></a>
-						<button type="submit" onclick="return confirm <?php echo _('Are you sure') ?>);" name="id" class="btn btn-xs btn-danger tooltip-top" title="<?php echo _('Remove Indent') ?>" value="{{$indent->id}}"><i class="fa fa-times"></i></button>
+							<a href="{{route('indent.show', array($indent->id))}}" class="btn btn-xs btn-success tooltip-top" title="<?php echo _('Show Indent') ?>"><i class="fa fa-eye"></i></a>
+							@if($current_user->hasAccess('indent.edit') && in_array($indent->status, array('pending_approval', 'rejected')))
+							<a href="{{route('indent.edit', array($indent->id))}}" class="btn btn-xs btn-success tooltip-top" title="<?php echo _('Edit Indent') ?>"><i class="fa fa-pencil"></i></a>
+							@endif
+							@if($current_user->hasAccess('indent.destroy')  && in_array($indent->status, array('pending_approval')) )
+							<button type="submit" onclick="return confirm <?php echo _('Are you sure') ?>);" name="id" class="btn btn-xs btn-danger tooltip-top" title="<?php echo _('Remove Indent') ?>" value="{{$indent->id}}"><i class="fa fa-times"></i></button>
+							@endif
 						{{Form::close()}}
 					</td>
 				</tr>

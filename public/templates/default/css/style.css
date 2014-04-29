@@ -95,6 +95,21 @@ border-bottom: none !important;
     /*color: #F8F5F5;*/
 }
 
+.navbar-default .navbar-nav li a {
+    position: relative;
+}
+
+.navbar-default .navbar-nav li a span.menu-super {
+}
+.navbar-default .navbar-nav li a span.menu-super .badge {
+    background-color: #E03232;
+    font-size: 0.8em;
+    padding: 2px 4px 1px;
+    font-family: Arial;
+    font-weight: bold;
+    border-radius: 2px;
+}
+
 .pagination>li>a {
     /*background: #f1f1f1 !important;*/
 }
@@ -446,7 +461,7 @@ hr {
     cursor: pointer;
 }
 .chit-form .saving-chit-form {
-    font-size: 30px;
+    font-size: 26px;
 }
 .dropup .theme-name{
     text-transform: capitalize;

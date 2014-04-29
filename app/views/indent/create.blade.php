@@ -107,11 +107,13 @@
 
 				{{Form::open(array('url'=>route('indent.store'), 'method'=>'post', 'class'=>'form-vertical'))}}
 					
-					{{Form::hidden('chit_size', $chit_size, array('id'=>'chit_size'))}}
+					{{Form::hidden('chit_size[indent]', $chit_size['indent'], array('id'=>'chit_indent_size'))}}
+					{{Form::hidden('chit_size[requirement]', $chit_size['requirement'], array('id'=>'chit_requirement_size'))}}
 					
-					<table class="table table-hover">
+					<h5><i class="fa fa-bars"></i> <?php echo _('Indents'); ?></h5>
+					<table class="table table-hover" id="indent_items">
 						<thead>
-							@if(is_array($chit) && array_key_exists('chit', $chit) && !empty($chit['chit']))
+							@if(is_array($chit) && array_key_exists('indent', $chit) && !empty($chit['indent']))
 							<tr>
 							@else
 							<tr class="hidden">
@@ -124,7 +126,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							@if(is_array($chit) && array_key_exists('chit', $chit) && !empty($chit['chit']))
+							@if(is_array($chit) && array_key_exists('indent', $chit) && !empty($chit['indent']))
 							<tr class="empty" style="display:none">
 							@else
 							<tr class="empty">
@@ -134,25 +136,81 @@
 								</td>
 							</tr>
 
-							@if(is_array($chit) && array_key_exists('chit', $chit) && !empty($chit['chit']))
-							@foreach($chit['chit'] as $key => $item)
-							<tr class="{{$item['type'] == 'request'?'warning':'success'}}">
+							@if(is_array($chit) && array_key_exists('indent', $chit) && !empty($chit['indent']))
+								@foreach($chit['indent'] as $key => $item)
+								<tr>
+									<td>
+										<span class="serial">{{++$ctr}}</span>
+										<input type="hidden" class="id" name="indent[{{$key}}][id]" value="{{$item['id']}}" />
+										<input type="hidden" class="category" name="indent[{{$key}}][category]" value="{{$item['category']}}" />
+										<input type="hidden" class="type" name="indent[{{$key}}][type]" value="{{$item['type']}}" />
+										<input type="hidden" name="indent[{{$key}}][name]" value="{{$item['name']}}" />
+									</td>
+									<td>{{$item['name']}}</td>
+									<td>
+										<div class="{{$errors->has('indent.'.$key.'.qty')?'has-error':''}}">
+											<input min="0" class="input-sm form-control qty" id="{{$item['type']}}_{{$item['id']}}" type="number" name="indent[{{$key}}][qty]" value="{{$item['qty']}}" /></td>
+										</div>
+									<td>
+										@if(isset($item['note']) && isset($item['reserved']) && $item['reserved']==1)
+										<div class="{{$errors->has('indent.'.$key.'.note')?'has-error':''}}">
+											<input type="hidden" name="indent[{{$key}}][reserved]" class="reserved" value="{{$item['reserved']}}" />
+											<textarea name="indent[{{$key}}][note]" class="input-sm form-control note" rows="2" placeholder="<?php echo _('Note'); ?>">{{$item['note']}}</textarea>
+										</div>
+										@endif
+									</td>
+									<td class="text-right"><span onclick="return removeChitItem(this);" class="remove-item text-danger" title="Remove"><i class="fa fa-trash-o fa-2x"></i></span></td>
+								</tr>
+								@endforeach
+							@endif
+						</tbody>
+					</table>
+
+					<h5><i class="fa fa-bars"></i> <?php echo _('Requirements'); ?></h5>
+					<table class="table table-hover" id="requirement_items">
+						<thead>
+							@if(is_array($chit) && array_key_exists('requirement', $chit) && !empty($chit['requirement']))
+							<tr>
+							@else
+							<tr class="hidden">
+							@endif
+								<th class="col-sm-1">#</th>
+								<th class="col-sm-3"><?php echo _('Name'); ?></th>
+								<th class="col-sm-2"><?php echo _('Quantity'); ?></th>
+								<th class="col-sm-4"></th>
+								<th class="col-sm-1 text-right"></th>
+							</tr>
+						</thead>
+						<tbody>
+							@if(is_array($chit) && array_key_exists('requirement', $chit) && !empty($chit['requirement']))
+							<tr class="empty" style="display:none">
+							@else
+							<tr class="empty">
+							@endif
+								<td colspan="5" align="center">
+									<em><?php echo _('Browse items from left column and add here'); ?></em>
+								</td>
+							</tr>
+							<?php $ctr = 0; ?>
+							@if(is_array($chit) && array_key_exists('requirement', $chit) && !empty($chit['requirement']))
+							@foreach($chit['requirement'] as $key => $item)
+							<tr>
 								<td>
 									<span class="serial">{{++$ctr}}</span>
-									<input type="hidden" class="id" name="chit[{{$key}}][id]" value="{{$item['id']}}" />
-									<input type="hidden" class="category" name="chit[{{$key}}][category]" value="{{$item['category']}}" />
-									<input type="hidden" class="type" name="chit[{{$key}}][type]" value="{{$item['type']}}" />
-									<input type="hidden" name="chit[{{$key}}][name]" value="{{$item['name']}}" />
+									<input type="hidden" class="id" name="requirement[{{$key}}][id]" value="{{$item['id']}}" />
+									<input type="hidden" class="category" name="requirement[{{$key}}][category]" value="{{$item['category']}}" />
+									<input type="hidden" class="type" name="requirement[{{$key}}][type]" value="{{$item['type']}}" />
+									<input type="hidden" name="requirement[{{$key}}][name]" value="{{$item['name']}}" />
 								</td>
 								<td>{{$item['name']}}</td>
 								<td>
-									<div class="{{$errors->has('chit.'.$key.'.qty')?'has-error':''}}">
-										<input class="input-sm form-control qty" id="{{$item['type']}}_{{$item['id']}}" type="number" name="chit[{{$key}}][qty]" value="{{$item['qty']}}" /></td>
+									<div class="{{$errors->has('requirement.'.$key.'.qty')?'has-error':''}}">
+										<input min="0" class="input-sm form-control qty" id="{{$item['type']}}_{{$item['id']}}" type="number" name="requirement[{{$key}}][qty]" value="{{$item['qty']}}" /></td>
 									</div>
 								<td>
 									@if(isset($item['note']))
-									<div class="{{$errors->has('chit.'.$key.'.note')?'has-error':''}}">
-										<textarea name="chit[{{$key}}][note]" class="input-sm form-control note" rows="2" placeholder="<?php echo _('Note'); ?>">{{$item['note']}}</textarea>
+									<div class="{{$errors->has('requirement.'.$key.'.note')?'has-error':''}}">
+										<textarea name="requirement[{{$key}}][note]" class="input-sm form-control note" rows="2" placeholder="<?php echo _('Note'); ?>">{{$item['note']}}</textarea>
 									</div>
 									@endif
 								</td>
@@ -163,18 +221,14 @@
 						</tbody>
 					</table>
 				
-					<hr> 
-					<div class="col-sm-3">
-						<p><span class="label label-success">&nbsp;</span> <span class="text-muted"><?php echo _('Indents');?></span></p>
-					</div>
-					<div class="col-sm-4">
-						<p><span class="label label-warning">&nbsp;</span> <span class="text-muted"><?php echo _('Requirements');?></span></p>
-					</div>
-					<div class="col-sm-1">
-						<span class="hidden saving-chit-form text-success"><i class="fa fa-spinner fa-spin"></i></span>
-					</div>
-					<div class="col-sm-4 text-right">
-						<?php echo Form::button('<i class="fa fa-check"></i> ' . _('Submit Indent'), array('class'=>'submit-indent btn btn-primary disabled', 'type'=>'submit'));?>
+					<hr>
+					<div class="row">
+						<div class="col-sm-6 text-left">
+							<span class="hidden saving-chit-form text-success"><i class="fa fa-spinner fa-spin"></i></span>
+						</div>
+						<div class="col-sm-6 text-right">
+							<?php echo Form::button('<i class="fa fa-check"></i> ' . _('Submit Indent'), array('class'=>'submit-indent btn btn-primary disabled', 'type'=>'submit'));?>
+						</div>
 					</div>
 				{{Form::close()}}
 			</div>
@@ -185,8 +239,12 @@
 
 @section('scripts')
 <script type="text/javascript">
-var chitIndex = {{$chit_size}};//parseInt($('.chit-form table tbody tr').size());
-var noOfRows = parseInt($('.chit-form table tbody tr').size());
+var chitIndentIndex = {{$chit_size['indent']}};
+var chitRequirementIndex = {{$chit_size['requirement']}};
+var noOfRowsIndent = parseInt($('.chit-form table#indent_items tbody tr').size());
+var noOfRowsRequirement = parseInt($('.chit-form table#requirement_items tbody tr').size());
+var isReserved = false;
+
 $(function(){
 	$('.product-list button.add, .product-list button.request').on('click', function(){
 		var btn = $(this);
@@ -201,20 +259,20 @@ $(function(){
 		var requested = ($("#request_" + id).size())?$("#request_" + id).val():0;
 
 		if(stock == 0) {
-			var row = '<tr class="warning">';
-			row += '<td><span class="serial">'+noOfRows+'</span>';
-			row += '<input type="hidden" class="id" name="chit['+chitIndex+'][id]" value="'+id+'" />';
-			row += '<input type="hidden" class="category" name="chit['+chitIndex+'][category]" value="'+category+'" />';
-			row += '<input type="hidden" class="type" name="chit['+chitIndex+'][type]" value="request" />';
-			row += '<input type="hidden" name="chit['+chitIndex+'][name]" value="'+name+'" />';
+			var row = '<tr>';
+			row += '<td><span class="serial">'+noOfRowsRequirement+'</span>';
+			row += '<input type="hidden" class="id" name="requirement['+chitRequirementIndex+'][id]" value="'+id+'" />';
+			row += '<input type="hidden" class="category" name="requirement['+chitRequirementIndex+'][category]" value="'+category+'" />';
+			row += '<input type="hidden" class="type" name="requirement['+chitRequirementIndex+'][type]" value="request" />';
+			row += '<input type="hidden" name="requirement['+chitRequirementIndex+'][name]" value="'+name+'" />';
 			row += '</td>';
 			row += '<td>'+name+'</td>';
-			row += '<td><input class="input-sm form-control qty" type="number" id="request_'+id+'" name="chit['+chitIndex+'][qty]" value="'+qty+'" /></td>';
-			row += '<td><textarea name="chit['+chitIndex+'][note]" class="note input-sm form-control" rows="2" placeholder="<?php echo _('Note'); ?>"></textarea></td>';
+			row += '<td><input class="input-sm form-control qty" type="number" min="0" id="request_'+id+'" name="requirement['+chitRequirementIndex+'][qty]" value="'+qty+'" /></td>';
+			row += '<td></td>';//<textarea name="requirement['+chitRequirementIndex+'][note]" class="note input-sm form-control" rows="2" placeholder="<?php echo _('Note'); ?>"></textarea></td>';
 			row += '<td class="text-right"><span onclick="return removeChitItem(this);" class="remove-item text-danger" title="Remove"><i class="fa fa-trash-o fa-2x"></i></span></td>';
 			row += "</tr>";
 			
-			addToChit(id, 'request', qty, row, btn);
+			addToChit(id, 'request', qty, row, btn, isReserved);
 		}
 		else {
 			var toIndent = parseInt(stock) - parseInt(indented);
@@ -222,38 +280,50 @@ $(function(){
 				if(qty <= toIndent)
 					toIndent = qty;
 
-				var indentRow = '<tr class="success">';
-				indentRow += '<td><span class="serial">'+noOfRows+'</span>';
-				indentRow += '<input type="hidden" class="id" name="chit['+chitIndex+'][id]" value="'+id+'" />';
-				indentRow += '<input type="hidden" class="category" name="chit['+chitIndex+'][category]" value="'+category+'" />';
-				indentRow += '<input type="hidden" class="type" name="chit['+chitIndex+'][type]" value="indent" />';
-				indentRow += '<input type="hidden" name="chit['+chitIndex+'][name]" value="'+name+'" />';
+				var indentRow = '<tr>';
+				indentRow += '<td><span class="serial">'+noOfRowsIndent+'</span>';
+				indentRow += '<input type="hidden" class="id" name="indent['+chitIndentIndex+'][id]" value="'+id+'" />';
+				indentRow += '<input type="hidden" class="category" name="indent['+chitIndentIndex+'][category]" value="'+category+'" />';
+				indentRow += '<input type="hidden" class="type" name="indent['+chitIndentIndex+'][type]" value="indent" />';
+				indentRow += '<input type="hidden" name="indent['+chitIndentIndex+'][name]" value="'+name+'" />';
 				indentRow += '</td>';
 				indentRow += '<td>'+name+'</td>';
-				indentRow += '<td><input class="input-sm form-control qty" id="indent_'+id+'" type="number" name="chit['+chitIndex+'][qty]" value="'+toIndent+'" /></td>';
-				indentRow += "<td></td>";
+				indentRow += '<td><input class="input-sm form-control qty" min="0" id="indent_'+id+'" type="number" name="indent['+chitIndentIndex+'][qty]" value="'+toIndent+'" /></td>';
+				
+				isReserved = ((parseInt(stock) - parseInt(indented) - reserved) <= toIndent);
+				if(isReserved) {
+					indentRow += '<td>';
+					indentRow += '<input type="hidden" class="reserved" name="indent['+chitIndentIndex+'][reserved]" value="1" />';
+					indentRow += '<textarea name="indent['+chitIndentIndex+'][note]" class="note input-sm form-control" rows="2" placeholder="<?php echo _('Note'); ?>"></textarea></td>';
+				}
+				else {
+					indentRow += '<td>';
+					indentRow += '<input type="hidden" class="reserved" name="indent['+chitIndentIndex+'][reserved]" value="0" />';
+					indentRow += '<textarea name="indent['+chitIndentIndex+'][note]" class="hidden note input-sm form-control" rows="2" placeholder="<?php echo _('Note'); ?>"></textarea></td>';
+				}
+
 				indentRow += '<td class="text-right"><span onclick="return removeChitItem(this);" class="remove-item text-danger" title="Remove"><i class="fa fa-trash-o fa-2x"></i></span></td>';
 				indentRow += "</tr>";
 
-				addToChit(id, 'indent', toIndent, indentRow, btn);
+				addToChit(id, 'indent', toIndent, indentRow, btn, isReserved);
 			}
 
 			var toRequest = parseInt(qty) - parseInt(toIndent);
 			if(toRequest > 0) {
-				var requestRow  = '<tr class="warning">';
-				requestRow += '<td><span class="serial">'+noOfRows+'</span>';
-				requestRow += '<input type="hidden" class="id" name="chit['+chitIndex+'][id]" value="'+id+'" />';
-				requestRow += '<input type="hidden" class="category" name="chit['+chitIndex+'][category]" value="'+category+'" />';
-				requestRow += '<input type="hidden" class="type" name="chit['+chitIndex+'][type]" value="request" />';
-				requestRow += '<input type="hidden" name="chit['+chitIndex+'][name]" value="'+name+'" />';
+				var requestRow  = '<tr>';
+				requestRow += '<td><span class="serial">'+noOfRowsRequirement+'</span>';
+				requestRow += '<input type="hidden" class="id" name="requirement['+chitRequirementIndex+'][id]" value="'+id+'" />';
+				requestRow += '<input type="hidden" class="category" name="requirement['+chitRequirementIndex+'][category]" value="'+category+'" />';
+				requestRow += '<input type="hidden" class="type" name="requirement['+chitRequirementIndex+'][type]" value="request" />';
+				requestRow += '<input type="hidden" name="requirement['+chitRequirementIndex+'][name]" value="'+name+'" />';
 				requestRow += '</td>';
 				requestRow += '<td>'+name+'</td>';
-				requestRow += '<td><input class="input-sm form-control qty" id="request_'+id+'" type="number" name="chit['+chitIndex+'][qty]" value="'+toRequest+'" /></td>';
-				requestRow += '<td><textarea name="chit['+chitIndex+'][note]" class="input-sm form-control note" rows="2" placeholder="<?php echo _('Note'); ?>"></textarea></td>';
+				requestRow += '<td><input class="input-sm form-control qty" min="0" id="request_'+id+'" type="number" name="requirement['+chitRequirementIndex+'][qty]" value="'+toRequest+'" /></td>';
+				requestRow += '<td></td>';//<textarea name="requirement['+chitRequirementIndex+'][note]" class="input-sm form-control note" rows="2" placeholder="<?php echo _('Note'); ?>"></textarea></td>';
 				requestRow += '<td class="text-right"><span onclick="return removeChitItem(this);" class="remove-item text-danger" title="Remove"><i class="fa fa-trash-o fa-2x"></i></span></td>';
 				requestRow += "</tr>";
 				
-				addToChit(id, 'request', toRequest, requestRow, btn);
+				addToChit(id, 'request', toRequest, requestRow, btn, isReserved);
 			}
 		}
 
@@ -269,10 +339,26 @@ $(function(){
 			var id = chitRow.find('.id').val();
 			var type = chitRow.find('.type').val();
 			var stock = $("#product_" + id + " input.stock").val();
+			var reserved = $("#product_" + id + " input.reserved").val();
 			
 			if(type == 'indent') {
-				if(parseInt($(this).val()) < parseInt(stock))
+				if(parseInt($(this).val()) < parseInt(stock)) {
+					var indented = parseInt($(this).val());
+					var toIndent = indented;
+
+					var isReserved = ((parseInt(stock) - parseInt(indented) - reserved) <= reserved);
+
+					if(isReserved) {
+						chitRow.find('.reserved').val(1);
+						chitRow.find('textarea.note').removeClass('hidden');
+					}
+					else {
+						chitRow.find('.reserved').val(0);
+						chitRow.find('textarea.note').addClass('hidden');
+					}
+
 					saveChitForm('');
+				}
 				else
 					$(this).val(parseInt(stock));
 			}
@@ -281,16 +367,16 @@ $(function(){
 		}
 	});
 
-	$('.chit-form table tbody td textarea.note').on('blur', function(){
+	$('.chit-form table tbody td textarea.note, .chit-form table tbody td input.qty').on('blur', function(){
 		if($(this).val() != "")
 			saveChitForm('');
 	});
 
-	if(parseInt($('.chit-form table tbody tr').size()) > 1)
+	if(parseInt($('.chit-form table tbody tr').size()) > 2)
 		$(".submit-indent").removeClass('disabled');
 });
 
-function addToChit(id, rowType, qty, row, btn)
+function addToChit(id, rowType, qty, row, btn, isReserved)
 {	
 	$(".product-list input").removeAttr('style');
 	if(qty == 0) {
@@ -306,6 +392,14 @@ function addToChit(id, rowType, qty, row, btn)
 			insert = false;
 			var indented = parseInt($("#indent_" + id).val());
 			$("#indent_" + id).val(indented + parseInt(qty));
+			if(isReserved) {
+				$("#indent_" + id).closest('tr').find('.reserved').val(1);
+				$("#indent_" + id).closest('tr').find('textarea.note').removeClass('hidden');
+			}
+			else {
+				$("#indent_" + id).closest('tr').find('.reserved').val(0);
+				$("#indent_" + id).closest('tr').find('textarea.note').addClass('hidden');
+			}
 		}
 	}
 	else if(rowType == 'request') {
@@ -318,18 +412,32 @@ function addToChit(id, rowType, qty, row, btn)
 	}
 	
 	if(insert) {
-		$('.chit-form table tbody').append(row);
-		noOfRows++;
-		chitIndex++;
+		if(rowType == 'indent') {
+			$('.chit-form table#indent_items tbody').append(row);
+			noOfRowsIndent++;
+			chitIndentIndex++;
+		}
+		else if(rowType == 'request') {
+			$('.chit-form table#requirement_items tbody').append(row);
+			noOfRowsRequirement++;
+			chitRequirementIndex++;
+		}
 	}
 
-	if($('.chit-form table tbody tr').size() > 1) {
-		$('.chit-form table thead tr').removeClass('hidden');
-		$('.chit-form table tbody tr.empty').hide();
+	if($('.chit-form table tbody tr').size() > 2) {
+		if($('.chit-form table#indent_items tbody tr').size() > 1) {
+			$('.chit-form table#indent_items thead tr').removeClass('hidden');
+			$('.chit-form table#indent_items tbody tr.empty').hide();
+		}
+		if($('.chit-form table#requirement_items tbody tr').size() > 1) {
+			$('.chit-form table#requirement_items thead tr').removeClass('hidden');
+			$('.chit-form table#requirement_items tbody tr.empty').hide();
+		}
 		$(".submit-indent").removeClass('disabled');
 	}
 
-	$("#chit_size").val(chitIndex);
+	$("#chit_indent_size").val(chitIndentIndex);
+	$("#chit_requirement_size").val(chitRequirementIndex);
 
 	saveChitForm(btn);
 
@@ -362,19 +470,30 @@ function removeChitItem(btn)
 			reorderChitItem();
 			saveChitForm($(btn));
 		});
-	}
-	
+	}	
 }
 
 function reorderChitItem()
 {
-	$('.chit-form table tbody td .serial').each(function(key){
+	noOfRowsIndent = parseInt($('.chit-form table#indent_items tbody tr').size());
+	noOfRowsRequirement = parseInt($('.chit-form table#requirement_items tbody tr').size());
+
+	$('.chit-form table#indent_items tbody td .serial').each(function(key){
 		$(this).text(++key);
 	});
 
-	if($('.chit-form table tbody tr').size() <= 1) {
-		$('.chit-form table thead tr').addClass('hidden');
-		$('.chit-form table tbody tr.empty').show();
+	$('.chit-form table#requirement_items tbody td .serial').each(function(key){
+		$(this).text(++key);
+	});
+
+	if($('.chit-form table#indent_items tbody tr').size() <= 1) {
+		$('.chit-form table#indent_items thead tr').addClass('hidden');
+		$('.chit-form table#indent_items tbody tr.empty').show();
+	}
+
+	if($('.chit-form table#requirement_items tbody tr').size() <= 1) {
+		$('.chit-form table#requirement_items thead tr').addClass('hidden');
+		$('.chit-form table#requirement_items tbody tr.empty').show();
 	}
 }
 

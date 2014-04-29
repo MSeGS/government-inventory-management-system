@@ -65,8 +65,8 @@ Route::resource('damage','DamageController');
 Route::resource('message','MessageController');
 Route::resource('indent','IndentController');
 
-Route::get('denied', array('before'=>'sentry', 'uses'=>'ErrorController@denied', 'as'=>'denied'));
-Route::get('notfound', array('before'=>'sentry','uses'=>'ErrorController@notfound', 'as'=>'notfound'));
+Route::get('denied', array('uses'=>'ErrorController@denied', 'as'=>'denied'));
+Route::get('notfound', array('uses'=>'ErrorController@notfound', 'as'=>'notfound'));
 
 Route::resource('option', 'OptionController');
 

@@ -14,36 +14,23 @@
         <li {{in_array(Route::currentRouteName(), array('home.index'))?'class="active"':''}}><a href="{{route('home.index')}}"><?php echo _('Main');?></a></li>
         @endif
 
-        @if( $user->hasAnyAccess(array('indent.index', 'indent.create')) )
+        @if( $user->hasAnyAccess(array('indent.index', 'indent.create')) && !$user->isSuperUser() )
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Indent <b class="caret"></b></a>
             <ul class="dropdown-menu">
                 @if($user->hasAccess('indent.create') && !$user->isSuperUser())
                 <li {{in_array(Route::currentRouteName(), array('indent.create'))?'class="active"':''}}><a href="{{route('indent.create')}}"><?php echo _('New Indent');?></a></li>
                 @endif
-                <li><a href="/">Item 1</a></li>
-                <li><a href="/">Item 1</a></li>
-                <li><a href="/">Item 1</a></li>
-                <li><a href="/">Item 1</a></li>
-                <li><a href="/">Item 1</a></li>
-                <li><a href="/">Item 1</a></li>
-                <li><a href="/">Item 1</a></li>
-                <li><a href="/">Item 1</a></li>
-                <li><a href="/">Item 1</a></li>
+
+                @if($user->hasAccess('indent.index') && !$user->isSuperUser())
+                <li {{in_array(Route::currentRouteName(), array('indent.index'))?'class="active"':''}}><a href="{{route('indent.index')}}"><?php echo _('List Indents');?></a></li>
+                @endif
+
+                @if($user->hasAccess('indent.mine') && !$user->isSuperUser())
+                <li {{in_array(Route::currentRouteName(), array('indent.mine'))?'class="active"':''}}><a href="{{route('indent.mine')}}"><?php echo _('My Indent');?></a></li>
+                @endif
             </ul>
         </li>
-        @endif
-
-        @if($user->hasAccess('indent.index') && !$user->isSuperUser())
-        <li {{in_array(Route::currentRouteName(), array('indent.index'))?'class="active"':''}}><a href="{{route('indent.index')}}"><?php echo _('Indents');?></a></li>
-        @endif
-
-        @if($user->hasAccess('indent.mine') && !$user->isSuperUser())
-        <li {{in_array(Route::currentRouteName(), array('indent.mine'))?'class="active"':''}}><a href="{{route('indent.mine')}}"><?php echo _('My Indent');?></a></li>
-        @endif
-
-        @if($user->hasAccess('indent.requirement') && !$user->isSuperUser())
-        <li {{in_array(Route::currentRouteName(), array('indent.requirement'))?'class="active"':''}}><a href="{{route('indent.requirement')}}"><?php echo _('Requirements');?></a></li>
         @endif
 
         @if($user->hasAccess('store.index') && $user->isSuperUser())
@@ -57,15 +44,7 @@
         @if($user->hasAccess('user.profile') && !$user->isSuperUser())
         <li {{in_array(Route::currentRouteName(), array('user.profile'))?'class="active"':''}}><a href="{{route('user.profile')}}"><?php echo _('Profile'); ?></a></li>
         @endif
-        
-        @if($user->hasAccess('group.index'))
-        <li {{in_array(Route::currentRouteName(), array('group.index', 'group.edit'))?'class="active"':''}}><a href="{{route('group.index')}}"><?php echo _('Groups'); ?></a></li>
-        @endif
-        
-        @if($user->hasAccess('resource.index'))
-        <li {{in_array(Route::currentRouteName(), array('resource.index', 'resource.edit'))?'class="active"':''}}><a href="{{route('resource.index')}}"><?php  echo _('Resource'); ?></a></li>
-        @endif
-        
+                
         @if($user->hasAccess('option.index'))
         <li {{in_array(Route::currentRouteName(), array('option.index', 'option.edit'))?'class="active"':''}}><a href="{{url('/option')}}"><?php echo _('Options'); ?></a></li>
         @endif
@@ -78,7 +57,7 @@
         <li {{in_array(Route::currentRouteName(), array('setting.index', 'setting.edit'))?'class="active"':''}}><a href="{{route('setting.index')}}"><?php echo _('Settings'); ?></a></li>
         @endif
         
-         @if( $user->hasAnyAccess(array('category.index', 'category.create')) )
+         @if( $user->hasAnyAccess(array('category.index', 'category.create')) && !$user->isSuperUser())
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Category <b class="caret"></b></a>
             <ul class="dropdown-menu">
@@ -94,7 +73,7 @@
         <li {{in_array(Route::currentRouteName(), array('product.index', 'product.edit'))?'class="active"':''}}><a href="{{url('/product')}}"><?php echo _('Products'); ?></a></li>
         @endif
         
-        @if( $user->hasAnyAccess(array('stock.index', 'stock.create')) )
+        @if( $user->hasAnyAccess(array('stock.index', 'stock.create'))  && !$user->isSuperUser())
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Stock <b class="caret"></b></a>
             <ul class="dropdown-menu">
@@ -106,7 +85,7 @@
         </li>
         @endif
         
-        @if( $user->hasAnyAccess(array('damage.index', 'damage.trash')) )
+        @if( $user->hasAnyAccess(array('damage.index', 'damage.trash')) && !$user->isSuperUser() )
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Damage <b class="caret"></b></a>
             <ul class="dropdown-menu">
@@ -117,18 +96,18 @@
                 <li {{in_array(Route::currentRouteName(), array('damage.create'))?'class="active"':''}}><a href="{{route('damage.create')}}"><?php echo _('Damage Reports');?></a></li>
                 @endif
                 @if($user->hasAccess('damage.trash') && !$user->isSuperUser())
-                <li {{in_array(Route::currentRouteName(), array('damage.create'))?'class="active"':''}}><a href="{{route('damage.trash')}}"><?php echo _('Damage Trash');?></a></li>
+                <li {{in_array(Route::currentRouteName(), array('damage.trash'))?'class="active"':''}}><a href="{{route('damage.trash')}}"><?php echo _('Damage Trash');?></a></li>
                 @endif
             </ul>
         </li>
         @endif
         @if($user->hasAccess('damage.manage') && !$user->isSuperUser())
-        <li {{in_array(Route::currentRouteName(), array('damage.manage'))?'class="active"':''}}><a href="{{route('damage.manage')}}"><?php echo _('Damage Report'); ?></a></li>
+        <li {{in_array(Route::currentRouteName(), array('damage.manage'))?'class="active"':''}}><a href="{{route('damage.manage')}}"><?php echo _('Manage Damage'); ?></a></li>
         @endif
 
         @if( $user->hasAnyAccess(array('message.index', 'message.create')) && !$user->isSuperUser())
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{get_unread_message_count()}} <?php  echo _('Message'); ?><b class="caret"></b></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php  echo _('Message'); ?> <span class="menu-super">{{get_unread_message_count()}}</span> <b class="caret"></b></a>
             <ul class="dropdown-menu">
                 @if($user->hasAccess('message.index') && !$user->isSuperUser())
                 <li {{in_array(Route::currentRouteName(), array('message.index'))?'class="active"':''}}><a href="{{route('message.index')}}"><?php echo _('Message Inbox');?></a></li>
@@ -144,6 +123,22 @@
         </li>
         @endif
         
+        @if( $user->hasAnyAccess(array('group.index', 'resource.index')) )
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php  echo _('Permission'); ?><b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                @if($user->hasAccess('group.index'))
+                <li {{in_array(Route::currentRouteName(), array('group.index', 'group.edit'))?'class="active"':''}}><a href="{{route('group.index')}}"><?php echo _('Groups'); ?></a></li>
+                @endif
+                
+                @if($user->hasAccess('resource.index'))
+                <li {{in_array(Route::currentRouteName(), array('resource.index', 'resource.edit'))?'class="active"':''}}><a href="{{route('resource.index')}}"><?php  echo _('Resource'); ?></a></li>
+                @endif
+
+            </ul>
+        </li>
+        @endif
+
         @if($user->hasAccess('logout'))
         <li {{in_array(Route::currentRouteName(), array('logout'))?'class="active"':''}}><a href="{{url('/logout')}}"><?php echo _('Sign Out'); ?></a></li>
         @endif

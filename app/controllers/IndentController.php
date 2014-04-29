@@ -2,9 +2,11 @@
 
 class IndentController extends \BaseController {
 
-	public function __construct()
+	public function __construct(IndentInterface $indent)
 	{
+		parent::__construct();
 		$this->beforeFilter('sentry');
+		$this->indent = $indent;
 	}
 
 	/**
@@ -67,7 +69,7 @@ class IndentController extends \BaseController {
 	public function create()
 	{
 		$filter = array(
-			'limit' 			=> Input::get('limit', get_setting('item_per_page')),
+			'limit' 		=> Input::get('limit', get_setting('item_per_page')),
 			'name' 			=> Input::get('name'),
 			'category_id'	=> Input::get('category')
 		);
@@ -87,9 +89,10 @@ class IndentController extends \BaseController {
 
 		$categories = $categories + Category::orderBy('category_name', 'asc')->get()->lists('category_name', 'id');
 		
-		$chit = Cookie::queue('chit', Cookie::get('chit'), 60);
-		$chit_size = Cookie::get('chit_size');
-		$chit_size = strlen($chit_size)?$chit_size:0;
+
+		$chit = is_array(Cookie::get('chit'))?Cookie::get('chit'):array('indent'=>array(), 'requirement'=>array());
+		Cookie::queue('chit', $chit, 60);
+		$chit_size = is_array(Cookie::get('chit_size'))?Cookie::get('chit_size'):array('indent'=>0, 'requirement'=>0);
 		Cookie::queue('chit_size', $chit_size, 60);
 		
 		return View::make('indent.create')
@@ -98,7 +101,7 @@ class IndentController extends \BaseController {
 				'products' => $products,
 				'filter' => $filter,
 				'index' => $index,
-				'chit_size' => $chit_size
+				'chit_size' => $chit_size,
 				));
 	}
 
@@ -110,17 +113,22 @@ class IndentController extends \BaseController {
 	public function store()
 	{
 		if(Request::ajax()) {
-			$chit = Cookie::queue('chit', Input::all('chit'), 60);
+			$chit = Cookie::queue('chit', array('indent'=>Input::get('indent'), 'requirement'=>Input::get('requirement')), 60);
 			$chit_size = Cookie::queue('chit_size', Input::get('chit_size'), 60);
+			
 			return Response::json(array('saved'=>date('dS F Y, h:iA')))
 				->setCallback(Input::get('callback'));
 		}
 
 		$rules = array();
 
-		foreach (Input::get('chit') as $key=>$value) {
-			$rules['chit.' . $key . '.qty'] = 'required|numeric|min:1';
-			$rules['chit.' . $key . '.note'] = 'required_if:chit.' . $key . '.type,request';
+		foreach (Input::get('indent') as $key=>$value) {
+			$rules['indent.' . $key . '.qty'] = 'required|numeric|min:1';
+			$rules['indent.' . $key . '.note'] = 'required_if:indent.' . $key . '.reserved,1';
+		}
+
+		foreach (Input::get('requirement') as $key=>$value) {
+			$rules['requirement.' . $key . '.qty'] = 'required|numeric|min:1';
 		}
 
 		$validator = Validator::make(Input::all(), $rules);
@@ -137,31 +145,30 @@ class IndentController extends \BaseController {
 		$indent->status = 'pending_approval';
 
 		if($indent->save()) {
-			foreach(Input::get('chit') as $key=>$item) {
-				if($item['type'] == 'indent') {
-					$indent_item = new IndentItem;
-					$indent_item->indent_id = $indent->id;
-					$indent_item->product_id = $item['id'];
-					$indent_item->quantity = $item['qty'];
-					
-					if(isset($item['note']))
-						$indent_item->indent_reason = $item['note'];
+			foreach(Input::get('indent') as $key=>$item) {
+				$indent_item = new IndentItem;
+				$indent_item->indent_id = $indent->id;
+				$indent_item->product_id = $item['id'];
+				$indent_item->quantity = $item['qty'];
+				
+				if(isset($item['note']))
+					$indent_item->indent_reason = $item['note'];
 
-					$indent_item->save();
-				}
-				if($item['type'] == 'request') {
-					$requirement = new Requirement;
-					$requirement->indent_id = $indent->id;
-					$requirement->product_id = $item['id'];
-					$requirement->quantity = $item['qty'];
-					$requirement->status = 'pending';
-					$requirement->save();
-				}
+				$indent_item->save();
+			}
+
+			foreach(Input::get('requirement') as $key=>$item) {
+				$requirement = new Requirement;
+				$requirement->indent_id = $indent->id;
+				$requirement->product_id = $item['id'];
+				$requirement->quantity = $item['qty'];
+				$requirement->status = 'pending';
+				$requirement->save();
 			}
 
 			// Now reset chit cookies
-			Cookie::queue('chit', array(), 60);
-			Cookie::queue('chit_size', 0, 60);
+			Cookie::queue('chit', array('indent'=>array(), 'requirement'=>array()), 60);
+			Cookie::queue('chit_size', array('indent'=>0, 'requirement'=>0), 60);
 			
 			return Redirect::route('indent.create')
 				->with('message', _('Indent request submitted successfully'));
@@ -179,7 +186,13 @@ class IndentController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		if($id) {
+			// $indent = Indent::find();
+			dd($this->indent->all());
+			return View::make('indent.show', compact());
+		}
+		else
+			return Redirect::route('notfound');
 	}
 
 	/**
