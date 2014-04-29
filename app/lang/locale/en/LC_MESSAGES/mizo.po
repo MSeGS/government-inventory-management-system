@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Government of Mizoram Online Indent System\n"
 "POT-Creation-Date: 2014-04-12 19:14+0530\n"
-"PO-Revision-Date: 2014-04-12 19:14+0530\n"
+"PO-Revision-Date: 2014-04-29 15:17+0530\n"
 "Last-Translator: Alan Pachuau <alanpachuau@gmail.com>\n"
 "Language-Team: MSeGS <sad.msegs-mz@nic.in>\n"
 "Language: en_IN\n"
@@ -25,38 +25,38 @@ msgstr ""
 #: ../../../../controllers/AuthController.php:72
 #: ../../../../controllers/AuthController.php:76
 msgid "Login failed. Please check your credentials."
-msgstr "Login"
+msgstr "Login theihloh. I Username Leh Password Diktak Chhulut Rawh"
 
 #: ../../../../controllers/DamageController.php:70
 msgid "Product Damage Report Submitted Successfully"
-msgstr ""
+msgstr "Bungraw Chhia Report Submit A Ni"
 
 #: ../../../../controllers/ProductController.php:13
 #: ../../../../controllers/ProductController.php:29
 msgid "Select Category"
-msgstr ""
+msgstr "Category Thlang Rawh"
 
 #: ../../../../controllers/ProductController.php:67
 msgid "New product added successfully"
-msgstr ""
+msgstr "Bungraw Thar Dahluh A Ni"
 
 #: ../../../../controllers/UserController.php:30
 #: ../../../../controllers/UserController.php:159
 msgid "Select Department"
-msgstr ""
+msgstr "Department Thlanna"
 
 #: ../../../../controllers/UserController.php:32
 #: ../../../../controllers/UserController.php:161
 msgid "Select Store"
-msgstr ""
+msgstr "Store Thlanna"
 
 #: ../../../../controllers/UserController.php:116
 msgid "New user created successfully."
-msgstr ""
+msgstr "User Thar Siam a ni"
 
 #: ../../../../controllers/UserController.php:235
 msgid "User created successfully."
-msgstr ""
+msgstr "User Siam a ni"
 
 #: ../../../../views/auth/login.blade.php:6
 msgid "Sign In"
@@ -95,7 +95,7 @@ msgstr ""
 
 #: ../../../../views/damage/create.blade.php:7
 msgid "Product Damage Report"
-msgstr ""
+msgstr "Bungraw Chhia Report"
 
 #: ../../../../views/damage/create.blade.php:19
 #: ../../../../views/damage/index.blade.php:18
@@ -112,7 +112,7 @@ msgstr "Bungraw Hming"
 #: ../../../../views/damage/create.blade.php:29
 #: ../../../../views/damage/index.blade.php:20
 msgid "Report Date"
-msgstr ""
+msgstr "Report Ni"
 
 #: ../../../../views/damage/create.blade.php:34
 #: ../../../../views/damage/index.blade.php:19
@@ -144,7 +144,7 @@ msgstr "Department Hming"
 
 #: ../../../../views/department/edit.blade.php:53
 msgid "Edit Department"
-msgstr ""
+msgstr "Department Edit Na"
 
 #: ../../../../views/department/index.blade.php:15
 msgid "Search Department"
@@ -183,7 +183,7 @@ msgstr "Group Paihna"
 
 #: ../../../../views/group/edit.blade.php:48
 msgid "EDIT GROUP"
-msgstr ""
+msgstr "Group Edit na"
 
 #: ../../../../views/group/index.blade.php:43
 msgid "New Group"
@@ -209,7 +209,7 @@ msgstr ""
 #: ../../../../views/layout/partial/language.blade.php:16
 #: ../../../../views/layout/partial/language.blade.php:35
 msgid "Mizo Language"
-msgstr ""
+msgstr "Mizo Tawng"
 
 #: ../../../../views/layout/partial/language.blade.php:20
 #: ../../../../views/layout/partial/language.blade.php:30
@@ -218,7 +218,7 @@ msgstr ""
 
 #: ../../../../views/layout/partial/language.blade.php:39
 msgid "Switch language to Mizo"
-msgstr ""
+msgstr "Mizotawg a Dahna"
 
 #: ../../../../views/option/edit.blade.php:9
 #: ../../../../views/option/index.blade.php:11
@@ -237,7 +237,7 @@ msgstr ""
 
 #: ../../../../views/option/edit.blade.php:42
 msgid "EDIT OPTION"
-msgstr ""
+msgstr "OPTION SIAMTHATNA"
 
 #: ../../../../views/option/edit.blade.php:47
 #: ../../../../views/option/index.blade.php:54
@@ -251,7 +251,7 @@ msgstr ""
 
 #: ../../../../views/option/index.blade.php:43
 msgid "NEW OPTION"
-msgstr ""
+msgstr "OPTION THAR SIAMNA"
 
 #: ../../../../views/option/index.blade.php:70
 msgid "Option Data"
@@ -260,7 +260,7 @@ msgstr ""
 #: ../../../../views/product/edit.blade.php:18
 #: ../../../../views/product/index.blade.php:43
 msgid "Name"
-msgstr ""
+msgstr "Hming"
 
 #: ../../../../views/product/edit.blade.php:20
 #: ../../../../views/product/index.blade.php:46
@@ -288,7 +288,7 @@ msgstr ""
 
 #: ../../../../views/setting/edit.blade.php:47
 msgid "EDIT SETTING"
-msgstr ""
+msgstr "SETTING SIAMTHATNA"
 
 #: ../../../../views/setting/edit.blade.php:58
 #: ../../../../views/setting/index.blade.php:57
@@ -302,15 +302,15 @@ msgstr ""
 
 #: ../../../../views/setting/index.blade.php:47
 msgid "NEW SETTING"
-msgstr ""
+msgstr "SETTING THAR SIAMNA"
 
 #: ../../../../views/stock/edit.blade.php:55
 msgid "Edit Stock Quantity"
-msgstr ""
+msgstr "Stock Awmzat Siamthatna"
 
 #: ../../../../views/stock/index.blade.php:51
 msgid "Add Stock Quantity"
-msgstr ""
+msgstr "Stock Awmzat Dahbelhna"
 
 #: ../../../../views/user/edit.blade.php:82
 msgid "EDIT USER"
@@ -326,7 +326,7 @@ msgstr ""
 
 #: ../../../../views/user/edit.blade.php:154
 msgid "Leave blank to retain current password."
-msgstr ""
+msgstr "Password Ngai I Hman Dawn Chuan Dah Awl Rawh"
 
 #: ../../../../views/user/edit.blade.php:199
 #: ../../../../views/user/index.blade.php:188
