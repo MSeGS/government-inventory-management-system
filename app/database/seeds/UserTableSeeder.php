@@ -11,6 +11,7 @@ class UserTableSeeder extends Seeder
 		    $user = Sentry::createUser(array(
 		        'username'  => 'super',
 		        'password'  => 'pass',
+		        'email' 	=>'super@msegs.com'
 		        'activated' => true,
 		        'permissions' => array('super' => 1)
 		    ));
