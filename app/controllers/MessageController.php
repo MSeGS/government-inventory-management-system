@@ -2,10 +2,10 @@
 
 class messageController extends \BaseController {
 
-/*	public function __construct()
+	public function __construct()
 	{
 		$this->beforeFilter('sentry');
-	}*/
+	}
 
 	/**
 	 * Display a listing of the resource.
@@ -44,14 +44,18 @@ class messageController extends \BaseController {
 	public function create()
 	{
 		$currentUser = Sentry::getUser()->store_id;
-		 $users = User::where('store_id','=', $currentUser)
+		$userid = Sentry::getUser()->id;
+		$users = User::where('store_id','=', $currentUser)
+			->where('id', '!=', $userid)
 			->get()
 			->lists('full_name','id');
+
 		$userSelect = array(''=> _('Select User') , $users);
 
 		return View::make('message.compose')
 		->with(array(
 			'currentUser' => $currentUser,
+			'userid' => $userid,
 			'users' => $users,
 			'userSelect' => $userSelect
 			));

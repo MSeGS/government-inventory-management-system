@@ -1,8 +1,10 @@
 <?php
 
-class DamageController extends \BaseController {
+class DamageController extends \BaseController
+{
 	public function __construct()
 	{
+		parent::__construct();
 		$this->beforeFilter('sentry');
 	}
 
@@ -160,7 +162,22 @@ class DamageController extends \BaseController {
 	 */
 	public function store()
 	{ 
-		
+		$rules = array(
+			'category' 	=> 	'required',
+			'product'	=>	'required',
+			'quantity'	=>	'required',
+			'note'		=>	'required',
+			'reported_at'	=>	'required',
+
+			);
+		$validator = Validator::make(Input::all(), $rules);
+
+		if ($validator -> fails()) {
+			return Redirect::route('damage.create')
+				->withErrors($validator)
+				->withInput(Input::all());
+		}
+		else{
 		$user = Sentry::getUser();
 		$damage = new Damage;
 		$damage->user_id = $user->id; 
@@ -173,6 +190,7 @@ class DamageController extends \BaseController {
 
 		return Redirect::to('damage')
 			->with('message', _('Product Damage Report Submitted Successfully'));
+		}
 	}
 
 	/**

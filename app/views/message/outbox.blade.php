@@ -2,13 +2,7 @@
 
 @section('content')
 
-<div class="row">
-	<div class="col-md-12">
-		<div class="col-md-6 pull-right text-right" style='padding-right:0px'>
-			<a href="{{route('message.index')}}" class="btn btn-primary btn-sm" ><?php echo _("Inbox") ?></a>
-		</div>
-	</div>
-</div>
+
 <br>
 	<div class="row">
 		<div class="col-md-12">

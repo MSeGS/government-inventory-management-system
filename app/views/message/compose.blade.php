@@ -16,7 +16,7 @@
 
 							{{Form::open(array('url'=>route('message.store'),'method'=>'post','class'=>'form-vertical'))}}
 
-							 {{Form::hidden('sender_id',$currentUser)}}
+							 {{Form::hidden('sender_id',$userid)}}
 								<div class="form-group">
 									<?php echo Form::label('receiver_id', _('To'), array('class'=>'control-label')); ?>
 									{{Form::select('receiver_id', $userSelect, '', array('class'=>'dropdown input-sm form-control'))}}
