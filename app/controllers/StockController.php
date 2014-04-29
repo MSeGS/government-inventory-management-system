@@ -10,14 +10,12 @@ class StockController extends \BaseController {
 	
 	public function __construct()
 	{
+		parent:: __construct();
 		$this->beforeFilter('sentry');
 	}
 
 	public function index()
 	{
-		// $products = array( '' => _('Select Product'));
-		// $products = $products + Product::orderBy('name', 'asc')
-		// 	->get()->lists('name','id');
 		$stocks = Stock::with('product')->orderBy('id', 'desc')->paginate();
 		$categories = array( '' => _('Select Category'));
 		$categories = $categories + Category::orderBy('category_name', 'asc')
@@ -27,10 +25,9 @@ class StockController extends \BaseController {
 		
 		return View::make('stock.index')
 			->with(array(
-				'stocks' 	=> $stocks,	
-				'categories'=> $categories,	
-				// 'products' 	=> $products,
-				'index'		=> $index));	
+				'stocks' 	=> $stocks,
+				'categories'=> $categories,
+				'index'		=> $index));
 	}
 
 	/**
@@ -40,7 +37,18 @@ class StockController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		$stocks = Stock::with('product')->orderBy('id', 'desc')->paginate();
+		$categories = array( '' => _('Select Category'));
+		$categories = $categories + Category::orderBy('category_name', 'asc')
+			->get()->lists('category_name','id');
+		$index = $stocks->getPerPage() * ($stocks->getCurrentPage()-1) + 1;
+
+		
+		return View::make('stock.create')
+			->with(array(
+				'stocks' 	=> $stocks,
+				'categories'=> $categories,
+				'index'		=> $index));
 	}
 
 	/**
@@ -59,7 +67,7 @@ class StockController extends \BaseController {
 		$validator = Validator::make(Input::all(), $rules);
 
 		if ($validator -> fails()) {
-			return Redirect::route('stock.index')
+			return Redirect::route('stock.create')
 				->withErrors($validator)
 				->withInput(Input::all());
 		}
@@ -71,7 +79,7 @@ class StockController extends \BaseController {
 				$stock->quantity		= Input::get('quantity');
 				$stock->save();
 
-				return Redirect::route('stock.index')->with('message', 'Stock created successfully');
+				return Redirect::route('stock.create')->with('message', 'Stock created successfully');
 		}
 	}
 

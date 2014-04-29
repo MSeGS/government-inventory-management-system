@@ -13,9 +13,9 @@
 			<thead>
 				<tr>
 					<th class="col-md-1">#</th>
-					<th class="col-md-3"><?php echo _("OPTION KEY") ?></th>
-					<th class="col-md-3"><?php echo _("OPTION TITLE")?></th>
-					<th class="col-md-3"><?php echo _("OPTION DATA") ?></th>
+					<th class="col-md-3"><?php echo _("Option Key") ?></th>
+					<th class="col-md-3"><?php echo _("Option Title")?></th>
+					<th class="col-md-3"><?php echo _("Option Data") ?></th>
 					<th class="col-md-2"></th>
 				</tr>
 			</thead>
@@ -43,7 +43,7 @@
 
 <div class="col-md-4">
 	<div class="panel panel-default">
-		<div class="panel-heading"><h5 class="text-center"><?php echo _("NEW OPTION") ?></h5></div>
+		<div class="panel-heading"><h5 class="text-center"><?php echo _("New Option") ?></h5></div>
 		{{Form::open(array('url'=>'option', 'method'=>'post', 'class'=>'form-vertical'))}}
 		<div class="panel-body">
 			@if(Session::has('message'))

@@ -29,7 +29,12 @@ class CategoryController extends \BaseController {
 	 */
 	public function create()
 	{
-		
+		$categories = Category::orderBy('category_name','asc')->paginate(get_setting('item_per_page', 10));
+		$index = $categories->getPerPage() * ($categories->getCurrentPage()-1) +1;
+
+		return View::make('category.create')
+			->with('categories', $categories)
+			->with('index', $index);
 	}
 
 	/**
@@ -48,7 +53,7 @@ class CategoryController extends \BaseController {
 		$validator = Validator::make(Input::all(), $rules);
 
 		if ($validator->fails()) {
-			return Redirect::route('category.index')
+			return Redirect::route('category.create')
 				->withErrors($validator)
 				->withInput(Input::all());
 		}
@@ -58,7 +63,7 @@ class CategoryController extends \BaseController {
 			$categories->save();
 
 			Session::flash('message', _('Successfully submitted'));
-			return Redirect::route('category.index');
+			return Redirect::route('category.create');
 		} 
 	}
 

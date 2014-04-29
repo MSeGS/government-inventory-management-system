@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="col-md-6 col-md-offset-3">
+<div class="col-md-7">
 	<div class="row">
 		@if(Session::has('delete'))
 		<div class="alert alert-danger">
@@ -43,4 +43,32 @@
 </div>
 
 
+<div class="col-md-5">
+	{{Form::open(array('url'=>route('category.index'), 'method'=>'post', 'class'=>'form-vertical'))}}				
+	<div class="panel panel-default">
+		<div class="panel-heading text-center" >
+			<h5 ><?php echo _('New Category') ?></h5>
+		</div>
+			<div class="panel-body">
+				@if(Session::has('message'))
+				<div class="alert alert-success">
+					{{Session::get('message')}}
+				</div>
+				@endif
+				<div class="form-group">
+					{{Form::label('category_name', _('Category Name'),array('control-label'))}}
+					{{Form::text('category_name', Input::old('category'), array('class'=>'form-control input-sm'))}}	
+					
+					@if($errors->has('category_name'))
+					<p class="help-block"><span class="text-danger">{{$errors->first('category_name')}}</span></p>
+					@endif
+				</div>
+
+				<div class="form-group text-right">
+					{{Form::submit(_('Submit'), array("class"=>"btn btn-primary btn-sm"))}}
+				</div>
+			</div>
+	</div>
+	{{Form::close()}}
+</div>
 @stop

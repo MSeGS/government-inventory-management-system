@@ -1,7 +1,7 @@
 @extends('layout.main')
 @section('content')
 
-<div class="col-md-8">
+<div class="col-md-10 col-md-offset-1">
 	<div class="row">
 		@if(Session::has('delete'))
 		<div class="alert alert-danger">
@@ -36,89 +36,6 @@
 			</tbody>
 		</table>
 	</div>
-	{{$stocks->links()}}	
+	{{$stocks->links()}}
 </div>
-
-<div class="col-md-4">
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			@if(Session::has('message'))
-			<div class="alert alert-success">
-				{{Session::get('message')}}
-			</div>
-			@endif
-			<h5 class="text-center"><?php echo _('Add Stock Quantity'); ?></h5>
-		</div>
-		<div class="panel-body">
-			{{Form::open(array('url'=>route('stock.index'), 'method'=>'post', 'class'=>'form-vertical'))}}
-			<div class="form-group">
-				{{Form::label('category_name','Category', array('class'=>'control-label'))}}
-				{{Form::select('category_name',$categories, Input::old('category_name'), array('class'=>'form-control input-sm'))}}
-
-				@if($errors->has('category_name'))
-				<p class="help-block"><span class="text-danger">{{$errors->first('category_name')}}</span></p>
-				@endif
-			</div>
-			<div class="form-group">
-				{{Form::label('product_name','Product', array('class'=>'control-label'))}}
-				{{Form::select('product_name',array('' => 'Select Product'), Input::old('product_name'), array('class'=>'form-control input-sm'))}}
-
-				@if($errors->has('product_name'))
-				<p class="help-block"><span class="text-danger">{{$errors->first('product_name')}}</span></p>
-				@endif
-			</div>
-			<div class="form-group">
-				{{Form::label('note', 'Note', array('class'=>'control-label'))}}
-				{{Form::text('note', Input::old('note'), array('class'=>'form-control input-sm'))}}
-			</div>
-			<div class="form-group">
-				{{Form::label('quantity', 'Stock Quantity', array('class'=>'control-label'))}}
-				{{Form::text('quantity', Input::old('quantity'), array('class'=>'form-control input-sm'))}}
-
-				@if($errors->has('quantity'))
-				<p class="help-block"><span class="text-danger">{{$errors->first('quantity')}}</span></p>
-				@endif
-			</div>
-			<div class="form-group text-right">
-				{{Form::submit('Submit', array("class"=>"btn btn-primary btn-sm"))}}
-			</div>
-			{{Form::close()}}
-		</div>
-	</div>
-</div>
-
-@stop
-
-@section('scripts')
-<script type="text/javascript">
-$(function(){
-	populate_product();
-
-	$('#category_name').on('change', function(){
-		populate_product();
-	});
-});
-
-function populate_product() {
-	var html = '<option value="">Select Product</option>';
-
-	if($('#category_name').val() != 0 && $('#category_name').val() != "") {
-		
-		$('#product_name').html('<option value="">Loading...</option>');
-
-		$.get("{{route('product.index')}}?category=" + $('#category_name').val(), function(data){
-			$.each(data, function(index, product){
-				html += '<option value="'+product['id']+'">'+product['name']+'</option>';
-			});
-		})
-		.done(function() {
-			$('#product_name').html(html);
-		});
-	}
-	else
-		$('#product_name').html(html);
-
-	
-}
-</script>
 @stop

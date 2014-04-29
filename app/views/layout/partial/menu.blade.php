@@ -78,16 +78,32 @@
         <li {{in_array(Route::currentRouteName(), array('setting.index', 'setting.edit'))?'class="active"':''}}><a href="{{route('setting.index')}}"><?php echo _('Settings'); ?></a></li>
         @endif
         
-        @if($user->hasAccess('category.index') && !$user->isSuperUser())
-        <li {{in_array(Route::currentRouteName(), array('category.index', 'category.edit'))?'class="active"':''}}><a href="{{url('/category')}}"><?php echo _('Categories'); ?></a></li>
+         @if( $user->hasAnyAccess(array('category.index', 'category.create')) )
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Category <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li {{in_array(Route::currentRouteName(), array('category.index'))?'class="active"':''}}><a href="{{route('category.index')}}"><?php echo _('List Category') ?></a></li>
+                @if($user->hasAccess('category.create') && !$user->isSuperUser())
+                <li {{in_array(Route::currentRouteName(), array('category.create'))?'class="active"':''}}><a href="{{route('category.create')}}"><?php echo _('New Category');?></a></li>
+                @endif
+            </ul>
+        </li>
         @endif
         
         @if($user->hasAccess('product.index') && !$user->isSuperUser())
         <li {{in_array(Route::currentRouteName(), array('product.index', 'product.edit'))?'class="active"':''}}><a href="{{url('/product')}}"><?php echo _('Products'); ?></a></li>
         @endif
         
-        @if($user->hasAccess('stock.index') && !$user->isSuperUser())
-        <li {{in_array(Route::currentRouteName(), array('stock.index', 'stock.edit'))?'class="active"':''}}><a href="{{url('/stock')}}"><?php echo _('Stocks'); ?></a></li>
+        @if( $user->hasAnyAccess(array('stock.index', 'stock.create')) )
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Stock <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                @if($user->hasAccess('stock.create') && !$user->isSuperUser())
+                <li {{in_array(Route::currentRouteName(), array('stock.create'))?'class="active"':''}}><a href="{{route('stock.create')}}"><?php echo _('New Stock');?></a></li>
+                @endif
+                <li {{in_array(Route::currentRouteName(), array('stock.index'))?'class="active"':''}}><a href="{{route('stock.index')}}"><?php echo _('List Stock') ?></a></li>
+            </ul>
+        </li>
         @endif
 
         @if($user->hasAnyAccess(array('damage.index', 'damage.trash')) && !$user->isSuperUser())
