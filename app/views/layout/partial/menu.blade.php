@@ -105,19 +105,45 @@
             </ul>
         </li>
         @endif
-
-        @if($user->hasAnyAccess(array('damage.index', 'damage.trash')) && !$user->isSuperUser())
-        <li {{in_array(Route::currentRouteName(), array('damage.index','damage.trash', 'damage.edit'))?'class="active"':''}}><a href="{{url('/damage')}}"><?php echo _('Damage'); ?></a></li>
-        @endif
         
+        @if( $user->hasAnyAccess(array('damage.index', 'damage.trash')) )
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Damage <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                @if($user->hasAccess('damage.index') && !$user->isSuperUser())
+                <li {{in_array(Route::currentRouteName(), array('damage.index'))?'class="active"':''}}><a href="{{route('damage.index')}}"><?php echo _('Damage List');?></a></li>
+                @endif
+                @if($user->hasAccess('damage.create') && !$user->isSuperUser())
+                <li {{in_array(Route::currentRouteName(), array('damage.create'))?'class="active"':''}}><a href="{{route('damage.create')}}"><?php echo _('Damage Reports');?></a></li>
+                @endif
+                @if($user->hasAccess('damage.trash') && !$user->isSuperUser())
+                <li {{in_array(Route::currentRouteName(), array('damage.create'))?'class="active"':''}}><a href="{{route('damage.trash')}}"><?php echo _('Damage Trash');?></a></li>
+                @endif
+            </ul>
+        </li>
+        @endif
         @if($user->hasAccess('damage.manage') && !$user->isSuperUser())
         <li {{in_array(Route::currentRouteName(), array('damage.manage'))?'class="active"':''}}><a href="{{route('damage.manage')}}"><?php echo _('Damage Report'); ?></a></li>
         @endif
 
-        @if($user->hasAnyAccess(array('message.index','message.create')) && !$user->isSuperUser())
-        <li {{in_array(Route::currentRouteName(), array('message.index','message.create','message.read', 'message.store'))?'class="active"':''}}><a href="{{route('message.index')}}"><?php  echo _('Message'); ?> {{get_unread_message_count()}}</a></li>
-        @endif                                                                                                                                      
-       
+        @if( $user->hasAnyAccess(array('message.index', 'message.create')) && !$user->isSuperUser())
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{get_unread_message_count()}} <?php  echo _('Message'); ?><b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                @if($user->hasAccess('message.index') && !$user->isSuperUser())
+                <li {{in_array(Route::currentRouteName(), array('message.index'))?'class="active"':''}}><a href="{{route('message.index')}}"><?php echo _('Message Inbox');?></a></li>
+                @endif
+                @if($user->hasAccess('message.outbox') && !$user->isSuperUser())
+                <li {{in_array(Route::currentRouteName(), array('message.outbox'))?'class="active"':''}}><a href="{{route('message.outbox')}}"><?php echo _('Message Outbox');?></a></li>
+                @endif
+                @if($user->hasAccess('message.create') && !$user->isSuperUser())
+                <li {{in_array(Route::currentRouteName(), array('message.create'))?'class="active"':''}}><a href="{{route('message.create')}}"><?php echo _('Message Compose');?></a></li>
+                @endif
+                
+            </ul>
+        </li>
+        @endif
+        
         @if($user->hasAccess('logout'))
         <li {{in_array(Route::currentRouteName(), array('logout'))?'class="active"':''}}><a href="{{url('/logout')}}"><?php echo _('Sign Out'); ?></a></li>
         @endif
