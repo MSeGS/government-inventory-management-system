@@ -82,10 +82,10 @@
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Category <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li {{in_array(Route::currentRouteName(), array('category.index'))?'class="active"':''}}><a href="{{route('category.index')}}"><?php echo _('List Category') ?></a></li>
                 @if($user->hasAccess('category.create') && !$user->isSuperUser())
                 <li {{in_array(Route::currentRouteName(), array('category.create'))?'class="active"':''}}><a href="{{route('category.create')}}"><?php echo _('New Category');?></a></li>
                 @endif
+                <li {{in_array(Route::currentRouteName(), array('category.index'))?'class="active"':''}}><a href="{{route('category.index')}}"><?php echo _('List Category') ?></a></li>
             </ul>
         </li>
         @endif
