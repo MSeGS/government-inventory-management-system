@@ -44,7 +44,8 @@ function get_product_supplied($product_id = null)
 	$indent_item_table = $indent_item->getTableName();
 
 	$item = IndentItem::join($indent_table, $indent_item_table . '.indent_id', '=', $indent_table . '.id')
-				->whereIn('status', array('dispatched','partial_dispatched'))
+				->whereIn($indent_table . '.status', array('dispatched','partial_dispatched'))
+				->where($indent_item_table . '.status', '=', 'approved')
 				->where('product_id', '=', $product_id)
 				->select(array(DB::raw('SUM(supplied) as supplied')))
 				->first();
