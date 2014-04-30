@@ -10,4 +10,8 @@ class Requirement extends BaseStore
 		parent::__construct();
 	}
 
+	public function product()
+	{
+		return $this->belongsTo('Product');
+	}
 }

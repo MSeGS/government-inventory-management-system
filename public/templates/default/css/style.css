@@ -369,8 +369,8 @@ border-bottom: none !important;
 
 .headerBrand {
     /*color: #fff !important;*/
-    /*font-family: 'enigmaticregular';*/
-    font-size: 1.6em;
+    font-family: 'enigmaticregular';
+    font-size: 1.2em;
     font-weight: normal;
 }
 
@@ -469,6 +469,14 @@ hr {
     width: 100%;
     float: left;
 }
+.edit-indent-page table td input.qty {
+    max-width: 80px;
+}
+.edit-indent-page table td .note {
+    resize:vertical;
+    padding: 2px 5px;
+}
+
 
 @media (min-width: 768px) and (max-width: 991px) {
     .headerBrand {

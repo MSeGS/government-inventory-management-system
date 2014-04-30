@@ -5,4 +5,9 @@ class IndentRepository implements IndentInterface
 	{
 		return Indent::all()->toArray();
 	}
+
+	public function get($id)
+	{
+		return Indent::with('items', 'requirements')->find($id);
+	}
 }

@@ -96,23 +96,6 @@
             </ul>
         </li>
         @endif
-        
-        @if( $current_user->hasAnyAccess(array('damage.index', 'damage.trash')) && !$current_user->isSuperUser() )
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Damage <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-                @if($current_user->hasAccess('damage.index') && !$current_user->isSuperUser())
-                <li {{in_array(Route::currentRouteName(), array('damage.index'))?'class="active"':''}}><a href="{{route('damage.index')}}"><?php echo _('Damage List');?></a></li>
-                @endif
-                @if($current_user->hasAccess('damage.create') && !$current_user->isSuperUser())
-                <li {{in_array(Route::currentRouteName(), array('damage.create'))?'class="active"':''}}><a href="{{route('damage.create')}}"><?php echo _('Damage Reports');?></a></li>
-                @endif
-                @if($current_user->hasAccess('damage.trash') && !$current_user->isSuperUser())
-                <li {{in_array(Route::currentRouteName(), array('damage.trash'))?'class="active"':''}}><a href="{{route('damage.trash')}}"><?php echo _('Damage Trash');?></a></li>
-                @endif
-            </ul>
-        </li>
-        @endif
 
         @if( $current_user->hasAnyAccess(array('message.index', 'message.create')) && !$current_user->isSuperUser())
         <li class="dropdown">

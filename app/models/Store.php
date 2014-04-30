@@ -37,7 +37,7 @@ class Store extends Eloquent
 				$table->integer('product_id');
 				$table->integer('quantity');
 				$table->integer('supplied')->default(0);
-				$table->enum('status', array('approved', 'rejected'));
+				$table->enum('status', array('pending', 'approved', 'rejected'))->default('pending');
 				$table->text('indent_reason')->nullable();
 				$table->text('reject_reason')->nullable();
 				

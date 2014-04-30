@@ -187,9 +187,8 @@ class IndentController extends \BaseController {
 	public function show($id)
 	{
 		if($id) {
-			// $indent = Indent::find();
-			dd($this->indent->all());
-			return View::make('indent.show', compact());
+			$indent = $this->indent->get($id);
+			return View::make('indent.show', compact('indent'));
 		}
 		else
 			return Redirect::route('notfound');
@@ -203,7 +202,9 @@ class IndentController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$indent = $this->indent->get($id);
+		
+		return View::make('indent.edit', compact('indent'));
 	}
 
 	/**
@@ -214,7 +215,28 @@ class IndentController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$indent = $this->indent->get($id);
+
+		$rules = array();
+
+		foreach (Input::get('indent') as $key=>$value) {
+			$rules['indent.' . $key . '.qty'] = 'required|numeric|min:1';
+			$rules['indent.' . $key . '.note'] = 'required_if:indent.' . $key . '.reserved,1';
+		}
+
+		foreach (Input::get('requirement') as $key=>$value) {
+			$rules['requirement.' . $key . '.qty'] = 'required|numeric|min:1';
+		}
+
+		dd($rules);
+
+		$validator = Validator::make(Input::all(), $rules);
+
+		if($validator->fails()) {
+			return Redirect::route('indent.create')
+					->withErrors($validator)
+					->withInput(Input::all());
+		}
 	}
 
 	/**

@@ -15,4 +15,9 @@ class IndentItem extends BaseStore
 		return $this->hasOne('Indent', 'id', 'indent_id');
 	}
 
+	public function product()
+	{
+		return $this->belongsTo('Product');
+	}
+
 }

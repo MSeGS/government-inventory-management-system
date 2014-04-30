@@ -210,7 +210,7 @@
 								<td>
 									@if(isset($item['note']))
 									<div class="{{$errors->has('requirement.'.$key.'.note')?'has-error':''}}">
-										<textarea name="requirement[{{$key}}][note]" class="input-sm form-control note" rows="2" placeholder="<?php echo _('Note'); ?>">{{$item['note']}}</textarea>
+										<textarea name="requirement[{{$key}}][note]" class="input-sm form-control note" rows="2" placeholder="<?php echo _('Reason'); ?>">{{$item['note']}}</textarea>
 									</div>
 									@endif
 								</td>
@@ -290,7 +290,7 @@ $(function(){
 				indentRow += '<td>'+name+'</td>';
 				indentRow += '<td><input class="input-sm form-control qty" min="0" id="indent_'+id+'" type="number" name="indent['+chitIndentIndex+'][qty]" value="'+toIndent+'" /></td>';
 				
-				isReserved = ((parseInt(stock) - parseInt(indented) - reserved) <= toIndent);
+				isReserved = ((parseInt(stock) - parseInt(indented) - reserved) < toIndent);
 				if(isReserved) {
 					indentRow += '<td>';
 					indentRow += '<input type="hidden" class="reserved" name="indent['+chitIndentIndex+'][reserved]" value="1" />';
@@ -346,7 +346,7 @@ $(function(){
 					var indented = parseInt($(this).val());
 					var toIndent = indented;
 
-					var isReserved = ((parseInt(stock) - parseInt(indented) - reserved) <= reserved);
+					var isReserved = ((parseInt(stock) - parseInt(indented) - reserved) < reserved);
 
 					if(isReserved) {
 						chitRow.find('.reserved').val(1);
