@@ -1,8 +1,142 @@
-INSERT INTO `store1_categories` (`id`, `category_name`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Uncategorized', '2014-04-16 04:34:13', '2014-04-16 04:34:13', NULL),
-(2, 'Stationery', '2014-04-16 04:34:13', '2014-04-16 04:34:13', NULL),
-(3, 'Furniture', '2014-04-16 06:00:58', '2014-04-16 06:00:58', NULL),
-(4, 'Electrical Goods', '2014-04-16 06:15:01', '2014-04-16 06:15:01', NULL);
+INSERT INTO `stores` (`id`, `department_id`, `store_code`, `created_at`, `updated_at`)
+VALUES
+	(1, 1, 'ATI', '2014-04-30 13:50:02', '2014-04-30 13:50:02');
+
+INSERT INTO `users` (`id`, `full_name`, `username`, `password`, `permissions`, `activated`, `activation_code`, `activated_at`, `last_login`, `persist_code`, `reset_password_code`, `store_id`, `email_id`, `phone_no`, `address`, `department_id`, `designation`, `created_at`, `updated_at`)
+VALUES
+	(2, 'ATI Admin', 'ati_admin', '$2y$10$LnyQlxVpA1SKrNgnOTKO3uBePWLsQOLuIsJPP2keB75euh.tFUwPy', '{\"home.index\":1,\"category.create\":1,\"category.index\":1,\"category.edit\":1,\"category.store\":1,\"category.update\":1,\"category.destroy\":1,\"damage.manage\":1,\"damage.approve\":1,\"damage.decline\":1,\"login\":1,\"login.submit\":1,\"logout\":1,\"message.index\":1,\"message.outbox\":1,\"message.read\":1,\"message.show\":1,\"message.store\":1,\"product.index\":1,\"product.edit\":1,\"product.update\":1,\"product.destroy\":1,\"product.store\":1,\"setting.index\":1,\"setting.edit\":1,\"setting.update\":1,\"setting.destroy\":1,\"setting.store\":1,\"user.index\":1,\"user.edit\":1,\"user.update\":1,\"user.destroy\":1,\"user.profile\":1,\"user.profileUpdate\":1,\"user.store\":1,\"stock.create\":1,\"stock.index\":1,\"stock.store\":1,\"stock.edit\":1,\"stock.update\":1,\"stock.destroy\":1}', 1, NULL, NULL, '2014-04-30 13:27:13', '$2y$10$SCZ89Pp5BEV4SHNstLHaLuegLoVamYw9Hwj/Iy8dA2OwpunZkBvPG', NULL, 1, 'ati_admin@mail.com', '123', '#add', 1, 'desg', '2014-04-30 12:16:29', '2014-04-30 13:27:13'),
+	(3, 'ATI Indentor', 'ati_indentor', '$2y$10$5MZdDN9qrvK7Tbp1JOLYoOFIQUSnO2o0zgUCzGNxyB07uR1r7M2v.', '{\"home.index\":1,\"login\":1,\"login.submit\":1,\"logout\":1,\"help\":1,\"help.index\":1,\"indent.create\":1,\"indent.mine\":1,\"indent.store\":1,\"reset-password\":1,\"retrieve-username\":1}', 1, NULL, NULL, '2014-04-30 13:28:27', '$2y$10$jrsWO4HdXcJkknIvxBOv2OxbPw6IqUtCmk2w1XtFrfxyE0YiVuuDu', NULL, 1, 'email@mail.com', '123', '#add', 1, 'desg', '2014-04-30 13:27:54', '2014-04-30 13:28:27'),
+	(4, 'ATI Store Keeper', 'ati_store', '$2y$10$WEMSlQcd3nl5eicpE9a6PeYiJywqzRieqN2r5Ah.qhwQgZHdYjFSm', '{\"home.index\":1,\"login\":1,\"login.submit\":1,\"logout\":1,\"help\":1,\"help.index\":1,\"reset-password\":1,\"retrieve-username\":1,\"damage.index\":1,\"damage.create\":1,\"damage.trash\":1,\"damage.delete\":1,\"damage.update\":1,\"damage.restore\":1,\"damage.store\":1,\"damage.destroy\":1}', 1, NULL, NULL, '2014-04-30 13:34:52', '$2y$10$XKVxB447s/SJBxHV01VvL.QiB0cloUZH.O2scUKxZyaVChuMTFzei', NULL, 1, 'email@mail.com', '123', '#add', 1, 'desg', '2014-04-30 13:28:18', '2014-04-30 13:34:52');
+
+INSERT INTO `users_groups` (`user_id`, `group_id`)
+VALUES
+	(2, 1),
+	(2, 3),
+	(3, 1),
+	(3, 4),
+	(4, 1),
+	(4, 5);
+	
+-- Create syntax for TABLE 'store1_categories'
+CREATE TABLE `store1_categories` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `category_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Create syntax for TABLE 'store1_damages'
+CREATE TABLE `store1_damages` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `quantity` smallint(6) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `status` enum('approved','pending','declined') COLLATE utf8_unicode_ci NOT NULL,
+  `note` text COLLATE utf8_unicode_ci NOT NULL,
+  `reported_at` datetime NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Create syntax for TABLE 'store1_indent_requirements'
+CREATE TABLE `store1_indent_requirements` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `indent_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` smallint(6) NOT NULL,
+  `status` enum('procured','pending','rejected') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'pending',
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Create syntax for TABLE 'store1_indents'
+CREATE TABLE `store1_indents` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `indentor_id` int(11) NOT NULL,
+  `indent_date` datetime NOT NULL,
+  `status` enum('pending_approval','approved','partial_dispatched','dispatched','rejected') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'pending_approval',
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Create syntax for TABLE 'store1_indents_items'
+CREATE TABLE `store1_indents_items` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `indent_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `supplied` int(11) NOT NULL DEFAULT '0',
+  `status` enum('approved','rejected') COLLATE utf8_unicode_ci NOT NULL,
+  `indent_reason` text COLLATE utf8_unicode_ci,
+  `reject_reason` text COLLATE utf8_unicode_ci,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Create syntax for TABLE 'store1_notifications'
+CREATE TABLE `store1_notifications` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `sender_id` int(11) NOT NULL,
+  `receiver_id` int(11) NOT NULL,
+  `message` text COLLATE utf8_unicode_ci NOT NULL,
+  `read_at` datetime NOT NULL,
+  `status` enum('unread','read') COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Create syntax for TABLE 'store1_options'
+CREATE TABLE `store1_options` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `option_key` text COLLATE utf8_unicode_ci NOT NULL,
+  `option_data` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Create syntax for TABLE 'store1_products'
+CREATE TABLE `store1_products` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) NOT NULL,
+  `name` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `reserved_amount` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=163 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Create syntax for TABLE 'store1_stocks'
+CREATE TABLE `store1_stocks` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `note` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO `store1_categories` (`id`, `category_name`, `created_at`, `updated_at`, `deleted_at`)
+VALUES
+	(1, 'Uncategorized', '2014-04-30 13:50:03', '2014-04-30 13:50:03', NULL),
+	(2, 'Stationery', '2014-04-16 04:34:13', '2014-04-16 04:34:13', NULL),
+	(3, 'Furniture', '2014-04-16 06:00:58', '2014-04-16 06:00:58', NULL),
+	(4, 'Electrical Goods', '2014-04-16 06:15:01', '2014-04-16 06:15:01', NULL);
 
 INSERT INTO `store1_products` (`id`, `category_id`, `name`, `description`, `reserved_amount`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 2, 'Attendance Register', '', 2, '2014-04-16 04:59:36', '2014-04-16 04:59:36', NULL),

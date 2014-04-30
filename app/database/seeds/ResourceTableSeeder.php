@@ -21,12 +21,6 @@ class ResourceTableSeeder extends Seeder
 
 			array('route'=>'home.index', 'name'=>'Home Page', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			
-			array('route'=>'category.index', 'name'=>'Category List/Create Page', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
-			array('route'=>'category.edit', 'name'=>'Category Edit Page', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
-			array('route'=>'category.destroy', 'name'=>'Category Remove', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
-			array('route'=>'category.update', 'name'=>'Category Update', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
-			array('route'=>'category.store', 'name'=>'Category Store', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
-
 			array('route'=>'product.index', 'name'=>'Product List/Create Page', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'product.edit', 'name'=>'Product Edit Page', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'product.destroy', 'name'=>'Product Remove', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
@@ -45,12 +39,6 @@ class ResourceTableSeeder extends Seeder
 			array('route'=>'user.destroy', 'name'=>'User Remove', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'user.update', 'name'=>'User Update', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'user.store', 'name'=>'User Store', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
-
-			array('route'=>'stock.index', 'name'=>'Stock List/Create Page', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
-			array('route'=>'stock.edit', 'name'=>'Stock Edit Page', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
-			array('route'=>'stock.destroy', 'name'=>'Stock Remove', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
-			array('route'=>'stock.update', 'name'=>'Stock Update', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
-			array('route'=>'stock.store', 'name'=>'Stock Store', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			
 			array('route'=>'damage.index', 'name'=>'Damage List', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'damage.edit', 'name'=>'Damage Edit Page', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
@@ -66,7 +54,7 @@ class ResourceTableSeeder extends Seeder
 			array('route'=>'stock.destroy', 'name'=>'Stock Remove', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'stock.update', 'name'=>'Stock Update', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'stock.store', 'name'=>'Stock Store', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
-			array('route'=>'stock.create', 'name'=>'Create stock', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
+			array('route'=>'stock.create', 'name'=>'Stock Create', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 
 			array('route'=>'category.index', 'name'=>'Category List Page', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'category.edit', 'name'=>'Category Edit Page', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
