@@ -10,6 +10,7 @@ class SettingController extends \BaseController {
 	public function __construct()
 	{
 		$this->beforeFilter('sentry');
+		parent::__construct();
 	}
 	
 	public function index()

@@ -1,6 +1,11 @@
 <?php
 class AuthController extends BaseController
 {
+	public function __construct()
+	{
+		parent::__construct();
+	}
+
 	public function login()
 	{
 	    if(Sentry::check())

@@ -5,6 +5,7 @@ class GroupController extends \BaseController {
 	public function __construct()
 	{
 		 $this->beforeFilter('sentry');
+		 parent::__construct();
 	}
 
 	/**

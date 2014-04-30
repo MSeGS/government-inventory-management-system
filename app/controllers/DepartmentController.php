@@ -5,6 +5,7 @@ class DepartmentController extends \BaseController {
 	public function __construct()
 	{
 		$this->beforeFilter('sentry');
+		parent::__construct();
 	}
 	/**
 	 * Display a listing of the resource.
