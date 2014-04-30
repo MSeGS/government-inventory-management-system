@@ -44,7 +44,8 @@
 		            <span class="icon-bar"></span>
 		            <span class="icon-bar"></span>
           		</button>
-      			<span class="navbar-brand headerBrand">{{Option::getData('site_title')}}</span>
+      			
+      			<span class="navbar-brand headerBrand visible-xs hidden-sm hidden-md visible-lg">{{Option::getData('site_title')}}</span>
         	</div>
 
         	@include('layout.partial.menu')

@@ -11,7 +11,7 @@
         ?>
 
         @if($user->hasAccess('home.index'))
-        <li {{in_array(Route::currentRouteName(), array('home.index'))?'class="active"':''}}><a href="{{route('home.index')}}"><?php echo _('Main');?></a></li>
+        <li {{in_array(Route::currentRouteName(), array('home.index'))?'class="active"':''}}><a href="{{route('home.index')}}"><span class="hidden-xs visible-sm visible-md visible-lg"><i class="fa fa-home"></i></span><span class="visible-xs hidden-sm hidden-md hidden-lg"><i class="fa fa-home"></i> <?php echo _('Dashboard'); ?></span></a></li>
         @endif
 
         @if( $user->hasAnyAccess(array('indent.index', 'indent.create')) && !$user->isSuperUser() )
@@ -57,30 +57,50 @@
         <li {{in_array(Route::currentRouteName(), array('setting.index', 'setting.edit'))?'class="active"':''}}><a href="{{route('setting.index')}}"><?php echo _('Settings'); ?></a></li>
         @endif
         
-         @if( $user->hasAnyAccess(array('category.index', 'category.create')) && !$user->isSuperUser())
+        
+        @if( $user->hasAnyAccess(array('product.index', 'product.create', 'category.index', 'category.create')) && !$user->isSuperUser())
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Category <b class="caret"></b></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo _('Products'); ?> <b class="caret"></b></a>
             <ul class="dropdown-menu">
+                @if($user->hasAccess('product.index') && !$user->isSuperUser())
+                <li {{in_array(Route::currentRouteName(), array('product.index', 'product.edit'))?'class="active"':''}}><a href="{{url('/product')}}"><?php echo _('Products'); ?></a></li>
+                @endif
+
+                @if( $user->hasAnyAccess(array('category.index', 'category.create')) && !$user->isSuperUser())
+                <li class="divider"></li>
                 @if($user->hasAccess('category.create') && !$user->isSuperUser())
                 <li {{in_array(Route::currentRouteName(), array('category.create'))?'class="active"':''}}><a href="{{route('category.create')}}"><?php echo _('New Category');?></a></li>
                 @endif
                 <li {{in_array(Route::currentRouteName(), array('category.index'))?'class="active"':''}}><a href="{{route('category.index')}}"><?php echo _('List Category') ?></a></li>
+                @endif
             </ul>
         </li>
-        @endif
-        
-        @if($user->hasAccess('product.index') && !$user->isSuperUser())
-        <li {{in_array(Route::currentRouteName(), array('product.index', 'product.edit'))?'class="active"':''}}><a href="{{url('/product')}}"><?php echo _('Products'); ?></a></li>
         @endif
         
         @if( $user->hasAnyAccess(array('stock.index', 'stock.create'))  && !$user->isSuperUser())
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Stock <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                @if($user->hasAccess('stock.create') && !$user->isSuperUser())
+                @if($user->hasAccess('stock.create'))
                 <li {{in_array(Route::currentRouteName(), array('stock.create'))?'class="active"':''}}><a href="{{route('stock.create')}}"><?php echo _('New Stock');?></a></li>
                 @endif
+                @if($user->hasAccess('stock.index'))
                 <li {{in_array(Route::currentRouteName(), array('stock.index'))?'class="active"':''}}><a href="{{route('stock.index')}}"><?php echo _('List Stock') ?></a></li>
+                @endif
+                <li class="divider"></li>
+                @if($user->hasAccess('damage.index'))
+                <li {{in_array(Route::currentRouteName(), array('damage.index'))?'class="active"':''}}><a href="{{route('damage.index')}}"><?php echo _('Damage List');?></a></li>
+                @endif
+                @if($user->hasAccess('damage.create'))
+                <li {{in_array(Route::currentRouteName(), array('damage.create'))?'class="active"':''}}><a href="{{route('damage.create')}}"><?php echo _('Damage Reports');?></a></li>
+                @endif
+                @if($user->hasAccess('damage.trash'))
+                <li {{in_array(Route::currentRouteName(), array('damage.trash'))?'class="active"':''}}><a href="{{route('damage.trash')}}"><?php echo _('Damage Trash');?></a></li>
+                @endif
+                @if($user->hasAccess('damage.manage'))
+                <li {{in_array(Route::currentRouteName(), array('damage.manage'))?'class="active"':''}}><a href="{{route('damage.manage')}}"><?php echo _('Manage Damage'); ?></a></li>
+                @endif
+
             </ul>
         </li>
         @endif
@@ -100,9 +120,6 @@
                 @endif
             </ul>
         </li>
-        @endif
-        @if($user->hasAccess('damage.manage') && !$user->isSuperUser())
-        <li {{in_array(Route::currentRouteName(), array('damage.manage'))?'class="active"':''}}><a href="{{route('damage.manage')}}"><?php echo _('Manage Damage'); ?></a></li>
         @endif
 
         @if( $user->hasAnyAccess(array('message.index', 'message.create')) && !$user->isSuperUser())

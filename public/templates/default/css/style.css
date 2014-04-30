@@ -24,12 +24,11 @@ html, body {
 /** Bootstrap Overwrite **/
 .alert {padding: 8px 10px 6px;}
 input[type='text'], input[type='password'], input[type='email'], textarea {
-    -webkit-box-shadow: none !important; 
-    box-shadow: none !important; 
-    -webkit-appearance: none; 
-    border-radius: 2px;
+    /*-webkit-box-shadow: none !important; */
+    /*box-shadow: none !important; */
+    /*-webkit-appearance: none; */
+    /*border-radius: 2px;*/
 }
-
 .btn-custom {
   background-color: #d24a67;
   border-color: #d24a67;
@@ -68,9 +67,9 @@ border-bottom: none !important;
  .table-hover tbody tr:hover > td {
     background-color: rgba(164, 203, 238, 0.16);
  }
- .table-rowlink tr.link:hover {
-        cursor: pointer;
-    }
+.table-rowlink tr.link:hover {
+    cursor: pointer;
+}
 
  .table-bordered>thead>tr>th, .table-bordered>thead>tr>td {
  border-bottom-width: 0 !important;
@@ -342,7 +341,6 @@ border-bottom: none !important;
     background: #428BCA;
     /*background: #CA4294;*/
     padding: 0;
-    position:fixed; 
     top:0; 
     margin:auto; 
     z-index:100000; 
@@ -511,5 +509,10 @@ hr {
         text-align: center;
         font-size: 1.2em;
         margin:8px 0 0;
+    }
+}
+@media (min-width: 1200px){
+    .headerStyles {
+        position: fixed;
     }
 }
