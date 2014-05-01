@@ -10,7 +10,22 @@ class HomeController extends BaseController {
 			$storekeeper = Sentry::findGroupByName('Store Keeper');
 
 			if($this->current_user->isSuperUser()) {
-				return View::make('home.super');
+				$counts = DB::select(DB::Raw(
+					"SELECT 
+						( SELECT COUNT(*) FROM (SELECT id FROM stores ) as stores ) 
+						AS storesCount, 
+						( SELECT COUNT(*) FROM ( SELECT `user_id` FROM `users_groups` WHERE `group_id` = 1 ) as admins ) 
+						AS adminsCount,
+						( SELECT COUNT(*) FROM (SELECT `user_id` FROM `users_groups` WHERE `group_id` = 2 ) as storekeepers) 
+						AS storeKeepersCount,
+						( SELECT COUNT(*) FROM (SELECT `user_id` FROM `users_groups` WHERE `group_id` = 3 ) as indentors) 
+						AS indentorsCount,
+						( SELECT COUNT(*) FROM (SELECT DISTINCT `department_id` FROM `users` WHERE department_id > 0) as departments) 
+						AS departmentsCount"
+					) 
+				);
+				
+				return View::make('home.super')->with(compact('counts'));
 			}
 			elseif($this->current_user->inGroup($admin)) {
 				return View::make('home.admin');
@@ -24,6 +39,11 @@ class HomeController extends BaseController {
 		}
 		else
 			return View::make('home.index');
+	}
+
+	public function super_reports($value='')
+	{
+		exit('ads');
 	}
 
 }
