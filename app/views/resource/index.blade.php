@@ -1,6 +1,21 @@
 @extends('layout.main')
 
+
 @section('content')
+<div class="row">
+	{{Form::open(array('url'=>route('resource.index'),'method'=>'get','class'=>'form-vertical'))}}
+		<div class="col-md-3">
+			<div class="form-group">
+				<div class="input-group">
+					{{Form::text('name', $filter['name'], array('class'=>'form-control input-sm','placeholder'=>'Search Product'))}}
+      				<span class="input-group-btn">
+        				<button class="btn btn-default btn-sm" name="search" value="Search" type="submit"> <i class="glyphicon glyphicon-search"></i> </button>
+      				</span>
+	    		</div>
+			</div>
+		</div>
+	{{Form::close()}}
+</div>
 <div class="col-md-8">
 	@if(Session::has('delete'))
 		<div class="alert alert-danger">
@@ -26,7 +41,9 @@
 					<td>{{$resource->route}}</td>
 					<td>
 						{{Form::open(array('url'=>route('resource.destroy',$resource->id), 'method'=>'delete'))}}
-						<a href="{{route('resource.edit', array($resource->id, 'page='.$resources->getCurrentPage()))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Resource"><i class="fa fa-pencil"></i></a>
+						@if($current_user->hasAccess('resoource.edit'))
+						<a href="{{route('resource.edit', array($resource->id, 'page='.$resources->getCurrentPage(), 'name='.$filter['name']))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Resource"><i class="fa fa-pencil"></i></a>
+						@endif
 						<button type="submit" onclick="return confirm('<?php echo _('Are you sure') ?>');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Resource" value="{{$resource->id}}"><i class="fa fa-times"></i></a>
 						{{Form::close()}}
 					</td>
@@ -35,7 +52,7 @@
 			</tbody>
 		</table>
 	</div>
-	{{$resources->links()}}
+	{{$resources->appends(array('name'=>$filter['name']))->links()}}
 </div>
 <div class="col-md-4">
 	<div class="panel panel-default">

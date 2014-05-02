@@ -29,7 +29,9 @@
 					<td>
 						{{Form::open(array('url'=>route('store.destroy', $store->id), 'method'=>'delete'))}}
 						<a href="{{route('store.edit', array($store->id, 'page='.$stores->getCurrentPage()))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Store"><i class="fa fa-pencil"></i></a>
+						@if($current_user->hasAccess('resource.edit'))
 						<button type="submit" onclick="return confirm('Are you sure?');" name="id" class="btn btn-xs btn-danger tooltip-top" title="Remove Store" value="{{$store->id}}"><i class="fa fa-times"></i></a>
+						@endif
 						{{Form::close()}}
 					</td>
 				</tr>

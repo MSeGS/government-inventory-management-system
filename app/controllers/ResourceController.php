@@ -15,11 +15,22 @@ class ResourceController extends \BaseController {
 	 */
 	public function index()
 	{
-		$resources = Resource::orderBy('name', 'asc')->paginate();
+		$filter = array(
+			'name' 			=> Input::get('name'),
+			);
+
+		$resources = Resource::where(function($query){
+			if(Input::get('name', null))
+				$query->where('name', 'LIKE', '%' . Input::get('name') . '%');
+		})
+		->orderBy('name', 'asc')
+		->paginate();
+
 		$index = $resources->getPerPage() * ($resources->getCurrentPage()-1) + 1;
 		return View::make('resource.index')
 			->with('resources', $resources)
-			->with('index', $index);
+			->with('index', $index)
+			->with('filter', $filter);
 	}
 
 	/**
@@ -83,14 +94,24 @@ class ResourceController extends \BaseController {
 	 */
 	public function edit($id)
 	{
+		$filter = array(
+			'name' 			=> Input::get('name'),
+			);
+
 		$resourceById = Resource::find($id);
-		$resources = Resource::orderBy('name', 'asc')->paginate();
+		$resources = Resource::where(function($query){
+			if(Input::get('name', null))
+				$query->where('name', 'LIKE', '%' . Input::get('name') . '%');
+		})
+		->orderBy('name', 'asc')
+		->paginate();
 		$index = $resources->getPerPage() * ($resources->getCurrentPage()-1) + 1;
 		return View::make('resource.edit')
 			->with(array(
 				'resources'=> $resources,
 				 'resourceById' => $resourceById,
-				 'index'		=> $index
+				 'index'		=> $index,
+				 'filter'		=> $filter
 				 ));
 	}
 
