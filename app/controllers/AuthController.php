@@ -46,8 +46,11 @@ class AuthController extends BaseController
 			    // Try to authenticate the user. Set remember flag to false
 			    $user = Sentry::authenticate($credentials, false);
 
-			    if(Sentry::check())
-			    	return Redirect::route('home.index');
+			    if(Sentry::check()) {
+							Cookie::queue('chit', array('indent'=>array(), 'requirement'=>array()), 60);
+							Cookie::queue('chit_size', array('indent'=>0, 'requirement'=>0), 60);
+					    	return Redirect::route('home.index');
+			    }
 			    else
 			    	return Redirect::route('login')->with('error', _('Login failed. Please check your credentials.'));
 			}
