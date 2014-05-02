@@ -27,16 +27,6 @@ class MessageController extends \BaseController {
 	}
 
 	
-	public function read($id)
-	{
-		$notifications	= Notification::find($id);
-		$notifications->status = 'read';
-		$notifications->save();
-
-		return Redirect::route('message.index')
-			->with('message', _('Message Mark as Read'));
-	}
-
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -64,7 +54,8 @@ class MessageController extends \BaseController {
 
 	public function outbox()
 	{
-		$currentUser = Sentry::getUser()->store_id;
+
+		$currentUser = Sentry::getUser()->id;
 		$notifications = Notification::where('sender_id', '=', $currentUser)->paginate();
 		return View::make('message.outbox')
 		 ->with(array(
@@ -117,11 +108,16 @@ class MessageController extends \BaseController {
 		$currentMessage = Notification::find($id);
 		$currentMessage->status = 'read';
 		$currentMessage->save();
-		return View::make('message.show')
+		if(isset($_POST['id'])){
+			return View::make('message.index');
+		} else {
+			return View::make('message.show')
 			->with(array(
 				'currentMessage' => $currentMessage
 				
-				));
+				));	
+		}
+		
 	}
 
 	/**
@@ -143,7 +139,12 @@ class MessageController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$notifications	= Notification::find($id);
+		$notifications->status = 'read';
+		$notifications->save();
+
+		return Redirect::route('message.index')
+			->with('message', _('Message marked as read'));
 	}
 
 	/**
