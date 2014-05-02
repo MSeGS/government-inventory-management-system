@@ -9,7 +9,10 @@ class ContactController extends \BaseController {
 	 */
 	public function index()
 	{
-		return View::make('contact.index');
+		$contacts = Contact::orderBy('id', 'desc')->paginate();
+
+		return View::make('contact.index')
+			->with('contacts', $contacts);
 	}
 
 	/**
@@ -19,7 +22,7 @@ class ContactController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		return View::make('contact.create');
 	}
 
 	/**
@@ -54,7 +57,7 @@ class ContactController extends \BaseController {
 			$contact->note 			= 	Input::get('note');
 			$contact->save();
 
-			return Redirect::route('contact.index')
+			return Redirect::route('contact-us')
 				->with('message', 'Sent');
 		}
 	}
@@ -110,7 +113,7 @@ class ContactController extends \BaseController {
     			$message->to(Session::get('to'), Session::get('name'));//->subject('replyasd');
 			});
 
-			return Redirect::route('contact.message');
+			return Redirect::route('contact.index');
 		}
 	}
 

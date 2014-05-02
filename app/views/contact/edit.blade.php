@@ -2,32 +2,30 @@
 @section('content')
 	<div class="row">
 		<div class="col-md-7">
-			{{Form::open(array('url'=>route('contact.message'), 'method'=>'get'))}}
-				<table class="table table-striped table-hover table-bordered">
-					<thead>
-						<tr>
-							<th >#</th>
-							<th class="col-md-3">Name</th>
-							<th class="col-md-4">Department</th>
-							<th class="col-md-1">Status</th>
-							<th class="col-md-3"></th>
-						</tr>
-					</thead>
-					<tbody>
-						@foreach($contacts as $key=>$contact)
-						<tr>
-							<td>{{$key+1}}</td>
-							<td>{{$contact->name}}</td>
-							<td>{{$contact->department}}</td>
-							<td>{{$contact->status}}</td>
-							<td>
-								<a href="{{route('contact.edit', $contact->id)}}" class="btn btn-sm btn-primary">Read / Reply</a>
-							</td>
-						</tr>
-						@endforeach
-					</tbody>
-				</table>
-			{{Form::close()}}
+			<table class="table table-striped table-hover table-bordered">
+				<thead>
+					<tr>
+						<th >#</th>
+						<th class="col-md-3">Name</th>
+						<th class="col-md-4">Department</th>
+						<th class="col-md-1">Status</th>
+						<th class="col-md-3"></th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach($contacts as $key=>$contact)
+					<tr>
+						<td>{{$key+1}}</td>
+						<td>{{$contact->name}}</td>
+						<td>{{$contact->department}}</td>
+						<td>{{$contact->status}}</td>
+						<td>
+							<a href="{{route('contact.edit', $contact->id)}}" class="btn btn-sm btn-primary">Read / Reply</a>
+						</td>
+					</tr>
+					@endforeach
+				</tbody>
+			</table>
 		</div>
 		<div class="col-md-5">
 			<div class="panel panel-primary">

@@ -158,3 +158,65 @@
 
 </div>
 @stop
+
+@section('scripts')
+<script type="text/javascript">
+$(function(){
+
+});
+
+function removeChitItem(btn)
+{
+	var btn = $(btn);
+	var chitRow = btn.closest('tr');
+	var id = chitRow.find('.id').val();
+	var type = chitRow.find('.type').val();
+	var requestRow = [];
+
+	// If item is indent, then look for request under item and remove as well
+	if(type == 'indent')
+		requestRow = $("#request_" + id).closest('tr');
+
+	chitRow.animate({opacity:0}, 500, function(){
+		chitRow.remove();
+
+		reorderChitItem();
+		saveChitForm($(btn));
+	});
+
+	// If we have request item
+	if(requestRow.size() > 0) {
+		requestRow.animate({opacity:0}, 400, function(){
+			requestRow.remove();
+			
+			reorderChitItem();
+			saveChitForm($(btn));
+		});
+	}	
+}
+
+function reorderChitItem()
+{
+	noOfRowsIndent = parseInt($('.chit-form table#indent_items tbody tr').size());
+	noOfRowsRequirement = parseInt($('.chit-form table#requirement_items tbody tr').size());
+
+	$('.chit-form table#indent_items tbody td .serial').each(function(key){
+		$(this).text(++key);
+	});
+
+	$('.chit-form table#requirement_items tbody td .serial').each(function(key){
+		$(this).text(++key);
+	});
+
+	if($('.chit-form table#indent_items tbody tr').size() <= 1) {
+		$('.chit-form table#indent_items thead tr').addClass('hidden');
+		$('.chit-form table#indent_items tbody tr.empty').show();
+	}
+
+	if($('.chit-form table#requirement_items tbody tr').size() <= 1) {
+		$('.chit-form table#requirement_items thead tr').addClass('hidden');
+		$('.chit-form table#requirement_items tbody tr.empty').show();
+	}
+}
+</script>
+@stop

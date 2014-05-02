@@ -52,7 +52,7 @@ Route::put('message', array('before'=>'sentry', 'uses'=>'MessageController@show'
 Route::get('message/outbox', array('before'=>'sentry', 'uses'=>'MessageController@outbox', 'as'=>'message.outbox'));
 
 Route::get('indent/mine', array('before'=>'sentry', 'uses'=>'IndentController@mine', 'as'=>'indent.mine'));
-Route::get('contact/message', array('before'=>'sentry', 'uses'=>'ContactController@message', 'as'=>'contact.message'));
+Route::get('contact-us', array('uses'=>'ContactController@create', 'as'=>'contact-us'));
 
 Route::resource('group', 'GroupController');
 Route::resource('contact', 'ContactController');
@@ -76,3 +76,8 @@ Route::get('set-theme/{theme}',function($theme){
 	$theme = Cookie::forever('theme',$theme);
 	return Response::json(array('status' => 'success'))->withCookie($theme);
 });
+
+Route::get('report/product', array('before'=>'sentry', 'uses'=>'ReportController@product', 'as'=>'report.product'));
+Route::get('report/user', array('before'=>'sentry', 'uses'=>'ReportController@user', 'as'=>'report.user'));
+Route::get('report/overview', array('before'=>'sentry', 'uses'=>'ReportController@overview', 'as'=>'report.overview'));
+
