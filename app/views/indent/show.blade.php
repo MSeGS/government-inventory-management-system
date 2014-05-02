@@ -3,7 +3,9 @@
 @section('contentTop')
 <div class="text-right">
 	<a href="{{$current_user->hasAccess('indent.index')?route('indent.index'):route('indent.mine')}}" class="btn btn-sm btn-info"><i class="fa fa-arrow-left"></i> <?php echo _('Back To List'); ?></a>
+	@if(in_array($indent->status, array("pending_approval", "rejected")))
 	<a href="{{route('indent.edit', $indent->id)}}" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> <?php echo _('Edit'); ?></a>
+	@endif
 </div>
 @stop
 
@@ -13,28 +15,34 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h5 class="text-center"><?php echo _('Indent Chit Form'); ?></h5>
-				<div class="row">
-					<div class="col-sm-6 text-left"><span class="text-muted">Indent Date - {{date('dS F Y, h:iA', strtotime($indent->indent_date))}}</span></div>
-					<div class="col-sm-6 text-right">
-						Status - 
-						@if($indent->status == "pending_approval")
-						<span class="text-warning">
-						@elseif($indent->status == "rejected")
-						<span class="text-danger">
-						@elseif($indent->status == "approved")
-						<span class="text-info">
-						@elseif($indent->status == "dispatched")
-						<span class="text-success">
-						@elseif($indent->status == "partial_dispatched")
-						<span class="text-success">
-						@endif
-							<strong>{{ucwords(str_replace('_',' ',$indent->status))}}</strong>
-						</span>
-					</div>
-				</div>
-				
 			</div>
 			<div class="panel-body">
+				<table class="table table-striped">
+					<tbody>
+						<tr>
+							<th class="text-right"><?php echo _('Reference No:'); ?></th>
+							<td>{{$indent->reference_no}}</td>
+							<th class="text-right"><?php echo _('Status:'); ?></th>
+							<td>
+								@if($indent->status == "pending_approval")
+								<span class="text-warning">
+								@elseif($indent->status == "rejected")
+								<span class="text-danger">
+								@elseif($indent->status == "approved")
+								<span class="text-info">
+								@elseif($indent->status == "dispatched")
+								<span class="text-success">
+								@elseif($indent->status == "partial_dispatched")
+								<span class="text-success">
+								@endif
+									<strong>{{ucwords(str_replace('_',' ',$indent->status))}}</strong>
+								</span>
+							</td>
+							<th class="text-right"><?php echo _('Indent Date:'); ?></th>
+							<td>{{$indent->reference_no}}</td>
+						</tr>
+					</tbody>
+				</table>
 
 				@if($indent->items->count())
 				<h5><i class="fa fa-bars"></i> <?php echo _('Indents'); ?></h5>
@@ -57,7 +65,9 @@
 						<td>{{$item->quantity}}</td>
 						<td>{{$item->supplied}}</td>
 						<td>
-							@if($item->status == 'approved')
+							@if($item->status == 'pending')
+							<span class="text-warning">
+							@elseif($item->status == 'approved')
 							<span class="text-success">
 							@elseif($item->status == 'rejected')
 							<span class="text-danger">

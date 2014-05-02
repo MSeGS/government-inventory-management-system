@@ -145,7 +145,10 @@ class IndentController extends \BaseController {
 		$indent->status = 'pending_approval';
 
 		if($indent->save()) {
-			foreach(Input::get('indent') as $key=>$item) {
+			$indent->reference_no = 'CHIT/'.date('Ymd').'/'.$indent->id;
+			$indent->save();
+
+			foreach(Input::get('indent', array()) as $key=>$item) {
 				$indent_item = new IndentItem;
 				$indent_item->indent_id = $indent->id;
 				$indent_item->product_id = $item['id'];
@@ -153,11 +156,11 @@ class IndentController extends \BaseController {
 				
 				if(isset($item['note']))
 					$indent_item->indent_reason = $item['note'];
-
+				$indent_item->status = 'pending';
 				$indent_item->save();
 			}
 
-			foreach(Input::get('requirement') as $key=>$item) {
+			foreach(Input::get('requirement', array()) as $key=>$item) {
 				$requirement = new Requirement;
 				$requirement->indent_id = $indent->id;
 				$requirement->product_id = $item['id'];
@@ -203,8 +206,10 @@ class IndentController extends \BaseController {
 	public function edit($id)
 	{
 		$indent = $this->indent->get($id);
-		
-		return View::make('indent.edit', compact('indent'));
+		if(in_array($indent->status, array('pending_approval', 'rejected')))
+			return View::make('indent.edit', compact('indent'));
+		else
+			return Redirect::route('denied');
 	}
 
 	/**
@@ -218,25 +223,73 @@ class IndentController extends \BaseController {
 		$indent = $this->indent->get($id);
 
 		$rules = array();
+		
+		foreach ($indent->items as $item) {
+			
+			$delete = Input::get('indent.'.$item->product->id.'.remove', null);
+			if($delete)
+				continue;
 
-		foreach (Input::get('indent') as $key=>$value) {
-			$rules['indent.' . $key . '.qty'] = 'required|numeric|min:1';
-			$rules['indent.' . $key . '.note'] = 'required_if:indent.' . $key . '.reserved,1';
+			$stock = get_product_stock($item->product->id);
+			$quantity = Input::get('indent.'.$item->product->id.'.qty');
+			$max = "";
+			$reserved = false;
+			if($stock > 0)
+				$max = '|max:' . $stock;
+			
+			if($stock <= $item->product->reserved_amount && $quantity >= 1)
+				$reserved = true;
+			else if($stock > $item->product->reserved_amount && $quantity >= 1)
+				$reserved = $quantity > ($stock - $item->product->reserved_amount);
+
+			$rules['indent.' . $item->product->id . '.qty'] = 'required|numeric|min:1' . $max;
+			if($reserved)
+				$rules['indent.' . $item->product->id . '.note'] = 'required';
 		}
 
-		foreach (Input::get('requirement') as $key=>$value) {
-			$rules['requirement.' . $key . '.qty'] = 'required|numeric|min:1';
+		foreach ($indent->requirements as $item) {
+			$delete = Input::get('requirement.'.$item->product->id.'.remove', null);
+			if($delete)
+				continue;
+
+			$rules['requirement.' . $item->product->id . '.qty'] = 'required|numeric|min:1';
 		}
-
-		dd($rules);
-
+		
 		$validator = Validator::make(Input::all(), $rules);
 
 		if($validator->fails()) {
-			return Redirect::route('indent.create')
+			return Redirect::route('indent.edit', $indent->id)
 					->withErrors($validator)
 					->withInput(Input::all());
 		}
+
+
+		foreach ($indent->items as $item) {
+			$delete = Input::get('indent.'.$item->product->id.'.remove', null);
+			if($delete) {
+				IndentItem::destroy($item->id);
+				continue;
+			}
+
+			$indent_item = IndentItem::find($item->id);
+			$indent_item->quantity = Input::get('indent.'.$item->product->id.'.qty', $item['qty']);
+			$indent_item->indent_reason = Input::get('indent.'.$item->product->id.'.qty', $item['note']);
+			$indent_item->save();
+		}
+		foreach ($indent->requirements as $item) {
+			$delete = Input::get('requirement.'.$item->product->id.'.remove', null);
+			if($delete) {
+				Requirement::destroy($item->id);
+				continue;
+			}
+
+			$requirement = Requirement::find($item->id);
+			$requirement->quantity = Input::get('requirement.'.$item->product->id.'.qty', $item['qty']);
+			$requirement->save();
+		}
+
+		return Redirect::route('indent.edit', $indent->id)
+					->with('message', _('Indent updated successfully'));
 	}
 
 	/**
@@ -247,7 +300,24 @@ class IndentController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		if(!in_array($indent->status, array('pending_approval', 'rejected')))
+			return Redirect::route('denied');
+
+		if($indent = Indent::find($id)) {
+			$indent->items()->delete();
+			$indent->requirements()->forceDelete();
+			$indent->forceDelete();
+
+			if($this->current_user->hasAccess('indent.mine')) {
+				return Redirect::route('indent.mine')
+							->with('message', _('Indent deleted successfully'));
+			}
+			return Redirect::route('indent.index')
+							->with('message', _('Indent deleted successfully'));
+		}
+
+		return Redirect::route('indent.index')
+							->with('error', _('Indent not deleted. Record not found.'));
 	}
 
 }

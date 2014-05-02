@@ -3,6 +3,7 @@ class Indent extends BaseStore
 {
 	
 	protected $table = 'indents';
+	protected $softDelete = true;
 
 
 	public function __construct()
