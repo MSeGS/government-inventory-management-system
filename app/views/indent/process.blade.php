@@ -62,7 +62,7 @@
 					</tbody>
 				</table>
 
-				{{Form::open(array('url'=>route('indent.process', $indent->id), 'method'=>'put', 'class'=>'form-vertical'))}}
+				{{Form::open(array('url'=>route('indent.postProcess', $indent->id), 'method'=>'post', 'class'=>'form-vertical'))}}
 
 					@if($indent->items->count())
 					<h5><i class="fa fa-bars"></i> <?php echo _('Indents'); ?></h5>
@@ -94,7 +94,7 @@
 
 								<p class="reject-reason hidden {{$errors->has('indent.'.$item->product->id.'.reject_reason')?'has-error':''}}">
 									<strong class="text-danger"><?php echo _('Reject Reason'); ?></strong><br>
-								<textarea name="indent[{{$item->product->id}}][reject_reason]" class="input-sm form-control note" rows="4" placeholder="<?php echo _('Provide reason is rejected'); ?>">{{Input::old('indent.'.$item->product->id.'.reject_reason', $item->reject_reason)}}</textarea>
+								<textarea name="indent[{{$item->product->id}}][reject_reason]" class="input-sm form-control note" rows="4" placeholder="<?php echo _('Provide reason if rejected'); ?>">{{Input::old('indent.'.$item->product->id.'.reject_reason', $item->reject_reason)}}</textarea>
 								</p>
 							</td>
 							<td class="text-right">
@@ -130,9 +130,9 @@
 								<span class="{{$errors->has('requirement.'.$item->product->id.'.qty')?'has-error':''}}"><input min="0" class="input-sm form-control qty" id="requirement_{{$item->product->id}}" type="number" name="requirement[{{$item->product->id}}][qty]" value="{{Input::old('requirement.'.$item->product->id.'.qty', $item->quantity)}}" /></span>
 							</td>
 							<td>
-								<p class="reject-reason hidden {{$errors->has('indent.'.$item->product->id.'.reject_reason')?'has-error':''}}">
+								<p class="reason hidden {{$errors->has('requirement.'.$item->product->id.'.reason')?'has-error':''}}">
 									<strong class="text-danger"><?php echo _('Reject Reason'); ?></strong><br>
-								<textarea name="indent[{{$item->product->id}}][reject_reason]" class="input-sm form-control note" rows="4" placeholder="<?php echo _('Provide reason is rejected'); ?>">{{Input::old('indent.'.$item->product->id.'.reject_reason', $item->reject_reason)}}</textarea>
+									<textarea name="indent[{{$item->product->id}}][reason]" class="input-sm form-control note" rows="4" placeholder="<?php echo _('Provide reason if rejected'); ?>">{{Input::old('indent.'.$item->product->id.'.reject_reason', $item->reject_reason)}}</textarea>
 								</p>
 							</td>
 							<td class="text-right">

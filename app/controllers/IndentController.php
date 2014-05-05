@@ -326,7 +326,7 @@ class IndentController extends \BaseController {
 		return View::make('indent.process', compact('indent'));
 	}
 
-	public function doProcess($id)
+	public function postProcess($id)
 	{
 		$indent = $this->indent->get($id);
 
@@ -365,11 +365,11 @@ class IndentController extends \BaseController {
 		
 		$validator = Validator::make(Input::all(), $rules);
 
-		if($validator->fails()) {
-			return Redirect::route('indent.edit', $indent->id)
+		// if($validator->fails()) {
+			return Redirect::route('indent.process', $indent->id)
 					->withErrors($validator)
 					->withInput(Input::all());
-		}
+		// }
 
 	}
 
