@@ -26,6 +26,8 @@
 						<tr>
 							<th class="text-right"><?php echo _('Reference No:'); ?></th>
 							<td>{{$indent->reference_no}}</td>
+							<th class="text-right"><?php echo _('Indent Date:'); ?></th>
+							<td>{{date('j', strtotime($indent->indent_date)) . '<sup>' . date('S', strtotime($indent->indent_date)) . '</sup> ' . date('F Y, h:iA', strtotime($indent->indent_date))}}</td>
 							<th class="text-right"><?php echo _('Indent Status:'); ?></th>
 							<td>
 								@if($indent->status == "pending_approval")
@@ -42,8 +44,6 @@
 									<strong>{{ucwords(str_replace('_',' ',$indent->status))}}</strong>
 								</span>
 							</td>
-							<th class="text-right"><?php echo _('Indent Date:'); ?></th>
-							<td>{{date('j', strtotime($indent->indent_date)) . '<sup>' . date('S', strtotime($indent->indent_date)) . '</sup> ' . date('F Y, h:iA', strtotime($indent->indent_date))}}</td>
 						</tr>
 					</tbody>
 				</table>

@@ -24,6 +24,11 @@ class Product extends BaseStore
 		return $damage?$damage:0;
 	}
 
+	public function indent()
+	{
+		return $this->hasMany('IndentItem', 'product_id', 'id');
+	}
+
 	public function category()
 	{
 		return $this->belongsTo('Category');
