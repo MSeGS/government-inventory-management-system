@@ -39,6 +39,8 @@ class ResourceTableSeeder extends Seeder
 			array('route'=>'user.destroy', 'name'=>'User Remove', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'user.update', 'name'=>'User Update', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'user.store', 'name'=>'User Store', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
+			array('route'=>'user.profile', 'name'=>'User Profile', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
+			array('route'=>'user.profileUpdate', 'name'=>'User Profile Update', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			
 			array('route'=>'damage.index', 'name'=>'Damage List', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'damage.edit', 'name'=>'Damage Edit Page', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
@@ -89,13 +91,15 @@ class ResourceTableSeeder extends Seeder
 			array('route'=>'store.update', 'name'=>'Store Update', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'store.store', 'name'=>'Store Store', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 
-			array('route'=>'indent.index', 'name'=>'Indents', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
+			array('route'=>'indent.index', 'name'=>'Indents List', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'indent.edit', 'name'=>'Indent Edit Page', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'indent.destroy', 'name'=>'Indent Remove', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'indent.update', 'name'=>'Indent Update', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'indent.store', 'name'=>'Indent Store', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
-			array('route'=>'indent.mine', 'name'=>'My Indents', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
+			array('route'=>'indent.mine', 'name'=>'Indent List (Indentor)', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'indent.show', 'name'=>'Indent Show', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
+			array('route'=>'indent.process', 'name'=>'Indent Process', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
+			array('route'=>'indent.postProcess', 'name'=>'Indent Process Submit', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 
 			array('route'=>'message.index', 'name'=>'Message Index', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'message.read', 'name'=>'Message Read', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),

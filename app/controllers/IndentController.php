@@ -357,7 +357,7 @@ class IndentController extends \BaseController {
 					->withErrors($validator)
 					->withInput(Input::all());
 		}
-// dd(Input::all());
+
 		foreach ($indent->items as $item) {
 			$indent_item = IndentItem::find($item->id);
 			$indent_item->quantity = Input::get('indent.'.$item->product->id.'.qty', $item['qty']);
@@ -365,17 +365,14 @@ class IndentController extends \BaseController {
 			$indent_item->status = Input::get('indent.'.$item->product->id.'.status', $item['status']);
 			$indent_item->save();
 		}
-		// foreach ($indent->requirements as $item) {
-		// 	$delete = Input::get('requirement.'.$item->product->id.'.remove', null);
-		// 	if($delete) {
-		// 		Requirement::destroy($item->id);
-		// 		continue;
-		// 	}
 
-		// 	$requirement = Requirement::find($item->id);
-		// 	$requirement->quantity = Input::get('requirement.'.$item->product->id.'.qty', $item['qty']);
-		// 	$requirement->save();
-		// }
+		foreach ($indent->requirements as $item) {
+			$requirement = Requirement::find($item->id);
+			$requirement->quantity = Input::get('requirement.'.$item->product->id.'.qty', $item['qty']);
+			$requirement->reason = Input::get('requirement.'.$item->product->id.'.reason', $item['reason']);
+			$requirement->status = Input::get('requirement.'.$item->product->id.'.status', $item['status']);
+			$requirement->save();
+		}
 
 		return Redirect::route('indent.process', $indent->id)
 				->with('message', _('Indent processed successfully'));

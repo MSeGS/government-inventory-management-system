@@ -135,8 +135,8 @@
 							</p>
 						</td>
 						<td class="text-right actions">
-							<label class="text-success">{{Form::radio('requirement['.$item->product->id.'][status]', 'approved')}} Approve</label>
-							<label class="text-danger">{{Form::radio('requirement['.$item->product->id.'][status]', 'rejected')}} Reject</label>
+							<label class="text-success">{{Form::radio('requirement['.$item->product->id.'][status]', 'approved', ((Input::old('requirement.'.$item->product->id.'.status', $item->status)=='approved')?true:false))}} Approve</label>
+							<label class="text-danger">{{Form::radio('requirement['.$item->product->id.'][status]', 'rejected', ((Input::old('requirement.'.$item->product->id.'.status', $item->status)=='rejected')?true:false))}} Reject</label>
 						</td>
 					</tr>
 					@endforeach
