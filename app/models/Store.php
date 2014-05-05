@@ -17,6 +17,7 @@ class Store extends Eloquent
 			Schema::create($store_prefix . 'indents', function($table)
 			{	
 				$table->increments('id');
+				$table->string('reference_no')->nullable();
 				$table->integer('indentor_id');
 				$table->datetime('indent_date');
 				$table->enum('status', array('pending_approval','approved', 'partial_dispatched', 'dispatched', 'rejected'))->default('pending_approval');

@@ -51,15 +51,22 @@
         
         
         @if( $current_user->hasAnyAccess(array('product.index', 'product.create', 'category.index', 'category.create')) && !$current_user->isSuperUser())
-        <li class="dropdown">
+        <li class="dropdown {{in_array(Route::currentRouteName(), array('product.create', ''))?'active':''}}">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo _('Products'); ?> <b class="caret"></b></a>
             <ul class="dropdown-menu">
+                @if($current_user->hasAccess('product.create') && !$current_user->isSuperUser())
+                <li {{in_array(Route::currentRouteName(), array('product.create'))?'class="active"':''}}><a href="{{route('product.create')}}"><?php echo _('New Products'); ?></a></li>
+                @endif
                 @if($current_user->hasAccess('product.index') && !$current_user->isSuperUser())
-                <li {{in_array(Route::currentRouteName(), array('product.index', 'product.edit'))?'class="active"':''}}><a href="{{url('/product')}}"><?php echo _('Products'); ?></a></li>
+                <li {{in_array(Route::currentRouteName(), array('product.index', 'product.edit'))?'class="active"':''}}><a href="{{route('product.index')}}"><?php echo _('Products'); ?></a></li>
+                @endif
+                @if($current_user->hasAccess('product.trash') && !$current_user->isSuperUser())
+                <li {{in_array(Route::currentRouteName(), array('product.trash'))?'class="active"':''}}><a href="{{route('product.trash')}}"><?php echo _('Trash'); ?></a></li>
                 @endif
 
                 @if( $current_user->hasAnyAccess(array('category.index', 'category.create')) && !$current_user->isSuperUser())
                 <li class="divider"></li>
+                <li role="presentation" class="dropdown-header">Category</li>
                 @if($current_user->hasAccess('category.create') && !$current_user->isSuperUser())
                 <li {{in_array(Route::currentRouteName(), array('category.create'))?'class="active"':''}}><a href="{{route('category.create')}}"><?php echo _('New Category');?></a></li>
                 @endif
@@ -102,13 +109,31 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php  echo _('Message'); ?> <span class="menu-super">{{get_unread_message_count()}}</span> <b class="caret"></b></a>
             <ul class="dropdown-menu">
                 @if($current_user->hasAccess('message.index') && !$current_user->isSuperUser())
-                <li {{in_array(Route::currentRouteName(), array('message.index'))?'class="active"':''}}><a href="{{route('message.index')}}"><?php echo _('Message Inbox');?></a></li>
+                <li {{in_array(Route::currentRouteName(), array('message.index'))?'class="active"':''}}><a href="{{route('message.index')}}"><?php echo _('Inbox');?></a></li>
                 @endif
                 @if($current_user->hasAccess('message.outbox') && !$current_user->isSuperUser())
-                <li {{in_array(Route::currentRouteName(), array('message.outbox'))?'class="active"':''}}><a href="{{route('message.outbox')}}"><?php echo _('Message Outbox');?></a></li>
+                <li {{in_array(Route::currentRouteName(), array('message.outbox'))?'class="active"':''}}><a href="{{route('message.outbox')}}"><?php echo _('Outbox');?></a></li>
                 @endif
                 @if($current_user->hasAccess('message.create') && !$current_user->isSuperUser())
-                <li {{in_array(Route::currentRouteName(), array('message.create'))?'class="active"':''}}><a href="{{route('message.create')}}"><?php echo _('Message Compose');?></a></li>
+                <li {{in_array(Route::currentRouteName(), array('message.create'))?'class="active"':''}}><a href="{{route('message.create')}}"><?php echo _('Compose');?></a></li>
+                @endif
+                
+            </ul>
+        </li>
+        @endif
+        
+        @if( $current_user->hasAnyAccess(array('report.product', 'report.user', 'report.overview')))
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php  echo _('Report'); ?> <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                @if($current_user->hasAccess('report.product') && !$current_user->isSuperUser())
+                <li {{in_array(Route::currentRouteName(), array('report.product'))?'class="active"':''}}><a href="{{route('report.product')}}"><?php echo _('Product');?></a></li>
+                @endif
+                @if($current_user->hasAccess('report.user') && !$current_user->isSuperUser())
+                <li {{in_array(Route::currentRouteName(), array('report.user'))?'class="active"':''}}><a href="{{route('report.user')}}"><?php echo _('User');?></a></li>
+                @endif
+                @if($current_user->hasAccess('report.overview') && !$current_user->isSuperUser())
+                <li {{in_array(Route::currentRouteName(), array('report.overview'))?'class="active"':''}}><a href="{{route('report.overview')}}"><?php echo _('Overview');?></a></li>
                 @endif
                 
             </ul>

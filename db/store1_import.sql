@@ -1,3 +1,5 @@
+TRUNCATE TABLE `stores`;
+
 INSERT INTO `stores` (`id`, `department_id`, `store_code`, `created_at`, `updated_at`)
 VALUES
 	(1, 1, 'ATI', '2014-04-30 13:50:02', '2014-04-30 13:50:02');
@@ -16,124 +18,9 @@ VALUES
 	(3, 4),
 	(4, 1),
 	(4, 5);
-	
--- Create syntax for TABLE 'store1_categories'
-CREATE TABLE `store1_categories` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `category_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- Create syntax for TABLE 'store1_damages'
-CREATE TABLE `store1_damages` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `product_id` int(11) NOT NULL,
-  `quantity` smallint(6) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `status` enum('approved','pending','declined') COLLATE utf8_unicode_ci NOT NULL,
-  `note` text COLLATE utf8_unicode_ci NOT NULL,
-  `reported_at` datetime NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- Create syntax for TABLE 'store1_indent_requirements'
-CREATE TABLE `store1_indent_requirements` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `indent_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
-  `quantity` smallint(6) NOT NULL,
-  `status` enum('procured','pending','rejected') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'pending',
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- Create syntax for TABLE 'store1_indents'
-CREATE TABLE `store1_indents` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `indentor_id` int(11) NOT NULL,
-  `indent_date` datetime NOT NULL,
-  `status` enum('pending_approval','approved','partial_dispatched','dispatched','rejected') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'pending_approval',
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- Create syntax for TABLE 'store1_indents_items'
-CREATE TABLE `store1_indents_items` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `indent_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `supplied` int(11) NOT NULL DEFAULT '0',
-  `status` enum('approved','rejected') COLLATE utf8_unicode_ci NOT NULL,
-  `indent_reason` text COLLATE utf8_unicode_ci,
-  `reject_reason` text COLLATE utf8_unicode_ci,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- Create syntax for TABLE 'store1_notifications'
-CREATE TABLE `store1_notifications` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `sender_id` int(11) NOT NULL,
-  `receiver_id` int(11) NOT NULL,
-  `message` text COLLATE utf8_unicode_ci NOT NULL,
-  `read_at` datetime NOT NULL,
-  `status` enum('unread','read') COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- Create syntax for TABLE 'store1_options'
-CREATE TABLE `store1_options` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `option_key` text COLLATE utf8_unicode_ci NOT NULL,
-  `option_data` text COLLATE utf8_unicode_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- Create syntax for TABLE 'store1_products'
-CREATE TABLE `store1_products` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `category_id` int(11) NOT NULL,
-  `name` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
-  `description` text COLLATE utf8_unicode_ci NOT NULL,
-  `reserved_amount` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=163 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- Create syntax for TABLE 'store1_stocks'
-CREATE TABLE `store1_stocks` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `category_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `note` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `store1_categories` (`id`, `category_name`, `created_at`, `updated_at`, `deleted_at`)
 VALUES
-	(1, 'Uncategorized', '2014-04-30 13:50:03', '2014-04-30 13:50:03', NULL),
 	(2, 'Stationery', '2014-04-16 04:34:13', '2014-04-16 04:34:13', NULL),
 	(3, 'Furniture', '2014-04-16 06:00:58', '2014-04-16 06:00:58', NULL),
 	(4, 'Electrical Goods', '2014-04-16 06:15:01', '2014-04-16 06:15:01', NULL);

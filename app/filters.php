@@ -92,7 +92,7 @@ Route::filter('sentry', function($route, $request){
 	}
 	else {
 		$user = Sentry::getUser();
-
+		View::share('current_user', $user);
 		if(!$user->hasAccess($route->getName()))
 			return Response::view('error.denied', array('route_name'=>$route->getName()), 403);
 	}

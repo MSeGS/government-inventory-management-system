@@ -18,4 +18,8 @@ class User extends Eloquent
 		return $this->belongsToMany('Group', 'users_groups', 'user_id', 'group_id');
 	}
 
+	public function indents()
+	{
+		return $this->hasMany('Indent', 'indentor_id', 'id');
+	}
 }

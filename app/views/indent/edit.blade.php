@@ -9,32 +9,45 @@
 @section('content')
 <div class="edit-indent-page">
 
+		@if(Session::has('message'))
+		<div class="alert alert-success">
+			{{Session::get('message')}}	
+		</div>
+		@endif
+
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h5 class="text-center"><?php echo _('Indent Chit Form'); ?></h5>
-				<div class="row">
-					<div class="col-sm-6 text-left"><span class="text-muted">Indent Date - {{date('dS F Y, h:iA', strtotime($indent->indent_date))}}</span></div>
-					<div class="col-sm-6 text-right">
-						Status - 
-						@if($indent->status == "pending_approval")
-						<span class="text-warning">
-						@elseif($indent->status == "rejected")
-						<span class="text-danger">
-						@elseif($indent->status == "approved")
-						<span class="text-info">
-						@elseif($indent->status == "dispatched")
-						<span class="text-success">
-						@elseif($indent->status == "partial_dispatched")
-						<span class="text-success">
-						@endif
-							<strong>{{ucwords(str_replace('_',' ',$indent->status))}}</strong>
-						</span>
-					</div>
-				</div>
-				
 			</div>
 			<div class="panel-body">
 				
+				<table class="table table-striped">
+					<tbody>
+						<tr>
+							<th class="text-right"><?php echo _('Reference No:'); ?></th>
+							<td>{{$indent->reference_no}}</td>
+							<th class="text-right"><?php echo _('Status:'); ?></th>
+							<td>
+								@if($indent->status == "pending_approval")
+								<span class="text-warning">
+								@elseif($indent->status == "rejected")
+								<span class="text-danger">
+								@elseif($indent->status == "approved")
+								<span class="text-info">
+								@elseif($indent->status == "dispatched")
+								<span class="text-success">
+								@elseif($indent->status == "partial_dispatched")
+								<span class="text-success">
+								@endif
+									<strong>{{ucwords(str_replace('_',' ',$indent->status))}}</strong>
+								</span>
+							</td>
+							<th class="text-right"><?php echo _('Indent Date:'); ?></th>
+							<td>{{$indent->reference_no}}</td>
+						</tr>
+					</tbody>
+				</table>
+
 				{{Form::open(array('url'=>route('indent.update', $indent->id), 'method'=>'put', 'class'=>'form-vertical'))}}
 
 					@if($indent->items->count())
@@ -54,14 +67,15 @@
 						<tbody>
 						@foreach($indent->items as $key => $item)
 						<tr>
+							<?php $stock = get_product_stock($item->product->id); ?>
 							<td>{{++$key}}</td>
 							<td>{{$item->product->name}}</td>
-							<td>{{get_product_stock($item->product->id)}} / <span>{{$item->product->reserved_amount}}</span></td>
+							<td>{{$stock}} / <span>{{$item->product->reserved_amount}}</span></td>
 							<td>
 								@if($item->status == 'approved')
 								{{$item->quantity}}
 								@else
-								<input min="0" class="input-sm form-control qty" id="indent_{{$indent->id}}" type="number" name="indent[{{$key}}][qty]" value="{{$item->quantity}}" />
+								<span class="{{$errors->has('indent.'.$item->product->id.'.qty')?'has-error':''}}"><input min="0" class="input-sm form-control qty" id="indent_{{$item->product->id}}" type="number" name="indent[{{$item->product->id}}][qty]" value="{{Input::old('indent.'.$item->product->id.'.qty', $item->quantity)}}" /></span>
 								@endif
 							</td>
 							<td>
@@ -81,8 +95,8 @@
 								<p><strong><?php echo _('Indent Reason'); ?></strong><br>{{$item->indent_reason}}</p>
 								@endif
 								@else
-								<p><strong><?php echo _('Indent Reason'); ?></strong><br>
-								<textarea name="indent[{{$key}}][note]" class="input-sm form-control note" rows="4" placeholder="<?php echo _('Reason'); ?>">{{$item->indent_reason}}</textarea>
+								<p class="{{$errors->has('indent.'.$item->product->id.'.note')?'has-error':''}}"><strong><?php echo _('Indent Reason'); ?></strong><br>
+								<textarea name="indent[{{$item->product->id}}][note]" class="input-sm form-control note" rows="4" placeholder="<?php echo _('Reason'); ?>">{{Input::old('indent.'.$item->product->id.'.note', $item->indent_reason)}}</textarea>
 								</p>
 								@endif
 
@@ -92,7 +106,7 @@
 							</td>
 							<td class="text-right">
 								@if(in_array($item->status, array('rejected', 'pending')))
-								<a href="javascript:void(0);" onclick="return removeChitItem(this);" class="remove-item text-danger" title="Remove"><i class="fa fa-trash-o fa-2x"></i></a>
+								<label class="text-danger">{{Form::checkbox('indent['.$item->product->id.'][remove]', Input::old('indent.'.$item->product->id.'.remove', 1))}} Delete</label>
 								@endif
 							</td>
 						</tr>
@@ -124,7 +138,7 @@
 								@if($item->status == 'procured')
 								{{$item->quantity}}
 								@else
-								<input min="0" class="input-sm form-control qty" id="requirement_{{$indent->id}}" type="number" name="requirement[{{$key}}][qty]" value="{{$item->quantity}}" />
+								<span class="{{$errors->has('requirement.'.$item->product->id.'.qty')?'has-error':''}}"><input min="0" class="input-sm form-control qty" id="requirement_{{$item->product->id}}" type="number" name="requirement[{{$item->product->id}}][qty]" value="{{Input::old('requirement.'.$item->product->id.'.qty', $item->quantity)}}" /></span>
 								@endif
 							</td>
 							<td>
@@ -140,7 +154,7 @@
 							</td>
 							<td class="text-right">
 								@if(in_array($item->status, array('rejected', 'pending')))
-								<a href="javascript:void(0);" onclick="return removeChitItem(this);" class="remove-item text-danger" title="Remove"><i class="fa fa-trash-o fa-2x"></i></a>
+								<label class="text-danger">{{Form::checkbox('requirement['.$item->product->id.'][remove]', Input::old('requirement.'.$item->product->id.'.remove', 1))}} Delete</label>
 								@endif
 							</td>
 						</tr>
@@ -157,4 +171,12 @@
 		</div>
 
 </div>
+@stop
+
+@section('scripts')
+<script type="text/javascript">
+$(function(){
+
+});
+</script>
 @stop

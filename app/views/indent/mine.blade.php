@@ -21,19 +21,26 @@
 @section('content')
 <div class="col-md-12">
 	<div class="row">
-		@if(Session::has('delete'))
+		@if(Session::has('error'))
 		<div class="alert alert-danger">
-			{{Session::get('delete')}}
+			{{Session::get('error')}}
+		</div>
+		@endif
+
+		@if(Session::has('message'))
+		<div class="alert alert-success">
+			{{Session::get('message')}}
 		</div>
 		@endif
 
 		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
-					<th class="col-md-1">#</th>
-					<th><?php echo _("Date") ?></th>
-					<th class="col-md-2"><?php echo _("Indent Items") ?></th>
-					<th class="col-md-2"><?php echo _("Requirements") ?></th>
+					<th>#</th>
+					<th class="col-md-3"><?php echo _("Date") ?></th>
+					<th class="col-md-1"><?php echo _("Indent Items") ?></th>
+					<th class="col-md-1"><?php echo _("Requirements") ?></th>
+					<th class="col-md-2"><?php echo _("Reference No") ?></th>
 					<th class="col-md-2"><?php echo _("Status") ?></th>
 					<th class="col-md-2"></th>
 				</tr>
@@ -42,7 +49,7 @@
 				@foreach($indents as $key => $indent)
 				<tr>
 					<td>{{++$key}}</td>
-					<td><a href="{{route('indent.show', array($indent->id))}}"><strong>{{date('dS F Y, h:iA', strtotime($indent->indent_date))}}</strong></a></td>
+					<td><a href="{{route('indent.show', array($indent->id))}}"><strong>{{date('j', strtotime($indent->indent_date)) . '<sup>' . date('S', strtotime($indent->indent_date)) . '</sup> ' . date('F Y, h:iA', strtotime($indent->indent_date))}}</strong></a></td>
 					<td>{{sizeof($indent->items)}}</td>
 					<td>{{sizeof($indent->requirements)}}</td>
 					<td>
@@ -59,15 +66,16 @@
 						{{ucwords(str_replace('_', ' ', $indent->status))}}
 						</span>
 					</td>
+					<td>{{$indent->reference_no}}</td>
 					<td>
-						{{Form::open(array('url'=>route('indent.destroy', array($indent->id)),'method'=>'delete'))}}
+						{{Form::open(array('url'=>route('indent.destroy', $indent->id),'method'=>'delete'))}}
 
 							<a href="{{route('indent.show', array($indent->id))}}" class="btn btn-xs btn-success tooltip-top" title="<?php echo _('Show Indent') ?>"><i class="fa fa-eye"></i></a>
 							@if($current_user->hasAccess('indent.edit') && in_array($indent->status, array('pending_approval', 'rejected')))
 							<a href="{{route('indent.edit', array($indent->id))}}" class="btn btn-xs btn-success tooltip-top" title="<?php echo _('Edit Indent') ?>"><i class="fa fa-pencil"></i></a>
 							@endif
-							@if($current_user->hasAccess('indent.destroy')  && in_array($indent->status, array('pending_approval')) )
-							<button type="submit" onclick="return confirm <?php echo _('Are you sure') ?>);" name="id" class="btn btn-xs btn-danger tooltip-top" title="<?php echo _('Remove Indent') ?>" value="{{$indent->id}}"><i class="fa fa-times"></i></button>
+							@if($current_user->hasAccess('indent.destroy')  && in_array($indent->status, array('pending_approval', 'rejected')) )
+							<button type="submit" onclick="return confirm('<?php echo _('Are you sure?') ?>');" name="id" class="btn btn-xs btn-danger tooltip-top" title="<?php echo _('Remove Indent') ?>" value="{{$indent->id}}"><i class="fa fa-times"></i></button>
 							@endif
 						{{Form::close()}}
 					</td>

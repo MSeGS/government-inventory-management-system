@@ -99,6 +99,9 @@ class GroupTableSeeder extends Seeder
 					'stock.edit' => 1,
 					'stock.update' => 1,
 					'stock.destroy' => 1,
+					'report.product' => 1,
+					'report.user' => 1,
+					'report.overview' => 1,
 				),
 			));
 		}
@@ -165,6 +168,7 @@ class GroupTableSeeder extends Seeder
 					'damage.restore' => 1,
 					'damage.store' => 1,
 					'damage.destroy' => 1,
+					'report.product' => 1,
 				),
 			));
 		}
