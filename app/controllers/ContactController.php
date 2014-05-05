@@ -2,6 +2,12 @@
 
 class ContactController extends \BaseController {
 
+
+	public function __construct()
+	{
+		parent:: __construct();
+		$this->beforeFilter('sentry');
+	}
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -44,7 +50,7 @@ class ContactController extends \BaseController {
 		$validator		=	Validator::make(Input::all(), $rules);
 
 		if($validator->fails()){
-			return Redirect::route('contact.index')
+			return Redirect::route('contact-us')
 				->withErrors($validator)
 				->withInput(Input::all());
 		}
@@ -81,12 +87,14 @@ class ContactController extends \BaseController {
 	 */
 	public function edit($id)
 	{
+		$replies = ContactReply::where('contact_id','=',$id)->orderBy('id','desc')->paginate(2);
 		$contactById = Contact::find($id); 
 		$contacts = Contact::orderBy('id', 'desc')->paginate();
 
-		return View::make('contact.reply')
+		return View::make('contact.edit')
 			->with('contacts', $contacts)
-			->with('contactById', $contactById);
+			->with('contactById', $contactById)
+			->with('replies', $replies);
 	}
 
 	/**
@@ -97,23 +105,30 @@ class ContactController extends \BaseController {
 	 */
 	public function update($id)
 	{
+		$contact = Contact::find($id);
 		$rules = array(
-			'mail_text'	=> 'required'
+			'reply'	=> 'required'
 			);
 
 		$validator 	= Validator::make(Input::all(), $rules);
 
-		if($validator->passes()){
-			$mail 				=	Contact::find($id);
-			$mail->mail_text	= 	Input::get('mail_text');
+		if($validator->fails()){
+			return Redirect::route('contact.edit', array('contactById'=>$id))
+				->withErrors($validator);
+		}
+		else{
+			$mail 				=	new ContactReply;
+			$mail->reply		= 	Input::get('reply');
+			$mail->contact_id	=  	$id;
 			$mail->save();
-			Session::set('to', $mail->email);
-			Session::set('name', $mail->name);
-			Mail::send('contact.template.reply', array('message_body' => $mail->mail_text), function($message) {
-    			$message->to(Session::get('to'), Session::get('name'));//->subject('replyasd');
-			});
 
-			return Redirect::route('contact.index');
+			Session::set('to', $contact->email);
+			Session::set('name', $mail->name);
+			$subj = 'Re: Contact on 2nd May 2014 at 5:00PM';
+			Mail::send('contact.template.reply', array('message_body' => $mail->reply), function($message){
+    			$message->to(Session::get('to'), Session::get('name'));
+			});
+			return Redirect::route('contact.edit', array('contactById'=>$id));
 		}
 	}
 

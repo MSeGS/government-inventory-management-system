@@ -476,7 +476,14 @@ hr {
     resize:vertical;
     padding: 2px 5px;
 }
-
+.contact-reply-message pre {
+    background: none;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 12px;
+    border: 0;
+    padding: 0;
+    text-align: justify;
+}
 
 @media (min-width: 768px) and (max-width: 991px) {
     .headerBrand {

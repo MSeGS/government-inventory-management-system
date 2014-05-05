@@ -20,7 +20,7 @@
 						<td>{{$contact->department}}</td>
 						<td>{{$contact->status}}</td>
 						<td>
-							<a href="{{route('contact.edit', $contact->id)}}" class="btn btn-sm btn-primary">Read / Reply</a>
+							<a href="{{route('contact.edit', $contact->id)}}" class="btn btn-sm btn-primary">View Details</a>
 						</td>
 					</tr>
 					@endforeach

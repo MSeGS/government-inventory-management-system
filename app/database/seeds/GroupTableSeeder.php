@@ -18,7 +18,8 @@ class GroupTableSeeder extends Seeder
 					'registration' => 1,
 					'registration.submit' => 1,
 					'reset-password' => 1,
-					'retrieve-username' => 1
+					'retrieve-username' => 1,
+					'contact-us'		=> 1
 				),
 			));
 		}

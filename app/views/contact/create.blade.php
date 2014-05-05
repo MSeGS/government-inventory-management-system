@@ -1,6 +1,11 @@
 @extends('layout.main')
 
 @section('content')
+@if(Session::has('message'))
+	<div class="alert alert-success">
+		{{Session::get('message')}}	
+	</div>
+@endif	
 <div class="col-md-5 col-md-offset-4">
 	<h3><span class="fa fa-user"></span> Contact Us</h3>
 	<hr>

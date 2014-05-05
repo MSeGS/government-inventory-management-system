@@ -11,7 +11,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Indent <b class="caret"></b></a>
             <ul class="dropdown-menu">
                 @if($current_user->hasAccess('indent.create') && !$current_user->isSuperUser())
-                <li {{in_array(Route::currentRouteName(), array('indent.create'))?'class="active"':''}}><a href="{{route('indent.create')}}"><?php echo _('New Indent');?></a></li>
+                <li c</li>
                 @endif
 
                 @if($current_user->hasAccess('indent.index') && !$current_user->isSuperUser())
@@ -156,6 +156,10 @@
         </li>
         @endif
 
+        @if($current_user->hasAccess('contact.index')  && $current_user->isSuperUser())
+        <li {{in_array(Route::currentRouteName(), array('contact.index'))?'class="active"':''}}><a href="{{route('contact.index')}}"><?php echo _('Contacts'); ?></a></li>
+        @endif
+        
         @if($current_user->hasAccess('logout'))
         <li {{in_array(Route::currentRouteName(), array('logout'))?'class="active"':''}}><a href="{{url('/logout')}}"><?php echo _('Sign Out'); ?></a></li>
         @endif

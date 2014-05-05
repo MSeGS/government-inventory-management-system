@@ -19,7 +19,6 @@ class CreateContactsTable extends Migration {
 			$table->string('phone_no');
 			$table->string('department');
 			$table->string('note');
-			$table->string('mail_text');
 			$table->enum('status', array('read', 'unread', 'replied'));
 			$table->timestamps();
 		});

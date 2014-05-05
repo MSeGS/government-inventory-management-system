@@ -107,6 +107,8 @@ class ResourceTableSeeder extends Seeder
 			array('route'=>'report.product', 'name'=>'Product', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'report.user', 'name'=>'User', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'report.overview', 'name'=>'Overview', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
+			
+			array('route'=>'contact-us', 'name'=>'Contact Form', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 		));
 	}
 }
