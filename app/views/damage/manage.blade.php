@@ -23,7 +23,7 @@
 								<?php if(isset($_GET['prodsearch'])) { $prodsearch=$_GET['prodsearch'];} else { $prodsearch='';} ?>
 								<?php echo Form::text('prodsearch',$prodsearch, array('class'=>'input-sm form-control','placeholder'=>_('Search Product')));?>
 			      				<span class="input-group-btn">
-			        				<button class="input-sm btn btn-default" name="search" value="Search" type="submit"> <i class="glyphicon glyphicon-search"></i> </button>
+			        				<button class="btn-sm btn btn-default" name="search" value="Search" type="submit"> <i class="glyphicon glyphicon-search"></i> </button>
 			      				</span>
 				    		</div>
 						</div>

@@ -11,7 +11,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Indent <b class="caret"></b></a>
             <ul class="dropdown-menu">
                 @if($current_user->hasAccess('indent.create') && !$current_user->isSuperUser())
-                <li c</li>
+                <li {{in_array(Route::currentRouteName(), array('indent.create'))?'class="active"':''}}><a href="{{route('indent.create')}}"><?php echo _('New Indent');?></a></li>
                 @endif
 
                 @if($current_user->hasAccess('indent.index') && !$current_user->isSuperUser())
@@ -36,19 +36,10 @@
         @if($current_user->hasAccess('user.profile') && !$current_user->isSuperUser())
         <li {{in_array(Route::currentRouteName(), array('user.profile'))?'class="active"':''}}><a href="{{route('user.profile')}}"><?php echo _('Profile'); ?></a></li>
         @endif
-                
-        @if($current_user->hasAccess('option.index'))
-        <li {{in_array(Route::currentRouteName(), array('option.index', 'option.edit'))?'class="active"':''}}><a href="{{url('/option')}}"><?php echo _('Options'); ?></a></li>
-        @endif
-        
+                        
         @if($current_user->hasAccess('department.index'))
         <li {{in_array(Route::currentRouteName(), array('department.index', 'department.edit'))?'class="active"':''}}><a href="{{url('/department')}}"><?php echo _('Department'); ?></a></li>
         @endif
-
-        @if($current_user->hasAccess('setting.index') && !$current_user->isSuperUser())
-        <li {{in_array(Route::currentRouteName(), array('setting.index', 'setting.edit'))?'class="active"':''}}><a href="{{route('setting.index')}}"><?php echo _('Settings'); ?></a></li>
-        @endif
-        
         
         @if( $current_user->hasAnyAccess(array('product.index', 'product.create', 'category.index', 'category.create')) && !$current_user->isSuperUser())
         <li class="dropdown {{in_array(Route::currentRouteName(), array('product.create', ''))?'active':''}}">
@@ -154,6 +145,14 @@
 
             </ul>
         </li>
+        @endif
+
+        @if($current_user->hasAccess('option.index'))
+        <li {{in_array(Route::currentRouteName(), array('option.index', 'option.edit'))?'class="active"':''}}><a href="{{url('/option')}}"><?php echo _('Options'); ?></a></li>
+        @endif
+
+        @if($current_user->hasAccess('setting.index') && !$current_user->isSuperUser())
+        <li {{in_array(Route::currentRouteName(), array('setting.index', 'setting.edit'))?'class="active"':''}}><a href="{{route('setting.index')}}"><?php echo _('Settings'); ?></a></li>
         @endif
 
         @if($current_user->hasAccess('contact.index')  && $current_user->isSuperUser())

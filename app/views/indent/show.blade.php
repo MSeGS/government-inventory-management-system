@@ -3,8 +3,12 @@
 @section('contentTop')
 <div class="text-right">
 	<a href="{{$current_user->hasAccess('indent.index')?route('indent.index'):route('indent.mine')}}" class="btn btn-sm btn-info"><i class="fa fa-arrow-left"></i> <?php echo _('Back To List'); ?></a>
-	@if(in_array($indent->status, array("pending_approval", "rejected")))
+	@if($current_user->hasAccess('indent.edit') && in_array($indent->status, array("pending_approval", "rejected")))
 	<a href="{{route('indent.edit', $indent->id)}}" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> <?php echo _('Edit'); ?></a>
+	@endif
+
+	@if($current_user->hasAccess('indent.process') && in_array($indent->status, array("pending_approval", "rejected")))
+	<a href="{{route('indent.process', $indent->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-cog"></i> <?php echo _('Process'); ?></a>
 	@endif
 </div>
 @stop

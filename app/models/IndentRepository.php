@@ -8,6 +8,6 @@ class IndentRepository implements IndentInterface
 
 	public function get($id)
 	{
-		return Indent::with('items', 'requirements')->find($id);
+		return Indent::with('items', 'requirements', 'indentor', 'indentor.department')->find($id);
 	}
 }

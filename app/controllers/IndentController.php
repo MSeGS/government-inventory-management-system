@@ -320,4 +320,57 @@ class IndentController extends \BaseController {
 							->with('error', _('Indent not deleted. Record not found.'));
 	}
 
+	public function process($id)
+	{
+		$indent = $this->indent->get($id);
+		return View::make('indent.process', compact('indent'));
+	}
+
+	public function doProcess($id)
+	{
+		$indent = $this->indent->get($id);
+
+		$rules = array();
+		
+		foreach ($indent->items as $item) {
+			
+			$delete = Input::get('indent.'.$item->product->id.'.remove', null);
+			if($delete)
+				continue;
+
+			$stock = get_product_stock($item->product->id);
+			$quantity = Input::get('indent.'.$item->product->id.'.qty');
+			$max = "";
+			$reserved = false;
+			if($stock > 0)
+				$max = '|max:' . $stock;
+			
+			if($stock <= $item->product->reserved_amount && $quantity >= 1)
+				$reserved = true;
+			else if($stock > $item->product->reserved_amount && $quantity >= 1)
+				$reserved = $quantity > ($stock - $item->product->reserved_amount);
+
+			$rules['indent.' . $item->product->id . '.qty'] = 'required|numeric|min:1' . $max;
+			if($reserved)
+				$rules['indent.' . $item->product->id . '.note'] = 'required';
+		}
+
+		foreach ($indent->requirements as $item) {
+			$delete = Input::get('requirement.'.$item->product->id.'.status', null);
+			if($delete)
+				continue;
+
+			$rules['requirement.' . $item->product->id . '.qty'] = 'required|numeric|min:1';
+		}
+		
+		$validator = Validator::make(Input::all(), $rules);
+
+		if($validator->fails()) {
+			return Redirect::route('indent.edit', $indent->id)
+					->withErrors($validator)
+					->withInput(Input::all());
+		}
+
+	}
+
 }

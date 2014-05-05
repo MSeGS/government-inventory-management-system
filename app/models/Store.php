@@ -56,8 +56,8 @@ class Store extends Eloquent
 				$table->integer('indent_id');
 				$table->integer('product_id');
 				$table->smallInteger('quantity');
-				$table->enum('status', array('procured', 'pending', 'rejected'))->default('pending');
-				
+				$table->enum('status', array('procured', 'approved', 'pending', 'rejected'))->default('pending');
+				$table->text('reason')->nullable();
 				$table->timestamps();
 				$table->softDeletes();
 

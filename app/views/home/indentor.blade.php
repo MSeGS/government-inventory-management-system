@@ -42,7 +42,7 @@
 	</div>
 	</div>
 	<div class="col-md-6">
-			<div class="panel panel-primary">
+			<div class="panel panel-default">
 				<div class="panel panel-heading"><span class="glyphicon glyphicon-th"></span> Indent Status</div>
 				<div class="panel panel-body">
 					<table class="table table-striped table-hover">
