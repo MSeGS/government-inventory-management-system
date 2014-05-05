@@ -76,3 +76,8 @@ Route::get('set-theme/{theme}',function($theme){
 	$theme = Cookie::forever('theme',$theme);
 	return Response::json(array('status' => 'success'))->withCookie($theme);
 });
+
+
+Route::get('ajax-super/{type}/{option?}',array('before'=>'sentry', 'uses'=>'HomeController@ajaxSuper','as'=>'home.ajax-super'));
+
+

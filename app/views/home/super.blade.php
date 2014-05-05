@@ -37,9 +37,52 @@
 		</div>
 	</div>
 </div>
-<div class="row">
-	<div class="col-md-12" >
+<div class="row mb20 chart-wrap">
+	<div class="col-md-12 mb20" >
+		<div class="lead ">
+			Monthly Statistics 
+			<small>for</small> 
+			<div class="btn-group">
+				<button type="button" class="btn btn-default chart-button">{{date('Y')}}</button>
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+					<span class="caret"></span>
+					<span class="sr-only">Click to select year</span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					@foreach($years as $year)
+					<li ><a data-year="{{$year}}" onclick="ajaxChart('#month_chart','/ajax-super/month/{{$year}}','{{$year}}',true)" href="javascript:;">{{$year}}</a></li>
+					@endforeach
+				</ul>
+			</div>
+		</div> 
 		
+		
+		<div class="mb20"></div>
+
+		<div class="chart-container"  >
+			<div id="month_chart" style="height:200px">
+				
+			</div>
+			<div class="loading">
+				<img src="/templates/default/lib/loading/loading-spin.svg" alt="Loading icon" />
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row mb20 charts-wrap hidden">
+	<div class="col-md-12 mb20" >
+		<div class="lead ">
+			Overall Statistics 
+		</div> 
+		
+		<div class="chart-container"  >
+			<div id="overall_chart" style="height:300px">
+				
+			</div>
+			<div class="loading">
+				<img src="/templates/default/lib/loading/loading-spin.svg" alt="Loading icon" />
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -150,17 +193,16 @@
 	</div>
 </div>
 <style type="text/css">
-	.legendLabel{
-		color: #FFFFFF;
-		text-align: left;
-		padding-left:10px;
-	}
+	
 </style>
 @stop
 
 
 @section('scripts')
+<link rel="stylesheet" type="text/css" href="{{asset('templates/default/css/super.home.css')}}" />
 <script type="text/javascript" src="{{asset('templates/default/lib/flot/jquery.flot.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('templates/default/lib/flot/jquery.flot.pie.js')}}"></script>
+<script type="text/javascript" src="{{asset('templates/default/lib/flot/grow.js')}}"></script>
+<script type="text/javascript" src="{{asset('templates/default/lib/flot/jquery.flot.spline.js')}}"></script>
 <script type="text/javascript" src="{{asset('templates/default/js/super.home.js')}}"></script>
 @stop
