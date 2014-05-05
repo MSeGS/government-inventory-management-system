@@ -24,8 +24,10 @@ class HomeController extends BaseController {
 						AS departmentsCount"
 					) 
 				);
+
+				$years = array(2014,2015,2015,2016);
 				
-				return View::make('home.super')->with(compact('counts'));
+				return View::make('home.super')->with(compact('counts','years'));
 			}
 			elseif($this->current_user->inGroup($admin)) {
 				return View::make('home.admin');
@@ -41,9 +43,29 @@ class HomeController extends BaseController {
 			return View::make('home.index');
 	}
 
-	public function super_reports($value='')
+	public function ajaxSuper($type,$option)
 	{
-		exit('ads');
+		$stores = Store::all();
+		$return = array();
+
+		foreach($stores as $key => $store){
+			$storeCounts = array();
+
+			$query = "SELECT ".$type."(`indent_date`) as ".$type.", COUNT(`id`) as count FROM `store".$store->id."_indents`";
+
+			if($type == 'month'){
+				$query.= " WHERE YEAR(`indent_date`)=".($option?$option:date('Y'));
+			}
+
+			$query.= " GROUP BY ".$type."(`indent_date`)";
+			
+			foreach(DB::Select( DB::raw($query)) as $row){
+				$storeCounts[] = array($row->$type, $row->count);
+			}
+			$return[] = array('label'=>$store->department->name.' ('.$store->store_code.')', 'data' => $storeCounts);
+		}
+
+		return Response::json($return);
 	}
 
 }
