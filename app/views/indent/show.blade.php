@@ -114,7 +114,9 @@
 						<td>{{$item->product->name}}</td>
 						<td>{{$item->quantity}}</td>
 						<td>
-							@if($item->status == 'pending')
+							@if($item->status == 'approved')
+							<span class="text-primary">
+							@elseif($item->status == 'pending')
 							<span class="text-warning">
 							@elseif($item->status == 'procured')
 							<span class="text-success">

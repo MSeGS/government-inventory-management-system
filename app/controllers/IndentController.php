@@ -374,6 +374,9 @@ class IndentController extends \BaseController {
 			$requirement->save();
 		}
 
+		$indent->status = Input::get('process');
+		$indent->save();
+
 		return Redirect::route('indent.process', $indent->id)
 				->with('message', _('Indent processed successfully'));
 	}
