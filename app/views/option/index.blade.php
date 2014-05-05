@@ -29,7 +29,7 @@
 					<td>
 						{{Form::open(array('url'=>route('option.destroy', array($option->id)),'method'=>'delete'))}}
 
-						<a href="{{route('option.edit', array($option->id, 'page='.$options->getCurrentPage()))}}" class="btn btn-xs btn-success tooltip-top" title="Edit option"><i class="fa fa-pencil"></i></a>
+						<button href="{{route('option.edit', array($option->id, 'page='.$options->getCurrentPage()))}}" class="btn btn-xs btn-success tooltip-top" title="Edit option"><i class="fa fa-pencil"></i></button>
 						<button type="submit" onclick="return confirm('<?php echo _('Are you sure') ?>');" name="id" class="btn btn-xs btn-danger tooltip-top" title="<?php echo _('Remove option')?>" value="{{$option->id}}"><i class="fa fa-times"></i></a>
 						{{Form::close()}}
 					</td>

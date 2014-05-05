@@ -23,7 +23,7 @@
 
 	<div class="col-md-8">
 		<div class="col-md-6 pull-right text-right" style='padding-right:0px'>
-			<a href="{{route('message.index')}}" class="btn btn-primary btn-sm" ><?php echo _("Back to Inbox") ?></a>
+			<button href="{{route('message.index')}}" class="btn btn-primary btn-sm" ><?php echo _("Back to Inbox") ?></button>
 		</div>
 	</div>
 </div>

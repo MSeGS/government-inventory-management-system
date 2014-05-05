@@ -53,7 +53,7 @@
 					{{Form::open(array('url'=>route('damage.destroy', array($damage->id)),'method'=>'delete'))}}
 
 					@if($current_user->hasAccess('damage.edit'))
-					<a href="{{route('damage.edit', array($damage->id))}}" class="btn btn-xs btn-success tooltip-top" title="<?php echo _('Edit Damage') ?>"><i class="fa fa-pencil"></i></a>
+					<button href="{{route('damage.edit', array($damage->id))}}" class="btn btn-xs btn-success tooltip-top" title="<?php echo _('Edit Damage') ?>"><i class="fa fa-pencil"></i></button>
 					@endif
 					<button type="submit" onclick="return confirm <?php echo _('Are you sure') ?>);" name="id" class="btn btn-xs btn-danger tooltip-top" title="<?php echo _('Remove Damage') ?>" value="{{$damage->id}}"><i class="fa fa-times"></i></button>
 					{{Form::close()}}

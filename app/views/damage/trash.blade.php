@@ -61,7 +61,7 @@
 						<td>{{ucfirst($damage->status)}}</td>
 						<td>
 							{{Form::open(array('url'=>route('damage.delete', $damage->id), 'method'=>'delete'))}}
-							<a href="{{route('damage.restore', $damage->id)}}" class="btn btn-xs btn-success tooltip-top" title="<?php echo _('Restore Damage') ?>"><i class="fa fa-undo left"></i></a>
+							<button href="{{route('damage.restore', $damage->id)}}" class="btn btn-xs btn-success tooltip-top" title="<?php echo _('Restore Damage') ?>"><i class="fa fa-undo left"></i></button>
 							<button type="submit" onclick="return confirm <?php echo _('Are you sure') ?>;" name="id" class="btn btn-xs btn-danger tooltip-top" title="<?php echo _('Remove Damage Permanently') ?>" value="{{$damage->id}}"><i class="fa fa-times"></i></button>
 							{{Form::close()}}
 						</td>

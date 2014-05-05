@@ -30,9 +30,9 @@
 							<td>
 								{{Form::open(array('url'=>route('damage.destroy'), 'method'=>'delete'))}}
 								@if($current_damage->id == $damage->id)
-								<a href="{{route('damage.edit', array($damage->id))}}" class="btn btn-xs btn-success tooltip-top disabled" title="<?php echo _('Edit Damage Report') ?>"><i class="fa fa-pencil"></i></a>
+								<button href="{{route('damage.edit', array($damage->id))}}" class="btn btn-xs btn-success tooltip-top disabled" title="<?php echo _('Edit Damage Report') ?>"><i class="fa fa-pencil"></i></button>
 								@else
-								<a href="{{route('damage.edit', array($damage->id))}}" class="btn btn-xs btn-success tooltip-top" title="<?php echo _('Edit Damage Report') ?>"><i class="fa fa-pencil"></i></a>
+								<button href="{{route('damage.edit', array($damage->id))}}" class="btn btn-xs btn-success tooltip-top" title="<?php echo _('Edit Damage Report') ?>"><i class="fa fa-pencil"></i></button>
 								@endif
 								<button type="submit" onclick="return confirm <?php echo _('Are you sure') ?>;" name="id" class="btn btn-xs btn-danger tooltip-top" title="<?php echo _('Remove Damage Item') ?>" value="{{$damage->id}}"><i class="fa fa-times"></i></button>
 								{{Form::close()}}
@@ -82,7 +82,7 @@
 
 						<div class="form-group text-right">
 							<button type="submit" name="submit" class="btn btn-primary btn-sm"><?php echo _('Save'); ?></button>
-							<a href="{{route('damage.index')}}"><span class="btn btn-primary btn-sm"><?php echo _('Cancel');?></span></a>
+							<button href="{{route('damage.index')}}"><span class="btn btn-primary btn-sm"><?php echo _('Cancel');?></span></button>
 						</div>
 					{{Form::close()}}
 				</div>
