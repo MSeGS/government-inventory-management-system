@@ -27,9 +27,9 @@
 					<td>
 						{{Form::open(array('url'=>route('setting.destroy', array($setting->id)), 'method'=>'delete'))}}
 						<?php if($currentSetting->id == $setting->id){ ?>
-							<button href="{{route('setting.edit', array($setting->id))}}" class="btn btn-xs btn-success tooltip-top disabled" title="<?php echo _('Edit setting') ?>"><i class="fa fa-pencil"></i></button>
+							<a href="{{route('setting.edit', array($setting->id))}}" class="btn btn-xs btn-success tooltip-top disabled" title="<?php echo _('Edit setting') ?>"><i class="fa fa-pencil"></i></a>
 						<?php } else {?>
-							<button href="{{route('setting.edit', array($setting->id))}}" class="btn btn-xs btn-success tooltip-top" title="<?php echo _('Edit setting') ?>"><i class="fa fa-pencil"></i></button>
+							<a href="{{route('setting.edit', array($setting->id))}}" class="btn btn-xs btn-success tooltip-top" title="<?php echo _('Edit setting') ?>"><i class="fa fa-pencil"></i></a>
 						<?php } ?>
 						<button type="submit" onclick="return confirm('<?php echo _('Are you sure') ?>');" name="id" class="btn btn-xs btn-danger tooltip-top" title="<?php echo _('Remove setting') ?>" value="{{$setting->id}}"><i class="fa fa-times"></i></button>
 						{{Form::close()}}
