@@ -122,12 +122,12 @@ class IndentController extends \BaseController {
 
 		$rules = array();
 
-		foreach (Input::get('indent') as $key=>$value) {
+		foreach (Input::get('indent', array()) as $key=>$value) {
 			$rules['indent.' . $key . '.qty'] = 'required|numeric|min:1';
 			$rules['indent.' . $key . '.note'] = 'required_if:indent.' . $key . '.reserved,1';
 		}
 
-		foreach (Input::get('requirement') as $key=>$value) {
+		foreach (Input::get('requirement', array()) as $key=>$value) {
 			$rules['requirement.' . $key . '.qty'] = 'required|numeric|min:1';
 		}
 
