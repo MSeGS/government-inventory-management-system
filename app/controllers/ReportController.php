@@ -8,6 +8,10 @@ class ReportController extends \BaseController
 
 	public function product()
 	{
+
+		// $dispatched = Indent::where('status','=', 'dispatched')->get();
+		$products = Product::orderBy('name', 'asc')->get();                                                                                                      
+		return View::make('report.product', compact('products'));
 	}
 
 	public function user()
@@ -21,13 +25,4 @@ class ReportController extends \BaseController
 	{
 		# code...
 	}
-
-	public function super()
-	{
-		$stores = Store::orderBy('store_code','asc')->paginate();
-			return View::make('report.super')
-				->with(array(
-					'stores' => $stores
-					));
-	}
-}
+} 
