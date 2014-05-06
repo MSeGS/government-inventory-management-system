@@ -100,6 +100,8 @@ class ResourceTableSeeder extends Seeder
 			array('route'=>'indent.show', 'name'=>'Indent Show', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'indent.process', 'name'=>'Indent Process', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'indent.postProcess', 'name'=>'Indent Process Submit', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
+			array('route'=>'indent.dispatch', 'name'=>'Indent Dispatch', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
+			array('route'=>'indent.postDispatch', 'name'=>'Indent Dispatch Submit', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 
 			array('route'=>'message.index', 'name'=>'Message Index', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'message.read', 'name'=>'Message Read', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),

@@ -55,6 +55,7 @@ Route::get('indent/mine', array('before'=>'sentry', 'uses'=>'IndentController@mi
 Route::get('indent/{id}/process', array('before'=>'sentry', 'uses'=>'IndentController@process', 'as'=>'indent.process'));
 Route::post('indent/{id}/process', array('before'=>'sentry', 'uses'=>'IndentController@postProcess', 'as'=>'indent.postProcess'));
 Route::get('indent/{id}/dispatch', array('before'=>'sentry', 'uses'=>'IndentController@dispatch', 'as'=>'indent.dispatch'));
+Route::post('indent/{id}/dispatch', array('before'=>'sentry', 'uses'=>'IndentController@postDispatch', 'as'=>'indent.postDispatch'));
 Route::get('contact-us', array('uses'=>'ContactController@create', 'as'=>'contact-us'));
 
 Route::resource('group', 'GroupController');
