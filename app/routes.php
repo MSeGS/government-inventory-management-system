@@ -26,6 +26,12 @@ Route::post('/lang', function()
 
 Route::get('registration', array('uses'=>'RegistrationController@index', 'as'=>'registration'));
 Route::post('registration', array('uses'=>'RegistrationController@register', 'as'=>'registration.submit'));
+Route::get('retrieve-username', array('uses'=>'RetrievalController@retrieveUsername', 'as'=>'retrieve-username'));
+Route::post('retrieve-username', array('uses'=>'RetrievalController@sendUsername'));
+Route::get('reset-password', array('uses'=>'RetrievalController@resetPassword', 'as'=>'reset-password'));
+Route::post('reset-password', array('uses'=>'RetrievalController@sendResetCode'));
+Route::get('new-password/{code}', array('uses'=>'RetrievalController@newPassword', 'as'=>'new-password'));
+Route::post('new-password', array('uses'=>'RetrievalController@setNewPassword'));
 
 Route::resource('user', 'UserController');
 Route::get('profile', array('before'=>'sentry', 'uses'=>'UserController@profile', 'as'=>'user.profile'));

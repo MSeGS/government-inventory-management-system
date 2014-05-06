@@ -12,6 +12,12 @@
 		</div>
 		@endif
 
+		@if(Session::has('message'))
+		<div class="alert alert-success">
+			{{Session::get('message')}}
+		</div>
+		@endif
+
 		{{Form::open(array('url'=>'login', 'method'=>'post', 'class'=>'form form-vertical', 'autocomplete'=>'off'))}}
 		<div class="form-group">
 			{{Form::text('username', '', array('class'=>'form-control input-sm', 'placeholder'=>'Username'))}}
@@ -34,13 +40,7 @@
 	</div>
 
 	<div class="col-md-5 col-md-offset-1">
-		<h3><span class="fa fa-info-circle"></span> {{_('Quick Help')}}</h3>
-		<hr>
-		<ol>
-			<li><a href="{{url('/reset-password')}}">{{_('Forgot password? Click here.')}}</a></li>
-			<li><a href="{{url('/retrieve-username')}}">{{_('Forgot username? Get it back here.')}}</a></li>
-			<li>{{_('If you have any problem signing in')}}, <a href="{{url('/contact-us')}}">{{_('contact us')}}</a></li>
-		</ol>
+		@include('layout.partial.quickhelp')
 	</div>
 </div>
 @stop
