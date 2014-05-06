@@ -52,6 +52,9 @@ Route::put('message', array('before'=>'sentry', 'uses'=>'MessageController@show'
 Route::get('message/outbox', array('before'=>'sentry', 'uses'=>'MessageController@outbox', 'as'=>'message.outbox'));
 
 Route::get('indent/mine', array('before'=>'sentry', 'uses'=>'IndentController@mine', 'as'=>'indent.mine'));
+Route::get('indent/{id}/process', array('before'=>'sentry', 'uses'=>'IndentController@process', 'as'=>'indent.process'));
+Route::post('indent/{id}/process', array('before'=>'sentry', 'uses'=>'IndentController@postProcess', 'as'=>'indent.postProcess'));
+Route::get('indent/{id}/dispatch', array('before'=>'sentry', 'uses'=>'IndentController@dispatch', 'as'=>'indent.dispatch'));
 Route::get('contact-us', array('uses'=>'ContactController@create', 'as'=>'contact-us'));
 
 Route::resource('group', 'GroupController');

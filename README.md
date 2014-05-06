@@ -32,9 +32,9 @@ You can start login to application using default users
 2.	Store Keeper: ati_store / pass
 3.	Indentor: ati_indentor / pass
 
-### Permission
+### 6. Permission (Optional)
 
-Login as super user and you need to set user access permissions for pages
+Login as Super Administrator and you can set user access permissions for pages
 
 
 ## Default Group Permissions
