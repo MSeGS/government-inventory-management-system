@@ -21,4 +21,13 @@ class ReportController extends \BaseController
 	{
 		# code...
 	}
+
+	public function super()
+	{
+		$stores = Store::orderBy('store_code','asc')->paginate();
+			return View::make('report.super')
+				->with(array(
+					'stores' => $stores
+					));
+	}
 }

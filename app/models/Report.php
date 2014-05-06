@@ -10,4 +10,6 @@ class Report extends BaseStore
 
 		return $users;
 	}
+
+	
 }
