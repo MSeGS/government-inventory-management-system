@@ -51,8 +51,10 @@ class AuthController extends BaseController
 							Cookie::queue('chit_size', array('indent'=>0, 'requirement'=>0), 60);
 					    	return Redirect::route('home.index');
 			    }
-			    else
-			    	return Redirect::route('login')->with('error', _('Login failed. Please check your credentials.'));
+			    else {
+			    	return Redirect::route('login')
+			    		->with('error', _('Login failed. Please check your credentials.'));
+			    }
 			}
 			catch (Cartalyst\Sentry\Users\LoginRequiredException $e)
 			{
@@ -77,7 +79,10 @@ class AuthController extends BaseController
 			// The following is only required if throttle is enabled
 			catch (Cartalyst\Sentry\Throttling\UserSuspendedException $e)
 			{
-			    return Redirect::route('login')->with('error', _('Login failed. Please check your credentials.'));
+				$suspension_time = Config::get('cartalyst/sentry::throttling.suspension_time');
+				$minutes = $suspension_time>1?'minutes':'minute';
+			    return Redirect::route('login')
+			    	->with('error', sprintf(_('Your account has been suspended due to multiple login attempts. Please try again after %d %s.'), $suspension_time, $minutes) );
 			}
 			catch (Cartalyst\Sentry\Throttling\UserBannedException $e)
 			{
