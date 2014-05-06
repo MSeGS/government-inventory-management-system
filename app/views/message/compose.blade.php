@@ -32,7 +32,7 @@
 
 								<div class="form-group text-right">
 									<button type="submit" class="btn btn-sm btn-primary"><?php echo _('Sent');?></button>
-									<button href="{{route('message.index')}}" class="btn btn-primary btn-sm" ><?php echo _("Back to Inbox") ?></button>
+									<a href="{{route('message.index')}}" class="btn btn-primary btn-sm" ><?php echo _("Back to Inbox") ?></a>
 								</div>
 							{{Form::close()}}
 						</div>
