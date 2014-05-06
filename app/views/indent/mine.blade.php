@@ -54,7 +54,7 @@
 					<td>{{sizeof($indent->requirements)}}</td>
 					<td>
 						@if($indent->status == 'approved')
-						<span class="text-info">
+						<span class="text-primary">
 						@elseif($indent->status == 'rejected')
 						<span class="text-danger">
 						@elseif(in_array($indent->status, array('partial_dispatched', 'dispatched')))

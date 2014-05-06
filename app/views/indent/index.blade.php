@@ -38,7 +38,7 @@
 						<td>{{$indent->reference_no}}</td>
 						<td>
 							@if($indent->status == 'approved')
-							<span class="text-info">
+							<span class="text-primary">
 							@elseif($indent->status == 'rejected')
 							<span class="text-danger">
 							@elseif(in_array($indent->status, array('partial_dispatched', 'dispatched')))
@@ -55,7 +55,7 @@
 							@if($current_user->hasAccess('indent.show'))
 							<a href="{{route('indent.show', array($indent->id))}}" class="btn btn-xs btn-success tooltip-top" title="<?php echo _('View Indent') ?>"><i class="fa fa-eye"></i></a>
 							@endif
-							@if($current_user->hasAccess('indent.process'))
+							@if($current_user->hasAccess('indent.process') && !in_array($indent->status, array('partial_dispatched', 'dispatched')))
 							<a href="{{route('indent.process', array($indent->id))}}" class="btn btn-xs btn-primary tooltip-top" title="<?php echo _('Process Indent') ?>"><i class="fa fa-cog"></i> <?php echo _('Process'); ?></a>
 							@endif
 							@if($current_user->hasAccess('indent.dispatch'))
