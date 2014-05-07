@@ -38,13 +38,18 @@
 	<table class="table table-striped table-hover table-bordered">
 		<thead>
 			<tr>
-				<th class="col-md-1">#</th>
+				<th>#</th>
 				<th class="col-md-2"><?php echo _('Username'); ?></th>
-				<th class="col-md-2"><?php echo _('Department'); ?></th>
-				<th class="col-md-2"><?php echo _('Store Code'); ?></th>
-				<th class="col-md-3"><?php echo _('Groups'); ?></th>
-				<th></th>
+				<th class="col-md-3"><?php echo _('Full Name'); ?></th>
+				
+				@if($current_user->isSuperUser())
+				<th class="col-md-3"><?php echo _('Department'); ?></th>
+				@else
+				<th class="col-md-3"><?php echo _('Store'); ?></th>
+				@endif
 
+				<th class="col-md-2"><?php echo _('Groups'); ?></th>
+				<th class="col-md-2"></th>
 			</tr>
 		</thead>
 			<tbody>
@@ -54,6 +59,7 @@
 					$user_groups = $user->groups()->lists('name');
 
 					if(!empty($user_groups)) {
+						unset($user_groups[0]); // Remove Public
 						$user_groups = implode(', ', $user_groups);
 					}
 					else
@@ -62,8 +68,14 @@
 					<tr>	
 						<td>{{++$i}}</td>
 						<td>{{$user->username}}</td>
+						<td>{{$user->full_name}}</td>
+
+						@if($current_user->isSuperUser())
+						<td>{{!empty($user->store)?$user->store->department->name:'-'}}</td>
+						@else
 						<td>{{!empty($user->department)?$user->department->name:'-'}}</td>
-						<td>{{!empty($user->store)?$user->store->store_code:'-'}}</td>
+						@endif
+
 						<td>{{$user_groups}}</td>
 						<td>
 							{{Form::open(array('url'=>route('user.destroy', $user->id), 'method'=>'delete'))}}

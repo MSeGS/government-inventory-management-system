@@ -4,8 +4,8 @@ class UserController extends \BaseController {
 
 	public function __construct()
 	{
-		$this->beforeFilter('sentry');
 		parent::__construct();
+		$this->beforeFilter('sentry');
 	}
 
 	/**
@@ -208,7 +208,7 @@ class UserController extends \BaseController {
 			'group' => Input::get('group')
 			);
 
-		$current_user = Sentry::findUserById($id);
+		$current_user_edited = Sentry::findUserById($id);
 
 		$users = User::with('department', 'store', 'groups')->where(function($query){
 				if(Input::get('username', null))
@@ -240,7 +240,7 @@ class UserController extends \BaseController {
 			->with('stores', $stores)
 			->with('groups', $groups)
 			->with('users', $users)
-			->with('current_user', $current_user)
+			->with('current_user_edited', $current_user_edited)
 			->with('filter', $filter);
 	}
 
@@ -283,7 +283,7 @@ class UserController extends \BaseController {
 			$group_permissions = $group->getPermissions();
 
 			// Update the user
-		    $user = Sentry::findUserById($id);
+		    // $user = Sentry::findUserById($id);
 		    $user->department_id = Input::get('department');
 		    $user->full_name = Input::get('full_name');
 		    $user->username = Input::get('username');

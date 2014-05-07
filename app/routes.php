@@ -34,7 +34,6 @@ Route::post('reset-password', array('uses'=>'RetrievalController@sendResetCode')
 Route::get('new-password/{code}', array('uses'=>'RetrievalController@newPassword', 'as'=>'new-password'));
 Route::post('new-password', array('uses'=>'RetrievalController@setNewPassword'));
 
-Route::resource('user', 'UserController');
 Route::get('profile', array('before'=>'sentry', 'uses'=>'UserController@profile', 'as'=>'user.profile'));
 Route::put('profile', array('before'=>'sentry', 'uses'=>'UserController@profileUpdate', 'as'=>'user.profileUpdate'));
 
@@ -65,6 +64,7 @@ Route::get('indent/{id}/dispatch', array('before'=>'sentry', 'uses'=>'IndentCont
 Route::post('indent/{id}/dispatch', array('before'=>'sentry', 'uses'=>'IndentController@postDispatch', 'as'=>'indent.postDispatch'));
 Route::get('contact-us', array('uses'=>'ContactController@create', 'as'=>'contact-us'));
 
+Route::resource('user', 'UserController');
 Route::resource('group', 'GroupController');
 Route::resource('contact', 'ContactController');
 Route::resource('resource', 'ResourceController');
