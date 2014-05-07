@@ -4,8 +4,8 @@ class UserController extends \BaseController {
 
 	public function __construct()
 	{
-		$this->beforeFilter('sentry');
 		parent::__construct();
+		$this->beforeFilter('sentry');
 	}
 
 	/**
@@ -208,7 +208,7 @@ class UserController extends \BaseController {
 			'group' => Input::get('group')
 			);
 
-		$current_user = Sentry::findUserById($id);
+		$current_user_edited = Sentry::findUserById($id);
 
 		$users = User::with('department', 'store', 'groups')->where(function($query){
 				if(Input::get('username', null))
@@ -240,7 +240,7 @@ class UserController extends \BaseController {
 			->with('stores', $stores)
 			->with('groups', $groups)
 			->with('users', $users)
-			->with('current_user', $current_user)
+			->with('current_user_edited', $current_user_edited)
 			->with('filter', $filter);
 	}
 
@@ -253,12 +253,15 @@ class UserController extends \BaseController {
 	public function update($id)
 	{
 		$user = Sentry::findUserById($id);
+		
+		$userModel = new User;
+		$userTable = $userModel->getTable();
 
 		$rules = array(
 			'group' => 'required',
 			'department' => 'required',
 			'full_name' => 'required',
-			'username' => 'required',
+			'username' => 'required|unique:' . $userTable . ',username,' . $id,
 			'email_id' => 'required|email',
 			'designation' => 'required'
 			);
@@ -269,17 +272,18 @@ class UserController extends \BaseController {
 		$validator = Validator::make(Input::all(), $rules);
 
 		if ($validator -> fails()) {
-			return Redirect::route('user.index')
+			return Redirect::route('user.edit', $id)
 				->withErrors($validator)
 				->withInput(Input::all());
 		}
+
 		else {
 			$group = Sentry::findGroupById(Input::get('group'));
 			$public_group = Sentry::findGroupByName('Public');
 			$group_permissions = $group->getPermissions();
 
 			// Update the user
-		    $user = Sentry::findUserById($id);
+		    // $user = Sentry::findUserById($id);
 		    $user->department_id = Input::get('department');
 		    $user->full_name = Input::get('full_name');
 		    $user->username = Input::get('username');
@@ -318,7 +322,21 @@ class UserController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		try
+		{
+			// Find the user using the user id
+			$user = Sentry::findUserById($id);
+
+			// Delete the user
+			$user->delete();
+			return Redirect::route('user.index')
+				->with('delete', _('User removed successfully'));
+		}
+		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+		{
+			return Redirect::route('user.index')
+				->with('error', _('User not found'));
+		}
 	}
 
 }

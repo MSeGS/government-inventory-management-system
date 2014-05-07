@@ -16,6 +16,7 @@ Route::get('/', array('before'=>'sentry', 'uses'=>'HomeController@index', 'as'=>
 Route::get('login', array('before'=>'sentry', 'uses'=>'AuthController@login', 'as'=>'login'));
 Route::post('login', array('uses'=>'AuthController@authenticate', 'as'=>'login.submit'));
 Route::get('logout', array('before'=>'sentry', 'uses'=>'AuthController@logout', 'as'=>'logout'));
+Route::get('help', array('before'=>'sentry', 'uses'=>'HelpController@index', 'as'=>'help'));
 
 Route::post('/lang', function()
 {
@@ -33,7 +34,6 @@ Route::post('reset-password', array('uses'=>'RetrievalController@sendResetCode')
 Route::get('new-password/{code}', array('uses'=>'RetrievalController@newPassword', 'as'=>'new-password'));
 Route::post('new-password', array('uses'=>'RetrievalController@setNewPassword'));
 
-Route::resource('user', 'UserController');
 Route::get('profile', array('before'=>'sentry', 'uses'=>'UserController@profile', 'as'=>'user.profile'));
 Route::put('profile', array('before'=>'sentry', 'uses'=>'UserController@profileUpdate', 'as'=>'user.profileUpdate'));
 
@@ -64,6 +64,7 @@ Route::get('indent/{id}/dispatch', array('before'=>'sentry', 'uses'=>'IndentCont
 Route::post('indent/{id}/dispatch', array('before'=>'sentry', 'uses'=>'IndentController@postDispatch', 'as'=>'indent.postDispatch'));
 Route::get('contact-us', array('uses'=>'ContactController@create', 'as'=>'contact-us'));
 
+Route::resource('user', 'UserController');
 Route::resource('group', 'GroupController');
 Route::resource('contact', 'ContactController');
 Route::resource('resource', 'ResourceController');

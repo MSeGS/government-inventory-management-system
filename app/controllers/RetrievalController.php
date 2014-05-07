@@ -26,6 +26,11 @@ class RetrievalController extends \BaseController {
 			// Send the username to email here
 			// $user->email_id
 			// $user->username
+			Session::set('to', $user->email_id);
+			Session::set('name', $user->username);
+			Mail::send('retrieval.template.username', array('message_body' => $user->username), function($message){
+				$message->to(Session::get('to'), Session::get('session_name()'))->subject("Username Retrieval");
+			});
 
 			return Redirect::route('retrieve-username')
 				->with('message', _('We have sent your username to your email. Please check your email.'));
@@ -66,8 +71,14 @@ class RetrievalController extends \BaseController {
 			// $user->email_id
 			// $resetCode
 
+			Session::set('to', $user->email_id);
+
+			Mail::send('retrieval.template.password', array('message_body' => $resetLink), function($message){
+				$message->to(Session::get('to'))->subject("Password Reset Link");
+			});
+
 			return Redirect::route('reset-password')
-				->with('message', _('We have sent a link to reset your password to your email.'. $resetLink));
+				->with('message', _('We have sent a link to reset your password to your email.'));
 		}
 		else {
 			return Redirect::route('reset-password')
