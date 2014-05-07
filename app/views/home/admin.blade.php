@@ -41,8 +41,38 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-md-9">
-		<div id="year_graph" style="height:200px"></div>
+	<div class="col-md-9 mb20" >
+		<div class="lead ">
+			Monthly Statistics 
+			<small>for</small> 
+			<div class="btn-group">
+				<button type="button" class="btn btn-default chart-button">{{date('Y')}}</button>
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+					<span class="caret"></span>
+					<span class="sr-only">Click to select year</span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					@foreach($years as $year)
+					<li ><a data-year="{{$year}}" onclick="ajaxChart('#month_chart','/ajax-super/month/{{$year}}','{{$year}}',true)" href="javascript:;">{{$year}}</a></li>
+					@endforeach
+				</ul>
+			</div>
+		</div> 
+		
+		
+		<div class="mb20"></div>
+
+		<div class="chart-container">
+			<div class="chart-wrap">
+				<div class="loading" style="display:none">
+					<img src="/templates/default/images/loading.svg" alt="Loading icon" />
+					<span>Please Wait</span>
+				</div>
+				<div id="year_graph" style="height:400px">
+					
+				</div>
+			</div>
+		</div>
 	</div>
 	<div class="col-md-3">
 		<div class="panel panel-warning">
@@ -150,7 +180,7 @@
 			</div>
 		</div>
 		<div class="col-md-3">
-			<div class="panel panel-success">
+			<div class="panel panel-primary">
 				<div class="panel-heading">Notificationss</div>
 				<div class="panel panel-body">
 					
@@ -162,9 +192,23 @@
 @stop
 
 @section('scripts')
-<script type="text/javascript" src="{{asset('templates/default/lib/flot/jquery.flot.min.js')}}"></script>
+<link rel="stylesheet" type="text/css" href="{{asset('templates/default/css/super.home.css')}}" />
+<script type="text/javascript" src="{{asset('templates/default/lib/flot/jquery.flot.js')}}"></script>
 <script type="text/javascript" src="{{asset('templates/default/lib/flot/jquery.flot.pie.js')}}"></script>
 <script type="text/javascript" src="{{asset('templates/default/lib/flot/jquery.flot.time.js')}}"></script>
 <script type="text/javascript" src="{{asset('templates/default/lib/flot/grow.js')}}"></script>
 <script type="text/javascript" src="{{asset('templates/default/lib/flot/jquery.flot.spline.js')}}"></script>
+<script type="text/javascript">
+$(function () {
+	plotter.init({
+		container: $('#year_graph'),
+		url:'/ajax-admin',
+		loading:$('.loading'),
+		data:{
+			year:'2014',
+			type:'year'
+		}
+	})
+})
+</script>
 @stop

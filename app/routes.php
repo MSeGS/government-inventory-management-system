@@ -93,4 +93,4 @@ Route::get('report/overview', array('before'=>'sentry', 'uses'=>'ReportControlle
 Route::get('report/super', array('before'=>'sentry', 'uses'=>'ReportController@super', 'as'=>'report.super'));
 
 Route::get('ajax-super/{type}/{option?}',array('before'=>'sentry', 'uses'=>'HomeController@ajaxSuper','as'=>'home.ajax-super'));
-Route::get('ajax-admin/{type}/{option?}',array('before'=>'sentry', 'uses'=>'HomeController@ajaxAdmin','as'=>'home.ajax-admin'));
+Route::post('ajax-admin/',array('before'=>'sentry', 'uses'=>'HomeController@ajaxAdmin','as'=>'home.ajax-admin'));

@@ -53,46 +53,100 @@ function destroyDropdown() {
 	$('.dropdown').removeAttr("id");
 }
 
-$(function(){
 
-var options = {
-            series:{
+var plotter = {
+	settings:{
+		data:{},
+		url:'',
+		container:'',
+		loading:false,
+		options:{
+			series:{
                 grow:{
-                    active:true
+                    active:false
                 },
                 lines:{
-                    show:true
+                    show:false
                 },
-                // splines: {
-                //     show:true,
-                //     fill:true
-                // },
+                splines: {
+                    show:true,
+                    fill:true
+                },
                 points: {
                     show: true
                 }
             },
-            // grid: {
-            //     hoverable: true,
-            //     clickable: true
-            // },
+            grid: {
+                hoverable: true,
+                clickable: true
+            },
             xaxis:{
             	mode:"time",
                 font:{
                     color:"#FFFFFF"
                 }
             },
-            // yaxis: {
-            //     font:{
-            //         color:"#FFFFFF"
-            //     }
-            // }
-        };
-$.ajax({
-        'url':'/ajax-admin/year/a:1:%7Bs:4:"year";i:2014;%7D',
-        'type':'get',
-        'dataType':'json'
-    }).complete(function(data){
-        $('#year_graph').parent().find('.loading').hide();
-        $.plot('#year_graph',data.responseJSON,options); 
-    });
-});
+            yaxis: {
+                font:{
+                    color:"#FFFFFF"
+                }
+            }
+		}
+	},
+	init: function(opts){
+		$.extend(this.settings,opts);
+		this.settings.container.html('');
+		this.setupHover();
+		this.fetchData();
+	},
+	fetchData: function(){
+		self = this;
+		if(self.settings.loading)
+			self.settings.loading.fadeIn(100);
+
+		$.ajax({
+			url:this.settings.url,
+			type:'post',
+			data:this.settings.data,
+			dataType:'JSON'
+		}).done(function (plotData) {
+			self.plot(plotData);
+		})
+	},
+	plot:function(plotData){
+		$.plot(this.settings.container,plotData,self.settings.options);
+
+		if(self.settings.loading)
+			self.settings.loading.fadeOut(100);
+	},
+	invert:function (rgb) {
+	    rgb = [].slice.call(arguments).join(",").replace(/rgb\(|\)|rgba\(|\)|\s/gi, '').split(',');
+		for (var i = 0; i < rgb.length; i++) rgb[i] = (i === 3 ? 1 : 255) - rgb[i];
+		return rgb.join(", ");
+	},
+	setupHover:function () {
+		self = this;
+
+		$("<div id='tooltip'></div>").css({
+	        position: "absolute",
+	        display: "none",
+	        border: "1px solid #fdd",
+	        padding: "2px 8px",
+	        "background-color": "#fee",
+	        opacity: 0.80
+	    }).appendTo("body");
+
+		$(self.settings.container).bind("plothover", function (event, pos, item) {
+	        if (item) {
+	            var y = item.datapoint[1].toFixed(0);
+	            $("#tooltip").html(y)
+	                .css({backgroundColor:item.series.color, borderColor:'rgb('+self.invert(item.series.color) + ')', color:'rgb('+self.invert(item.series.color) + ')',top: item.pageY+5, left: item.pageX+5})
+	                .fadeIn(200);
+	        } else {
+	            // $("#tooltip").hide();
+	        }
+	    });
+	}
+
+
+};

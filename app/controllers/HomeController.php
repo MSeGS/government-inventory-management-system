@@ -25,7 +25,8 @@ class HomeController extends BaseController {
 					)
 				);
 
-				$years = array(2014,2015,2015,2016);
+				// $years = array(2014,2015,2015,2016);
+				$years = IndentItem::distinct(DB::Raw("YEAR(created_at)"))->lists(DB::Raw('YEAR(created_at)'));
 				
 				return View::make('home.super')->with(compact('counts','years'));
 			}
@@ -34,9 +35,9 @@ class HomeController extends BaseController {
 				$pendingRequirements = Requirement::where('status','=','pending')->count();
 				$pendingDamages = Damage::where('status','=','pending')->count();
 				$outOfStock = Stock::where('quantity','=','0')->count();
+				$years = IndentItem::distinct(DB::Raw("YEAR(created_at)"))->lists(DB::Raw('YEAR(created_at)'));
 
-
-				return View::make('home.admin', compact('pendingIndents','pendingRequirements','pendingDamages','outOfStock'));
+				return View::make('home.admin', compact('years','pendingIndents','pendingRequirements','pendingDamages','outOfStock'));
 			}
 			elseif($this->current_user->inGroup($indentor)){
 				return View::make('home.indentor');
@@ -74,35 +75,25 @@ class HomeController extends BaseController {
 		return Response::json($return);
 	}
 
-	public function ajaxAdmin($type, $options)
+	public function ajaxAdmin()
 	{
-		$opts = unserialize($options);
-		// print_r($opts);
+		sleep(2);
 		$return = array();
-$year = isset($opts['year'])?$opts['year']:null;
-		// echo '<pre>';
+		$type = Input::get('type',null);
 		if($type == 'year'){
-			$year = isset($opts['year'])?$opts['year']:null;
-			// $indentItems = IndentItem::select(array(DB::Raw('DATE(created_at)'), DB::raw('COUNT(*) `amount`')))->where(DB::Raw('YEAR(created_at)'), '=', $year)->orderBy('product_id')->groupBy(DB::Raw('DATE(created_at)'))->get();
-			$indentItems = IndentItem::where(DB::Raw('YEAR(created_at)'), '=', $year)->orderBy('product_id')->get();
+			$year = Input::get('year',null);
+			$indentItems = IndentItem::where(DB::Raw('YEAR(created_at)'), '=', $year)->orderBy('created_at')->get();
 			$currentProduct = '';
 			$tempArray = array();
 			foreach($indentItems as $item){
-				if($item->product->name != $currentProduct){
-					$tempArray[] = array($item->indent->indent_date, $item->quantity);
-					$return[] = array('label'=>$item->product->name, 'data' => $tempArray);
-					$tempArray = array();
-					$currentProduct = $item->product->name;
-				}else{
-					$tempArray[] = array(strtotime($item->indent->indent_date) * 10000, $item->quantity);
-				}
+				$tempArray[$item->product->name][] = array(strtotime($item->indent->indent_date) * 1000, $item->quantity);
+			}
+			foreach($tempArray as $product_name=>$a){
+				$return[] = array('label'=>$product_name, 'data'=>$a);
 			}
 		}
-		// print_r($return);
-		// exit;
+
 		return Response::json($return);
-		// dd($return);
-		// exit;
 	}
 
 }
