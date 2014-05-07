@@ -151,8 +151,8 @@ class CategoryController extends \BaseController {
 		Product::where('category_id','=',$category->id)->update(array('category_id'=>1));
 		$category->forceDelete($id);
 		
-		return Redirect::route('category.index')
-			->with('delete', _('Category deleted and category products moved to Uncategorized.'));
+		return Redirect::route('category.create')
+			->with('delete', _('Category deleted and its products moved to Uncategorized.'));
 	}
 
 }

@@ -57,7 +57,7 @@
 					<p class="help-block"><span class="text-danger">{{$errors->first('name')}}</span></p>
 				@endif
 			</div>
-			<div class="form-group">
+			<div class="form-group text-right">
 				<button type="submit" name="submit" class="btn btn-primary btn-sm"><?php echo _('Save'); ?></button>
 				<a href="{{route('group.index')}}"><span class="btn btn-primary btn-sm"><?php echo _('Cancel');?></span></a>
 			</div>

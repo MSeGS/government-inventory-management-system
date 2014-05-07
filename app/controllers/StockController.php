@@ -10,8 +10,8 @@ class StockController extends \BaseController {
 	
 	public function __construct()
 	{
-		parent:: __construct();
 		$this->beforeFilter('sentry');
+		parent::__construct();
 	}
 
 	public function index()

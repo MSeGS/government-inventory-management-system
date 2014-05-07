@@ -155,10 +155,10 @@ class StoreController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		Resource::destroy($id);
+		Store::destroy($id);
 
-		return Redirect::route('resource.index')
-			->with('message', _('Resource deleted'));
+		return Redirect::route('store.index')
+			->with('message', _('Store deleted'));
 	}
 
 }

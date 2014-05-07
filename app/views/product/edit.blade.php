@@ -2,7 +2,6 @@
 
 @section('content')
 
-<div class="col-md-12">
 	<div class="row">
 		{{Form::open(array('url'=>route('product.edit', $productById->id),'method'=>'get','class'=>'form-vertical'))}}
 			<div class="col-md-2">
@@ -22,7 +21,6 @@
 			</div>
 		{{Form::close()}}
 	</div>
-</div>
 
 <div class="col-md-8" >
 	<div class="row">

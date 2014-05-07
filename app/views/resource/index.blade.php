@@ -17,12 +17,12 @@
 	{{Form::close()}}
 </div>
 <div class="col-md-8">
+	<div class="row">
 	@if(Session::has('delete'))
 		<div class="alert alert-danger">
 			{{Session::get('delete')}}	
 		</div>
 	@endif
-	<div class="row">
 		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
