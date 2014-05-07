@@ -3,11 +3,18 @@
 @section('content')
 <div class="col-md-8">
 
-	@if(Session::has('delete'))
+	@if(Session::has('error'))
 	<div class="alert alert-danger">
+		{{Session::get('error')}}	
+	</div>
+	@endif
+
+	@if(Session::has('delete'))
+	<div class="alert alert-success">
 		{{Session::get('delete')}}	
 	</div>
 	@endif
+
 
 	{{Form::open(array('url'=>route('user.index'),'method'=>'get','class'=>'form-vertical'))}}
 		<div class="row">

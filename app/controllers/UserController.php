@@ -322,7 +322,21 @@ class UserController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		try
+		{
+			// Find the user using the user id
+			$user = Sentry::findUserById($id);
+
+			// Delete the user
+			$user->delete();
+			return Redirect::route('user.index')
+				->with('delete', _('User removed successfully'));
+		}
+		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+		{
+			return Redirect::route('user.index')
+				->with('error', _('User not found'));
+		}
 	}
 
 }
