@@ -77,6 +77,7 @@ Route::resource('department','DepartmentController');
 Route::resource('damage','DamageController');
 Route::resource('message','MessageController');
 Route::resource('indent','IndentController');
+Route::resource('help','HelpController');
 
 Route::get('denied', array('uses'=>'ErrorController@denied', 'as'=>'denied'));
 Route::get('notfound', array('uses'=>'ErrorController@notfound', 'as'=>'notfound'));

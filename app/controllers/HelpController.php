@@ -8,8 +8,12 @@ class HelpController extends \BaseController {
 	 * @return Response
 	 */
 	public function index()
-	{
-		
+	{	
+		$helps = Help::orderBy('id', 'asc')->get();                                                                                                      
+		return View::make('help.index')
+			->with(array(
+				'helps' => $helps
+				));
 	}
 
 	/**
@@ -19,7 +23,19 @@ class HelpController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		$groups = array(''=>_('Select Group')) + Group::where('name', '<>', 'Public')
+			->where(function($query){
+				$user = Sentry::getUser();
+				if($user->isSuperUser()) {
+					$query->where('name', '!=', 'Super Administrator');
+				}
+			})
+			->orderBy('name', 'asc')->lists('name', 'id');
+		
+		return View::make('help.create')
+			->with(array(
+				'groups' => $groups
+				));
 	}
 
 	/**
@@ -29,7 +45,30 @@ class HelpController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$rules = array(
+			'group' => 'required',
+			'title' => 	'required',
+			'body'	=>	'required',
+			
+			);
+		$validator = Validator::make(Input::all(), $rules);
+
+		if ($validator -> fails()) {
+			return Redirect::route('help.create')
+				->withErrors($validator)
+				->withInput(Input::all());
+		}
+		else{
+		$help	=  new Help;
+		$help->access_level = Input::get('group');
+		$help->title = Input::get('title');
+		$help->body = Input::get('body');
+		$help->created_at;
+		$help->save();
+
+		return Redirect::route('help.index')
+			->with('message', _('Help Successfully added'));
+		}
 	}
 
 	/**
@@ -51,7 +90,22 @@ class HelpController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$groups = array(''=>_('Select Group')) + Group::where('name', '<>', 'Public')
+			->where(function($query){
+				$user = Sentry::getUser();
+				if($user->isSuperUser()) {
+					$query->where('name', '!=', 'Super Administrator');
+				}
+			})
+			->orderBy('name', 'asc')->lists('name', 'id');
+		
+		$currenthelp = Help::find($id);
+				
+		return View::make('help.edit')
+			->with(array(
+				'groups' => $groups,
+				'currenthelp' => $currenthelp
+				));
 	}
 
 	/**
@@ -62,7 +116,30 @@ class HelpController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$rules = array(
+			'group' => 'required',
+			'title' => 	'required',
+			'body'	=>	'required',
+			
+			);
+		$validator = Validator::make(Input::all(), $rules);
+
+		if ($validator -> fails()) {
+			return Redirect::route('help.edit')
+				->withErrors($validator)
+				->withInput(Input::all());
+		}
+		else{
+		$help=Help::find($id);
+		$help->access_level = Input::get('group');
+		$help->title = Input::get('title');
+		$help->body = Input::get('body');
+		$help->created_at;
+		$help->save();
+
+		return Redirect::route('help.index')
+			->with('message', _('Help Successfully update'));
+		}
 	}
 
 	/**
