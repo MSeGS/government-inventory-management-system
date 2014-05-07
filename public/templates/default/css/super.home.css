@@ -7,31 +7,33 @@
 	background-color: #333333;
 	padding: 10px;
 	border-radius: 8px;
+}
+.chart-wrap{
 	position: relative;
 }
 .chart-container .legend tr{
 	padding-bottom:3px;
 }
-#year_selector{
-	display: none;
-	float: left;
-	position: absolute;
-}
-.year_selector li{
-	display: none
-}
 .loading{
-	width: 50px;
 	height: 50px;
+	margin: 0 auto;
 	position: absolute;
-	left: 535px;
-	top: 50px;
-}
-.loading-wrapper{
-	position: absolute;
-	top:0;
+	top: 10px;
+	width: 100%;
+	text-align: center;
 }
 .loading img{
 	width: 50px;
 	height: 50px;
 }
+.loading span{
+	width: 100%;
+	display: block;
+	color: #fff;
+}
+/*
+RESPONSIVE TUR
+
+chart height
+loading width
+*/

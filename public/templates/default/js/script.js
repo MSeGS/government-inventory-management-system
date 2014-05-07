@@ -52,3 +52,47 @@ function destroyDropdown() {
 	$('.dropdown').easyDropDown('destroy');
 	$('.dropdown').removeAttr("id");
 }
+
+$(function(){
+
+var options = {
+            series:{
+                grow:{
+                    active:true
+                },
+                lines:{
+                    show:true
+                },
+                // splines: {
+                //     show:true,
+                //     fill:true
+                // },
+                points: {
+                    show: true
+                }
+            },
+            // grid: {
+            //     hoverable: true,
+            //     clickable: true
+            // },
+            xaxis:{
+            	mode:"time",
+                font:{
+                    color:"#FFFFFF"
+                }
+            },
+            // yaxis: {
+            //     font:{
+            //         color:"#FFFFFF"
+            //     }
+            // }
+        };
+$.ajax({
+        'url':'/ajax-admin/year/a:1:%7Bs:4:"year";i:2014;%7D',
+        'type':'get',
+        'dataType':'json'
+    }).complete(function(data){
+        $('#year_graph').parent().find('.loading').hide();
+        $.plot('#year_graph',data.responseJSON,options); 
+    });
+});
