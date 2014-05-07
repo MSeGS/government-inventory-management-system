@@ -253,12 +253,15 @@ class UserController extends \BaseController {
 	public function update($id)
 	{
 		$user = Sentry::findUserById($id);
+		
+		$userModel = new User;
+		$userTable = $userModel->getTable();
 
 		$rules = array(
 			'group' => 'required',
 			'department' => 'required',
 			'full_name' => 'required',
-			'username' => 'required',
+			'username' => 'required|unique:' . $userTable . ',username,' . $id,
 			'email_id' => 'required|email',
 			'designation' => 'required'
 			);
@@ -269,10 +272,11 @@ class UserController extends \BaseController {
 		$validator = Validator::make(Input::all(), $rules);
 
 		if ($validator -> fails()) {
-			return Redirect::route('user.index')
+			return Redirect::route('user.edit', $id)
 				->withErrors($validator)
 				->withInput(Input::all());
 		}
+
 		else {
 			$group = Sentry::findGroupById(Input::get('group'));
 			$public_group = Sentry::findGroupByName('Public');
