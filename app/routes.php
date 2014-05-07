@@ -16,6 +16,7 @@ Route::get('/', array('before'=>'sentry', 'uses'=>'HomeController@index', 'as'=>
 Route::get('login', array('before'=>'sentry', 'uses'=>'AuthController@login', 'as'=>'login'));
 Route::post('login', array('uses'=>'AuthController@authenticate', 'as'=>'login.submit'));
 Route::get('logout', array('before'=>'sentry', 'uses'=>'AuthController@logout', 'as'=>'logout'));
+Route::get('help', array('before'=>'sentry', 'uses'=>'HelpController@index', 'as'=>'help'));
 
 Route::post('/lang', function()
 {
