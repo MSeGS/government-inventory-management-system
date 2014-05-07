@@ -36,10 +36,19 @@
         @if($current_user->hasAccess('user.profile') && !$current_user->isSuperUser())
         <li {{in_array(Route::currentRouteName(), array('user.profile'))?'class="active"':''}}><a href="{{route('user.profile')}}"><?php echo _('Profile'); ?></a></li>
         @endif
-                        
+                
+        @if($current_user->hasAccess('option.index'))
+        <li {{in_array(Route::currentRouteName(), array('option.index', 'option.edit'))?'class="active"':''}}><a href="{{url('/option')}}"><?php echo _('Options'); ?></a></li>
+        @endif
+        
         @if($current_user->hasAccess('department.index'))
         <li {{in_array(Route::currentRouteName(), array('department.index', 'department.edit'))?'class="active"':''}}><a href="{{url('/department')}}"><?php echo _('Department'); ?></a></li>
         @endif
+
+        @if($current_user->hasAccess('setting.index') && !$current_user->isSuperUser())
+        <li {{in_array(Route::currentRouteName(), array('setting.index', 'setting.edit'))?'class="active"':''}}><a href="{{route('setting.index')}}"><?php echo _('Settings'); ?></a></li>
+        @endif
+        
         
         @if( $current_user->hasAnyAccess(array('product.index', 'product.create', 'category.index', 'category.create')) && !$current_user->isSuperUser())
         <li class="dropdown {{in_array(Route::currentRouteName(), array('product.create', ''))?'active':''}}">
@@ -126,7 +135,9 @@
                 @if($current_user->hasAccess('report.overview') && !$current_user->isSuperUser())
                 <li {{in_array(Route::currentRouteName(), array('report.overview'))?'class="active"':''}}><a href="{{route('report.overview')}}"><?php echo _('Overview');?></a></li>
                 @endif
-                
+                 @if($current_user->hasAccess('report.super') && $current_user->isSuperUser())
+                <li {{in_array(Route::currentRouteName(), array('report.super'))?'class="active"':''}}><a href="{{route('report.super')}}"><?php echo _('Store List');?></a></li>
+                @endif
             </ul>
         </li>
         @endif
@@ -147,18 +158,6 @@
         </li>
         @endif
 
-        @if($current_user->hasAccess('option.index'))
-        <li {{in_array(Route::currentRouteName(), array('option.index', 'option.edit'))?'class="active"':''}}><a href="{{url('/option')}}"><?php echo _('Options'); ?></a></li>
-        @endif
-
-        @if($current_user->hasAccess('setting.index') && !$current_user->isSuperUser())
-        <li {{in_array(Route::currentRouteName(), array('setting.index', 'setting.edit'))?'class="active"':''}}><a href="{{route('setting.index')}}"><?php echo _('Settings'); ?></a></li>
-        @endif
-
-        @if($current_user->hasAccess('contact.index')  && $current_user->isSuperUser())
-        <li {{in_array(Route::currentRouteName(), array('contact.index'))?'class="active"':''}}><a href="{{route('contact.index')}}"><?php echo _('Contacts'); ?></a></li>
-        @endif
-        
         @if($current_user->hasAccess('logout'))
         <li {{in_array(Route::currentRouteName(), array('logout'))?'class="active"':''}}><a href="{{url('/logout')}}"><?php echo _('Sign Out'); ?></a></li>
         @endif

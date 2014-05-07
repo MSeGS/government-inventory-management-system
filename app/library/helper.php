@@ -55,10 +55,12 @@ function get_product_supplied($product_id = null)
 function get_unread_message_count()
 {
 	$user = Sentry:: getUser();
-	$count = Notification::where('receiver_id', '=', $user->id)
-		->where('status', '=', 'unread')->count();
-		
-	return ($count > 0)?'<span class="badge">'.$count.'</span>':null;
+	if(!$user->isSuperUser()) {
+		$count = Notification::where('receiver_id', '=', $user->id)
+			->where('status', '=', 'unread')->count();
+			
+		return ($count > 0)?'<span class="badge">'.$count.'</span>':null;
+	}
 }
 
 function get_current_user_id()

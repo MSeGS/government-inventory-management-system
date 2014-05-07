@@ -40,13 +40,14 @@
 </div>
 
 <div class="col-md-4">
+	@if(Session::has('message'))
+	<div class="alert alert-success">
+		{{Session::get('message')}}
+	</div>
+	@endif
+	
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			@if(Session::has('message'))
-			<div class="alert alert-success">
-				{{Session::get('message')}}
-			</div>
-			@endif
 			<h5 class="text-center"><?php echo _('Add Stock Quantity'); ?></h5>
 		</div>
 		<div class="panel-body">

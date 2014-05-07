@@ -5,7 +5,7 @@
 		<div class="col-md-3">
 			<div class="form-group">
 				<div class="input-group">
-					{{Form::text('name', $filter['name'], array('class'=>'form-control input-sm','placeholder'=>'Search Product'))}}
+					{{Form::text('name', $filter['name'], array('class'=>'form-control input-sm','placeholder'=>'Search Resource'))}}
       				<span class="input-group-btn">
         				<button class="btn btn-default btn-sm" name="search" value="Search" type="submit"> <i class="glyphicon glyphicon-search"></i> </button>
       				</span>

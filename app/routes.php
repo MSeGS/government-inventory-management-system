@@ -26,6 +26,12 @@ Route::post('/lang', function()
 
 Route::get('registration', array('uses'=>'RegistrationController@index', 'as'=>'registration'));
 Route::post('registration', array('uses'=>'RegistrationController@register', 'as'=>'registration.submit'));
+Route::get('retrieve-username', array('uses'=>'RetrievalController@retrieveUsername', 'as'=>'retrieve-username'));
+Route::post('retrieve-username', array('uses'=>'RetrievalController@sendUsername'));
+Route::get('reset-password', array('uses'=>'RetrievalController@resetPassword', 'as'=>'reset-password'));
+Route::post('reset-password', array('uses'=>'RetrievalController@sendResetCode'));
+Route::get('new-password/{code}', array('uses'=>'RetrievalController@newPassword', 'as'=>'new-password'));
+Route::post('new-password', array('uses'=>'RetrievalController@setNewPassword'));
 
 Route::resource('user', 'UserController');
 Route::get('profile', array('before'=>'sentry', 'uses'=>'UserController@profile', 'as'=>'user.profile'));
@@ -55,6 +61,7 @@ Route::get('indent/mine', array('before'=>'sentry', 'uses'=>'IndentController@mi
 Route::get('indent/{id}/process', array('before'=>'sentry', 'uses'=>'IndentController@process', 'as'=>'indent.process'));
 Route::post('indent/{id}/process', array('before'=>'sentry', 'uses'=>'IndentController@postProcess', 'as'=>'indent.postProcess'));
 Route::get('indent/{id}/dispatch', array('before'=>'sentry', 'uses'=>'IndentController@dispatch', 'as'=>'indent.dispatch'));
+Route::post('indent/{id}/dispatch', array('before'=>'sentry', 'uses'=>'IndentController@postDispatch', 'as'=>'indent.postDispatch'));
 Route::get('contact-us', array('uses'=>'ContactController@create', 'as'=>'contact-us'));
 
 Route::resource('group', 'GroupController');
@@ -83,6 +90,7 @@ Route::get('set-theme/{theme}',function($theme){
 Route::get('report/product', array('before'=>'sentry', 'uses'=>'ReportController@product', 'as'=>'report.product'));
 Route::get('report/user', array('before'=>'sentry', 'uses'=>'ReportController@user', 'as'=>'report.user'));
 Route::get('report/overview', array('before'=>'sentry', 'uses'=>'ReportController@overview', 'as'=>'report.overview'));
+Route::get('report/super', array('before'=>'sentry', 'uses'=>'ReportController@super', 'as'=>'report.super'));
 
 Route::get('ajax-super/{type}/{option?}',array('before'=>'sentry', 'uses'=>'HomeController@ajaxSuper','as'=>'home.ajax-super'));
 Route::get('ajax-admin/{type}/{option?}',array('before'=>'sentry', 'uses'=>'HomeController@ajaxAdmin','as'=>'home.ajax-admin'));

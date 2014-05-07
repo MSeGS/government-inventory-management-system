@@ -7,7 +7,7 @@
 		<div class="col-md-3">
 			<div class="form-group">
 				<div class="input-group">
-					{{Form::text('name', $filter['name'], array('class'=>'form-control input-sm','placeholder'=>'Search Product'))}}
+					{{Form::text('name', $filter['name'], array('class'=>'form-control input-sm','placeholder'=>'Search Resource'))}}
       				<span class="input-group-btn">
         				<button class="btn btn-default btn-sm" name="search" value="Search" type="submit"> <i class="glyphicon glyphicon-search"></i> </button>
       				</span>
@@ -56,7 +56,7 @@
 </div>
 <div class="col-md-4">
 	<div class="panel panel-default">
-		<div class="panel-heading"><h5 class="text-center"><?php _('New Resource') ?></h5></div>
+		<div class="panel-heading"><h5 class="text-center"><?php echo _('New Resource') ?></h5></div>
 		<div class="panel-body">
 			{{Form::open(array('url'=>route('resource.index'), 'method'=>'post', 'class'=>'form-vertical'))}}
 			@if(Session::has('message'))

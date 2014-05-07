@@ -10,6 +10,10 @@
 	@if($current_user->hasAccess('indent.process') && in_array($indent->status, array("pending_approval", "rejected")))
 	<a href="{{route('indent.process', $indent->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-cog"></i> <?php echo _('Process'); ?></a>
 	@endif
+
+	@if($current_user->hasAccess('indent.dispatch') && in_array($indent->status, array("approved")))
+	<a href="{{route('indent.dispatch', $indent->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-truck"></i> <?php echo _('Dispatch'); ?></a>
+	@endif
 </div>
 @stop
 
@@ -33,7 +37,7 @@
 								@elseif($indent->status == "rejected")
 								<span class="text-danger">
 								@elseif($indent->status == "approved")
-								<span class="text-info">
+								<span class="text-primary">
 								@elseif($indent->status == "dispatched")
 								<span class="text-success">
 								@elseif($indent->status == "partial_dispatched")
@@ -72,7 +76,7 @@
 							@if($item->status == 'pending')
 							<span class="text-warning">
 							@elseif($item->status == 'approved')
-							<span class="text-success">
+							<span class="text-primary">
 							@elseif($item->status == 'rejected')
 							<span class="text-danger">
 							@endif
@@ -114,7 +118,9 @@
 						<td>{{$item->product->name}}</td>
 						<td>{{$item->quantity}}</td>
 						<td>
-							@if($item->status == 'pending')
+							@if($item->status == 'approved')
+							<span class="text-primary">
+							@elseif($item->status == 'pending')
 							<span class="text-warning">
 							@elseif($item->status == 'procured')
 							<span class="text-success">
