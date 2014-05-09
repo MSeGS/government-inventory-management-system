@@ -26,9 +26,9 @@
 				<td>{{Option::getTitle($setting->option_key)}}</td>
 				<td>{{$setting->option_data}}</td>
 				<td>
-					{{Form::open(array('url'=>route('setting.destroy'),'method'=>'delete'))}}
+					{{Form::open(array('url'=>route('setting.destroy',array($setting->id)),'method'=>'delete'))}}
 					<a href="{{route('setting.edit', array($setting->id))}}" class="btn btn-xs btn-success tooltip-top" title="<?php echo _('Edit setting') ?>"><i class="fa fa-pencil"></i></a>
-					<button type="submit" onclick="return confirm('<?php echo _('Are you sure') ?>');" name="id" class="btn btn-xs btn-danger tooltip-top" title="<?php echo _('Remove option')?>" value="{{$setting->id}}"><i class="fa fa-times"></i></a>
+					<button type="submit" onclick="return confirm('<?php echo _('Are you sure') ?>');" name="id" class="btn btn-xs btn-danger tooltip-top" title="<?php echo _('Remove setting')?>" value="{{$setting->id}}"><i class="fa fa-times"></i></a>
 					{{Form::close()}}
 				</td>
 			</tr>

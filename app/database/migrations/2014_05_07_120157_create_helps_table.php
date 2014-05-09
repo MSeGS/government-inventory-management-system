@@ -15,6 +15,7 @@ class CreateHelpsTable extends Migration {
 		Schema::create('helps', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->string('access_level');
 			$table->string('title');
 			$table->text('body');
 			$table->integer('sort_order')->default(0);

@@ -254,7 +254,7 @@ class ProductController extends \BaseController {
 
 	public function delete($id){
 		$product = Product::withTrashed()->find($id);
-		$product -> forceDelete($id);
+		$product -> forceDelete();
 
 		Stock::withTrashed()->where('product_id','=', $id)->forceDelete();
 

@@ -143,10 +143,7 @@ class SettingController extends \BaseController {
 	public function destroy($id)
 	{
 
-		$option = new Option;
-		$option::find($id);
-		$option->delete();
-
+		Setting::destroy($id);
 		Session::flash('delete', _('Setting Deleted'));
 		return Redirect::to('setting');
 	}

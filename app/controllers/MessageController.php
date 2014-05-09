@@ -85,15 +85,11 @@ class MessageController extends \BaseController {
 				->withInput(Input::all());
 		}
 		else{
-		$notifications	=  new Notification;
-		$notifications->sender_id = Input::get('sender_id');
-		$notifications->receiver_id = Input::get('receiver_id');
-		$notifications->message = Input::get('message');
-		$notifications->created_at;
-		$notifications->save();
-
+		
+		$send = Notification::send();
 		return Redirect::route('message.create')
 			->with('message', _('Message Successfully Send'));
+			
 		}
 	}
 

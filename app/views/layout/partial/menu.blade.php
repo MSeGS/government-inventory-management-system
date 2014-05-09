@@ -158,6 +158,10 @@
         </li>
         @endif
 
+        @if($current_user->hasAccess('help.index') && $current_user->isSuperUser())
+        <li {{in_array(Route::currentRouteName(), array('help.index'))?'class="active"':''}}><a href="{{route('help.index')}}"><?php echo _('Help'); ?></a></li>
+        @endif
+
         @if($current_user->hasAccess('logout'))
         <li {{in_array(Route::currentRouteName(), array('logout'))?'class="active"':''}}><a href="{{url('/logout')}}"><?php echo _('Sign Out'); ?></a></li>
         @endif
