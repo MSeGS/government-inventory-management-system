@@ -40,7 +40,7 @@
 		</a>
 	</div>
 </div>
-<div class="row">
+<!-- <div class="row">
 	<div class="col-md-9 mb20" >
 		<div class="lead ">
 			Monthly Statistics 
@@ -52,9 +52,11 @@
 					<span class="sr-only">Click to select year</span>
 				</button>
 				<ul class="dropdown-menu" role="menu">
+				{{--
 					@foreach($years as $year)
 					<li ><a data-year="{{$year}}" onclick="ajaxChart('#month_chart','/ajax-super/month/{{$year}}','{{$year}}',true)" href="javascript:;">{{$year}}</a></li>
 					@endforeach
+					--}}
 				</ul>
 			</div>
 		</div> 
@@ -82,75 +84,47 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> -->
 	<div class="row">
 		<div class="col-md-5">
 			<div class="panel panel-primary">
-				<div class="panel panel-heading"><span class="glyphicon glyphicon-th"></span> Latest Indents</div>
-				<div class="panel panel-body">
+				<div class="panel-heading"><span class="glyphicon glyphicon-th"></span> Latest Indents</div>
+				<div class="panel-body">
 					<table class="table table-striped table-hover">
 						<thead>
 							<th class="col-md-1">No.</th>
 							<th class="col-md-4">Indentor</th>
-							<th class="col-md-3">Indents total</th>
 							<th class="col-md-3">Total Indents</th>
 							<th>Status</th>
 						</thead>
 						<tbody>
+							@foreach($latestIndents as $key => $indent)
 							<tr>
-								<td>1</td>
-								<td>Gosa</td>
-								<td>3</td>
-								<td>10</td>
-								<td>Dispatched</td>
+								<td>{{$key + 1}}</td>
+								<td>{{$indent->indentor->full_name}}</td>
+								<td>{{$indent->items->count()}}</td>
+								<td>{{ucwords($indent->status)}}</td>
 							</tr>
-							<tr>
-								<td>2</td>
-								<td>Chhama</td>
-								<td>3</td>
-								<td>9</td>
-								<td>Pending</td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td>Chhama</td>
-								<td>4</td>
-								<td>8</td>
-								<td>Approved</td>
-							</tr>
-							<tr class="warning">
-								<td>4</td>
-								<td>Chhama</td>
-								<td>5</td>
-								<td>7</td>
-								<td>Partial Dispatched</td>
-							</tr>
-							<tr>
-								<td>5</td>
-								<td>Chhama</td>
-								<td>6</td>
-								<td>6</td>
-								<td>Dispatched</td>
-							</tr>
+							@endforeach
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
-		<div class="col-md-4">
+		<div class="col-md-3">
 			<div class="panel panel-primary">
-				<div class="panel panel-heading"><span class="glyphicon glyphicon-th"></span> Less Stock Products</div>
-				<div class="panel panel-body">
+				<div class="panel-heading"><span class="glyphicon glyphicon-th"></span> Less Stock Products</div>
+				<div class="panel-body">
 					<table class="table table-striped table-hover">
 						<thead>
 							<th class="col-md-1">No.</th>
 							<th class="col-md-5">Product Name</th>
-							<th>Quantity</th>
+							<th class="col-md-1">Quantity</th>
 						</thead>
 						
 						<tbody>
 							<tr>
-								<td>1</td>
+								<td>{{1}}</td>
 								<td>Paper Rims</td>
 								<td>4</td>
 							</tr>
@@ -179,11 +153,27 @@
 				</div>	
 			</div>
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-4">
 			<div class="panel panel-primary">
-				<div class="panel-heading">Notificationss</div>
+				<div class="panel-heading"> <span class="glyphicon glyphicon-envelope"></span> Latest Messages</div>
 				<div class="panel panel-body">
-					
+					<table class="table table-striped table-hover">
+						<thead>
+							<th class="col-md-1">No.</th>
+							<th class="col-md-5">From</th>
+							<th>Date</th>
+						</thead>
+						
+						<tbody>
+							@foreach($latestNotifications as $k=>$n)
+							<tr class="{{$n->status == 'unread'?'danger':''}}">
+								<td>{{$k + 1}}</td>
+								<td>{{$n->sender->full_name}}</td>
+								<td>{{$n->created_at}}</td>
+							</tr>
+							@endforeach
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
@@ -206,7 +196,7 @@ $(function () {
 		loading:$('.loading'),
 		data:{
 			year:'2014',
-			type:'year'
+			type:'year '
 		}
 	})
 })

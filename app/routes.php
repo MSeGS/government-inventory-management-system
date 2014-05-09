@@ -90,8 +90,11 @@ Route::get('set-theme/{theme}',function($theme){
 
 Route::get('report/product', array('before'=>'sentry', 'uses'=>'ReportController@product', 'as'=>'report.product'));
 Route::get('report/user', array('before'=>'sentry', 'uses'=>'ReportController@user', 'as'=>'report.user'));
+Route::get('report/user-graphic', array('before'=>'sentry', 'uses'=>'ReportController@userGraphic', 'as'=>'report.user-graphic'));
+Route::get('report/user-detail/{id?}/{year?}', array('before'=>'sentry', 'uses'=>'ReportController@userDetail', 'as'=>'report.user-detail'));
 Route::get('report/overview', array('before'=>'sentry', 'uses'=>'ReportController@overview', 'as'=>'report.overview'));
 Route::get('report/super', array('before'=>'sentry', 'uses'=>'ReportController@super', 'as'=>'report.super'));
+Route::post('report/admin-ajax', array('before'=>'sentry', 'uses'=>'ReportController@adminAjax', 'as'=>'report.admin-ajax'));
 
 Route::get('ajax-super/{type}/{option?}',array('before'=>'sentry', 'uses'=>'HomeController@ajaxSuper','as'=>'home.ajax-super'));
 Route::post('ajax-admin/',array('before'=>'sentry', 'uses'=>'HomeController@ajaxAdmin','as'=>'home.ajax-admin'));

@@ -24,10 +24,10 @@ class HomeController extends BaseController {
 						AS departmentsCount"
 					)
 				);
+				//SUPER HOME HI EN THAT A NGAI>>> TUNAH CHUAN SINGLE STORE A LA .. A VAIA LAK TUR.
+				$years = array(2014,2015,2015,2016);
+				// $years = IndentItem::distinct(DB::Raw("YEAR(created_at)"))->lists(DB::Raw('YEAR(created_at)')); //indent item model hi super tan a thawk lo
 
-				// $years = array(2014,2015,2015,2016);
-				$years = IndentItem::distinct(DB::Raw("YEAR(created_at)"))->lists(DB::Raw('YEAR(created_at)'));
-				
 				return View::make('home.super')->with(compact('counts','years'));
 			}
 			elseif($this->current_user->inGroup($admin)) {
@@ -35,9 +35,12 @@ class HomeController extends BaseController {
 				$pendingRequirements = Requirement::where('status','=','pending')->count();
 				$pendingDamages = Damage::where('status','=','pending')->count();
 				$outOfStock = Stock::where('quantity','=','0')->count();
-				$years = IndentItem::distinct(DB::Raw("YEAR(created_at)"))->lists(DB::Raw('YEAR(created_at)'));
+				// $years = IndentItem::distinct(DB::Raw("YEAR(created_at)"))->lists(DB::Raw('YEAR(created_at)'));
 
-				return View::make('home.admin', compact('years','pendingIndents','pendingRequirements','pendingDamages','outOfStock'));
+				$latestIndents = Indent::take(5)->get();
+				// $lowStockItems = Product::where('in_stock','<','reserved_amount')->take(6)->get(); //display 5 if 6th exists, show read more link
+				$latestNotifications = Notification::where('receiver_id','=',$this->current_user->id)->take(5)->get();
+				return View::make('home.admin', compact('latestNotifications', 'latestIndents','pendingIndents','pendingRequirements','pendingDamages','outOfStock'));
 			}
 			elseif($this->current_user->inGroup($indentor)){
 				return View::make('home.indentor');

@@ -53,17 +53,20 @@ function destroyDropdown() {
 	$('.dropdown').removeAttr("id");
 }
 
-
+var q;
 var plotter = {
+	plotHover:false,
+	plotData:null,
 	settings:{
 		data:{},
 		url:'',
 		container:'',
 		loading:false,
+		extraInfo:false,
 		options:{
 			series:{
                 grow:{
-                    active:false
+                    active:true
                 },
                 lines:{
                     show:false
@@ -94,10 +97,14 @@ var plotter = {
 		}
 	},
 	init: function(opts){
-		$.extend(this.settings,opts);
+		$.extend(true,this.settings,opts);
 		this.settings.container.html('');
 		this.setupHover();
 		this.fetchData();
+		$(this.settings.container).bind('plotclick',function(a,b,c){
+			self.updateTooltip(a,c);
+		})
+		return this;
 	},
 	fetchData: function(){
 		self = this;
@@ -109,20 +116,34 @@ var plotter = {
 			type:'post',
 			data:this.settings.data,
 			dataType:'JSON'
-		}).done(function (plotData) {
-			self.plot(plotData);
+		}).done(function (data) {
+			self.plot(data);
+			self.plotData = data;
 		})
 	},
-	plot:function(plotData){
-		$.plot(this.settings.container,plotData,self.settings.options);
+	plot:function(data){
+		if(data.status == 'success'){
+			$.plot(this.settings.container,data.plotData,self.settings.options);
 
-		if(self.settings.loading)
-			self.settings.loading.fadeOut(100);
+			if(self.settings.loading)
+				self.settings.loading.fadeOut(100);
+		}
+		else{
+			if(self.settings.loading)
+				self.settings.loading.fadeOut(100);
+			self.settings.loading.parent().append('<div style="display:none" class="plot-error well text-warning"><i class="fa fa-warning"></i><p>Sorry. There is nothing here yet.</p></div>').find('.plot-error').fadeIn('fast');
+		}
 	},
-	invert:function (rgb) {
+	invert:function (rgb,opacity) {
 	    rgb = [].slice.call(arguments).join(",").replace(/rgb\(|\)|rgba\(|\)|\s/gi, '').split(',');
-		for (var i = 0; i < rgb.length; i++) rgb[i] = (i === 3 ? 1 : 255) - rgb[i];
-		return rgb.join(", ");
+		for (var i = 0; i < rgb.length; i++)
+			rgb[i] = (i === 3 ? 1 : 255) - rgb[i];
+		if(rgb.length > 3)
+			return 'rgba('+rgb.join(", ")+')';
+		if(opacity)
+			return 'rgba(' + rgb.join(", ") + ',' + opacity + ')';
+		else
+			return 'rgb(' + rgb.join(", ") + ')';
 	},
 	setupHover:function () {
 		self = this;
@@ -130,23 +151,52 @@ var plotter = {
 		$("<div id='tooltip'></div>").css({
 	        position: "absolute",
 	        display: "none",
-	        border: "1px solid #fdd",
-	        padding: "2px 8px",
-	        "background-color": "#fee",
-	        opacity: 0.80
-	    }).appendTo("body");
-
-		$(self.settings.container).bind("plothover", function (event, pos, item) {
-	        if (item) {
-	            var y = item.datapoint[1].toFixed(0);
-	            $("#tooltip").html(y)
-	                .css({backgroundColor:item.series.color, borderColor:'rgb('+self.invert(item.series.color) + ')', color:'rgb('+self.invert(item.series.color) + ')',top: item.pageY+5, left: item.pageX+5})
-	                .fadeIn(200);
-	        } else {
-	            // $("#tooltip").hide();
+	        width:function(){ // TODO screen size azirin update ta ila.
+	        	return self.settings.container.width() / 4
 	        }
-	    });
+	    }).appendTo("body");
+	},
+	updateTooltip: function(event, item){
+		if(item){
+			var color = item.series.color;
+			$('#tooltip').css({ top: item.pageY+5, left: item.pageX+5});
+			var self = this;
+			var pointTotal = item.datapoint[1].toFixed(0);
+			if(self.settings.extraInfo){
+
+				var html = '<div class="panel panel-success">';
+				var unixDate = item.datapoint[0]/1000;
+
+				var d = new Date(unixDate*1000);
+
+				html+='<div class="panel-heading"><strong>Total : '+pointTotal+'</strong> <strong class="pull-right">Date : '+d.getDate() + '-' + d.getMonth() + '-' + d.getFullYear()+'</strong></div>';
+				
+				if(pointTotal > 0){
+
+					html+='<div class="panel-body">';
+					html+='<table class="table">';
+
+					var currentData = self.plotData.extra[unixDate];
+					var products = currentData.products;
+					for(var i=0;i<products.length;i++){
+						html+='<tr>';
+						html+='<td>'+products[i].name+'</td>';
+						html+='<td>'+products[i].qty+'</td>';
+						html+='</tr>';
+					}
+
+					html+='</table>';
+				}
+				html+='</div></div>';
+
+				$("#tooltip")
+					.html(html)
+		            .fadeIn(200);
+			}else{
+				$("#tooltip").css({'fontWeight':'bold',borderRadius:5,padding:'4px 8px',backgroundColor:color,color:self.invert(color)}).html(pointTotal).fadeIn();
+			}
+		}else{
+			$('#tooltip').fadeOut();
+		}
 	}
-
-
 };
