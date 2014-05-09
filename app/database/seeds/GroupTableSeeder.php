@@ -82,6 +82,7 @@ class GroupTableSeeder extends Seeder
 					'message.read' => 1,
 					'message.show' => 1,
 					'message.store' => 1,
+					'message.update' => 1,
 					'product.index' => 1,
 					'product.edit' => 1,
 					'product.update' => 1,
