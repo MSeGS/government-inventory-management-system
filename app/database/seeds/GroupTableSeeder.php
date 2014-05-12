@@ -172,7 +172,7 @@ class GroupTableSeeder extends Seeder
 		{
 			$group = Sentry::createGroup(
 				array(
-				'name'        => 'Store Keeper',
+				'name'        => 'Storekeeper',
 				'permissions' => array(
 					'denied' => 1,
 					'notfound' => 1,

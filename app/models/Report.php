@@ -110,18 +110,18 @@ class Report extends BaseStore
 				->get();
 			$report['administrator'] = sizeof($administrator);
 
-			$store_keeper = User::where(function($query){
+			$storekeeper = User::where(function($query){
 				$user_group_model = new UserGroup;
 				$user_group_table = $user_group_model->getTable();
 				$group_model = new Group;
 				$group_table = $group_model->getTable();
 				$users = UserGroup::join($group_table, $user_group_table.'.group_id', '=', $group_table.'.id')
-					->where('name', '=', 'Store Keeper')->lists('user_id');
+					->where('name', '=', 'Storekeeper')->lists('user_id');
 					$query->whereIn('id', $users);
 				})
 				->where('store_id', '=', $store->id)
 				->get();
-			$report['store_keeper'] = sizeof($store_keeper);
+			$report['storekeeper'] = sizeof($storekeeper);
 
 			$indentor = User::where(function($query){
 				$user_group_model = new UserGroup;
