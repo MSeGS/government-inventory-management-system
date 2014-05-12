@@ -66,7 +66,8 @@ var plotter = {
 		options:{
 			series:{
                 grow:{
-                    active:true
+                    active:true,
+                    duration:500
                 },
                 lines:{
                     show:false

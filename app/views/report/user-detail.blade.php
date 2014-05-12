@@ -1,50 +1,60 @@
 @extends('layout.main')
 @section('content')
 <div class="row">
-	<ul class="nav nav-tabs">
-		<li ><a href="{{route('report.user')}}">Tabular Report</a>	</li>
-		<li ><a href="{{route('report.user-graphic')}}">Graphical Report</a></li>
-		<li class="active"><a href="{{route('report.user-detail')}}">Detail Report</a></li>
-	</ul>
-	<div class="mb20"></div>
-	<div class="lead mb20">
-		<?php 
-		if($indentors && count($indentors))
-			echo _('Users Procurement/Indent Overview <small>for</small>'); 
-		else
-			echo _('Select User');
+	<div class="col-md-12 ">
+		<h1><?php echo _("User Report"); ?></h1>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<ul class="nav nav-tabs">
+			<li ><a href="{{route('report.user')}}">Tabular Report</a>	</li>
+			<li ><a href="{{route('report.user-graphic')}}">Graphical Report</a></li>
+			<li class="active"><a href="{{route('report.user-detail')}}">Detail Report</a></li>
+		</ul>
+		<div class="mb20"></div>
+		<div class="lead mb20">
+			<?php 
+			if($indentors && count($indentors))
+				echo _('Users Procurement/Indent Overview <small>for</small>'); 
+			else
+				echo _('Select User');
 
-		?>
-		<div class="btn-group user" data-uid="{{$user?$user->id:''}}">
-			<button type="button" class="btn btn-default chart-button">{{($user?$user->full_name:'Select User')}}</button>
-			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-				<span class="caret"></span>
-				<span class="sr-only">Click to select User</span>
-			</button>
-			<ul class="dropdown-menu" id="year_selector" role="menu">
-				@foreach($indentors as $key=>$indentor)
-				<li ><a data-uid="{{$key}}" href="javascript:;" >{{$indentor}}</a></li>
-				@endforeach
-			</ul>
-		</div>
+			?>
+			<div class="btn-group user" data-uid="{{$user?$user->id:''}}">
+				<button type="button" class="btn btn-default chart-button btn-sm">{{($user?$user->full_name:'Select User')}}</button>
+				<button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
+					<span class="caret"></span>
+					<span class="sr-only">Click to select User</span>
+				</button>
+				<ul class="dropdown-menu" id="year_selector" role="menu">
+					@foreach($indentors as $key=>$indentor)
+					<li ><a data-uid="{{$key}}" href="javascript:;" >{{$indentor}}</a></li>
+					@endforeach
+				</ul>
+			</div>
 
-		<?php echo _(' for the year '); ?>
-		<div class="btn-group year" data-year="{{$year?$year:''}}">
-			<button type="button" class="btn btn-default chart-button">{{($year?$year:'All')}}</button>
-			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-				<span class="caret"></span>
-				<span class="sr-only">Click to select year</span>
-			</button>
-			<ul class="dropdown-menu" id="year_selector" role="menu">
-				@foreach($years as $year)
-				<li ><a data-year="{{$year}}" href="javascript:;">{{$year}}</a></li>
-				@endforeach
-			</ul>
-		</div>
+			<?php echo _(' for the year '); ?>
+			<div class="btn-group year" data-year="{{$year?$year:''}}">
+				<button type="button" class="btn btn-default chart-button btn-sm">{{($year?$year:'All')}}</button>
+				<button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
+					<span class="caret"></span>
+					<span class="sr-only">Click to select year</span>
+				</button>
+				<ul class="dropdown-menu" id="year_selector" role="menu">
+					@foreach($years as $year)
+					<li ><a data-year="{{$year}}" href="javascript:;">{{$year}}</a></li>
+					@endforeach
+				</ul>
+			</div>
 
-		<a href="javascript:;" class="btn btn-small btn-default filter"><i class="fa fa-arrow-circle-right"></i> GO</a>
+			<a href="javascript:;" class="btn btn-small btn-default filter btn-sm"><i class="fa fa-arrow-circle-right"></i> GO</a>
 
-	</div> 
+		</div> 
+	</div>
+</div>
+<div class="row">
+	
 	@if($user)
 	<div class="col-md-12 mb20" >
 		<div class="panel panel-defautl">
@@ -53,11 +63,11 @@
 				<table class="table table-bordered">
 					<thead>
 						<tr>
-							<th>#</th>
+							<th class="col-md-1">#</th>
 							<th>Date</th>
 							<th>Item</th>
-							<th>Indented</th>
-							<th>Supplied</th>
+							<th class="col-md-1">Indented</th>
+							<th class="col-md-1">Supplied</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -69,16 +79,20 @@
 						?>
 						@if($indents->count())
 							@foreach($indents as $indent)
-									@foreach($indent->items as $item)
-									<tr class="{{$i%2==1?'active':''}}">
-										<td>{{$i.' - ' .$j++}}</td>
-										<td> {{$indent->indent_date}} </td>
-										<td>{{$item->product->name}}</td>
-										<td>{{$item->quantity}}</td>
-										<td>{{$item->supplied}}</td>
-									</tr>
-									@endforeach
-									<tr><td colspan="5"></td></tr>
+								<tr>
+									<td>{{$i}}</td>
+									<td colspan="4">{{$indent->indent_date}}</td>
+								</tr>
+								@foreach($indent->items as $item)
+								<tr class="{{$i%2==1?'active':''}}">
+									<td style="padding-left:20px">{{$j++.')'}}</td>
+									<td> - </td>
+									<td>{{$item->product->name}}</td>
+									<td>{{$item->quantity}}</td>
+									<td>{{$item->supplied}}</td>
+								</tr>
+								@endforeach
+								<tr><td colspan="5"></td></tr>
 								<?php $i++;$j=1	; ?>
 							@endforeach
 						@else

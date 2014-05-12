@@ -8,26 +8,29 @@ class ReportController extends \BaseController
 
 	public function product()
 	{
-
-		// $dispatched = Indent::where('status','=', 'dispatched')->get();
-		$products = Product::orderBy('name', 'asc')->get();                                                                                                      
+		$products = Product::orderBy('name', 'asc')->get();
 		return View::make('report.product', compact('products'));
 	}
 
-	public function user($graphic = false)
+	public function productGraphic()
 	{
-		$reports = Report::user($this->current_user->store_id);
+		$years = Indent::select(DB::Raw('YEAR(`indent_date`) as year'))->lists('year','year');
+		return View::make('report.product-graphic',compact('years','reports','userGroups'));
+	}
 
-		// $userGroups = User::where('department_id','=',$this->current_user->department_id)->groupBy()
+	public function user()
+	{
+
 		$userGroupsArray = Report::groupCount($this->current_user);
 		$userGroups = $userGroupsArray[0];
 		
-		return View::make('report.user', compact('reports','userGroups'));
+		$indentors = User::indentors()->all();
+		return View::make('report.user', compact('indentors','userGroups'));
 	}
 
 	public function userGraphic()
 	{
-		$years = array(2014,2015);
+		$years = Indent::select(DB::Raw('YEAR(`indent_date`) as year'))->lists('year','year');
 		return View::make('report.user-graphic',compact('years','reports','userGroups'));
 	}
 
@@ -64,7 +67,7 @@ class ReportController extends \BaseController
 		$data = array();
 		$extra = array();
 
-		if($type == 'indent'){
+		if($type == 'user'){
 			$year = Input::get('year');
 			$indents = Report::getUserIndents($year);
 
@@ -84,6 +87,17 @@ class ReportController extends \BaseController
 					$extra[$unix_time]['date'] = date('Y m d',$unix_time);
 			}
 		}
+
+		if($type == 'product'){
+			$products = Product::with('indents','indents.items')->orderBy('name', 'asc')->get();
+			foreach ($products as $key => $p) {
+				$data[$product->id]['label'] = $product->name;
+				foreach($p->indents as $i){
+					
+				}
+			}
+		}
+
 		$data = array_values($data);
 		if(count($data))
 			return Response::json(array('status'=>'success','plotData'=>$data, 'extra'=>$extra));

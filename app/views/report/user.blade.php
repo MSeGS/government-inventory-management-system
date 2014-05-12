@@ -1,6 +1,11 @@
 @extends('layout.main')
 @section('content')
 <div class="row">
+	<div class="col-md-12 ">
+		<h1><?php echo _("User Report"); ?></h1>
+	</div>
+</div>
+<div class="row">
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="{{route('report.user')}}">Tabular Report</a></li>
 		<li><a href="{{route('report.user-graphic')}}">Graphical Report</a></li>
@@ -21,21 +26,21 @@
 			</thead>
 			<tbody>
 				<?php $i=0; ?>
-				@foreach($reports as $report)
+				@foreach($indentors as $indentor)
 				<tr>
 					<td>{{++$i}}</td>
-					<td>{{$report->full_name}}</td>
-					<td>{{sizeof($report->indents)}}</td>
+					<td>{{$indentor->full_name}}</td>
+					<td>{{sizeof($indentor->indents)}}</td>
 					<td><?php
 					$requirements = 0;
 					$damages = 0;
-					foreach ($report->indents as $indent) {
+					foreach ($indentor->indents as $indent) {
 						$requirements += sizeof($indent->requirements);
 					}
 					echo $requirements;
 					?></td>
 					<td>
-					<?php echo $report->damages->count();
+					<?php echo $indentor->damages->count();
 
 					 ?>
 					</td>

@@ -1,36 +1,27 @@
 @extends('layout.main')
 @section('content')
 <div class="row">
-	<div class="col-md-12 ">
-		<h1><?php echo _("User Report"); ?></h1>
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-12">
-		<ul class="nav nav-tabs">
-			<li ><a href="{{route('report.user')}}">Tabular Report</a>	</li>
-			<li class="active"><a href="{{route('report.user-graphic')}}">Graphical Report</a></li>
-			<li><a href="{{route('report.user-detail')}}">Detail Report</a></li>
-		</ul>
-		<div class="mb20"></div>
-		<div class="lead mb20">
-			<?php echo _('Users Procurement/Indent Overview <small>for</small>'); ?>
-			<div class="btn-group">
-				<button type="button" class="btn btn-default chart-button">{{date('Y')}}</button>
-				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-					<span class="caret"></span>
-					<span class="sr-only">Click to select year</span>
-				</button>
-				<ul class="dropdown-menu" id="year_selector" role="menu">
-					@foreach($years as $year)
-					<li ><a data-year="{{$year}}" href="javascript:;">{{$year}}</a></li>
-					@endforeach
-				</ul>
-			</div>
-		</div> 
-	</div>
-</div>
-<div class="row">
+	<ul class="nav nav-tabs">
+		<li ><a href="{{route('report.product')}}">Tabular Report</a>	</li>
+		<li class="active"><a href="{{route('report.product-graphic')}}">Graphical Report</a></li>
+		<li><a href="{{route('report.product-detail')}}">Detail Report</a></li>
+	</ul>
+	<div class="mb20"></div>
+	<div class="lead mb20">
+		<?php echo _('products Procurement/Indent Overview <small>for</small>'); ?>
+		<div class="btn-group">
+			<button type="button" class="btn btn-default chart-button">{{date('Y')}}</button>
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				<span class="caret"></span>
+				<span class="sr-only">Click to select year</span>
+			</button>
+			<ul class="dropdown-menu" id="year_selector" role="menu">
+				@foreach($years as $year)
+				<li ><a data-year="{{$year}}" href="javascript:;">{{$year}}</a></li>
+				@endforeach
+			</ul>
+		</div>
+	</div> 
 	<div class="col-md-9 mb20" >
 		
 		
@@ -51,7 +42,7 @@
 	</div>
 	<div class="col-md-3">
 		<div class="panel panel-default">
-			<div class="panel-heading"><?php echo _('Indentors'); ?></div>
+			<div class="panel-heading"><?php echo _('Products'); ?></div>
 			<div class="panel-body" id="legends"></div>
 		</div>
 	</div>
@@ -73,14 +64,14 @@ $(function () {
 		loading:$('.loading'),
 		data:{
 			year:'2014',
-			type:'user'
+			type:'product'
 		},
 		extraInfo:true,
 		options:{
 			legend:{
 				container:$('#legends'),
 				labelFormatter:function(label,series){
-					return '<a href="/report/user-detail/'+series.indentor_id+'/'+$('.chart-button').text()+'">'+label+'</label>';
+					return '<a href="/report/product-detail/'+series.indentor_id+'/'+$('.chart-button').text()+'">'+label+'</label>';
 				}
 			}
 		}

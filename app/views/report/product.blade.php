@@ -1,7 +1,15 @@
 @extends('layout.main')
-@section('content')
+@section('contentTop')
 <div class="row">
-	<div class="col-md-10 col-md-offset-1">
+	<div class="col-md-12 ">
+		<h1><?php echo _("Product Report"); ?></h1>
+	</div>
+</div>
+@stop
+@section('content')
+
+<div class="row">
+	<div class="col-md-12 ">
 			<table class="table table-striped table-bordered">
 				<thead>
 					<tr>
