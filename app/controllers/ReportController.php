@@ -1,4 +1,6 @@
 <?php
+use Carbon\Carbon;
+
 class ReportController extends \BaseController
 {
 	public function __construct()
@@ -13,6 +15,12 @@ class ReportController extends \BaseController
 	}
 
 	public function productGraphic()
+	{
+		$years = Indent::select(DB::Raw('YEAR(`indent_date`) as year'))->lists('year','year');
+		return View::make('report.product-graphic',compact('years','reports','userGroups'));
+	}
+
+	public function productDetail()
 	{
 		$years = Indent::select(DB::Raw('YEAR(`indent_date`) as year'))->lists('year','year');
 		return View::make('report.product-graphic',compact('years','reports','userGroups'));
@@ -78,26 +86,39 @@ class ReportController extends \BaseController
 				$products = array();
 				foreach($indent->items as $i){
 					$item_count+=$i->supplied;
-					$products[] = array('name'=>$i->product->name,'qty'=>$i->supplied);
+					$products[] = array('name'=>$i->product->name,'value'=>$i->supplied);
 				}
 				$unix_time = strtotime($indent->indent_date);
 				$data[$indent->indentor->id]['data'][] = array($unix_time * 1000,$item_count);
-				$extra[$unix_time]['products'] = $products;
+				$extra[$unix_time]['items'] = $products;
 				if(!isset($extra[$unix_time]['date']))
 					$extra[$unix_time]['date'] = date('Y m d',$unix_time);
 			}
 		}
 
 		if($type == 'product'){
-			$products = Product::with('indents','indents.items')->orderBy('name', 'asc')->get();
-			foreach ($products as $key => $p) {
+			// echo '<pre>';
+			$products = Product::with('items','items.indent')->get();
+			foreach ($products as $key => $product) {
 				$data[$product->id]['label'] = $product->name;
-				foreach($p->indents as $i){
-					
+				$indentors = array();
+				// echo '<br /> Product Id';
+				// echo $product->id;
+				foreach($product->items as $item){
+					// echo '<br /> item-id';
+					// print_r($item->id);
+					// echo '<br /> supplied';
+					// echo $item->supplied;
+					$unix_time = strtotime(date('Y-m-d',strtotime($item->indent->indent_date)));
+					$data[$product->id]['data'][] = array($unix_time * 1000, $item->supplied);
+					// $indentors[] = array('name'=>$item->indent->indentor->full_name,'value'=>$item->supplied);
+					$extra[$unix_time * 1000]['date'] = date('d-M-y',strtotime($item->indent->indent_date));
+					$extra[$unix_time * 1000]['items'][] = array('name'=>$item->indent->indentor->full_name,'value'=>$item->supplied);
 				}
+				usort($data[$product->id]['data'], 'datasort');
 			}
 		}
-
+		// exit;
 		$data = array_values($data);
 		if(count($data))
 			return Response::json(array('status'=>'success','plotData'=>$data, 'extra'=>$extra));
@@ -106,3 +127,9 @@ class ReportController extends \BaseController
 
 	}
 } 
+function datasort($a, $b)
+	{
+		if($a[0] == $b[0])
+			return 0;
+		return $a[0] > $b[0] ? 1 : -1;
+	}

@@ -32,9 +32,11 @@ return array(
     'Jeremeamia\\SuperClosure' => array($vendorDir . '/jeremeamia/SuperClosure/src'),
     'Illuminate' => array($vendorDir . '/laravel/framework/src'),
     'File' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
+    'DebugBar' => array($vendorDir . '/maximebf/debugbar/src'),
     'Crypt' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
     'ClassPreloader' => array($vendorDir . '/classpreloader/classpreloader/src'),
     'Cartalyst\\Sentry' => array($vendorDir . '/cartalyst/sentry/src'),
     'Carbon' => array($vendorDir . '/nesbot/carbon/src'),
     'Boris' => array($vendorDir . '/d11wtq/boris/lib'),
+    'Barryvdh\\Debugbar' => array($vendorDir . '/barryvdh/laravel-debugbar/src'),
 );

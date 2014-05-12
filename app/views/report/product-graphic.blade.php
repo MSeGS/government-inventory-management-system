@@ -67,6 +67,7 @@ $(function () {
 			type:'product'
 		},
 		extraInfo:true,
+		debug:true,
 		options:{
 			legend:{
 				container:$('#legends'),

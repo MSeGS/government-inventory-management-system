@@ -91,6 +91,7 @@ Route::get('set-theme/{theme}',function($theme){
 
 Route::get('report/product', array('before'=>'sentry', 'uses'=>'ReportController@product', 'as'=>'report.product'));
 Route::get('report/product-graphic', array('before'=>'sentry', 'uses'=>'ReportController@productGraphic', 'as'=>'report.product-graphic'));
+Route::get('report/product-detail', array('before'=>'sentry', 'uses'=>'ReportController@productDetail', 'as'=>'report.product-detail'));
 Route::get('report/user', array('before'=>'sentry', 'uses'=>'ReportController@user', 'as'=>'report.user'));
 Route::get('report/user-graphic', array('before'=>'sentry', 'uses'=>'ReportController@userGraphic', 'as'=>'report.user-graphic'));
 Route::get('report/user-detail/{id?}/{year?}', array('before'=>'sentry', 'uses'=>'ReportController@userDetail', 'as'=>'report.user-detail'));

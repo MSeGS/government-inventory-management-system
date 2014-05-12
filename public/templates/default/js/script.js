@@ -63,6 +63,7 @@ var plotter = {
 		container:'',
 		loading:false,
 		extraInfo:false,
+		debug:false,
 		options:{
 			series:{
                 grow:{
@@ -99,12 +100,21 @@ var plotter = {
 	},
 	init: function(opts){
 		$.extend(true,this.settings,opts);
+
+		if(this.settings.debug == true){
+			this.settings.options.series.splines.show = false;
+			this.settings.options.series.lines.show = true;
+			this.settings.options.series.grow.activate = false;
+		}
+
 		this.settings.container.html('');
 		this.setupHover();
 		this.fetchData();
-		$(this.settings.container).bind('plotclick',function(a,b,c){
-			self.updateTooltip(a,c);
-		})
+		if(this.settings.extraInfo == true){
+			$(this.settings.container).bind('plotclick',function(a,b,c){
+				self.updateTooltip(a,c);
+			});
+		}
 		return this;
 	},
 	fetchData: function(){
@@ -125,9 +135,11 @@ var plotter = {
 	plot:function(data){
 		if(data.status == 'success'){
 			$.plot(this.settings.container,data.plotData,self.settings.options);
-
-			if(self.settings.loading)
+			console.log('success');
+			if(self.settings.loading){
+				console.log('fadeOut');
 				self.settings.loading.fadeOut(100);
+			}
 		}
 		else{
 			if(self.settings.loading)
@@ -166,11 +178,13 @@ var plotter = {
 			if(self.settings.extraInfo){
 
 				var html = '<div class="panel panel-success">';
-				var unixDate = item.datapoint[0]/1000;
+				var unixDate = item.datapoint[0];
 
-				var d = new Date(unixDate*1000);
+				var d = new Date(unixDate);
+				// console.log(item.datapoint[0]);
+				console.log(self.plotData.extra[unixDate]);
 
-				html+='<div class="panel-heading"><strong>Total : '+pointTotal+'</strong> <strong class="pull-right">Date : '+d.getDate() + '-' + d.getMonth() + '-' + d.getFullYear()+'</strong></div>';
+				html+='<div class="panel-heading"><strong>Total : '+pointTotal+'</strong> <strong class="pull-right">Date : '+self.plotData.extra[unixDate].date+'</strong></div>';
 				
 				if(pointTotal > 0){
 
@@ -178,11 +192,11 @@ var plotter = {
 					html+='<table class="table">';
 
 					var currentData = self.plotData.extra[unixDate];
-					var products = currentData.products;
-					for(var i=0;i<products.length;i++){
+					var items = currentData.items;
+					for(var i=0;i<items.length;i++){
 						html+='<tr>';
-						html+='<td>'+products[i].name+'</td>';
-						html+='<td>'+products[i].qty+'</td>';
+						html+='<td>'+items[i].name+'</td>';
+						html+='<td>'+items[i].value+'</td>';
 						html+='</tr>';
 					}
 

@@ -39,4 +39,8 @@ class Product extends BaseStore
 		return $this->belongsTo('Category');
 	}
 
+	public function items()
+	{
+		return $this->hasMany('IndentItem');
+	}
 }
