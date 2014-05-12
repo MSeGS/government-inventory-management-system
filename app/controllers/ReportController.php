@@ -20,8 +20,31 @@ class ReportController extends \BaseController
 
 	public function product()
 	{
-		$products = Product::orderBy('name', 'asc')->get();
-		return View::make('report.product', compact('products'));
+		$months = array(
+					'01' 	=> 	'January',
+					'02'	=> 	'February',
+					'03' 	=> 	'March',
+					'04'	=> 	'April',
+					'05' 	=> 	'May',
+					'06' 	=>	'June',
+					'07'	=> 	'July',
+					'08' 	=> 	'August',
+					'09' 	=> 	'September',
+					'10'	=> 	'October',
+					'11' 	=> 	'November',
+					'12' 	=> 	'December');
+		$years = array();
+		for($year=2013; $year<=date('Y'); $year++)
+			$years[$year] = $year;
+
+		$filter = array(
+			'month' 		=> Input::get('month', null),
+			'year'			=> Input::get('year', null)
+			);
+
+		$products 	= Product::orderBy('name', 'asc')->paginate();
+		$index = $products->getPerPage() * ($products->getCurrentPage()-1) + 1;
+		return View::make('report.product', compact('products', 'filter', 'months', 'years', 'index'));
 	}
 
 	public function productGraphic()

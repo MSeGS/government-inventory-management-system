@@ -20,20 +20,20 @@ function get_setting($setting_key, $default = null)
 		return $default;
 }
 
-function get_product_stock($product_id = null)
+function get_product_stock($product_id = null, $year = null, $month = null)
 {
 	if(!$product_id)
 		return 0;
 
-	$total_stock = Product::stock($product_id);
-	$total_damage = Product::damage($product_id);
-	$total_supplied = get_product_supplied($product_id);
+	$total_stock = Product::stock($product_id, $year = null, $month = null);
+	$total_damage = Product::damage($product_id, $year= null, $month = null);
+	$total_supplied = get_product_supplied($product_id, $year = null, $month = null);
 	
 
 	return ($total_stock - ($total_damage+$total_supplied)) > 0?($total_stock - ($total_damage+$total_supplied)):0;
 }
 
-function get_product_supplied($product_id = null)
+function get_product_supplied($product_id = null, $year = null, $month = null)
 {
 	if($product_id == null)
 		return 0;
@@ -47,6 +47,15 @@ function get_product_supplied($product_id = null)
 				->whereIn($indent_table . '.status', array('dispatched','partial_dispatched'))
 				->where($indent_item_table . '.status', '=', 'approved')
 				->where('product_id', '=', $product_id)
+				->where(function($query){
+					$year = Input::get('year');
+					$month = Input::get('month');
+
+					if($year != null && $month != null) {
+						$query->where(DB::raw('MONTH(`indent_date`)'), '=', $month);
+						$query->where(DB::raw('YEAR(`indent_date`)'), '=', $year);
+					}
+				})
 				->select(array(DB::raw('SUM(supplied) as supplied')))
 				->first();
 	return (int)$item->supplied;
