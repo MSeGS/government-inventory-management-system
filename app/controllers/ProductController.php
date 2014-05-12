@@ -147,6 +147,8 @@ class ProductController extends \BaseController {
 		$categories = array();
 		$categories = $categories + Category::orderBy('category_name', 'asc')->get()->lists('category_name', 'id');
 		$productById = Product::find($id);
+	
+			
 		$index = $products->getPerPage() * ($products->getCurrentPage()-1) + 1;
 		return View::make('product.edit')
 			->with(array(	'productById'	=> $productById,

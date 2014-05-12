@@ -327,6 +327,10 @@ class UserController extends \BaseController {
 			// Find the user using the user id
 			$user = Sentry::findUserById($id);
 
+			if($this->current_user->id == $user->id)
+				return Redirect::route('user.index')
+					->with('error', _('You cannot delete yourself'));
+
 			// Delete the user
 			$user->delete();
 			return Redirect::route('user.index')
