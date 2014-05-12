@@ -76,4 +76,67 @@ class Report extends BaseStore
 		
 		return $indents;
 	}
+
+	public static function store($store_id = null)
+	{
+		$report = array(
+			'product' => 0,
+			'indent' => 0,
+			'requirement' => 0,
+			'administrator' => 0,
+			'store_keeper' => 0,
+			'indentor' => 0,
+			);
+
+		$store = Store::find($store_id);
+		if($store) {
+			$report['product'] = sizeof(DB::table('store' . $store->id . '_products')->select('id')->get());
+			$report['indent'] = sizeof(DB::table('store' . $store->id . '_indents')->select('id')->get());
+			$report['requirement'] = sizeof(DB::table('store' . $store->id . '_indent_requirements')->select('id')->get());
+
+			$user_model = new User;
+			$user_table = $user_model->getTable();
+
+			$administrator = User::where(function($query){
+				$user_group_model = new UserGroup;
+				$user_group_table = $user_group_model->getTable();
+				$group_model = new Group;
+				$group_table = $group_model->getTable();
+				$users = UserGroup::join($group_table, $user_group_table.'.group_id', '=', $group_table.'.id')
+					->where('name', '=', 'Administrator')->lists('user_id');
+					$query->whereIn('id', $users);
+				})
+				->where('store_id', '=', $store->id)
+				->get();
+			$report['administrator'] = sizeof($administrator);
+
+			$store_keeper = User::where(function($query){
+				$user_group_model = new UserGroup;
+				$user_group_table = $user_group_model->getTable();
+				$group_model = new Group;
+				$group_table = $group_model->getTable();
+				$users = UserGroup::join($group_table, $user_group_table.'.group_id', '=', $group_table.'.id')
+					->where('name', '=', 'Store Keeper')->lists('user_id');
+					$query->whereIn('id', $users);
+				})
+				->where('store_id', '=', $store->id)
+				->get();
+			$report['store_keeper'] = sizeof($store_keeper);
+
+			$indentor = User::where(function($query){
+				$user_group_model = new UserGroup;
+				$user_group_table = $user_group_model->getTable();
+				$group_model = new Group;
+				$group_table = $group_model->getTable();
+				$users = UserGroup::join($group_table, $user_group_table.'.group_id', '=', $group_table.'.id')
+					->where('name', '=', 'Indentor')->lists('user_id');
+					$query->whereIn('id', $users);
+				})
+				->where('store_id', '=', $store->id)
+				->get();
+			$report['indentor'] = sizeof($indentor);
+		}
+
+		return $report;
+	}
 }
