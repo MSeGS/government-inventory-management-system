@@ -7,7 +7,7 @@ class HomeController extends BaseController {
 		if(Sentry::check()) {
 			$admin = Sentry::findGroupByName('Administrator');
 			$indentor = Sentry::findGroupByName('Indentor');
-			$storekeeper = Sentry::findGroupByName('Store Keeper');
+			$storekeeper = Sentry::findGroupByName('Storekeeper');
 
 			if($this->current_user->isSuperUser()) {
 				$counts = DB::select(DB::Raw(

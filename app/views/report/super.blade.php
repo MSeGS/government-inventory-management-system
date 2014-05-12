@@ -11,7 +11,7 @@
 						<th class="col-md-1"><?php echo _("Indents") ?></th>
 						<th class="col-md-1"><?php echo _("Requirements") ?></th>
 						<th class="col-md-2"><?php echo _("Administrator") ?></th>
-						<th class="col-md-2"><?php echo _("Store Keeper") ?></th>
+						<th class="col-md-2"><?php echo _("Storekeeper") ?></th>
 						<th class="col-md-2"><?php echo _("Indentor") ?></th>
 					</tr>
 				</thead>

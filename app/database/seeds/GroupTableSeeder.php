@@ -100,12 +100,8 @@ class GroupTableSeeder extends Seeder
 					'user.profile' => 1,
 					'user.profileUpdate' => 1,
 					'user.store' => 1,
-					'stock.create' => 1,
 					'stock.index' => 1,
 					'stock.store' => 1,
-					'stock.edit' => 1,
-					'stock.update' => 1,
-					'stock.destroy' => 1,
 					'report.product' => 1,
 					'report.user' => 1,
 					'report.overview' => 1,
@@ -150,6 +146,7 @@ class GroupTableSeeder extends Seeder
 					'message.index' => 1,
 					'message.read' => 1,
 					'message.show' => 1,
+					'message.update' => 1,
 					'reset-password' => 1,
 					'retrieve-username' => 1,
 					'user.profile' => 1,
@@ -167,7 +164,7 @@ class GroupTableSeeder extends Seeder
 			echo 'Group already exists';
 		}
 
-		// Store Keeper Group
+		// Storekeeper Group
 		try
 		{
 			$group = Sentry::createGroup(
@@ -208,6 +205,7 @@ class GroupTableSeeder extends Seeder
 					'message.outbox' => 1,
 					'message.read' => 1,
 					'message.show' => 1,
+					'message.update' => 1,
 					'message.store' => 1,
 					'product.create' => 1,
 					'product.store' => 1,
