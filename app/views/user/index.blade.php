@@ -87,7 +87,9 @@
 						<td>
 							{{Form::open(array('url'=>route('user.destroy', $user->id), 'method'=>'delete'))}}
 							<a href="{{route('user.edit', $user->id)}}" class="btn btn-xs btn-success tooltip-top" title="<?php echo _('Edit User'); ?>"><i class="fa fa-pencil"></i></a>
+							@if($user->id != $current_user->id)
 							<button type="submit" onclick="return confirm('<?php echo _('Are you sure?'); ?>');" name="id" class="btn btn-xs btn-danger tooltip-top" title="<?php echo _('Remove User'); ?>" value="{{$user->id}}"><i class="fa fa-times"></i></a>
+							@endif
 							{{Form::close()}}
 						</td>
 					</tr>

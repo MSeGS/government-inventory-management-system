@@ -8,6 +8,16 @@ class ReportController extends \BaseController
 		parent:: __construct();
 	}
 
+	public function super()
+	{
+		$department_model = new Department;
+		$department_table = $department_model->getTable();
+		$stores = Store::join($department_table, $department_table.'.id', '=', 'department_id')
+			->orderBy('name', 'asc')->paginate();
+
+		return View::make('report.super', compact('stores'));
+	}
+
 	public function product()
 	{
 		$products = Product::orderBy('name', 'asc')->get();

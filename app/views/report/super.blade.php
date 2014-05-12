@@ -5,28 +5,32 @@
 			<table class="table table-striped table-bordered">
 				<thead>
 					<tr>
-						<th class="col-md-1">#</th>
-						<th class="col-md-2"><?php echo _("Store") ?></th>
-						<th class="col-md-1"><?php echo _("Store Code") ?></th>
-						<th class="col-md-1"><?php echo _("Total Indent") ?></th>
-						<th class="col-md-1"><?php echo _("Total Product") ?></th>
-						<th class="col-md-2"><?php echo _("Indentor") ?></th>
+						<th>#</th>
+						<th class="col-md-3"><?php echo _("Store") ?></th>
+						<th class="col-md-1"><?php echo _("Products") ?></th>
+						<th class="col-md-1"><?php echo _("Indents") ?></th>
+						<th class="col-md-1"><?php echo _("Requirements") ?></th>
 						<th class="col-md-2"><?php echo _("Administrator") ?></th>
-						<th class="col-md-2"><?php echo _("Store Keeper") ?></th>
+						<th class="col-md-2"><?php echo _("Storekeeper") ?></th>
+						<th class="col-md-2"><?php echo _("Indentor") ?></th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php $i=0; ?>
 					@foreach($stores as $store)
+					<?php $report = Report::store($store->id); ?>
 					<tr>
 						<td>{{++$i}}</td>
-						<td>{{$store->department->name}}</td>
-						<td>{{$store->store_code}}</td>
-						<td>{{sizeof($store->indents)}}</td>
-						<td>{{sizeof($store->product)}}</td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td>
+							{{$store->department->name}}<br>
+							<strong><small><?php echo _('STORE CODE:'); ?>  {{$store->store_code}}</small></strong>
+						</td>
+						<td>{{$report['product']}}</td>
+						<td>{{$report['indent']}}</td>
+						<td>{{$report['requirement']}}</td>
+						<td>{{$report['administrator']}}</td>
+						<td>{{$report['store_keeper']}}</td>
+						<td>{{$report['indentor']}}</td>
 					</tr>
 					@endforeach
 				</tbody>

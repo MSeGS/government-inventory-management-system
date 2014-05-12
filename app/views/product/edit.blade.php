@@ -82,6 +82,14 @@
 					{{Session::get('message')}}
 				</div>
 				@endif
+				<div class="form-group">
+					{{Form::label('category_name', _('Category Name'),array('control-label'))}}
+					{{Form::select('category_name',$categories,$productById->category_id, array('class'=>'form-control input-sm'))}}
+					@if($errors->has('category_name'))
+					<p class="help-block"><span class="text-danger">{{$errors->first('category_name')}}</span></p>
+					@endif
+				</div>
+ 
 				
 				<div class="form-group">
 					{{Form::label('product_name', _('Product Name'),array('control-label'))}}
