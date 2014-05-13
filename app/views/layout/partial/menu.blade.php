@@ -168,8 +168,6 @@
 
         @else
         <li {{in_array(Route::currentRouteName(), array('login'))?'class="active"':''}}><a href="{{url('/login')}}"><?php echo _('Sign In'); ?></a></li>
-        <li {{in_array(Route::currentRouteName(), array('registration'))?'class="active"':''}}><a href="{{url('/registration')}}"><?php echo _('Registration'); ?></a></li>
-        <li {{in_array(Route::currentRouteName(), array('help'))?'class="active"':''}}><a href="{{url('/help')}}"><?php echo _('Help'); ?></a></li>
         @endif
     </ul>
 </div><!--/.nav-collapse -->
