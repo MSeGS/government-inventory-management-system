@@ -158,7 +158,7 @@
         </li>
         @endif
 
-        @if($current_user->hasAccess('help.index') && $current_user->isSuperUser())
+        @if( $current_user->hasAnyAccess(array('help.index', 'help.create')) )
         <li {{in_array(Route::currentRouteName(), array('help.index'))?'class="active"':''}}><a href="{{route('help.index')}}"><?php echo _('Help'); ?></a></li>
         @endif
 
