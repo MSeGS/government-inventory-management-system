@@ -70,7 +70,7 @@ return array(
 		|
 		*/
 
-		'key' => 'indent_requisition_system_cookie',
+		'key' => 'cartalyst_sentry',
 
  	),
 
@@ -200,7 +200,7 @@ return array(
 		|
 		*/
 
-		'attempt_limit' => 3,
+		'attempt_limit' => 5,
 
 		/*
 		|--------------------------------------------------------------------------
@@ -214,7 +214,7 @@ return array(
 		|
 		*/
 
-		'suspension_time' => 10,
+		'suspension_time' => 15,
 
 	),
 
