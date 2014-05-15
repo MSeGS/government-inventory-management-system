@@ -449,9 +449,10 @@ class IndentController extends \BaseController {
 
 		$supplied_quantity = $indent_quantity = 0;
 		foreach ($indent->items as $item) {
-			$indent_quantity = $item->quantity;
+			$indent_quantity += $item->quantity;
 			$indent_item = IndentItem::find($item->id);
-			$supplied_quantity = $indent_item->supplied = Input::get('indent.'.$item->product->id.'.supplied', $item['supplied']);
+			$indent_item->supplied = Input::get('indent.'.$item->product->id.'.supplied', $item['supplied']);
+			$supplied_quantity += $indent_item->supplied;
 			$indent_item->save();
 		}
 
