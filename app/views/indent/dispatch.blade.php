@@ -119,8 +119,8 @@
 				@endif
 				<div class="text-right">
 					<?php echo Form::button('<i class="fa fa-check"></i> ' . _('Dispatch'), array('class'=>'submit-indent btn btn-primary', 'type'=>'submit', 'name'=>'dispatch', 'value'=>'dispatched'));?>
-					<?php echo Form::button('<i class="fa fa-check-circle"></i> ' . _('Partial Dispatch'), array('class'=>'submit-indent btn btn-warning', 'type'=>'submit', 'name'=>'dispatch', 'value'=>'partial_dispatched'));?>
-					<?php //echo Form::button('<i class="fa fa-save"></i> ' . _('Save'), array('class'=>'submit-indent btn btn-success', 'type'=>'submit', 'value'=>'save'));?>
+					<?php // echo Form::button('<i class="fa fa-check-circle"></i> ' . _('Partial Dispatch'), array('class'=>'submit-indent btn btn-warning', 'type'=>'submit', 'name'=>'dispatch', 'value'=>'partial_dispatched'));?>
+					<?php // echo Form::button('<i class="fa fa-save"></i> ' . _('Save'), array('class'=>'submit-indent btn btn-success', 'type'=>'submit', 'value'=>'save'));?>
 				</div>
 			{{Form::close()}}
 		</div>

@@ -447,13 +447,19 @@ class IndentController extends \BaseController {
 					->withInput(Input::all());
 		}
 
+		$supplied_quantity = $indent_quantity = 0;
 		foreach ($indent->items as $item) {
+			$indent_quantity = $item->quantity;
 			$indent_item = IndentItem::find($item->id);
-			$indent_item->supplied = Input::get('indent.'.$item->product->id.'.supplied', $item['supplied']);
+			$supplied_quantity = $indent_item->supplied = Input::get('indent.'.$item->product->id.'.supplied', $item['supplied']);
 			$indent_item->save();
 		}
 
-		$indent->status = Input::get('dispatch');
+		$indent->status = 'dispatched';
+		
+		if($indent_quantity != $supplied_quantity)
+			$indent->status = 'partial_dispatched';
+
 		$indent->save();
 
 		foreach ($indent->items as $item) {
