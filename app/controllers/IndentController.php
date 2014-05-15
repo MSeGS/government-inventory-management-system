@@ -448,6 +448,11 @@ class IndentController extends \BaseController {
 		$indent->status = Input::get('dispatch');
 		$indent->save();
 
+		foreach ($indent->items as $item) {
+			// Update product stock
+			Product::updateInStock($item->product->id);
+		}
+
 		return Redirect::route('indent.dispatch', $indent->id)
 				->with('message', _('Indent dispatched successfully'));
 	}

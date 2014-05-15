@@ -66,7 +66,7 @@
 					<td>{{$product->category->category_name}}</td>
 					<td>{{$product->description}}</td>
 					<td>{{$product->reserved_amount}}</td>
-					<td>{{Product::stock($product->id)}}</td>
+					<td>{{$product->in_stock}}</td>
 					<td>{{Product::damage($product->id)}}</td>
 					<td>
 						{{Form::open(array('url'=>route('product.destroy', array($product->id, $products->getCurrentPage())), 'method'=>'delete'))}}

@@ -114,6 +114,9 @@ class DamageController extends \BaseController
 		$damage->status = 'approved';
 		$damage->save();
 
+		// Update product stock
+		Product::updateInStock($damage->product_id);
+
 		return Redirect::route('damage.manage')
 			->with('message', _('Product Damage Report Successfully Approved'));
 	}
@@ -128,6 +131,9 @@ class DamageController extends \BaseController
 		$damage->status='declined';
 		$damage->save();
 
+		// Update product stock
+		Product::updateInStock($damage->product_id);
+		
 		return Redirect::route('damage.manage')
 			->with('message', _('Product Damage Report Declined'));
 	}

@@ -62,4 +62,10 @@ class Product extends BaseStore
 	{
 		return $this->hasMany('IndentItem');
 	}
+
+	public static function updateInStock($product_id)
+	{
+		$in_stock = get_product_stock($product_id);
+		Product::where('id','=',$product_id)->update(array('in_stock' => $in_stock));
+	}
 }
