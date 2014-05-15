@@ -404,7 +404,13 @@ class IndentController extends \BaseController {
 
 		$indent->status = Input::get('process');
 		$indent->save();
-
+		
+		if($indent->status == 'rejected')
+		{
+			$currentUser = Sentry::getUser()->id;
+			$message = _("Your indent item has been rejected, please check your indent list for reason");
+			Notification::send($currentUser,$indent->indentor_id, $message);
+		}
 		return Redirect::route('indent.process', $indent->id)
 				->with('message', _('Indent processed successfully'));
 	}
@@ -453,6 +459,19 @@ class IndentController extends \BaseController {
 		foreach ($indent->items as $item) {
 			// Update product stock
 			Product::updateInStock($item->product->id);
+		}
+
+		if($indent->status == 'dispatched')
+		{
+			$currentUser = Sentry::getUser()->id;
+			$message = _("Your indent item has been dispatched");
+			Notification::send($currentUser,$indent->indentor_id, $message);
+		}
+		elseif($indent->status == 'partial_dispatched')
+		{
+			$currentUser = Sentry::getUser()->id;
+			$message = _("Your indent item has been dispatch partially");
+			Notification::send($currentUser,$indent->indentor_id, $message);
 		}
 
 		return Redirect::route('indent.dispatch', $indent->id)

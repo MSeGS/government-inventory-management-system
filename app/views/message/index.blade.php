@@ -32,7 +32,7 @@
 									?>
 										
 								</td>		
-								<td>{{date('dS F, Y h:iA', strtotime($notification->read_at))}}</td>				
+								<td>{{date('dS F, Y h:iA', strtotime($notification->created_at))}}</td>				
 								<td>@if($notification->status == 'unread')
 										{{Form::open(array('url'=>route('message.update', $notification->id), 'method'=>'put', 'style'=>'display:inline'))}}	
 										{{Form::button('<i class="fa fa-check"></i> Mark as Read', array('value'=>$notification->id, 'type'=>'submit', 'name'=>'id', 'class'=>'btn btn-xs btn-success'))}}
