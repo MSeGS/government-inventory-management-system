@@ -7,9 +7,28 @@ class HelpController extends \BaseController {
 	 *
 	 * @return Response
 	 */
+
+	public function __construct()
+	{
+		parent::__construct();
+		$this->beforeFilter('sentry');
+	}
+	
 	public function index()
 	{	
-		$helps = Help::orderBy('id', 'asc')->get();                                                                                                      
+
+		$currentUser = Sentry::getUser();
+		$currentUserGroup = $currentUser->getGroups();
+		$currentUserGroup = $currentUserGroup->lists('id');
+		if (in_array(2, $currentUserGroup))
+		{
+
+			$helps = Help::orderBy('id', 'asc')->paginate();  
+		}
+		else
+		{
+			$helps = Help::whereIn('access_level', $currentUserGroup)->paginate();      
+		}                                               
 		return View::make('help.index')
 			->with(array(
 				'helps' => $helps
@@ -31,6 +50,8 @@ class HelpController extends \BaseController {
 				}
 			})
 			->orderBy('name', 'asc')->lists('name', 'id');
+
+
 		
 		return View::make('help.create')
 			->with(array(
@@ -150,7 +171,10 @@ class HelpController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		Help::destroy($id);
+
+		Session::flash('message', _('Help Deleted'));
+		return Redirect::route('help.index');
 	}
 
 }
