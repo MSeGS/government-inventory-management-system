@@ -79,12 +79,12 @@
 						?>
 						@if($indents->count())
 							@foreach($indents as $indent)
-								<tr>
-									<td>{{$i}}</td>
-									<td colspan="4">{{$indent->indent_date}}</td>
+								<tr class="active">
+									<th>{{$i}}</th>
+									<th colspan="4">{{$indent->indent_date}}</th>
 								</tr>
 								@foreach($indent->items as $item)
-								<tr class="{{$i%2==1?'active':''}}">
+								<tr >
 									<td style="padding-left:20px">{{$j++.')'}}</td>
 									<td> - </td>
 									<td>{{$item->product->name}}</td>

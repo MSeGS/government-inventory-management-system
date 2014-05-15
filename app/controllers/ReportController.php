@@ -30,10 +30,10 @@ class ReportController extends \BaseController
 		return View::make('report.product-graphic',compact('years','reports','userGroups'));
 	}
 
-	public function productDetail()
+	public function productDetail($id)
 	{
-		$years = Indent::select(DB::Raw('YEAR(`indent_date`) as year'))->lists('year','year');
-		return View::make('report.product-graphic',compact('years','reports','userGroups'));
+		$product = Product::find($id);
+		return View::make('report.product-detail',compact('product'));
 	}
 
 	public function user()
