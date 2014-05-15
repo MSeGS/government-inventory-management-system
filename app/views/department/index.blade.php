@@ -1,23 +1,26 @@
 @extends('layout.main')
 
+@section('contentTop')
+{{Form::open(array('url'=>route('department.index'),'method'=>'get','class'=>'form-vertical'))}}
+	<div class="form-group">
+		<div class="input-group">
+			<?php echo Form::text('deptsearch',$filter['deptsearch'], array('class'=>'input-sm form-control','placeholder'=>_('Search Department')));?>
+				<span class="input-group-btn">
+				<button class="input-sm btn btn-default" name="search" value="Search" type="submit"> <i class="glyphicon glyphicon-search"></i> </button>
+				</span>
+		</div>
+	</div>
+{{Form::close()}}
+@stop
 @section('content')
-<div class="col-md-12">
+<div class="row">
 	<div class="col-md-7">
 		@if(Session::has('delete'))
 		<div class="alert alert-danger">
 		{{Session::get('delete')}}	
 		</div>
 		@endif
-		{{Form::open(array('url'=>route('department.index'),'method'=>'get','class'=>'form-vertical'))}}
-				<div class="form-group">
-					<div class="input-group">
-						<?php echo Form::text('deptsearch',$filter['deptsearch'], array('class'=>'input-sm form-control','placeholder'=>_('Search Department')));?>
-	      				<span class="input-group-btn">
-	        				<button class="input-sm btn btn-default" name="search" value="Search" type="submit"> <i class="glyphicon glyphicon-search"></i> </button>
-	      				</span>
-		    		</div>
-				</div>
-		{{Form::close()}}
+		
 			<table class="table table-striped table-bordered">
 				<thead>
 					<tr>

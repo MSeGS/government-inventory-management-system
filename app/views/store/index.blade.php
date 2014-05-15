@@ -2,8 +2,8 @@
 
 @section('content')
 
-<div class="col-md-8">
-	<div class="row">
+<div class="row">
+	<div class="col-md-8">
 		<table class="table table-striped table-bordered">
 				@if(Session::has('delete'))
 					<div class="alert alert-danger">
@@ -41,43 +41,43 @@
 				@endif
 			</tbody>
 		</table>
+		{{$stores->links()}}
 	</div>
-	{{$stores->links()}}
-</div>
-<div class="col-md-4">
-	<div class="panel panel-default">
-		<div class="panel-heading"><h5 class="text-center"><?php echo _('New Store') ?></h5></div>
-		<div class="panel-body">
+	<div class="col-md-4">
+		<div class="panel panel-default">
+			<div class="panel-heading"><h5 class="text-center"><?php echo _('New Store') ?></h5></div>
+			<div class="panel-body">
 
-			@if(Session::has('message'))
-			<div class="alert alert-success">
-				{{Session::get('message')}}	
-			</div>
-		
-			@endif
-		
-			{{Form::open(array('url'=>route('store.index'), 'method'=>'post', 'class'=>'form-vertical'))}}
-
-			<div class="form-group">
-				{{Form::label('department_id', _('Department'), array('class'=>'control-label'))}}
-				{{Form::select('department_id', $departments, Input::old('department_id'), array('class'=>'form-control input-sm'))}}
-			</div>
-
-			<div class="form-group">
-				{{Form::label('store_code', _('Store Code'), array('class'=>'control-label'))}}
-				{{Form::text('store_code', Input::old('store_code'), array('class'=>'form-control input-sm'))}}
-
-				@if($errors->has('store_code'))
-				<p class="help-block"><span class="text-danger">{{$errors->first('store_code')}}</span></p>
+				@if(Session::has('message'))
+				<div class="alert alert-success">
+					{{Session::get('message')}}	
+				</div>
+			
 				@endif
+			
+				{{Form::open(array('url'=>route('store.index'), 'method'=>'post', 'class'=>'form-vertical'))}}
+
+				<div class="form-group">
+					{{Form::label('department_id', _('Department'), array('class'=>'control-label'))}}
+					{{Form::select('department_id', $departments, Input::old('department_id'), array('class'=>'form-control input-sm'))}}
+				</div>
+
+				<div class="form-group">
+					{{Form::label('store_code', _('Store Code'), array('class'=>'control-label'))}}
+					{{Form::text('store_code', Input::old('store_code'), array('class'=>'form-control input-sm'))}}
+
+					@if($errors->has('store_code'))
+					<p class="help-block"><span class="text-danger">{{$errors->first('store_code')}}</span></p>
+					@endif
+				</div>
+
+				<div class="form-group text-right">
+					<button type="submit" name="submit" class="btn btn-primary btn-sm"><?php echo _('Submit') ?></button>
+				</div>
+
+				{{Form::close()}}
+
 			</div>
-
-			<div class="form-group text-right">
-				<button type="submit" name="submit" class="btn btn-primary btn-sm"><?php echo _('Submit') ?></button>
-			</div>
-
-			{{Form::close()}}
-
 		</div>
 	</div>
 </div>

@@ -1,22 +1,6 @@
 @extends('layout.main')
 
-@section('content')
-
-<div class="col-md-12">
-	<div class="row">
-		@if(Session::has('delete'))
-		<div class="alert alert-danger">
-			{{Session::get('delete')}}
-		</div>
-		@endif
-		@if(Session::has('message'))
-		<div class="alert alert-success">
-			{{Session::get('message')}}
-		</div>
-		@endif
-	</div>
-</div>
-
+@section('contentTop')
 <div class="row">
 	{{Form::open(array('url'=>route('product.index'),'method'=>'get','class'=>'form-vertical', 'id'=>'product_search'))}}
 		<div class="col-md-2">
@@ -39,6 +23,25 @@
 		</div>
 	{{Form::close()}}
 </div>
+@stop
+@section('content')
+
+<div class="col-md-12">
+	<div class="row">
+		@if(Session::has('delete'))
+		<div class="alert alert-danger">
+			{{Session::get('delete')}}
+		</div>
+		@endif
+		@if(Session::has('message'))
+		<div class="alert alert-success">
+			{{Session::get('message')}}
+		</div>
+		@endif
+	</div>
+</div>
+
+
 
 <div class="col-md-12">
 	<div class="row">

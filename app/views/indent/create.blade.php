@@ -1,236 +1,232 @@
 @extends('layout.main')
-
+@section('contentTop')
+	<div class="row">
+		{{Form::open(array('url'=>route('indent.create'), 'method'=>'get', 'id'=>'indent_filter', 'class'=>'form-vertical'))}}
+			<div class="col-sm-3">
+				<div class="form-group">
+					{{Form::select('limit', array(10=>10, 30=>30, 40=>40, 50=>50, 100=>100, 150=>150, 200=>200), $filter['limit'], array('class' =>'dropdown input-sm form-control', 'onchange'=>'document.getElementById("indent_filter").submit()'))}}
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="form-group">
+					{{Form::select('category', array('0'=>'All Categories')+ $categories, $filter['category_id'], array('class' =>'dropdown input-sm form-control'))}}
+				</div>
+			</div>
+			<div class="col-sm-5">
+				<div class="form-group">
+					<div class="input-group">
+						{{Form::text('name', $filter['name'], array('class'=>'form-control input-sm','placeholder'=>'Search Product'))}}
+	      				<span class="input-group-btn">
+	        				<button class="btn btn-default btn-sm" name="search" value="Search" type="submit"> <i class="glyphicon glyphicon-search"></i> </button>
+	      				</span>
+		    		</div>
+				</div>
+			</div>
+		{{Form::close()}}
+	</div>
+@stop
 @section('content')
 <div class="create-indent-page">
-	<div class="col-sm-6">
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="row">
-					{{Form::open(array('url'=>route('indent.create'), 'method'=>'get', 'id'=>'indent_filter', 'class'=>'form-vertical'))}}
-						<div class="col-sm-3">
-							<div class="form-group">
-								{{Form::select('limit', array(10=>10, 30=>30, 40=>40, 50=>50, 100=>100, 150=>150, 200=>200), $filter['limit'], array('class' =>'dropdown input-sm form-control', 'onchange'=>'document.getElementById("indent_filter").submit()'))}}
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="form-group">
-								{{Form::select('category', array('0'=>'All Categories')+ $categories, $filter['category_id'], array('class' =>'dropdown input-sm form-control'))}}
-							</div>
-						</div>
-						<div class="col-sm-5">
-							<div class="form-group">
-								<div class="input-group">
-									{{Form::text('name', $filter['name'], array('class'=>'form-control input-sm','placeholder'=>'Search Product'))}}
-				      				<span class="input-group-btn">
-				        				<button class="btn btn-default btn-sm" name="search" value="Search" type="submit"> <i class="glyphicon glyphicon-search"></i> </button>
-				      				</span>
-					    		</div>
-							</div>
-						</div>
-					{{Form::close()}}
-				</div>
+	<div class="row">
+		<div class="col-sm-6 product-list">
+			<div class="table-wrapper">
+				<table class="table table-striped table-bordered">
+					<thead>
+						<tr>
+							<th class="col-sm-1">#</th>
+							<th class="col-sm-5"><?php echo _('Name') ?></th>
+							<th class="col-sm-3"><?php echo _('Stock / Reserved'); ?></th>
+							<th class="col-sm-2"><?php echo _('Quantity'); ?></th>
+							<th class="col-sm-1"></th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach($products as $key=>$product)
+						<tr id="product_{{$product->id}}">
+							<td>
+								<input type="hidden" class="id" name="product[{{$product->id}}]" value="{{$product->id}}" />
+								<input type="hidden" class="category" name="category[{{$product->id}}]" value="{{$product->category_id}}" />
+								<input type="hidden" class="stock" name="stock[{{$product->id}}]" value="{{get_product_stock($product->id)}}" />
+								<input type="hidden" class="reserved" name="reserved[{{$product->id}}]" value="{{$product->reserved_amount}}" />
+								<input type="hidden" class="name" name="name[{{$product->id}}]" value="{{$product->name}}" />
+								{{$index+$key}}
+							</td>
+							<td>
+								{{$product->name}}
+								
+								@if(strlen($product->description))
+								<br>
+								<small>{{$product->description}}</small>
+								@endif
+							</td>
+							<td>
+								{{get_product_stock($product->id)}} / <span>{{$product->reserved_amount}}</span>
+							</td>
+							<td><input type="number" name="qty[{{$product->id}}]" value="" id="quantity_{{$product->id}}" min="0" class="quantity input-sm form-control" /></td>
+							<td>
+								@if(get_product_stock($product->id) == 0)
+								<?php echo Form::button('<i class="fa fa-shopping-cart"></i>', array('class'=>'btn btn-sm btn-warning request', 'title'=>_('Request Item')));?>
+								@else
+								<?php echo Form::button('<i class="fa fa-shopping-cart"></i>', array('class'=>'btn btn-sm btn-success add', 'title'=>_('Indent Item')));?>
+								@endif
+							</td>
+						</tr>
+						@endforeach
+					</tbody>
+				</table>
 			</div>
 
-			<div class="col-sm-12 product-list">
-				<div class="table-wrapper">
-					<table class="table table-striped table-bordered">
-						<thead>
-							<tr>
-								<th class="col-sm-1">#</th>
-								<th class="col-sm-5"><?php echo _('Name') ?></th>
-								<th class="col-sm-3"><?php echo _('Stock / Reserved'); ?></th>
-								<th class="col-sm-2"><?php echo _('Quantity'); ?></th>
-								<th class="col-sm-1"></th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach($products as $key=>$product)
-							<tr id="product_{{$product->id}}">
-								<td>
-									<input type="hidden" class="id" name="product[{{$product->id}}]" value="{{$product->id}}" />
-									<input type="hidden" class="category" name="category[{{$product->id}}]" value="{{$product->category_id}}" />
-									<input type="hidden" class="stock" name="stock[{{$product->id}}]" value="{{get_product_stock($product->id)}}" />
-									<input type="hidden" class="reserved" name="reserved[{{$product->id}}]" value="{{$product->reserved_amount}}" />
-									<input type="hidden" class="name" name="name[{{$product->id}}]" value="{{$product->name}}" />
-									{{$index+$key}}
-								</td>
-								<td>
-									{{$product->name}}
-									
-									@if(strlen($product->description))
-									<br>
-									<small>{{$product->description}}</small>
-									@endif
-								</td>
-								<td>
-									{{get_product_stock($product->id)}} / <span>{{$product->reserved_amount}}</span>
-								</td>
-								<td><input type="number" name="qty[{{$product->id}}]" value="" id="quantity_{{$product->id}}" min="0" class="quantity input-sm form-control" /></td>
-								<td>
-									@if(get_product_stock($product->id) == 0)
-									<?php echo Form::button('<i class="fa fa-shopping-cart"></i>', array('class'=>'btn btn-sm btn-warning request', 'title'=>_('Request Item')));?>
-									@else
-									<?php echo Form::button('<i class="fa fa-shopping-cart"></i>', array('class'=>'btn btn-sm btn-success add', 'title'=>_('Indent Item')));?>
-									@endif
-								</td>
-							</tr>
-							@endforeach
-						</tbody>
-					</table>
-				</div>
-
-				{{$products->appends(array('limit'=>$filter['limit'], 'category_id'=>$filter['category_id'],'name'=>$filter['name']))->links()}}
-			</div>
+			{{$products->appends(array('limit'=>$filter['limit'], 'category_id'=>$filter['category_id'],'name'=>$filter['name']))->links()}}
 		</div>
-	</div>
 
-	<div class="col-sm-6 chit-form">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h5 class="text-center">
-					<span class="saving text-muted pull-left hidden">saving...</span>
-					<span class="saved text-success pull-left hidden">saved</span>
-					<?php echo _('Chit Form'); ?>
-				</h5>
-			</div>
-			<div class="panel-body">
-				@if(Session::has('message'))
-				<div class="alert alert-success">
-					{{Session::get('message')}}	
+		<div class="col-sm-6 chit-form">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h5 class="text-center">
+						<span class="saving text-muted pull-left hidden">saving...</span>
+						<span class="saved text-success pull-left hidden">saved</span>
+						<?php echo _('Chit Form'); ?>
+					</h5>
 				</div>
-				@endif
+				<div class="panel-body">
+					@if(Session::has('message'))
+					<div class="alert alert-success">
+						{{Session::get('message')}}	
+					</div>
+					@endif
 
-				<?php
-				$chit = Cookie::get('chit');
-				$ctr = 0;
-				?>
+					<?php
+					$chit = Cookie::get('chit');
+					$ctr = 0;
+					?>
 
-				{{Form::open(array('url'=>route('indent.store'), 'method'=>'post', 'class'=>'form-vertical'))}}
-					
-					{{Form::hidden('chit_size[indent]', $chit_size['indent'], array('id'=>'chit_indent_size'))}}
-					{{Form::hidden('chit_size[requirement]', $chit_size['requirement'], array('id'=>'chit_requirement_size'))}}
-					
-					<h5><i class="fa fa-bars"></i> <?php echo _('Indents'); ?></h5>
-					<table class="table table-hover" id="indent_items">
-						<thead>
-							@if(is_array($chit) && array_key_exists('indent', $chit) && !empty($chit['indent']))
-							<tr>
-							@else
-							<tr class="hidden">
-							@endif
-								<th class="col-sm-1">#</th>
-								<th class="col-sm-3"><?php echo _('Name'); ?></th>
-								<th class="col-sm-2"><?php echo _('Quantity'); ?></th>
-								<th class="col-sm-4"></th>
-								<th class="col-sm-1 text-right"></th>
-							</tr>
-						</thead>
-						<tbody>
-							@if(is_array($chit) && array_key_exists('indent', $chit) && !empty($chit['indent']))
-							<tr class="empty" style="display:none">
-							@else
-							<tr class="empty">
-							@endif
-								<td colspan="5" align="center">
-									<em><?php echo _('Browse items from left column and add here'); ?></em>
-								</td>
-							</tr>
+					{{Form::open(array('url'=>route('indent.store'), 'method'=>'post', 'class'=>'form-vertical'))}}
+						
+						{{Form::hidden('chit_size[indent]', $chit_size['indent'], array('id'=>'chit_indent_size'))}}
+						{{Form::hidden('chit_size[requirement]', $chit_size['requirement'], array('id'=>'chit_requirement_size'))}}
+						
+						<h5><i class="fa fa-bars"></i> <?php echo _('Indents'); ?></h5>
+						<table class="table table-hover" id="indent_items">
+							<thead>
+								@if(is_array($chit) && array_key_exists('indent', $chit) && !empty($chit['indent']))
+								<tr>
+								@else
+								<tr class="hidden">
+								@endif
+									<th class="col-sm-1">#</th>
+									<th class="col-sm-3"><?php echo _('Name'); ?></th>
+									<th class="col-sm-2"><?php echo _('Quantity'); ?></th>
+									<th class="col-sm-4"></th>
+									<th class="col-sm-1 text-right"></th>
+								</tr>
+							</thead>
+							<tbody>
+								@if(is_array($chit) && array_key_exists('indent', $chit) && !empty($chit['indent']))
+								<tr class="empty" style="display:none">
+								@else
+								<tr class="empty">
+								@endif
+									<td colspan="5" align="center">
+										<em><?php echo _('Browse items from left column and add here'); ?></em>
+									</td>
+								</tr>
 
-							@if(is_array($chit) && array_key_exists('indent', $chit) && !empty($chit['indent']))
-								@foreach($chit['indent'] as $key => $item)
+								@if(is_array($chit) && array_key_exists('indent', $chit) && !empty($chit['indent']))
+									@foreach($chit['indent'] as $key => $item)
+									<tr>
+										<td>
+											<span class="serial">{{++$ctr}}</span>
+											<input type="hidden" class="id" name="indent[{{$key}}][id]" value="{{$item['id']}}" />
+											<input type="hidden" class="category" name="indent[{{$key}}][category]" value="{{$item['category']}}" />
+											<input type="hidden" class="type" name="indent[{{$key}}][type]" value="{{$item['type']}}" />
+											<input type="hidden" name="indent[{{$key}}][name]" value="{{$item['name']}}" />
+										</td>
+										<td>{{$item['name']}}</td>
+										<td>
+											<div class="{{$errors->has('indent.'.$key.'.qty')?'has-error':''}}">
+												<input min="0" class="input-sm form-control qty" id="{{$item['type']}}_{{$item['id']}}" type="number" name="indent[{{$key}}][qty]" value="{{$item['qty']}}" /></td>
+											</div>
+										<td>
+											@if(isset($item['note']) && isset($item['reserved']) && $item['reserved']==1)
+											<div class="{{$errors->has('indent.'.$key.'.note')?'has-error':''}}">
+												<input type="hidden" name="indent[{{$key}}][reserved]" class="reserved" value="{{$item['reserved']}}" />
+												<textarea name="indent[{{$key}}][note]" class="input-sm form-control note" rows="2" placeholder="<?php echo _('Note'); ?>">{{$item['note']}}</textarea>
+											</div>
+											@endif
+										</td>
+										<td class="text-right"><span onclick="return removeChitItem(this);" class="remove-item text-danger" title="Remove"><i class="fa fa-trash-o fa-2x"></i></span></td>
+									</tr>
+									@endforeach
+								@endif
+							</tbody>
+						</table>
+
+						<h5><i class="fa fa-bars"></i> <?php echo _('Requirements'); ?></h5>
+						<table class="table table-hover" id="requirement_items">
+							<thead>
+								@if(is_array($chit) && array_key_exists('requirement', $chit) && !empty($chit['requirement']))
+								<tr>
+								@else
+								<tr class="hidden">
+								@endif
+									<th class="col-sm-1">#</th>
+									<th class="col-sm-3"><?php echo _('Name'); ?></th>
+									<th class="col-sm-2"><?php echo _('Quantity'); ?></th>
+									<th class="col-sm-4"></th>
+									<th class="col-sm-1 text-right"></th>
+								</tr>
+							</thead>
+							<tbody>
+								@if(is_array($chit) && array_key_exists('requirement', $chit) && !empty($chit['requirement']))
+								<tr class="empty" style="display:none">
+								@else
+								<tr class="empty">
+								@endif
+									<td colspan="5" align="center">
+										<em><?php echo _('Browse items from left column and add here'); ?></em>
+									</td>
+								</tr>
+								<?php $ctr = 0; ?>
+								@if(is_array($chit) && array_key_exists('requirement', $chit) && !empty($chit['requirement']))
+								@foreach($chit['requirement'] as $key => $item)
 								<tr>
 									<td>
 										<span class="serial">{{++$ctr}}</span>
-										<input type="hidden" class="id" name="indent[{{$key}}][id]" value="{{$item['id']}}" />
-										<input type="hidden" class="category" name="indent[{{$key}}][category]" value="{{$item['category']}}" />
-										<input type="hidden" class="type" name="indent[{{$key}}][type]" value="{{$item['type']}}" />
-										<input type="hidden" name="indent[{{$key}}][name]" value="{{$item['name']}}" />
+										<input type="hidden" class="id" name="requirement[{{$key}}][id]" value="{{$item['id']}}" />
+										<input type="hidden" class="category" name="requirement[{{$key}}][category]" value="{{$item['category']}}" />
+										<input type="hidden" class="type" name="requirement[{{$key}}][type]" value="{{$item['type']}}" />
+										<input type="hidden" name="requirement[{{$key}}][name]" value="{{$item['name']}}" />
 									</td>
 									<td>{{$item['name']}}</td>
 									<td>
-										<div class="{{$errors->has('indent.'.$key.'.qty')?'has-error':''}}">
-											<input min="0" class="input-sm form-control qty" id="{{$item['type']}}_{{$item['id']}}" type="number" name="indent[{{$key}}][qty]" value="{{$item['qty']}}" /></td>
+										<div class="{{$errors->has('requirement.'.$key.'.qty')?'has-error':''}}">
+											<input min="0" class="input-sm form-control qty" id="{{$item['type']}}_{{$item['id']}}" type="number" name="requirement[{{$key}}][qty]" value="{{$item['qty']}}" /></td>
 										</div>
 									<td>
-										@if(isset($item['note']) && isset($item['reserved']) && $item['reserved']==1)
-										<div class="{{$errors->has('indent.'.$key.'.note')?'has-error':''}}">
-											<input type="hidden" name="indent[{{$key}}][reserved]" class="reserved" value="{{$item['reserved']}}" />
-											<textarea name="indent[{{$key}}][note]" class="input-sm form-control note" rows="2" placeholder="<?php echo _('Note'); ?>">{{$item['note']}}</textarea>
+										@if(isset($item['note']))
+										<div class="{{$errors->has('requirement.'.$key.'.note')?'has-error':''}}">
+											<textarea name="requirement[{{$key}}][note]" class="input-sm form-control note" rows="2" placeholder="<?php echo _('Reason'); ?>">{{$item['note']}}</textarea>
 										</div>
 										@endif
 									</td>
 									<td class="text-right"><span onclick="return removeChitItem(this);" class="remove-item text-danger" title="Remove"><i class="fa fa-trash-o fa-2x"></i></span></td>
 								</tr>
 								@endforeach
-							@endif
-						</tbody>
-					</table>
-
-					<h5><i class="fa fa-bars"></i> <?php echo _('Requirements'); ?></h5>
-					<table class="table table-hover" id="requirement_items">
-						<thead>
-							@if(is_array($chit) && array_key_exists('requirement', $chit) && !empty($chit['requirement']))
-							<tr>
-							@else
-							<tr class="hidden">
-							@endif
-								<th class="col-sm-1">#</th>
-								<th class="col-sm-3"><?php echo _('Name'); ?></th>
-								<th class="col-sm-2"><?php echo _('Quantity'); ?></th>
-								<th class="col-sm-4"></th>
-								<th class="col-sm-1 text-right"></th>
-							</tr>
-						</thead>
-						<tbody>
-							@if(is_array($chit) && array_key_exists('requirement', $chit) && !empty($chit['requirement']))
-							<tr class="empty" style="display:none">
-							@else
-							<tr class="empty">
-							@endif
-								<td colspan="5" align="center">
-									<em><?php echo _('Browse items from left column and add here'); ?></em>
-								</td>
-							</tr>
-							<?php $ctr = 0; ?>
-							@if(is_array($chit) && array_key_exists('requirement', $chit) && !empty($chit['requirement']))
-							@foreach($chit['requirement'] as $key => $item)
-							<tr>
-								<td>
-									<span class="serial">{{++$ctr}}</span>
-									<input type="hidden" class="id" name="requirement[{{$key}}][id]" value="{{$item['id']}}" />
-									<input type="hidden" class="category" name="requirement[{{$key}}][category]" value="{{$item['category']}}" />
-									<input type="hidden" class="type" name="requirement[{{$key}}][type]" value="{{$item['type']}}" />
-									<input type="hidden" name="requirement[{{$key}}][name]" value="{{$item['name']}}" />
-								</td>
-								<td>{{$item['name']}}</td>
-								<td>
-									<div class="{{$errors->has('requirement.'.$key.'.qty')?'has-error':''}}">
-										<input min="0" class="input-sm form-control qty" id="{{$item['type']}}_{{$item['id']}}" type="number" name="requirement[{{$key}}][qty]" value="{{$item['qty']}}" /></td>
-									</div>
-								<td>
-									@if(isset($item['note']))
-									<div class="{{$errors->has('requirement.'.$key.'.note')?'has-error':''}}">
-										<textarea name="requirement[{{$key}}][note]" class="input-sm form-control note" rows="2" placeholder="<?php echo _('Reason'); ?>">{{$item['note']}}</textarea>
-									</div>
-									@endif
-								</td>
-								<td class="text-right"><span onclick="return removeChitItem(this);" class="remove-item text-danger" title="Remove"><i class="fa fa-trash-o fa-2x"></i></span></td>
-							</tr>
-							@endforeach
-							@endif
-						</tbody>
-					</table>
-				
-					<hr>
-					<div class="row">
-						<div class="col-sm-6 text-left">
-							<span class="hidden saving-chit-form text-success"><i class="fa fa-spinner fa-spin"></i></span>
+								@endif
+							</tbody>
+						</table>
+					
+						<hr>
+						<div class="row">
+							<div class="col-sm-6 text-left">
+								<span class="hidden saving-chit-form text-success"><i class="fa fa-spinner fa-spin"></i></span>
+							</div>
+							<div class="col-sm-6 text-right">
+								<?php echo Form::button('<i class="fa fa-check"></i> ' . _('Submit Indent'), array('class'=>'submit-indent btn btn-primary disabled', 'type'=>'submit'));?>
+							</div>
 						</div>
-						<div class="col-sm-6 text-right">
-							<?php echo Form::button('<i class="fa fa-check"></i> ' . _('Submit Indent'), array('class'=>'submit-indent btn btn-primary disabled', 'type'=>'submit'));?>
-						</div>
-					</div>
-				{{Form::close()}}
+					{{Form::close()}}
+				</div>
 			</div>
 		</div>
 	</div>

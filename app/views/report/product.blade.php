@@ -13,11 +13,13 @@
 		{{Form::submit('Search', array('class' => 'btn btn-sm btn-default'))}}
 	</div>
 {{Form::close()}}
+	@if($filter['month']&&$filter['year']!=null)
 	<div class="form-group col-md-5 text-right">
 		<div class="row">
 			<a href="{{URL::route('report.product')}}" type="button" class="btn btn-sm btn-default">View All</a>
 		</div>
 	</div>
+	@endif
 @stop
 @section('content')
 

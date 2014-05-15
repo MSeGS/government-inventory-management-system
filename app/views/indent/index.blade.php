@@ -7,16 +7,13 @@
 @stop
 
 @section('content')
-<div class="col-md-12">
-	<div class="row">
+<div class="row">
+	<div class="col-md-12">
 		@if(Session::has('delete'))
 		<div class="alert alert-danger">
 			{{Session::get('delete')}}
 		</div>
 		@endif
-
-		
-
 			<table class="table table-striped table-bordered">
 				<thead>
 					<tr>
@@ -74,7 +71,6 @@
 				</tbody>
 			</table>
 			{{$indents->links()}}
-
 	</div>
 </div>
 @stop

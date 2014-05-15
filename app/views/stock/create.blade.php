@@ -1,8 +1,8 @@
 @extends('layout.main')
 @section('content')
 
-<div class="col-md-8">
-	<div class="row">
+<div class="row">
+	<div class="col-md-8">
 		@if(Session::has('delete'))
 		<div class="alert alert-danger">
 			{{Session::get('delete')}}
@@ -37,53 +37,53 @@
 		</table>
 	</div>
 	{{$stocks->links()}}	
-</div>
 
-<div class="col-md-4">
-	@if(Session::has('message'))
-	<div class="alert alert-success">
-		{{Session::get('message')}}
-	</div>
-	@endif
-	
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h5 class="text-center"><?php echo _('Add Stock Quantity'); ?></h5>
+	<div class="col-md-4">
+		@if(Session::has('message'))
+		<div class="alert alert-success">
+			{{Session::get('message')}}
 		</div>
-		<div class="panel-body">
-			{{Form::open(array('url'=>route('stock.index'), 'method'=>'post', 'class'=>'form-vertical'))}}
-			<div class="form-group">
-				{{Form::label('category_name','Category', array('class'=>'control-label'))}}
-				{{Form::select('category_name',$categories, Input::old('category_name'), array('class'=>'form-control input-sm'))}}
+		@endif
+		
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h5 class="text-center"><?php echo _('Add Stock Quantity'); ?></h5>
+			</div>
+			<div class="panel-body">
+				{{Form::open(array('url'=>route('stock.index'), 'method'=>'post', 'class'=>'form-vertical'))}}
+				<div class="form-group">
+					{{Form::label('category_name','Category', array('class'=>'control-label'))}}
+					{{Form::select('category_name',$categories, Input::old('category_name'), array('class'=>'form-control input-sm'))}}
 
-				@if($errors->has('category_name'))
-				<p class="help-block"><span class="text-danger">{{$errors->first('category_name')}}</span></p>
-				@endif
-			</div>
-			<div class="form-group">
-				{{Form::label('product_name','Product', array('class'=>'control-label'))}}
-				{{Form::select('product_name',array('' => 'Select Product'), Input::old('product_name'), array('class'=>'form-control input-sm'))}}
+					@if($errors->has('category_name'))
+					<p class="help-block"><span class="text-danger">{{$errors->first('category_name')}}</span></p>
+					@endif
+				</div>
+				<div class="form-group">
+					{{Form::label('product_name','Product', array('class'=>'control-label'))}}
+					{{Form::select('product_name',array('' => 'Select Product'), Input::old('product_name'), array('class'=>'form-control input-sm'))}}
 
-				@if($errors->has('product_name'))
-				<p class="help-block"><span class="text-danger">{{$errors->first('product_name')}}</span></p>
-				@endif
-			</div>
-			<div class="form-group">
-				{{Form::label('note', 'Note', array('class'=>'control-label'))}}
-				{{Form::text('note', Input::old('note'), array('class'=>'form-control input-sm'))}}
-			</div>
-			<div class="form-group">
-				{{Form::label('quantity', 'Stock Quantity', array('class'=>'control-label'))}}
-				{{Form::text('quantity', Input::old('quantity'), array('class'=>'form-control input-sm'))}}
+					@if($errors->has('product_name'))
+					<p class="help-block"><span class="text-danger">{{$errors->first('product_name')}}</span></p>
+					@endif
+				</div>
+				<div class="form-group">
+					{{Form::label('note', 'Note', array('class'=>'control-label'))}}
+					{{Form::text('note', Input::old('note'), array('class'=>'form-control input-sm'))}}
+				</div>
+				<div class="form-group">
+					{{Form::label('quantity', 'Stock Quantity', array('class'=>'control-label'))}}
+					{{Form::text('quantity', Input::old('quantity'), array('class'=>'form-control input-sm'))}}
 
-				@if($errors->has('quantity'))
-				<p class="help-block"><span class="text-danger">{{$errors->first('quantity')}}</span></p>
-				@endif
+					@if($errors->has('quantity'))
+					<p class="help-block"><span class="text-danger">{{$errors->first('quantity')}}</span></p>
+					@endif
+				</div>
+				<div class="form-group text-right">
+					{{Form::submit('Submit', array("class"=>"btn btn-primary btn-sm"))}}
+				</div>
+				{{Form::close()}}
 			</div>
-			<div class="form-group text-right">
-				{{Form::submit('Submit', array("class"=>"btn btn-primary btn-sm"))}}
-			</div>
-			{{Form::close()}}
 		</div>
 	</div>
 </div>
