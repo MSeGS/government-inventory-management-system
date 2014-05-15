@@ -1,7 +1,7 @@
 @extends('layout.main')
 @section('content')
-<div class="col-md-8">
-	<div class="row">
+<div class="row">
+	<div class="col-md-8">
 		@if(Session::has('delete'))
 		<div class="alert alert-danger">
 			{{Session::get('delete')}}
@@ -39,42 +39,42 @@
 				@endforeach
 			</tbody>
 		</table>
+		{{$stocks->links()}}
 	</div>	
-	{{$stocks->links()}}
-</div>
 
-<div class="col-md-4">
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h5 class="text-center"><?php echo _('Edit Stock Quantity'); ?></h5>
-		</div>
-		<div class="panel-body">
-			{{Form::model($stockById, array('url'=>route('stock.update', $stockById->id), 'method'=>'put', 'class'=>'form-vertical'))}}
-			<div class="form-group">
-				{{Form::label('category_name','Category', array('class'=>'control-label'))}}
-				{{Form::select('category_name',$categories,$stockById->category_id, array('class'=>'form-control input-sm'))}}
+	<div class="col-md-4">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h5 class="text-center"><?php echo _('Edit Stock Quantity'); ?></h5>
 			</div>
-			<div class="form-group">
-				{{Form::label('product_name','Product', array('class'=>'control-label'))}}
-				{{Form::select('product_name',$products, $stockById->product_id, array('class'=>'form-control input-sm'))}}
-			</div>
-			<div class="form-group">
-				{{Form::label('note', 'Note', array('class'=>'control-label'))}}
-				{{Form::text('note', Input::old('note'), array('class'=>'form-control input-sm'))}}
-			</div>
-			<div class="form-group">
-				{{Form::label('quantity', 'Stock Quantity', array('class'=>'control-label'))}}
-				{{Form::text('quantity', Input::old('quantity'), array('class'=>'form-control input-sm'))}}
+			<div class="panel-body">
+				{{Form::model($stockById, array('url'=>route('stock.update', $stockById->id), 'method'=>'put', 'class'=>'form-vertical'))}}
+				<div class="form-group">
+					{{Form::label('category_name','Category', array('class'=>'control-label'))}}
+					{{Form::select('category_name',$categories,$stockById->category_id, array('class'=>'form-control input-sm'))}}
+				</div>
+				<div class="form-group">
+					{{Form::label('product_name','Product', array('class'=>'control-label'))}}
+					{{Form::select('product_name',$products, $stockById->product_id, array('class'=>'form-control input-sm'))}}
+				</div>
+				<div class="form-group">
+					{{Form::label('note', 'Note', array('class'=>'control-label'))}}
+					{{Form::text('note', Input::old('note'), array('class'=>'form-control input-sm'))}}
+				</div>
+				<div class="form-group">
+					{{Form::label('quantity', 'Stock Quantity', array('class'=>'control-label'))}}
+					{{Form::text('quantity', Input::old('quantity'), array('class'=>'form-control input-sm'))}}
 
-				@if($errors->has('quantity'))
-				<p class="help-block"><span class="text-danger">{{$errors->first('quantity')}}</span></p>
-				@endif
+					@if($errors->has('quantity'))
+					<p class="help-block"><span class="text-danger">{{$errors->first('quantity')}}</span></p>
+					@endif
+				</div>
+				<div class="form-group text-right">
+						<button type="submit" name="submit" class="btn btn-primary btn-sm"><?php echo _('Save'); ?></button>
+						<a href="{{route('stock.index')}}"><span class="btn btn-primary btn-sm"><?php echo _('Cancel');?></span></a>
+				</div>
+				{{Form::close()}}
 			</div>
-			<div class="form-group text-right">
-					<button type="submit" name="submit" class="btn btn-primary btn-sm"><?php echo _('Save'); ?></button>
-					<a href="{{route('stock.index')}}"><span class="btn btn-primary btn-sm"><?php echo _('Cancel');?></span></a>
-			</div>
-			{{Form::close()}}
 		</div>
 	</div>
 </div>

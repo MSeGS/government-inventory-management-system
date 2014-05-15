@@ -1,10 +1,25 @@
 @extends('layout.main')
 @section('contentTop')
-<div class="row">
-	<div class="col-md-12 ">
-		<h1><?php echo _("Product Report"); ?></h1>
+{{Form::open(array('url'=>route('report.product'), 'method'=>'get'))}}
+	<div class="form-group col-md-3">
+		<div class="row">
+			{{Form::select('month', $months, $filter['month'], array('class' => 'dropdown input-sm', 'id' => 'month'))}}
+		</div>
 	</div>
-</div>
+	<div class="form-group col-md-3">
+		{{Form::select('year', $years, $filter['year'], array('class' => 'dropdown input-sm', 'id' => 'filter_year'))}}
+	</div>
+	<div class="form-group col-md-1">
+		{{Form::submit('Search', array('class' => 'btn btn-sm btn-default'))}}
+	</div>
+{{Form::close()}}
+	@if($filter['month']&&$filter['year']!=null)
+	<div class="form-group col-md-5 text-right">
+		<div class="row">
+			<a href="{{URL::route('report.product')}}" type="button" class="btn btn-sm btn-default">View All</a>
+		</div>
+	</div>
+	@endif
 @stop
 @section('content')
 
@@ -23,20 +38,20 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php $i=0; ?>
-					@foreach($products as $product)
+					@foreach($products as $key=>$product)
 					<tr>
-						<td>{{++$i}}</td>
+						<td>{{$index + $key}}</td>
 						<td>{{$product->name}}</td>
-						<td>{{get_product_stock($product->id)}} </td>
-						<td>{{Report::requirement($product->id)}}</td>
-						<td>{{get_product_supplied($product->id)}}</td>
-						<td>{{Report::dispatched($product->id)}}</td>
-						<td>{{Report::damaged($product->id)}}</td>
+						<td>{{get_product_stock($product->id, $filter['year'], $filter['month'])}} </td>
+						<td>{{Report::requirement($product->id, $filter['year'], $filter['month'])}}</td>
+						<td>{{sizeof(Report::indented($product->id))}}</td>
+						<td>{{Report::dispatched($product->id, $filter['year'], $filter['month'])}}</td>
+						<td>{{Report::damaged($product->id, $filter['year'], $filter['month'])}}</td>
 					</tr>
 					@endforeach
 				</tbody>
 			</table>
+			{{$products->appends(array('year'=>$filter['year'],'month'=>$filter['month']))->links()}}
 	</div>
 </div>
 @stop

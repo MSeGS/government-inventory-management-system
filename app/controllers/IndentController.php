@@ -2,6 +2,15 @@
 
 class IndentController extends \BaseController {
 
+	private $status = array(
+			'' => 'All Status',
+			'pending_approval' => 'Pending Approval',
+			'dispatched' => 'Dispatched',
+			'approved' => 'Approved',
+			'rejected' => 'Rejected',
+			'partial_dispatched' => 'Partial Dispatched',
+			);
+
 	public function __construct(IndentInterface $indent)
 	{
 		parent::__construct();
@@ -16,17 +25,30 @@ class IndentController extends \BaseController {
 	 */
 	public function index()
 	{
+		$status = $this->status;
+
 		$filter = array(
-			'limit' 			=> Input::get('limit', get_setting('item_per_page'))
-			// 'name' 			=> Input::get('name'),
-			// 'category_id'	=> Input::get('category')
+			'limit' => Input::get('limit', get_setting('item_per_page')),
+			'indent_date' => Input::get('indent_date'),
+			'status' => Input::get('status'),
+			'reference_no' => Input::get('reference_no')
 		);
 
 		$indents = Indent::with('indentor', 'items')
+			->where(function($query){
+				if(Input::get('indent_date'))
+					$query->where( DB::raw('DATE(`indent_date`)'), '=', date('Y-m-d', strtotime(Input::get('indent_date'))) );
+
+				if(Input::get('status'))
+					$query->where( 'status', '=', Input::get('status'));
+
+				if(Input::get('reference_no'))
+					$query->where( 'reference_no', 'LIKE', 'CHIT/'.Input::get('reference_no').'%');
+			})
 			->orderBy('indent_date', 'desc')
 			->paginate($filter['limit']);
 
-		return View::make('indent.index', compact('indents'));
+		return View::make('indent.index', compact('indents', 'filter', 'status'));
 	}
 
 	/**
@@ -36,24 +58,27 @@ class IndentController extends \BaseController {
 	 */
 	public function mine()
 	{
-		$status = array(
-			'' => 'All Status',
-			'pending_approval' => 'Pending Approval',
-			'dispatched' => 'Dispatched',
-			'approved' => 'Approved',
-			'rejected' => 'Rejected',
-			'partial_dispatched' => 'Partial Dispatched',
-			);
+		$status = $this->status;
 		$filter = array(
 			'limit' => Input::get('limit', get_setting('item_per_page')),
 			'indent_date' => Input::get('indent_date'),
-			'status' => Input::get('status')
+			'status' => Input::get('status'),
+			'reference_no' => Input::get('reference_no')
 		);
 
 		$indents = Indent::with('indentor', 'items')
 			->where(function($query){
 				$user = Sentry::getUser();
 				$query->where('indentor_id', '=', $user->id);
+
+				if(Input::get('indent_date'))
+					$query->where( DB::raw('DATE(`indent_date`)'), '=', date('Y-m-d', strtotime(Input::get('indent_date'))) );
+
+				if(Input::get('status'))
+					$query->where( 'status', '=', Input::get('status'));
+
+				if(Input::get('reference_no'))
+					$query->where( 'reference_no', 'LIKE', 'CHIT/'.Input::get('reference_no').'%');
 			})
 			->orderBy('indent_date', 'desc')
 			->paginate($filter['limit']);
@@ -116,7 +141,7 @@ class IndentController extends \BaseController {
 			$chit = Cookie::queue('chit', array('indent'=>Input::get('indent'), 'requirement'=>Input::get('requirement')), 60);
 			$chit_size = Cookie::queue('chit_size', Input::get('chit_size'), 60);
 			
-			return Response::json(array('saved'=>date('dS F Y, h:iA')))
+			return Response::json(array('saved'=>date('dS F Y, h:iA') ))
 				->setCallback(Input::get('callback'));
 		}
 
@@ -130,7 +155,7 @@ class IndentController extends \BaseController {
 		foreach (Input::get('requirement', array()) as $key=>$value) {
 			$rules['requirement.' . $key . '.qty'] = 'required|numeric|min:1';
 		}
-
+		
 		$validator = Validator::make(Input::all(), $rules);
 
 		if($validator->fails()) {

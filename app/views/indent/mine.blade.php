@@ -1,20 +1,8 @@
 @extends('layout.main')
 
 @section('contentTop')
-	{{Form::open(array('url'=>route('department.index'),'method'=>'get','class'=>''))}}
-		<div class="row">
-			<div class="col-md-2">
-				<?php echo Form::select('status', $status, $filter['status'], array('class'=>'dropdown input-sm form-control'));?>
-			</div>
-			<div class="col-md-2">
-				<div class="input-group">
-					<?php echo Form::text('indent_date', $filter['indent_date'], array('class'=>'input-sm form-control','placeholder'=>_('Indent Date')));?>
-					<span class="input-group-btn">
-	    				<button class="btn-sm btn btn-default" name="search" value="Search" type="submit"> <i class="glyphicon glyphicon-search"></i> </button>
-	  				</span>
-				</div>
-			</div>
-		</div>
+	{{Form::open(array('url'=>route('indent.mine'),'method'=>'get','id'=>'indent_filter'))}}
+		@include('indent._search')
 	{{Form::close()}}
 @stop
 
@@ -52,6 +40,7 @@
 					<td><a href="{{route('indent.show', array($indent->id))}}"><strong>{{date('j', strtotime($indent->indent_date)) . '<sup>' . date('S', strtotime($indent->indent_date)) . '</sup> ' . date('F Y, h:iA', strtotime($indent->indent_date))}}</strong></a></td>
 					<td>{{sizeof($indent->items)}}</td>
 					<td>{{sizeof($indent->requirements)}}</td>
+					<td>{{$indent->reference_no}}</td>
 					<td>
 						@if($indent->status == 'approved')
 						<span class="text-primary">
@@ -66,7 +55,6 @@
 						{{ucwords(str_replace('_', ' ', $indent->status))}}
 						</span>
 					</td>
-					<td>{{$indent->reference_no}}</td>
 					<td>
 						{{Form::open(array('url'=>route('indent.destroy', $indent->id),'method'=>'delete'))}}
 

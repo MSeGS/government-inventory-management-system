@@ -10,15 +10,34 @@ class Product extends BaseStore
 		parent::__construct();
 	}
 
-	public static function stock($product_id)
+	public static function stock($product_id, $year = null, $month = null)
 	{
-		$stock = Stock::where('product_id', '=', $product_id)->pluck(DB::raw('SUM(`quantity`)'));
+		$stock = Stock::where('product_id', '=', $product_id)
+			->where(function($query){
+					$year = Input::get('year');
+					$month = Input::get('month');
+
+					if($year != null && $month != null) {
+						$query->where(DB::raw('MONTH(`created_at`)'), '=', $month);
+						$query->where(DB::raw('YEAR(`created_at`)'), '=', $year);
+					}
+				})
+			->pluck(DB::raw('SUM(`quantity`)'));
 		return $stock?$stock:0;
 	}
 
 	public static function damage($product_id)
 	{
 		$damage = Damage::where('product_id', '=', $product_id)
+			->where(function($query){
+					$year = Input::get('year');
+					$month = Input::get('month');
+
+					if($year != null && $month != null) {
+						$query->where(DB::raw('MONTH(`created_at`)'), '=', $month);
+						$query->where(DB::raw('YEAR(`created_at`)'), '=', $year);
+					}
+				})
 			->where('status', '=', 'approved')
 			->pluck(DB::raw('SUM(`quantity`)'));
 		return $damage?$damage:0;

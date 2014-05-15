@@ -1,21 +1,23 @@
 @extends('layout.main')
-@section('content')
+@section('contentTop')
 <div class="row">
 	{{Form::open(array('url'=>route('resource.index'),'method'=>'get','class'=>'form-vertical'))}}
 		<div class="col-md-3">
 			<div class="form-group">
 				<div class="input-group">
 					{{Form::text('name', $filter['name'], array('class'=>'form-control input-sm','placeholder'=>'Search Resource'))}}
-      				<span class="input-group-btn">
-        				<button class="btn btn-default btn-sm" name="search" value="Search" type="submit"> <i class="glyphicon glyphicon-search"></i> </button>
-      				</span>
+	  				<span class="input-group-btn">
+	    				<button class="btn btn-default btn-sm" name="search" value="Search" type="submit"> <i class="glyphicon glyphicon-search"></i> </button>
+	  				</span>
 	    		</div>
 			</div>
 		</div>
 	{{Form::close()}}
 </div>
-<div class="col-md-8">
-	<div class="row">
+@stop
+@section('content')
+<div class="row">
+	<div class="col-md-8">
 		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
@@ -46,35 +48,35 @@
 				@endforeach
 			</tbody>
 		</table>
+		{{$resources->appends(array('name'=>$filter['name']))->links()}}
 	</div>
-	{{$resources->appends(array('name'=>$filter['name']))->links()}}
-</div>
-<div class="col-md-4">
-	<div class="panel panel-default">
-		<div class="panel-heading"><h5 class="text-center">Edit Resource</h5></div>
-		<div class="panel-body">
-			{{Form::model($resourceById, array('url'=>route('resource.update', $resourceById->id), 'method'=>'put', 'class'=>'form-vertical'))}}
+	<div class="col-md-4">
+		<div class="panel panel-default">
+			<div class="panel-heading"><h5 class="text-center">Edit Resource</h5></div>
+			<div class="panel-body">
+				{{Form::model($resourceById, array('url'=>route('resource.update', $resourceById->id), 'method'=>'put', 'class'=>'form-vertical'))}}
 
-			<div class="form-group">
-				{{Form::label('name', _('Resource Name'), array('class'=>'control-label'))}}
-				{{Form::text('name', Input::old('name'), array('class'=>'form-control input-sm'))}}
-			</div>
-
-			<div class="form-group">
-				{{Form::label('route', _('Resource Route'), array('class'=>'control-label'))}}
-				{{Form::text('route', Input::old('route'), array('class'=>'form-control input-sm'))}}
-			</div>
-
-			<div class="form-inline text-right">
 				<div class="form-group">
-					<button type="submit" name="submit" class="btn btn-primary btn-sm"><?php echo _('Save'); ?></button>
+					{{Form::label('name', _('Resource Name'), array('class'=>'control-label'))}}
+					{{Form::text('name', Input::old('name'), array('class'=>'form-control input-sm'))}}
 				</div>
-				<div class="form-group">
-					<a href="{{route('resource.index')}}"><span class="btn btn-primary btn-sm"><?php echo _('Cancel');?></span></a>
-				</div>
-			</div>	
 
-			{{Form::close()}}
+				<div class="form-group">
+					{{Form::label('route', _('Resource Route'), array('class'=>'control-label'))}}
+					{{Form::text('route', Input::old('route'), array('class'=>'form-control input-sm'))}}
+				</div>
+
+				<div class="form-inline text-right">
+					<div class="form-group">
+						<button type="submit" name="submit" class="btn btn-primary btn-sm"><?php echo _('Save'); ?></button>
+					</div>
+					<div class="form-group">
+						<a href="{{route('resource.index')}}"><span class="btn btn-primary btn-sm"><?php echo _('Cancel');?></span></a>
+					</div>
+				</div>	
+
+				{{Form::close()}}
+			</div>
 		</div>
 	</div>
 </div>

@@ -1,7 +1,6 @@
 @extends('layout.main')
 
 @section('content')
-<div class="col-md-12">
 	<div class="col-md-12">
 		<div class="row">
 			<table class="table table-striped table-bordered">
@@ -32,7 +31,7 @@
 									}
 									?>
 										
-</td>		
+								</td>		
 								<td>{{date('dS F, Y h:iA', strtotime($notification->read_at))}}</td>				
 								<td>@if($notification->status == 'unread')
 										{{Form::open(array('url'=>route('message.update', $notification->id), 'method'=>'put', 'style'=>'display:inline'))}}	
@@ -49,5 +48,4 @@
 			</table>
 		</div>
 	</div>
-</div>
 @stop

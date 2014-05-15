@@ -7,8 +7,8 @@ VALUES
 INSERT INTO `users` (`id`, `full_name`, `username`, `password`, `permissions`, `activated`, `activation_code`, `activated_at`, `last_login`, `persist_code`, `reset_password_code`, `store_id`, `email_id`, `phone_no`, `address`, `department_id`, `designation`, `created_at`, `updated_at`)
 VALUES
 	(2, 'ATI Admin', 'ati_admin', '$2y$10$LnyQlxVpA1SKrNgnOTKO3uBePWLsQOLuIsJPP2keB75euh.tFUwPy', '', 1, NULL, NULL, '2014-04-30 13:27:13', '$2y$10$SCZ89Pp5BEV4SHNstLHaLuegLoVamYw9Hwj/Iy8dA2OwpunZkBvPG', NULL, 1, 'ati_admin@mail.com', '123', '#add', 1, 'desg', '2014-04-30 12:16:29', '2014-04-30 13:27:13'),
-	(3, 'ATI Indentor', 'ati_indentor', '$2y$10$5MZdDN9qrvK7Tbp1JOLYoOFIQUSnO2o0zgUCzGNxyB07uR1r7M2v.', '', 1, NULL, NULL, '2014-04-30 13:28:27', '$2y$10$jrsWO4HdXcJkknIvxBOv2OxbPw6IqUtCmk2w1XtFrfxyE0YiVuuDu', NULL, 1, 'email@mail.com', '123', '#add', 1, 'desg', '2014-04-30 13:27:54', '2014-04-30 13:28:27'),
-	(4, 'ATI Store Keeper', 'ati_store', '$2y$10$WEMSlQcd3nl5eicpE9a6PeYiJywqzRieqN2r5Ah.qhwQgZHdYjFSm', '', 1, NULL, NULL, '2014-04-30 13:34:52', '$2y$10$XKVxB447s/SJBxHV01VvL.QiB0cloUZH.O2scUKxZyaVChuMTFzei', NULL, 1, 'email@mail.com', '123', '#add', 1, 'desg', '2014-04-30 13:28:18', '2014-04-30 13:34:52');
+	(3, 'ATI Indentor', 'ati_indentor', '$2y$10$5MZdDN9qrvK7Tbp1JOLYoOFIQUSnO2o0zgUCzGNxyB07uR1r7M2v.', '', 1, NULL, NULL, '2014-04-30 13:28:27', '$2y$10$jrsWO4HdXcJkknIvxBOv2OxbPw6IqUtCmk2w1XtFrfxyE0YiVuuDu', NULL, 1, 'ati_indentor@mail.com', '123', '#add', 1, 'desg', '2014-04-30 13:27:54', '2014-04-30 13:28:27'),
+	(4, 'ATI Store Keeper', 'ati_store', '$2y$10$WEMSlQcd3nl5eicpE9a6PeYiJywqzRieqN2r5Ah.qhwQgZHdYjFSm', '', 1, NULL, NULL, '2014-04-30 13:34:52', '$2y$10$XKVxB447s/SJBxHV01VvL.QiB0cloUZH.O2scUKxZyaVChuMTFzei', NULL, 1, 'ati_store@mail.com', '123', '#add', 1, 'desg', '2014-04-30 13:28:18', '2014-04-30 13:34:52');
 
 INSERT INTO `users_groups` (`user_id`, `group_id`)
 VALUES

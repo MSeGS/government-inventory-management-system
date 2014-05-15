@@ -21,8 +21,9 @@
 	<link href="{{ asset('templates/default/lib/bootstrap/normalize.css') }}" rel="stylesheet">
 
 	<!-- Date Picker CSS -->
-	<link rel="stylesheet" type="text/css" href="{{ asset('templates/default/lib/datepicker/default.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ asset('templates/default/lib/datepicker/default.date.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('templates/default/lib/datepicker/themes/classic.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('templates/default/lib/datepicker/themes/classic.date.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('templates/default/lib/datepicker/themes/classic.time.css') }}">
 	
 	<!-- Font Awesome CSS -->
 	<link rel="stylesheet" type="text/css" href="{{ asset('templates/default/lib/font-awesome-4.0.3/css/font-awesome.min.css') }}">

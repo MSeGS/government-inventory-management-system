@@ -186,6 +186,7 @@ class ProductController extends \BaseController {
 
 		else{
 			$product					= Product::find($id);
+			$product->category_id		=Input::get('category_name');
 			$product->name				= Input::get('name');
 			$product->description 		= Input::get('description');
 			$product->reserved_amount 	= Input::get('reserved_amount');

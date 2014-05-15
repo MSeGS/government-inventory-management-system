@@ -12,15 +12,24 @@ class Report extends BaseStore
 	}
 
 
-	public static function requirement($product_id)
+	public static function requirement($product_id, $year = null, $month = null)
 	{
 		$requirement = Requirement::where('product_id', '=', $product_id)
 									->where('status', '=', 'approved')
+									->where(function($query){
+										$year 	= Input::get('year');
+										$month 	= Input::get('month');
+
+										if($year != null && $month != null) {
+											$query->where(DB::raw('MONTH(`created_at`)'), '=', (int)$month);
+											$query->where(DB::raw('YEAR(`created_at`)'), '=', (int)$year);
+										}
+									})
 									->pluck(DB::raw('SUM(`quantity`)'));
 		return $requirement?$requirement:0;
 	}
 
-	public static function dispatched($product_id)
+	public static function dispatched($product_id, $year = null, $month = null)
 	{
 		$indent = new Indent;
 		$indent_item = new IndentItem;
@@ -31,18 +40,52 @@ class Report extends BaseStore
 				->whereIn($indent_table . '.status', array('dispatched','partial_dispatched'))
 				->where($indent_item_table . '.status', '=', 'approved')
 				->where('product_id', '=', $product_id)
-				->pluck((DB::raw('SUM(supplied)')));
+				->where(function($query){
+					$year = Input::get('year');
+					$month = Input::get('month');
 
-		return (int)$indent?$indent:0;
+					if($year != null && $month != null) {
+						$query->where(DB::raw('MONTH(`indent_date`)'), '=', $month);
+						$query->where(DB::raw('YEAR(`indent_date`)'), '=', $year);
+					}
+				})
+				->pluck((DB::raw('SUM(quantity)')));
+  
+ 		return (int)$indent?$indent:0;
 		
 	}
 
-	public static function damaged($product_id)
+	public static function damaged($product_id, $year = null, $month = null)
 	{
 		$damage = Damage::where('product_id', '=', $product_id)
 									->where('status', '=', 'approved')
+									->where(function($query){
+					$year = Input::get('year');
+					$month = Input::get('month');
+
+					if($year != null && $month != null) {
+						$query->where(DB::raw('MONTH(`created_at`)'), '=', $month);
+						$query->where(DB::raw('YEAR(`created_at`)'), '=', $year);
+					}
+				})
 									->pluck(DB::raw('SUM(`quantity`)'));
 		return (int)$damage?$damage:0;
+	}
+
+	public static function indented($product_id, $year = null, $month = null)
+	{
+		$indents = Indent::where('id', '=', $product_id)
+						->where(function($query){
+					$year = Input::get('year');
+					$month = Input::get('month');
+
+					if($year != null && $month != null) {
+						$query->where(DB::raw('MONTH(`created_at`)'), '=', $month);
+						$query->where(DB::raw('YEAR(`created_at`)'), '=', $year);
+					}
+				})
+						->orderBy('id','asc')->get();
+		return  $indents?$indents:0;
 	}
 
 	public static function groupCount($current_user)
