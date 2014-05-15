@@ -272,7 +272,7 @@ class DamageController extends \BaseController
 		$damage->restore();
 
 		Session::flash('delete', _('Product Damage Report Restored'));
-		return Redirect::to('damage');
+		return Redirect::route('damage.index');
 		
 	}
 
@@ -282,6 +282,6 @@ class DamageController extends \BaseController
 		$damage->forceDelete();
 
 		Session::flash('delete', _('Product Damage Report Remove Permanently'));
-		return Redirect::to('damage');
+		return Redirect::route('damage.trash');
 	}
 }

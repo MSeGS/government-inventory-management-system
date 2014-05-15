@@ -47,7 +47,7 @@ Route::post('damage/{id}/decline', array('before'=>'sentry', 'uses'=>'DamageCont
 
 Route::get('damage/trash', array('before'=>'sentry', 'uses'=>'DamageController@trash', 'as'=>'damage.trash'));
 Route::put('damage/{id}/restore', array('before'=>'sentry', 'uses'=>'DamageController@restore', 'as'=>'damage.restore'));
-Route::put('damage/{id}/delete', array('before'=>'sentry', 'uses'=>'DamageController@delete', 'as'=>'damage.delete'));
+Route::delete('damage/{id}/delete', array('before'=>'sentry', 'uses'=>'DamageController@delete', 'as'=>'damage.delete'));
 
 Route::put('product/{id}/trash', array('before'=>'sentry', 'uses'=>'ProductController@restore', 'as'=>'product.restore'));
 Route::post('product/{id}/delete', array('before'=>'sentry', 'uses'=>'ProductController@delete', 'as'=>'product.delete'));
