@@ -424,9 +424,11 @@ class IndentController extends \BaseController {
 		
 		foreach ($indent->items as $item) {
 			$stock = get_product_stock($item->product->id);
+			$quantity = $item->quantity;
+			$maxSupplied = ($quantity < $stock)? $quantity: $stock;
 			$max = "";
 			if($stock > 0)
-				$max = '|max:' . $stock;
+				$max = '|max:' . $maxSupplied;
 			if($item->status == 'approved')
 				$rules['indent.' . $item->product->id . '.supplied'] = 'required|numeric|min:0' . $max;
 		}

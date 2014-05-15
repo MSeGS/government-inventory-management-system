@@ -88,7 +88,7 @@
 						<td>
 							@if($item->status == 'approved')
 							<span class="{{$errors->has('indent.'.$item->product->id.'.supplied')?'has-error':''}}">
-								<input min="0" max="{{$item->quantity}}" class="input-sm form-control qty" id="indent_{{$item->product->id}}" type="number" name="indent[{{$item->product->id}}][supplied]" value="{{Input::old('indent.'.$item->product->id.'.supplied', $item->quantity)}}" />
+								<input min="0" max="{{$item->quantity}}" class="input-sm form-control qty" id="indent_{{$item->product->id}}" type="number" name="indent[{{$item->product->id}}][supplied]" value="{{Input::old('indent.'.$item->product->id.'.supplied', ($item->supplied)?$item->supplied:$item->quantity )}}" />
 							</span>
 							@endif
 						</td>
