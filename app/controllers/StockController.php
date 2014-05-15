@@ -169,7 +169,12 @@ class StockController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
+		$stock = Stock::find($id);
+		$product_id = $stock->product_id;
 		Stock::destroy($id);
+		
+		// Update product stock
+		Product::updateInStock($product_id);
 
 		Session::flash('delete', 'Stock deleted');
 		return Redirect::to('stock');
