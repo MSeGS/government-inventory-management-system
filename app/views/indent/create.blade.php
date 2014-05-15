@@ -378,6 +378,8 @@ $(function(){
 
 function addToChit(id, rowType, qty, row, btn, isReserved)
 {	
+	// console.log(rowType);
+
 	$(".product-list input").removeAttr('style');
 	if(qty == 0) {
 		$("#quantity_" + id).css('border-color', 'red');
@@ -500,8 +502,8 @@ function reorderChitItem()
 var activeSavingRequest = false;
 function saveChitForm(btn)
 {
-	if(activeSavingRequest)
-        return null;
+	// if(activeSavingRequest)
+        // return null;
 
 	$.ajax({
 		url: '{{route('indent.store')}}',

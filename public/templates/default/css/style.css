@@ -485,6 +485,9 @@ hr {
     padding: 0;
     text-align: justify;
 }
+#indent_filter .picker {
+    width: 400px;
+}
 
 @media (min-width: 768px) and (max-width: 991px) {
     .headerBrand {

@@ -1,5 +1,11 @@
 @extends('layout.main')
 
+@section('contentTop')
+	{{Form::open(array('url'=>route('indent.index'),'method'=>'get','id'=>'indent_filter'))}}
+		@include('indent._search')
+	{{Form::close()}}
+@stop
+
 @section('content')
 <div class="col-md-12">
 	<div class="row">

@@ -50,6 +50,7 @@
 	<!-- Datepicker JS -->
 	<script type="text/javascript" src="{{asset('templates/default/lib/datepicker/picker.js')}}"></script>
 	<script type="text/javascript" src="{{asset('templates/default/lib/datepicker/picker.date.js')}}"></script>
+	<script type="text/javascript" src="{{asset('templates/default/lib/datepicker/picker.time.js')}}"></script>
 
 	<!-- Template JS -->
 	<script type="text/javascript" src="{{asset('templates/default/js/script.js')}}"></script>
