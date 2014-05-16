@@ -11,4 +11,9 @@ class Category extends BaseStore
 		parent::__construct();
 	}
 
+	public function products()
+	{
+		return $this->hasMany('Product');
+	}
+
 }

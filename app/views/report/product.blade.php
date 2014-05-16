@@ -1,18 +1,26 @@
 @extends('layout.main')
 @section('contentTop')
-{{Form::open(array('url'=>route('report.product'), 'method'=>'get'))}}
-	<div class="form-group col-md-3">
-		<div class="row">
-			{{Form::select('month', $months, $filter['month'], array('class' => 'dropdown input-sm', 'id' => 'month'))}}
+<div class="row mb20">
+	<ul class="nav nav-tabs">
+		<li class="active"><a href="{{route('report.product')}}">Tabular Report</a>	</li>
+		<!-- <li class="active"><a href="{{route('report.product-graphic')}}">Graphical Report</a></li> -->
+		<li><a href="{{route('report.product-detail')}}">Detailed Report</a></li>
+	</ul>
+</div>
+<div class="row">
+	{{Form::open(array('url'=>route('report.product'), 'method'=>'get'))}}
+		<div class="form-group col-md-3">
+			<div class="row">
+				{{Form::select('month', $months, $filter['month'], array('class' => 'dropdown input-sm', 'id' => 'month'))}}
+			</div>
 		</div>
-	</div>
-	<div class="form-group col-md-3">
-		{{Form::select('year', $years, $filter['year'], array('class' => 'dropdown input-sm', 'id' => 'filter_year'))}}
-	</div>
-	<div class="form-group col-md-1">
-		{{Form::submit('Search', array('class' => 'btn btn-sm btn-default'))}}
-	</div>
-{{Form::close()}}
+		<div class="form-group col-md-3">
+			{{Form::select('year', $years, $filter['year'], array('class' => 'dropdown input-sm', 'id' => 'filter_year'))}}
+		</div>
+		<div class="form-group col-md-1">
+			{{Form::submit('Search', array('class' => 'btn btn-sm btn-default'))}}
+		</div>
+	{{Form::close()}}
 	@if($filter['month']&&$filter['year']!=null)
 	<div class="form-group col-md-5 text-right">
 		<div class="row">
@@ -20,6 +28,7 @@
 		</div>
 	</div>
 	@endif
+</div>
 @stop
 @section('content')
 
@@ -41,7 +50,7 @@
 					@foreach($products as $key=>$product)
 					<tr>
 						<td>{{$index + $key}}</td>
-						<td>{{$product->name}}</td>
+						<td><a href="{{route('report.product-detail',array('id'=>$product->id))}}" >{{$product->name}}</a></td>
 						<td>{{get_product_stock($product->id, $filter['year'], $filter['month'])}} </td>
 						<td>{{Report::requirement($product->id, $filter['year'], $filter['month'])}}</td>
 						<td>{{sizeof(Report::indented($product->id))}}</td>

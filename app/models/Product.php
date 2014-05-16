@@ -62,4 +62,9 @@ class Product extends BaseStore
 	{
 		return $this->hasMany('IndentItem');
 	}
+
+	public function damages()
+	{
+		return $this->hasMany('Damage');
+	}
 }

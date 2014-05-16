@@ -9,7 +9,7 @@
 	<div class="col-md-12">
 		<ul class="nav nav-tabs">
 			<li ><a href="{{route('report.user')}}">Tabular Report</a>	</li>
-			<li class="active"><a href="{{route('report.user-graphic')}}">Graphical Report</a></li>
+			<!-- <li class="active"><a href="{{route('report.user-graphic')}}">Graphical Report</a></li> -->
 			<li><a href="{{route('report.user-detail')}}">Detail Report</a></li>
 		</ul>
 		<div class="mb20"></div>

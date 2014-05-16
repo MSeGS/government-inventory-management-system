@@ -38,15 +38,33 @@ class HomeController extends BaseController {
 				// $years = IndentItem::distinct(DB::Raw("YEAR(created_at)"))->lists(DB::Raw('YEAR(created_at)'));
 
 				$latestIndents = Indent::take(5)->get();
-				// $lowStockItems = Product::where('in_stock','<','reserved_amount')->take(6)->get(); //display 5 if 6th exists, show read more link
+				$lowStockItems = Product::where('in_stock','<','reserved_amount')->take(6)->get(); //display 5 if 6th exists, show read more link
 				$latestNotifications = Notification::where('receiver_id','=',$this->current_user->id)->take(5)->get();
-				return View::make('home.admin', compact('latestNotifications', 'latestIndents','pendingIndents','pendingRequirements','pendingDamages','outOfStock'));
+				return View::make('home.admin', compact('lowStockItems','latestNotifications', 'latestIndents','pendingIndents','pendingRequirements','pendingDamages','outOfStock'));
 			}
 			elseif($this->current_user->inGroup($indentor)){
-				return View::make('home.indentor');
+
+				$indents = Indent::where('indentor_id','=',$this->current_user->id)->count();
+				$pendingIndents = Indent::where('status','=','pending')->where('indentor_id','=',$this->current_user->id)->count();
+				$approvedIndents = Indent::where('status','=','approved')->where('indentor_id','=',$this->current_user->id)->count();
+				$rejectedIndents = Indent::where('status','=','rejected')->where('indentor_id','=',$this->current_user->id)->count();
+
+				$latestIndents = IndentItem::with('product','indent','product.category')->take(5)->get();
+				return View::make('home.indentor', compact('latestIndents','indents','pendingIndents','approvedIndents','rejectedIndents'));
 			}
-				elseif($this->current_user->inGroup($storekeeper)){
-				return View::make('home.storekeeper');
+			elseif($this->current_user->inGroup($storekeeper)){
+				$pendingIndents = Indent::where('status','=','approved')->count();
+				$pendingRequirements = Requirement::where('status','=','approved')->count();
+				$pendingDamages = Damage::where('status','=','approved')->count();
+				$outOfStock = Product::where('in_stock','=',0)->count();
+
+				$lessStockProducts = Product::with('category')->where('in_stock','<=','reserved_amount')->take(5)->get();
+				$outOfStockProducts = Product::with('category')->where('in_stock','=',0)->take(5)->get();
+
+				$damagedProducts = Damage::with('product','product.category')->select(DB::Raw('SUM(quantity) as sum_qty'),'product_id')->where('status','=','approved')->groupBy('product_id')->orderBy(DB::Raw('SUM(quantity)'),'desc')->take(5)->get();
+
+				$latestIndents = Indent::with('items.product','items','items.product.category')->where('status','=','approved')->take(4)->get();
+				return View::make('home.storekeeper', compact('damagedProducts','lessStockProducts','outOfStockProducts','latestIndents','pendingIndents','pendingDamages','outOfStock','pendingRequirements'));
 			}
 		}
 		else

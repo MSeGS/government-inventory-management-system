@@ -8,7 +8,7 @@
 <div class="row">
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="{{route('report.user')}}">Tabular Report</a></li>
-		<li><a href="{{route('report.user-graphic')}}">Graphical Report</a></li>
+		<!-- <li><a href="{{route('report.user-graphic')}}">Graphical Report</a></li> -->
 		<li><a href="{{route('report.user-detail')}}">Detail Report</a></li>
 	</ul>
 	<div class="mb20"></div>
@@ -29,7 +29,7 @@
 				@foreach($indentors as $indentor)
 				<tr>
 					<td>{{++$i}}</td>
-					<td>{{$indentor->full_name}}</td>
+					<td><a href="{{route('report.user-detail',array('id'=>$indentor->id))}}" >{{$indentor->full_name}}</td>
 					<td>{{sizeof($indentor->indents)}}</td>
 					<td><?php
 					$requirements = 0;

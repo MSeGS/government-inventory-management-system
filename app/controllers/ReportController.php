@@ -56,7 +56,9 @@ class ReportController extends \BaseController
 	public function productDetail($id)
 	{
 		$product = Product::find($id);
-		return View::make('report.product-detail',compact('product'));
+		$indented = IndentItem::countIndentByIndentByDate($id)->paginate();
+		// return Response::json($indented);
+		return View::make('report.product-detail',compact('product','indented'));
 	}
 
 	public function user()
@@ -151,7 +153,21 @@ class ReportController extends \BaseController
 				usort($data[$product->id]['data'], 'datasort');
 			}
 		}
-		// exit;
+
+		if($type == 'product-detail'){
+			$id = Input::get('id');
+			$product = Product::find($id);
+			if($product){
+				$indent_items = IndentItem::where('product_id','=',$id)->groupBy('indent_id')->get();
+				foreach($indent_items as $indent_item){
+					$indent_unix = strtotime($indent_item->indent->indent_date) * 1000;
+					$data['data'][] = array($indent_unix,$indent_item->supplied);
+				}
+			}else{
+				$data = array();
+			}
+		}
+
 		$data = array_values($data);
 		if(count($data))
 			return Response::json(array('status'=>'success','plotData'=>$data, 'extra'=>$extra));
