@@ -92,6 +92,7 @@ class Store extends Eloquent
 				$table->string('name', 300);
 				$table->text('description');
 				$table->integer('reserved_amount');
+				$table->integer('in_stock')->default(0);
 				
 				$table->timestamps();
 				$table->softDeletes();

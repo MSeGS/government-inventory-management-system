@@ -72,14 +72,17 @@ class StockController extends \BaseController {
 				->withInput(Input::all());
 		}
 		else{
-				$stock = new Stock;
-				$stock->product_id 		= Input::get('product_name');
-				$stock->category_id 	= Input::get('category_name');
-				$stock->note 			= Input::get('note');
-				$stock->quantity		= Input::get('quantity');
-				$stock->save();
+			$stock = new Stock;
+			$stock->product_id 		= Input::get('product_name');
+			$stock->category_id 	= Input::get('category_name');
+			$stock->note 			= Input::get('note');
+			$stock->quantity		= Input::get('quantity');
+			$stock->save();
 
-				return Redirect::route('stock.create')->with('message', 'Stock created successfully');
+			// Update product stock
+			Product::updateInStock($stock->product_id);
+
+			return Redirect::route('stock.create')->with('message', 'Stock created successfully');
 		}
 	}
 
@@ -149,8 +152,11 @@ class StockController extends \BaseController {
 			$stock->quantity 			= Input::get('quantity');
 			$stock->save();
 
-			Session::flash('message', _('Successfully edited'));
-			return Redirect::to('/stock');
+			// Update product stock
+			Product::updateInStock($stock->product_id);
+
+			return Redirect::route('stock.index')
+				->with('message', _('Successfully updated product stock'));
 
 		}
 	}
@@ -163,10 +169,14 @@ class StockController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
+		$stock = Stock::find($id);
+		$product_id = $stock->product_id;
 		Stock::destroy($id);
+		
+		// Update product stock
+		Product::updateInStock($product_id);
 
 		Session::flash('delete', 'Stock deleted');
 		return Redirect::to('stock');
 	}
-
 }

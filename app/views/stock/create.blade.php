@@ -10,21 +10,22 @@
 		@endif
 		<table class="table table-striped table-bordered">
 			<thead>
-				<th class="col-md-1">#</th>
-				<th class="col-md-3">Category</th>
-				<th class="col-md-3">Product</th>
-				<th class="col-md-2">Note</th>
-				<th class="col-md-2">Stock Quantity</th>
-				<th></th>
+				<th>#</th>
+				<th class="col-md-5">Product</th>
+				<th class="col-md-2">Quantity</th>
+				<th class="col-md-3">Date</th>
+				<th class="col-md-2"></th>
 			</thead>
 			<tbody>
 				@foreach($stocks as $key=>$stock)
 				<tr>
 					<td>{{$index+$key}}</td>
-					<td>{{$stock->category->category_name}}</td>
-					<td>{{$stock->product->name}} </td>
-					<td>{{$stock->note}} </td>
+					<td>
+						{{$stock->product->name}}<br>
+						<span class="text-muted">{{$stock->category->category_name}}</span>
+					</td>
 					<td>{{$stock->quantity}}</td>
+					<td>{{date('d/m/Y, h:iA', strtotime($stock->created_at))}}</td>
 					<td>
 						{{Form::open(array('url'=>route('stock.destroy', array($stock->id)), 'method'=>'delete'))}}
 						<a href="{{route('stock.edit', array($stock->id))}}" class="btn btn-xs btn-success tooltip-top" title="Edit Stock Quantity"><i class="fa fa-pencil"></i></a>

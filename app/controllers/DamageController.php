@@ -114,6 +114,9 @@ class DamageController extends \BaseController
 		$damage->status = 'approved';
 		$damage->save();
 
+		// Update product stock
+		Product::updateInStock($damage->product_id);
+
 		return Redirect::route('damage.manage')
 			->with('message', _('Product Damage Report Successfully Approved'));
 	}
@@ -128,6 +131,17 @@ class DamageController extends \BaseController
 		$damage->status='declined';
 		$damage->save();
 
+		if($damage->status == 'declined')
+		{
+			$currentUser = Sentry::getUser()->id;
+			$message = _("Your damage report has been declined by administrator");
+			$user =  $damage->user_id;
+			Notification::send($currentUser,$user, $message);
+		}
+
+		// Update product stock
+		Product::updateInStock($damage->product_id);
+		
 		return Redirect::route('damage.manage')
 			->with('message', _('Product Damage Report Declined'));
 	}
@@ -272,7 +286,7 @@ class DamageController extends \BaseController
 		$damage->restore();
 
 		Session::flash('delete', _('Product Damage Report Restored'));
-		return Redirect::to('damage');
+		return Redirect::route('damage.index');
 		
 	}
 
@@ -282,6 +296,6 @@ class DamageController extends \BaseController
 		$damage->forceDelete();
 
 		Session::flash('delete', _('Product Damage Report Remove Permanently'));
-		return Redirect::to('damage');
+		return Redirect::route('damage.trash');
 	}
 }

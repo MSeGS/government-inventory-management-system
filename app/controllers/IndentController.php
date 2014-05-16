@@ -404,7 +404,13 @@ class IndentController extends \BaseController {
 
 		$indent->status = Input::get('process');
 		$indent->save();
-
+		
+		if($indent->status == 'rejected')
+		{
+			$currentUser = Sentry::getUser()->id;
+			$message = _("Your indent item has been rejected, please check your indent list for reason");
+			Notification::send($currentUser,$indent->indentor_id, $message);
+		}
 		return Redirect::route('indent.process', $indent->id)
 				->with('message', _('Indent processed successfully'));
 	}
@@ -424,9 +430,11 @@ class IndentController extends \BaseController {
 		
 		foreach ($indent->items as $item) {
 			$stock = get_product_stock($item->product->id);
+			$quantity = $item->quantity;
+			$maxSupplied = ($quantity < $stock)? $quantity: $stock;
 			$max = "";
 			if($stock > 0)
-				$max = '|max:' . $stock;
+				$max = '|max:' . $maxSupplied;
 			if($item->status == 'approved')
 				$rules['indent.' . $item->product->id . '.supplied'] = 'required|numeric|min:0' . $max;
 		}
@@ -439,14 +447,39 @@ class IndentController extends \BaseController {
 					->withInput(Input::all());
 		}
 
+		$supplied_quantity = $indent_quantity = 0;
 		foreach ($indent->items as $item) {
+			$indent_quantity += $item->quantity;
 			$indent_item = IndentItem::find($item->id);
 			$indent_item->supplied = Input::get('indent.'.$item->product->id.'.supplied', $item['supplied']);
+			$supplied_quantity += $indent_item->supplied;
 			$indent_item->save();
 		}
 
-		$indent->status = Input::get('dispatch');
+		$indent->status = 'dispatched';
+		
+		if($indent_quantity != $supplied_quantity)
+			$indent->status = 'partial_dispatched';
+
 		$indent->save();
+
+		foreach ($indent->items as $item) {
+			// Update product stock
+			Product::updateInStock($item->product->id);
+		}
+
+		if($indent->status == 'dispatched')
+		{
+			$currentUser = Sentry::getUser()->id;
+			$message = _("Your indent item has been dispatched");
+			Notification::send($currentUser,$indent->indentor_id, $message);
+		}
+		elseif($indent->status == 'partial_dispatched')
+		{
+			$currentUser = Sentry::getUser()->id;
+			$message = _("Your indent item has been dispatch partially");
+			Notification::send($currentUser,$indent->indentor_id, $message);
+		}
 
 		return Redirect::route('indent.dispatch', $indent->id)
 				->with('message', _('Indent dispatched successfully'));

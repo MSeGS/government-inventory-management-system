@@ -86,7 +86,7 @@ class MessageController extends \BaseController {
 		}
 		else{
 		
-		$send = Notification::send();
+		$send = Notification::send(Input::get('sender_id'), Input::get('receiver_id'),Input::get('message'));
 		return Redirect::route('message.create')
 			->with('message', _('Message Successfully Send'));
 			

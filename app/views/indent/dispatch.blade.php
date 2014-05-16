@@ -88,7 +88,7 @@
 						<td>
 							@if($item->status == 'approved')
 							<span class="{{$errors->has('indent.'.$item->product->id.'.supplied')?'has-error':''}}">
-								<input min="0" max="{{$item->quantity}}" class="input-sm form-control qty" id="indent_{{$item->product->id}}" type="number" name="indent[{{$item->product->id}}][supplied]" value="{{Input::old('indent.'.$item->product->id.'.supplied', $item->quantity)}}" />
+								<input min="0" max="{{$item->quantity}}" class="input-sm form-control qty" id="indent_{{$item->product->id}}" type="number" name="indent[{{$item->product->id}}][supplied]" value="{{Input::old('indent.'.$item->product->id.'.supplied', ($item->supplied)?$item->supplied:$item->quantity )}}" />
 							</span>
 							@endif
 						</td>
@@ -119,8 +119,8 @@
 				@endif
 				<div class="text-right">
 					<?php echo Form::button('<i class="fa fa-check"></i> ' . _('Dispatch'), array('class'=>'submit-indent btn btn-primary', 'type'=>'submit', 'name'=>'dispatch', 'value'=>'dispatched'));?>
-					<?php echo Form::button('<i class="fa fa-check-circle"></i> ' . _('Partial Dispatch'), array('class'=>'submit-indent btn btn-warning', 'type'=>'submit', 'name'=>'dispatch', 'value'=>'partial_dispatched'));?>
-					<?php //echo Form::button('<i class="fa fa-save"></i> ' . _('Save'), array('class'=>'submit-indent btn btn-success', 'type'=>'submit', 'value'=>'save'));?>
+					<?php // echo Form::button('<i class="fa fa-check-circle"></i> ' . _('Partial Dispatch'), array('class'=>'submit-indent btn btn-warning', 'type'=>'submit', 'name'=>'dispatch', 'value'=>'partial_dispatched'));?>
+					<?php // echo Form::button('<i class="fa fa-save"></i> ' . _('Save'), array('class'=>'submit-indent btn btn-success', 'type'=>'submit', 'value'=>'save'));?>
 				</div>
 			{{Form::close()}}
 		</div>
