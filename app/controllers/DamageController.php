@@ -131,6 +131,14 @@ class DamageController extends \BaseController
 		$damage->status='declined';
 		$damage->save();
 
+		if($damage->status == 'declined')
+		{
+			$currentUser = Sentry::getUser()->id;
+			$message = _("Your damage report has been declined by administrator");
+			$user =  $damage->user_id;
+			Notification::send($currentUser,$user, $message);
+		}
+
 		// Update product stock
 		Product::updateInStock($damage->product_id);
 		

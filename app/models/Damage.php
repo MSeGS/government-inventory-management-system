@@ -20,5 +20,4 @@ class Damage extends BaseStore
 	{
 		return $this->belongsTo('User');
 	}
-
 }
