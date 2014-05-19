@@ -46,23 +46,23 @@
 				<div class="panel panel-body">
 					<table class="table table-striped">
 						<thead>
-							<th class="col-md-1">No.</th>
-							<th class="col-md-2">Category</th>
-							<th class="col-md-3">Products</th>
-							<th class="col-md-3">Indent Date</th>
-							<th class="col-md-3">Quantity</th>
-							<th>Status</th>
+							<th class="col-md-1"><?php echo _('No.');?></th>
+							<th class="col-md-2"><?php echo _('Date'); ?></th>
+							<th class="col-md-1"><?php echo _('Indented'); ?></th>
+							<th class="col-md-1"><?php echo _('Supplied'); ?></th>
+							<th class="col-md-3"><?php echo _('Status'); ?></th>
 						</thead>
 						<tbody>
 							@if($latestIndents)
+							@foreach($latestIndents as $key=>$indent)
 							<tr>
-								<td>1</td>
-								<td>Gosa</td>
-								<td>Furniture</td>
-								<td>Chair</td>
-								<td>2</td>
-								<td>Pending</td>
+								<td>{{$key+1}}</td>
+								<td><a href="{{url('indent', array('id'=>$indent->id))}}" >{{date('Y-m-d',strtotime($indent->indent_date))}}</a></td>
+								<td>{{$indent->items->sum('quantity')}}</td>
+								<td>{{$indent->items->sum('supplied')}}</td>
+								<td>{{ucwords(str_replace('_',' ',$indent->status))}}</td>
 							</tr>
+							@endforeach
 							@else
 							<tr>
 								<td><?php echo _('Indents not found'); ?></td>

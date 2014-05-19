@@ -45,11 +45,11 @@ class HomeController extends BaseController {
 			elseif($this->current_user->inGroup($indentor)){
 
 				$indents = Indent::where('indentor_id','=',$this->current_user->id)->count();
-				$pendingIndents = Indent::where('status','=','pending')->where('indentor_id','=',$this->current_user->id)->count();
+				$pendingIndents = Indent::where('status','=','pending_approval')->where('indentor_id','=',$this->current_user->id)->count();
 				$approvedIndents = Indent::where('status','=','approved')->where('indentor_id','=',$this->current_user->id)->count();
 				$rejectedIndents = Indent::where('status','=','rejected')->where('indentor_id','=',$this->current_user->id)->count();
 
-				$latestIndents = IndentItem::with('product','indent','product.category')->take(5)->get();
+				$latestIndents = Indent::with('items')->where('indentor_id','=',$this->current_user->id)->take(5)->get();
 				return View::make('home.indentor', compact('latestIndents','indents','pendingIndents','approvedIndents','rejectedIndents'));
 			}
 			elseif($this->current_user->inGroup($storekeeper)){

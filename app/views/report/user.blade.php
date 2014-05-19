@@ -21,7 +21,6 @@
 					<th class="col-md-4"><?php echo _("Name") ?></th>
 					<th class="col-md-2"><?php echo _("Indent") ?></th>
 					<th class="col-md-2"><?php echo _("Requirement") ?></th>
-					<th class="col-md-2"><?php echo _("Damages") ?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -39,11 +38,6 @@
 					}
 					echo $requirements;
 					?></td>
-					<td>
-					<?php echo $indentor->damages->count();
-
-					 ?>
-					</td>
 				</tr>
 				@endforeach
 			</tbody>
