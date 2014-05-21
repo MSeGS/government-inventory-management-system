@@ -4,11 +4,13 @@
 	<div class="col-md-12 ">
 		<h1><?php echo _("Detailed Report <small>for</small> "); ?>{{$product->name}}</h1>
 	</div>
+	<?php /*
 	<ul class="nav nav-tabs">
 		<li ><a href="{{route('report.product')}}">Tabular Report</a>	</li>
 		<!-- <li class="active"><a href="{{route('report.product-graphic')}}">Graphical Report</a></li> -->
 		<li class="active"><a href="{{route('report.product-detail')}}">Detailed Report</a></li>
 	</ul>
+	*/?>
 </div>
 @stop
 @section('content')

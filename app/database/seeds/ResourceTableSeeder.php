@@ -125,8 +125,9 @@ class ResourceTableSeeder extends Seeder
 			array('route'=>'report.user', 'name'=>'User', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'report.overview', 'name'=>'Overview', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'report.user-graphic', 'name'=>'Report User Graphic', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
-			array('route'=>' report.user-detail', 'name'=>'Report User Details', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
-			array('route'=>' report.product-detail', 'name'=>'Report Product Details', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
+			array('route'=>'report.user-detail', 'name'=>'Report User Details', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
+			array('route'=>'report.product-detail', 'name'=>'Report Product Details', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
+			array('route'=>'report.admin-ajax', 'name'=>'Report Ajax', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 
 			array('route'=>'contact-us', 'name'=>'Contact Form', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 		));
