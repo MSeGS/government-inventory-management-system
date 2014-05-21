@@ -56,7 +56,7 @@
 						<td>{{$damage->quantity}}</td>
 						<td>{{date('dS F, Y h:iA', strtotime($damage->reported_at))}}</td>
 						<td>{{ucfirst($damage->status)}}</td>
-						<td>
+						<td class="actions">
 							{{Form::open(array('url'=>route('damage.restore', $damage->id), 'method'=>'put'))}}
 							<button href="{{route('damage.restore', $damage->id)}}" class="btn btn-xs btn-success tooltip-top" title="<?php echo _('Restore Damage') ?>"><i class="fa fa-undo left"></i></button>
 							{{Form::close()}}
