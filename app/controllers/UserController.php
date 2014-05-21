@@ -22,12 +22,18 @@ class UserController extends \BaseController {
 			'group' => Input::get('group')
 			);
 
-		$users = User::with('department', 'store', 'groups')->where(function($query){
+		$users = User::with('department', 'store', 'groups')->join('users_groups', 'users.id', '=', 'users_groups.user_id')->where(function($query){
+				$public_group = Sentry::findGroupByName('Public');	
+				$query->where('users_groups.group_id', '!=', $public_group->id);
+
 				if(Input::get('username', null))
 					$query->where('username', 'LIKE', '%' . Input::get('username') . '%');
 
 				if(Input::get('department', null))
 					$query->where('department_id', '=', Input::get('department'));
+
+				if(Input::get('group', null))
+					$query->where('users_groups.group_id', '=', Input::get('group'));
 
 				$user = Sentry::getUser();
 				if(!$user->isSuperUser()) {
@@ -37,7 +43,7 @@ class UserController extends \BaseController {
 			->orderBy('username', 'asc')
 			->paginate(30);
 
-		$departments = array(''=>_('Select Department')) + Department::orderBy('name', 'asc')->lists('name', 'id');
+		$departments = Department::orderBy('name', 'asc')->lists('name', 'id');
 		
 		$stores = array(''=>_('Select Store'));
 		$stores_temp = Store::with('department')->orderBy('store_code', 'asc')->get();
@@ -45,7 +51,7 @@ class UserController extends \BaseController {
 			$stores[$s->id] = $s->department->name . ' (' . $s->store_code . ')';
 		}
 
-		$groups = array(''=>_('Select Group')) + Group::where('name', '<>', 'Public')
+		$groups = array(''=>_('All Groups')) + Group::where('name', '<>', 'Public')
 			->where(function($query){
 				$user = Sentry::getUser();
 				if(!$user->isSuperUser()) {

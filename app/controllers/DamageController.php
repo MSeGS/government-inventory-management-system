@@ -90,17 +90,19 @@ class DamageController extends \BaseController
 			->orderBy($damage->getTable().'.id', 'asc')
 			->paginate();
 
+
 		$categories = category::orderBy('id','asc')
 			->get()
 			->lists('category_name','id');
-		$categorySelect = array(''=> _('Select Category') ,$categories);
+		$categorySelect = array(''=> _('All Categories') ,$categories);
 
 
 		return View::make('damage.manage')
 			->with(array(
 				'damages'=> $damages,
 				'categorySelect'=> $categorySelect,
-				'categories'=> $categories
+				'categories'=> $categories,
+				'category'	=> Input::get('category',null),
 				));
 	}
 

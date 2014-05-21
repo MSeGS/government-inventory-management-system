@@ -11,10 +11,10 @@
 
 		<div class="col-md-12">
 			<div class="row">
-				{{Form::open(array('url'=>route('damage.manage'),'method'=>'get','class'=>'form-vertical'))}}
+				{{Form::open(array('url'=>route('damage.manage'),'method'=>'get','class'=>'form-vertical', 'id'=>'product_search'))}}
 					<div class="col-md-2">
 						<div class="form-group">
-							{{Form::select('category', $categorySelect, 'null', array('class' =>'dropdown input-sm form-control'))}}
+							{{Form::select('category', $categorySelect, $category, array('class' =>'dropdown input-sm form-control', 'id'=>'product_category'))}}
 						</div>
 					</div>
 					<div class="col-md-3">
@@ -91,4 +91,15 @@
 		</div>
 	</div>
 </div>
+@stop
+
+@section('scripts')
+<script type="text/javascript">
+$(function(){
+
+	$('#product_category').on('change', function(){
+		$('#product_search').submit();
+	});
+});
+</script>
 @stop

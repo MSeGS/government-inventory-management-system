@@ -1,17 +1,17 @@
 @extends('layout.main')
 
 @section('contentTop')
-{{Form::open(array('url'=>route('user.index'),'method'=>'get','class'=>'form-vertical'))}}
+{{Form::open(array('url'=>route('user.index'),'method'=>'get','class'=>'form-vertical', 'id'=>'user_search'))}}
 	<div class="row">
 		<div class="col-md-4">
 			<div class="form-group">
-				<?php echo Form::select('department', array_merge(array('0'=>_('All Departments')), $departments), $filter['department'], array('class' =>'dropdown input-sm form-control'));?>
+				<?php echo Form::select('department', array_merge(array('0'=>_('All Departments')), $departments), $filter['department'], array('class' =>'dropdown input-sm form-control', 'id'=>'search_department'));?>
 			</div>
 		</div>
 
 		<div class="col-md-4 ">
 			<div class="form-group">
-				<?php echo Form::select('group', array_merge(array('0'=>_('All Groups')), $groups), 'null', array('class' =>'dropdown input-sm form-control'));?>
+				<?php echo Form::select('group',  $groups, $filter['group'], array('class' =>'dropdown input-sm form-control', 'id'=>'search_group'));?>
 			</div>
 		</div>
 		<div class="col-md-4" >
@@ -227,4 +227,18 @@
 		</div>
 	</div>
 </div>
+@stop
+
+@section('scripts')
+<script type="text/javascript">
+$(function(){
+
+	$('#search_department').on('change', function(){
+		$('#user_search').submit();
+	});
+	$('#search_group').on('change', function(){
+		$('#user_search').submit();
+	});
+});
+</script>
 @stop

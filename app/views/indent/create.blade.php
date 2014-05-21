@@ -440,7 +440,6 @@ function addToChit(id, rowType, qty, row, btn, isReserved)
 	saveChitForm(btn);
 
 }
-
 function removeChitItem(btn)
 {
 	var btn = $(btn);
