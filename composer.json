@@ -5,8 +5,7 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.1.*",
-		"cartalyst/sentry": "2.1.*",
-		"barryvdh/laravel-debugbar": "dev-master"
+		"cartalyst/sentry": "2.1.*"
 	},
 	"autoload": {
 		"classmap": [
