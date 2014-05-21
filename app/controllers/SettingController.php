@@ -15,23 +15,14 @@ class SettingController extends \BaseController {
 	
 	public function index()
 	{
-		$settings = Setting::orderBy('id', 'asc')->paginate();
-		$options = Option::orderBy('option_title', 'asc')
-			->where(function($query){
-				$setting_kes = Setting::orderBy('id', 'asc')->get()->lists('option_key');
-				if($setting_kes)
-					$query->whereNotIn('option_key', $setting_kes);
-			})
-			->get()
-			->lists('option_title','option_key');
-		
-		$optionSelect = array(''=>'Select Option', $options);
+		$settings = Setting::orderBy('id', 'asc')->get();
+		$options = Option::orderBy('option_title', 'asc')->get();
 
 		return View::make('setting.index')
 			->with(
 				array(
 					'settings'=> $settings,
-					'optionSelect'=> $optionSelect
+					'options'=> $options
 					)
 				);
 	}
@@ -53,26 +44,34 @@ class SettingController extends \BaseController {
 	 */
 	public function store()
 	{
-		$rules = array(
-			'option_key' 	=> 	'required',
-			'option_data'	=>	'required',
-			);
+		$options = Option::orderBy('option_title', 'asc')->get();
+		
+		$rules = array();
+		foreach($options as $option)
+			$rules[$option->option_key] = 'required';
+
 		$validator = Validator::make(Input::all(), $rules);
 
-		if ($validator -> fails()) {
+		if ($validator->fails()) {
 			return Redirect::to('setting')
 				->withErrors($validator)
 				->withInput(Input::all());
 		}
-		else{
-			$setting = new Setting;
-			$setting->option_key = Input::get('option_key');
-			$setting->option_data = Input::get('option_data');
-			$setting->save();
 
-			Session::flash('message', _('Successfully added'));
-			return Redirect::to('setting');
+		foreach($options as $option) {
+			
+			$setting = Setting::where('option_key', '=', $option->option_key)->first();
+			if(empty($setting))
+				$setting = new Setting;
+
+			$setting->option_key = $option->option_key;
+			$setting->option_data = Input::get($option->option_key);
+			$setting->save();
 		}
+
+		Session::flash('message', _('Settings saved successfully'));
+		return Redirect::to('setting');
+
 	}
 
 	/**

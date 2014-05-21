@@ -28,7 +28,7 @@ Import the sql script store1_import.sql at db folder.
 
 You can start login to application using default users
 
-1.	Store Administrator: ati_store / pass
+1.	Store Administrator: ati_admin / pass
 2.	Store Keeper: ati_store / pass
 3.	Indentor: ati_indentor / pass
 
