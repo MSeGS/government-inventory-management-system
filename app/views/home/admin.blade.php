@@ -28,7 +28,7 @@
 			<i class="glyphicon glyphicon-warning-sign pull-left fa-4x"></i>
 			<span class="text-right fa-4x counter pull-right">{{$pendingDamages}}</span>
 			<div class="clearfix"></div>
-			<span class="lead hidden-xs icon-title text-right">Damage Reports</span>
+			<span class="lead hidden-xs icon-title text-right">Pending Damage Reports</span>
 		</a>
 	</div>
 	<div class="col-md-3 mb20 text-center col-xs-3 col-sm-3">

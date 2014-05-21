@@ -7,74 +7,76 @@
 @section('content')
 <div class="row dashboard-icons">
 	<div class="col-md-6">
+		<div class="row">
 			<div class="col-md-6 mb20 text-center col-xs-3 col-sm-3">
-			<a type="button" class="btn btn-success btn-badge" >
-				<i class="glyphicon glyphicon-align-left pull-left fa-4x"></i>
-				<span class="text-right fa-4x counter pull-right">{{$pendingIndents}}</span>
-				<div class="clearfix"></div>
-				<span class="lead hidden-xs icon-title text-right"><?php echo _('New Indents'); ?></span>
-			</a>
-		</div>
-		<div class="col-md-6 mb20 text-center col-xs-3 col-sm-3">
-			<a type="button" class="btn btn-primary btn-badge" >
-				<i class="glyphicon glyphicon-list pull-left fa-4x"></i>
-				<span class="text-right fa-4x counter pull-right">{{$pendingRequirements}}</span>
-				<div class="clearfix"></div>
-				<span class="lead hidden-xs icon-title text-right"><?php echo _('Requirements'); ?></span>
-			</a>
-		</div>
-		<div class="col-md-6 mb20 text-center col-xs-3 col-sm-3">
-		<a type="button" class="btn btn-warning btn-badge" >
-			<i class="glyphicon glyphicon-warning-sign pull-left fa-4x"></i>
-			<span class="text-right fa-4x counter pull-right">{{$pendingDamages}}</span>
-			<div class="clearfix"></div>
-			<span class="lead hidden-xs icon-title text-right"><?php echo _('Damages'); ?></span>
-		</a>
-	</div>
-	<div class="col-md-6 mb20 text-center col-xs-3 col-sm-3">
-		<a type="button" class="btn btn-danger btn-badge" >
-			<i class="glyphicon glyphicon-sort-by-attributes-alt pull-left fa-4x"></i>
-			<span class="text-right fa-4x counter pull-right">{{$outOfStock}}</span>
-			<div class="clearfix"></div>
-			<span class="lead hidden-xs icon-title text-right"><?php echo _('Out of Stock'); ?></span>
-		</a>
-	</div>
-	</div>
-	<div class="col-md-6">
-			<div class="panel panel-primary">
-				<div class="panel-heading"><span class="glyphicon glyphicon-th"></span> Latest Indents</div>
-				<div class="panel-body">
-					<table class="table table-striped ">
-						<thead>
-							<th class="col-md-1">No.</th>
-							<th class="col-md-4">Indentor</th>
-							<th class="col-md-3">Category</th>
-							<th class="col-md-3">Products</th>
-							<th>Quantity</th>
-						</thead>
-						<tbody>
-							@if($latestIndents->count() > 0)
-							@foreach($latestIndents as $indent)
-							@foreach($indent->items as $key=>$item)
-							<tr>
-								<td>{{$key+1}}</td>
-								<td>{{$indent->indentor->full_name}}</td>
-								<td>{{$item->product->category->category_name}}</td>
-								<td>{{$item->product->name}}</td>
-								<td>{{$item->quantity}}</td>
-							</tr>
-							@endforeach
-							@endforeach
-							@else
-							<tr class="warning">
-								<td class="text-center" colspan="5"><?php echo _('Indents not found'); ?></td>
-							</tr>
-							@endif
-						</tbody>
-					</table>
-				</div>
+				<a type="button" class="btn btn-success btn-badge" href="{{route('indent.index',array('status'=>'pending_approval'))}}" >
+					<i class="glyphicon glyphicon-align-left pull-left fa-4x"></i>
+					<span class="text-right fa-4x counter pull-right">{{$pendingIndents}}</span>
+					<div class="clearfix"></div>
+					<span class="lead hidden-xs icon-title text-right"><?php echo _('New Indents'); ?></span>
+				</a>
+			</div>
+			<div class="col-md-6 mb20 text-center col-xs-3 col-sm-3">
+				<a type="button" class="btn btn-primary btn-badge" >
+					<i class="glyphicon glyphicon-list pull-left fa-4x"></i>
+					<span class="text-right fa-4x counter pull-right">{{$pendingRequirements}}</span>
+					<div class="clearfix"></div>
+					<span class="lead hidden-xs icon-title text-right"><?php echo _('Requirements'); ?></span>
+				</a>
+			</div>
+			<div class="col-md-6 mb20 text-center col-xs-3 col-sm-3">
+				<a type="button" class="btn btn-warning btn-badge" href="route('damage.index',array('status'=>'pending'))">
+					<i class="glyphicon glyphicon-warning-sign pull-left fa-4x"></i>
+					<span class="text-right fa-4x counter pull-right">{{$pendingDamages}}</span>
+					<div class="clearfix"></div>
+					<span class="lead hidden-xs icon-title text-right"><?php echo _('Pending Damage Report'); ?></span>
+				</a>
+			</div>
+			<div class="col-md-6 mb20 text-center col-xs-3 col-sm-3">
+				<a type="button" class="btn btn-danger btn-badge" >
+					<i class="glyphicon glyphicon-sort-by-attributes-alt pull-left fa-4x"></i>
+					<span class="text-right fa-4x counter pull-right">{{$outOfStock}}</span>
+					<div class="clearfix"></div>
+					<span class="lead hidden-xs icon-title text-right"><?php echo _('Out of Stock'); ?></span>
+				</a>
 			</div>
 		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="panel panel-primary">
+			<div class="panel-heading"><span class="glyphicon glyphicon-th"></span> Latest Indents</div>
+			<div class="panel-body">
+				<table class="table table-striped ">
+					<thead>
+						<th class="col-md-1">No.</th>
+						<th class="col-md-4">Indentor</th>
+						<th class="col-md-3">Category</th>
+						<th class="col-md-3">Products</th>
+						<th>Quantity</th>
+					</thead>
+					<tbody>
+						@if($latestIndents->count() > 0)
+						@foreach($latestIndents as $indent)
+						@foreach($indent->items as $key=>$item)
+						<tr>
+							<td>{{$key+1}}</td>
+							<td>{{$indent->indentor->full_name}}</td>
+							<td>{{$item->product->category->category_name}}</td>
+							<td>{{$item->product->name}}</td>
+							<td>{{$item->quantity}}</td>
+						</tr>
+						@endforeach
+						@endforeach
+						@else
+						<tr class="warning">
+							<td class="text-center" colspan="5"><?php echo _('Indents not found'); ?></td>
+						</tr>
+						@endif
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 </div>
 
 

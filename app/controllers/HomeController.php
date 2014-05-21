@@ -32,9 +32,9 @@ class HomeController extends BaseController {
 			}
 			elseif($this->current_user->inGroup($admin)) {
 				$pendingIndents = Indent::where('status','=','pending_approval')->count();
-				$pendingRequirements = Requirement::where('status','=','pending')->count();
+				$pendingRequirements = Requirement::where('status','=','pending_approval')->count();
 				$pendingDamages = Damage::where('status','=','pending')->count();
-				$outOfStock = Stock::where('quantity','=','0')->count();
+				$outOfStock = Product::where('in_stock','=','0')->count();
 				// $years = IndentItem::distinct(DB::Raw("YEAR(created_at)"))->lists(DB::Raw('YEAR(created_at)'));
 
 				$latestIndents = Indent::take(5)->get();
@@ -55,7 +55,7 @@ class HomeController extends BaseController {
 			elseif($this->current_user->inGroup($storekeeper)){
 				$pendingIndents = Indent::where('status','=','approved')->count();
 				$pendingRequirements = Requirement::where('status','=','approved')->count();
-				$pendingDamages = Damage::where('status','=','approved')->count();
+				$pendingDamages = Damage::where('status','=','pending')->count();
 				$outOfStock = Product::where('in_stock','=',0)->count();
 
 				$lessStockProducts = Product::with('category')->where('in_stock','<=','reserved_amount')->take(5)->get();
