@@ -91,7 +91,7 @@
                 <li {{in_array(Route::currentRouteName(), array('damage.index'))?'class="active"':''}}><a href="{{route('damage.index')}}"><?php echo _('Damage List');?></a></li>
                 @endif
                 @if($current_user->hasAccess('damage.create'))
-                <li {{in_array(Route::currentRouteName(), array('damage.create'))?'class="active"':''}}><a href="{{route('damage.create')}}"><?php echo _('Damage Reports');?></a></li>
+                <li {{in_array(Route::currentRouteName(), array('damage.create'))?'class="active"':''}}><a href="{{route('damage.create')}}"><?php echo _('Report Damage');?></a></li>
                 @endif
                 @if($current_user->hasAccess('damage.trash'))
                 <li {{in_array(Route::currentRouteName(), array('damage.trash'))?'class="active"':''}}><a href="{{route('damage.trash')}}"><?php echo _('Damage Trash');?></a></li>
