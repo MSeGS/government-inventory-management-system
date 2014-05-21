@@ -33,7 +33,7 @@
 				</a>
 			</div>
 			<div class="col-md-6 mb20 text-center col-xs-3 col-sm-3">
-				<a type="button" class="btn btn-danger btn-badge" >
+				<a type="button" class="btn btn-danger btn-badge" href="{{route('damage.index',array('in_stock'=>'0'))}}">
 					<i class="glyphicon glyphicon-sort-by-attributes-alt pull-left fa-4x"></i>
 					<span class="text-right fa-4x counter pull-right">{{$outOfStock}}</span>
 					<div class="clearfix"></div>
