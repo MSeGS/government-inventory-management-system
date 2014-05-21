@@ -9,7 +9,12 @@ class DamageController extends \BaseController
 	}
 
 	public function index()
+
 	{
+		$filter = array(
+			'status' => Input::get('status'),
+			);
+
 		$product = new Product;
 		$damage = new Damage;
 		$damages = Damage::join($product->getTable(), $damage->getTable().'.product_id', '=', $product->getTable().'.id')
@@ -36,12 +41,17 @@ class DamageController extends \BaseController
 			->with(array(
 				'damages'=> $damages,
 				'categorySelect'=> $categorySelect,
+				'filter' => $filter,
 				'categories'=> $categories
 				));
 	}
 
 	public function trash()
 	{
+		$filter = array(
+			'status' => Input::get('status'),
+			);
+
 		$product = new Product;
 		$damage = new Damage;
 		$damages = Damage::onlyTrashed()->join($product->getTable(), $damage->getTable().'.product_id', '=', $product->getTable().'.id')
@@ -68,6 +78,7 @@ class DamageController extends \BaseController
 				
 				'damages'=> $damages,
 				'categorySelect'=> $categorySelect,
+				'filter' => $filter,
 				'categories'=> $categories
 				));
 	}

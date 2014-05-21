@@ -63,7 +63,7 @@
 				@endforeach
 			</tbody>
 		</table>
-		{{$damages->links()}}
+		{{$damages->appends(array('status'=>$filter['status']))->links()}}
 	</div>
 </div>
 @stop
