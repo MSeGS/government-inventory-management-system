@@ -15,13 +15,17 @@ class MessageController extends \BaseController {
 	 */
 	public function index()
 	{
+		$filter = array(
+			'status' => Input::get('status'),
+			);
 		$users = new User;
 		$currentUser = Sentry::getUser()->id;
-		$notifications = Notification::where('receiver_id', '=', $currentUser)->paginate();
+		$notifications = Notification::where('receiver_id', '=', $currentUser)->orderBy('id','desc')->paginate();
 			return View::make('message.index')
 			->with(array(
 				'notifications' => $notifications,
 				'currentUser' => $currentUser,
+				'filter' => $filter,
 				'users' => $users
 				));
 	}
