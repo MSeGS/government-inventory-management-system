@@ -58,12 +58,16 @@ class MessageController extends \BaseController {
 
 	public function outbox()
 	{
+		$filter = array(
+			'status' => Input::get('status'),
+			);
 
 		$currentUser = Sentry::getUser()->id;
-		$notifications = Notification::where('sender_id', '=', $currentUser)->paginate();
+		$notifications = Notification::where('sender_id', '=', $currentUser)->orderBy('id','desc')->paginate();
 		return View::make('message.outbox')
 		 ->with(array(
 		 		'notifications' => $notifications,
+		 		'filter' => $filter,
 		 		'currentUser' => $currentUser
 		 		));
 	}

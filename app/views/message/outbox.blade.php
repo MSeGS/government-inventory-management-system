@@ -34,6 +34,7 @@
 			</tbody>
 		</table>
 	</div>
+	{{$notifications->appends(array('status'=>$filter['status']))->links()}}
 </div>
 	
 @stop

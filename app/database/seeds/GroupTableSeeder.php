@@ -206,7 +206,6 @@ class GroupTableSeeder extends Seeder
 					'category.edit' => 1,
 					'category.update' => 1,
 					'message.index' => 1,
-					'message.outbox' => 1,
 					'message.read' => 1,
 					'message.show' => 1,
 					'message.update' => 1,
