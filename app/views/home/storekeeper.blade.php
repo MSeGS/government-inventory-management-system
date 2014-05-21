@@ -25,7 +25,7 @@
 				</a>
 			</div>
 			<div class="col-md-6 mb20 text-center col-xs-3 col-sm-3">
-				<a type="button" class="btn btn-warning btn-badge" href="route('damage.index',array('status'=>'pending'))">
+				<a type="button" class="btn btn-warning btn-badge" href="{{route('damage.index',array('status'=>'pending'))}}">
 					<i class="glyphicon glyphicon-warning-sign pull-left fa-4x"></i>
 					<span class="text-right fa-4x counter pull-right">{{$pendingDamages}}</span>
 					<div class="clearfix"></div>
