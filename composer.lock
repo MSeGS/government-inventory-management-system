@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "d0e5f263ebab1947bc1f37b3291eafcc",
+    "hash": "dac9ede46613a06260c8c97cee4c55a7",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
