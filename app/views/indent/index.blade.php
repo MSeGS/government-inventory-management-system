@@ -61,7 +61,8 @@
 							@if($current_user->hasAccess('indent.process') && !in_array($indent->status, array('partial_dispatched', 'dispatched')))
 							<a href="{{route('indent.process', array($indent->id))}}" class="btn btn-xs btn-primary tooltip-top" title="<?php echo _('Process Indent') ?>"><i class="fa fa-cog"></i> <?php echo _('Process'); ?></a>
 							@endif
-							@if($current_user->hasAccess('indent.dispatch'))
+
+							@if($current_user->hasAccess('indent.dispatch') && $indent->status != 'rejected')
 							<a href="{{route('indent.dispatch', array($indent->id))}}" class="btn btn-xs btn-success tooltip-top" title="<?php echo _('Dispatch Indent') ?>"><i class="fa fa-truck"></i> <?php echo _('Dispatch'); ?></a>
 							@endif
 							{{Form::close()}}
