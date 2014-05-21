@@ -18,7 +18,7 @@
 		</div>
 		@endif
 
-		{{Form::open(array('url'=>'login', 'method'=>'post', 'class'=>'form form-vertical', 'autocomplete'=>'off'))}}
+		{{Form::open(array('url'=>'login', 'method'=>'post', 'class'=>'form form-vertical', 'autocomplete'=>'on'))}}
 		<div class="form-group">
 			{{Form::text('username', '', array('class'=>'form-control input-sm', 'placeholder'=>'Username'))}}
 

@@ -9,6 +9,7 @@ class ResourceTableSeeder extends Seeder
 			array('route'=>'login', 'name'=>'Login Page', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'login.submit', 'name'=>'Login Submission', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'logout', 'name'=>'Logout', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
+			array('route'=>'home.ajax-admin', 'name'=>'Admin Home Ajax', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			
 			array('route'=>'registration', 'name'=>'User Registration Page', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'registration.submit', 'name'=>'User Registration Submission', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
@@ -128,7 +129,7 @@ class ResourceTableSeeder extends Seeder
 			array('route'=>'report.user-detail', 'name'=>'Report User Details', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'report.product-detail', 'name'=>'Report Product Details', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'report.admin-ajax', 'name'=>'Report Ajax', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
-
+		
 			array('route'=>'contact-us', 'name'=>'Contact Form', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 		));
 	}
