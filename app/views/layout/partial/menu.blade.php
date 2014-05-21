@@ -132,10 +132,7 @@
                 @if($current_user->hasAccess('report.user') && !$current_user->isSuperUser())
                 <li {{in_array(Route::currentRouteName(), array('report.user'))?'class="active"':''}}><a href="{{route('report.user')}}"><?php echo _('User');?></a></li>
                 @endif
-                @if($current_user->hasAccess('report.overview') && !$current_user->isSuperUser())
-                <li {{in_array(Route::currentRouteName(), array('report.overview'))?'class="active"':''}}><a href="{{route('report.overview')}}"><?php echo _('Overview');?></a></li>
-                @endif
-                 @if($current_user->hasAccess('report.super') && $current_user->isSuperUser())
+                @if($current_user->hasAccess('report.super') && $current_user->isSuperUser())
                 <li {{in_array(Route::currentRouteName(), array('report.super'))?'class="active"':''}}><a href="{{route('report.super')}}"><?php echo _('Store List');?></a></li>
                 @endif
             </ul>

@@ -44,7 +44,6 @@ class AddAndRenameFieldsToSentryUsers extends Migration {
 			$table->dropColumn('username');
 			$table->dropColumn('full_name');
 			$table->dropColumn('store_id');
-			$table->dropColumn('email_id');
 			$table->dropColumn('phone_no');
 			$table->dropColumn('address');
 			$table->dropColumn('department_id');
