@@ -58,7 +58,9 @@ class ResourceTableSeeder extends Seeder
 			array('route'=>'damage.create', 'name'=>'Report Damage', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'damage.manage', 'name'=>'Manage Damage', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'damage.decline', 'name'=>'Damage Decline', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
-			
+			array('route'=>'damage.delete', 'name'=>'Damage Force Delete', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
+			array('route'=>'damage.restore', 'name'=>'Damage Restore', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
+
 			array('route'=>'stock.index', 'name'=>'Stock List', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'stock.edit', 'name'=>'Stock Edit Page', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'stock.destroy', 'name'=>'Stock Remove', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
@@ -122,7 +124,10 @@ class ResourceTableSeeder extends Seeder
 			array('route'=>'report.product', 'name'=>'Product', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'report.user', 'name'=>'User', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 			array('route'=>'report.overview', 'name'=>'Overview', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
-			
+			array('route'=>'report.user-graphic', 'name'=>'Report User Graphic', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
+			array('route'=>' report.user-detail', 'name'=>'Report User Details', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
+			array('route'=>' report.product-detail', 'name'=>'Report Product Details', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
+
 			array('route'=>'contact-us', 'name'=>'Contact Form', 'created_at'=>DB::raw('NOW()'), 'updated_at'=>DB::raw('NOW()')),
 		));
 	}
