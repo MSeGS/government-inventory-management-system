@@ -2,10 +2,10 @@
 
 @section('contentTop')
 <div class="row">
-	{{Form::open(array('url'=>route('damage.index'),'method'=>'get','class'=>'form-vertical'))}}
+	{{Form::open(array('url'=>route('damage.index'),'method'=>'get','class'=>'form-vertical', 'id'=>'search'))}}
 		<div class="col-md-2">
 			<div class="form-group">
-				{{Form::select('category', $categorySelect, 'null', array('class' =>'dropdown input-sm form-control'))}}
+				{{Form::select('category', $categorySelect, 'null', array('class' =>'dropdown input-sm form-control', 'id'=>'category_search'))}}
 			</div>
 		</div>
 		<div class="col-md-3">
@@ -66,4 +66,14 @@
 		{{$damages->appends(array('status'=>$filter['status']))->links()}}
 	</div>
 </div>
+@stop
+
+@section('scripts')
+	<script type="text/javascript">
+		$(function(){
+			$('#category_search').on('change', function(){
+				$('#search').submit();
+			});
+		});
+	</script>
 @stop

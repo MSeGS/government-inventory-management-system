@@ -4,10 +4,10 @@
 	</div>
 
 	<div class="col-md-2">
-		<?php echo Form::select('status', $status, $filter['status'], array('class'=>'dropdown input-sm form-control'));?>
+		<?php echo Form::select('status', $status, $filter['status'], array('class'=>'dropdown input-sm form-control', 'id'=>'indent_status'));?>
 	</div>
 	<div class="col-md-2">
-		<?php echo Form::text('indent_date', $filter['indent_date'], array('class'=>'datepicker input-sm form-control','placeholder'=>_('Indent Date')));?>
+		<?php echo Form::text('indent_date', $filter['indent_date'], array('class'=>'datepicker input-sm form-control','placeholder'=>_('Indent Date'), 'id'=>'indent_day'));?>
 	</div>
 	<div class="col-md-3">
 		<div class="input-group">

@@ -76,3 +76,20 @@
 	</div>
 </div>
 @stop
+
+@section('scripts')
+<script type="text/javascript">
+$(function(){
+
+    $('#indent_status').on('change', function(){
+        $('#indent_filter').submit();
+    });
+});
+$(function(){
+
+    $('#indent_day').on('change', function(){
+        $('#indent_filter').submit();
+    });
+});
+</script>
+@stop

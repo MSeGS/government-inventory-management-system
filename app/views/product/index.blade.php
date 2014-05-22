@@ -86,11 +86,11 @@
 
 @section('scripts')
 <script type="text/javascript">
-$(function(){
+	$(function(){
 
-	$('#product_category').on('change', function(){
-		$('#product_search').submit();
+		$('#product_category').on('change', function(){
+			$('#product_search').submit();
+		});
 	});
-});
 </script>
 @stop

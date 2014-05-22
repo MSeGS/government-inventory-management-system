@@ -231,9 +231,9 @@ class UserController extends \BaseController {
 			->orderBy('username', 'asc')
 			->paginate(30);
 
-		$departments = array(''=>_('Select Department')) + Department::orderBy('name', 'asc')->lists('name', 'id');
+		$departments = Department::orderBy('name', 'asc')->lists('name', 'id');
 		
-		$stores = array(''=>_('Select Store'));
+		$stores = array();
 		$stores_temp = Store::with('department')->orderBy('store_code', 'asc')->get();
 		foreach($stores_temp as $s){
 			$stores[$s->id] = $s->department->name . ' (' . $s->store_code . ')';

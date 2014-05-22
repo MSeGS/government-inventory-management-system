@@ -15,31 +15,33 @@
 	</div>
 	@endif
 
-	{{Form::open(array('url'=>route('user.index'),'method'=>'get','class'=>'form-vertical'))}}
-		<div class="row">
-			<div class="col-md-4">
-				<div class="form-group">
-					<?php echo Form::select('department', array_merge(array('0'=>_('All Departments')), $departments), $filter['department'], array('class' =>'dropdown input-sm form-control'));?>
+	@section('contentTop')
+		{{Form::open(array('url'=>route('user.index'),'method'=>'get','class'=>'form-vertical', 'id'=>'user_search'))}}
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group">
+						<?php echo Form::select('department', array_merge(array('0'=>_('All Departments')), $departments), $filter['department'], array('class' =>'dropdown input-sm form-control', 'id'=>'search_department'));?>
+					</div>
 				</div>
-			</div>
 
-			<div class="col-md-4 ">
-				<div class="form-group">
-					<?php echo Form::select('group', array_merge(array('0'=>_('All Groups')), $groups), 'null', array('class' =>'dropdown input-sm form-control'));?>
+				<div class="col-md-4 ">
+					<div class="form-group">
+						<?php echo Form::select('group', array_merge(array('0'=>_('All Groups')), $groups), 'null', array('class' =>'dropdown input-sm form-control', 'id'=>'search_group'));?>
+					</div>
+				</div>
+				<div class="col-md-4" >
+					<div class="form-group">
+						<div class="input-group">
+							<?php echo Form::text('username', $filter['username'], array('class'=>'input-sm form-control','placeholder'=>_('Search User')));?>
+		      				<span class="input-group-btn">
+		        				<button class="btn btn-sm btn-default" name="search" value="<?php echo _('Search'); ?>" type="submit"> <i class="glyphicon glyphicon-search"></i> </button>
+		      				</span>
+			    		</div>
+					</div>
 				</div>
 			</div>
-			<div class="col-md-4" >
-				<div class="form-group">
-					<div class="input-group">
-						<?php echo Form::text('username', $filter['username'], array('class'=>'input-sm form-control','placeholder'=>_('Search User')));?>
-	      				<span class="input-group-btn">
-	        				<button class="btn btn-sm btn-default" name="search" value="<?php echo _('Search'); ?>" type="submit"> <i class="glyphicon glyphicon-search"></i> </button>
-	      				</span>
-		    		</div>
-				</div>
-			</div>
-		</div>
 	{{Form::close()}}
+	@stop
 				
 	<table class="table table-striped table-hover table-bordered">
 		<thead>
@@ -244,4 +246,21 @@
 	</div>
 </div>
 
+@stop
+
+@section('scripts')
+	<script type="text/javascript">
+	$(function(){
+
+	    $('#search_department').on('change', function(){
+	        $('#user_search').submit();
+	    });
+	});
+	$(function(){
+
+	    $('#search_group').on('change', function(){
+	        $('#user_search').submit();
+	    });
+	});
+	</script>
 @stop

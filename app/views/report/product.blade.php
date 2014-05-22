@@ -14,23 +14,23 @@
 </div>
 <div class="row">
 	<div class="col-md-12 ">
-		{{Form::open(array('url'=>route('report.product'), 'method'=>'get'))}}
+		{{Form::open(array('url'=>route('report.product'), 'method'=>'get', 'id'=>'search_date'))}}
 			<div class="form-group col-md-3">
 				<div class="row">
-					{{Form::select('month', $months, $filter['month'], array('class' => 'dropdown input-sm', 'id' => 'month'))}}
+					{{Form::select('month', $months, $filter['month'], array('class' => 'dropdown input-sm', 'id' => 'search_month'))}}
 				</div>
 			</div>
 			<div class="form-group col-md-3">
-				{{Form::select('year', $years, $filter['year'], array('class' => 'dropdown input-sm', 'id' => 'filter_year'))}}
+				{{Form::select('year', $years, $filter['year'], array('class' => 'dropdown input-sm', 'id' => 'search_year'))}}
 			</div>
 			<div class="form-group col-md-1">
-				{{Form::submit('Search', array('class' => 'btn btn-sm btn-default'))}}
+				{{Form::submit('Search', array('class' => 'btn btn-sm btn-primary'))}}
 			</div>
 		{{Form::close()}}
 		@if($filter['month']&&$filter['year']!=null)
 		<div class="form-group col-md-5 text-right">
 			<div class="row">
-				<a href="{{URL::route('report.product')}}" type="button" class="btn btn-sm btn-default">View All</a>
+				<a href="{{URL::route('report.product')}}" type="button" class="btn btn-sm btn-primary">View All</a>
 			</div>
 		</div>
 		@endif
@@ -70,4 +70,21 @@
 			{{$products->appends(array('year'=>$filter['year'],'month'=>$filter['month']))->links()}}
 	</div>
 </div>
+@stop
+
+@section('scripts')
+	<script type="text/javascript">
+	$(function(){
+
+	    $('#search_month').on('change', function(){
+	        $('#search_date').submit();
+	    });
+	});
+	$(function(){
+
+	    $('#search_year').on('change', function(){
+	        $('#search_date').submit();
+	    });
+	});
+	</script>
 @stop

@@ -1,7 +1,7 @@
 @extends('layout.main')
 @section('contentTop')
 	<div class="row">
-		{{Form::open(array('url'=>route('indent.create'), 'method'=>'get', 'id'=>'indent_filter', 'class'=>'form-vertical'))}}
+		{{Form::open(array('url'=>route('indent.create'), 'method'=>'get', 'class'=>'form-vertical', 'id'=>'search_form'))}}
 			<div class="col-sm-3">
 				<div class="form-group">
 					{{Form::select('limit', array(10=>10, 30=>30, 40=>40, 50=>50, 100=>100, 150=>150, 200=>200), $filter['limit'], array('class' =>'dropdown input-sm form-control', 'onchange'=>'document.getElementById("indent_filter").submit()'))}}
@@ -9,7 +9,7 @@
 			</div>
 			<div class="col-sm-4">
 				<div class="form-group">
-					{{Form::select('category', array('0'=>'All Categories')+ $categories, $filter['category_id'], array('class' =>'dropdown input-sm form-control'))}}
+					{{Form::select('category', array('0'=>'All Categories')+ $categories, $filter['category_id'], array('class' =>'dropdown input-sm form-control', 'id'=>'search_category'))}}
 				</div>
 			</div>
 			<div class="col-sm-5">
@@ -240,6 +240,15 @@ var chitRequirementIndex = {{$chit_size['requirement']}};
 var noOfRowsIndent = parseInt($('.chit-form table#indent_items tbody tr').size());
 var noOfRowsRequirement = parseInt($('.chit-form table#requirement_items tbody tr').size());
 var isReserved = false;
+
+
+$(function(){
+
+    $('#search_category').on('change', function(){
+        $('#search_form').submit();
+    });
+});
+
 
 $(function(){
 	$('.product-list button.add, .product-list button.request').on('click', function(){

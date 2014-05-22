@@ -1,12 +1,11 @@
 @extends('layout.main')
 
-@section('content')
-
+@section('contentTop')
 	<div class="row">
-		{{Form::open(array('url'=>route('product.edit', $productById->id),'method'=>'get','class'=>'form-vertical'))}}
+		{{Form::open(array('url'=>route('product.edit', $productById->id),'method'=>'get','class'=>'form-vertical', 'id'=>'product_search'))}}
 			<div class="col-md-2">
 				<div class="form-group">
-					{{Form::select('category', array('0'=>'All Categories')+ $categories, $filter['category_id'], array('class' =>'dropdown input-sm form-control'))}}
+					{{Form::select('category', array('0'=>'All Categories')+ $categories, $filter['category_id'], array('class' =>'dropdown input-sm form-control', 'id'=>'product_category'))}}
 				</div>
 			</div>
 			<div class="col-md-3">
@@ -21,6 +20,8 @@
 			</div>
 		{{Form::close()}}
 	</div>
+@stop
+@section('content')
 
 <div class="col-md-8" >
 	<div class="row">
@@ -120,4 +121,14 @@
 		</div>
 	</div>
 </div>
+@stop
+
+@section('scripts')
+	<script type="text/javascript">
+		$(function(){
+			$('#product_category').on('change', function(){
+				$('#product_search').submit();
+			});
+		});
+	</script>
 @stop

@@ -38,7 +38,7 @@ class InstallCommand extends Command {
 	public function fire()
 	{
       $this->info("Initiating installation.");
-
+      Artisan::call('migrate:install');
       if($this->option('reset')) {
          Artisan::call('migrate:reset');
          $this->info("=> Reset installation successfully.");
