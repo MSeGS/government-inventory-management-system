@@ -31,7 +31,7 @@ class DamageController extends \BaseController
 			->orderBy($damage->getTable().'.id', 'asc')
 			->paginate();
 
-		$categories = category::orderBy('id','asc')
+		$categories = Category::orderBy('id','asc')
 			->get()
 			->lists('category_name','id');
 		$categorySelect = array(''=> _('Select Category') , $categories);
@@ -68,7 +68,7 @@ class DamageController extends \BaseController
 			->orderBy($damage->getTable().'.id', 'asc')
 			->paginate();
 
-		$categories = category::orderBy('id','asc')
+		$categories = Category::orderBy('id','asc')
 			->get()
 			->lists('category_name','id');
 		$categorySelect = array(''=> _('Select Category') ,$categories);
@@ -102,7 +102,7 @@ class DamageController extends \BaseController
 			->paginate();
 
 
-		$categories = category::orderBy('id','asc')
+		$categories = Category::orderBy('id','asc')
 			->get()
 			->lists('category_name','id');
 		$categorySelect = array(''=> _('All Categories') ,$categories);
@@ -166,7 +166,7 @@ class DamageController extends \BaseController
 	 */
 	public function create()
 	{
-		$categories = category::orderBy('id','asc')
+		$categories = Category::orderBy('id','asc')
 			->get()
 			->lists('category_name','id');
 		$categorySelect = array(''=> _('Select Category')) + $categories;
