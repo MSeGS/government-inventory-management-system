@@ -15,11 +15,17 @@ class OptionController extends \BaseController {
 	 */
 	public function index()
 	{
+		$filter = array(
+			'option_key' => Input::get('option_key'),
+			);
 		$options = Option::orderBy('option_key', 'asc')->paginate();
 		$index = $options->getPerPage() *($options->getCurrentPage() -1) +1;
 		return View::make('option.index')
-			->with('options', $options)
-			->with('index', $index);
+			->with(array(
+				'filter' => $filter,
+				'options'=> $options,
+				'index'=> $index
+				));
 	}
 
 	/**

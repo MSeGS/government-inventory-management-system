@@ -34,7 +34,7 @@
 			@endforeach
 		</tbody>
 	</table>
-	{{$options->links()}}
+		{{$options->appends(array('option_key'=>$filter['option_key']))->links()}}
 </div>
 <div class="col-md-4">
 	<div class="panel panel-default">
