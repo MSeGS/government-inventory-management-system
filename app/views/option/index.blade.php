@@ -23,12 +23,12 @@
 			<tbody>
 				@foreach($options as $key=>$option)
 				<tr $>
-					<td>{{$key+$index}}</td>
+					<td>{{$index+$key}}</td>
 					<td>{{$option->option_key}}</td>
 					<td>{{$option->option_title}}</td>
 					<td>{{$option->option_data}}</td>
 					<td>
-						{{Form::open(array('url'=>route('option.destroy', array($option->id)),'method'=>'delete'))}}
+						{{Form::open(array('url'=>route('option.destroy', array($option->id, $options->getCurrentPage())),'method'=>'delete'))}}
 
 						<a href="{{route('option.edit', array($option->id, 'page='.$options->getCurrentPage()))}}" class="btn btn-xs btn-success tooltip-top" title="Edit option"><i class="fa fa-pencil"></i></a>
 						<button type="submit" onclick="return confirm('<?php echo _('Are you sure') ?>');" name="id" class="btn btn-xs btn-danger tooltip-top" title="<?php echo _('Remove option')?>" value="{{$option->id}}"><i class="fa fa-times"></i></a>
@@ -38,7 +38,8 @@
 				@endforeach
 			</tbody>
 		</table>
-			{{$options->appends(array('option_key'=>$filter['option_key']))->links()}}
+			{{$options->links()}}
+
 	</div>
 
 	<div class="col-md-4">

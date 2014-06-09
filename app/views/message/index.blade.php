@@ -47,6 +47,6 @@
 				</tbody>
 			</table>
 		</div>
-		{{$notifications->appends(array('status'=>$filter['status']))->links()}}
+		{{$notifications->links()}}
 	</div>
 @stop

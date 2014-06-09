@@ -20,7 +20,7 @@
 				<td>{{$option->option_title}}</td>
 				<td>{{$option->option_data}}</td>
 				<td>
-					{{Form::open(array('url'=>route('option.destroy', array($option->id)),'method'=>'delete'))}}
+					{{Form::open(array('url'=>route('option.destroy', array($option->id,$options->getCurrentPage())),'method'=>'delete'))}}
 
 					<?php if($option->id == $optionById->id){ ?>
 						<a href="{{route('option.edit', array($option->id))}}" class="btn btn-xs btn-success tooltip-top disabled" title="<?php echo _('Edit option') ?>"> <i class="fa fa-pencil"></i></a>
@@ -34,7 +34,7 @@
 			@endforeach
 		</tbody>
 	</table>
-		{{$options->appends(array('option_key'=>$filter['option_key']))->links()}}
+			{{$options->links()}}
 </div>
 <div class="col-md-4">
 	<div class="panel panel-default">

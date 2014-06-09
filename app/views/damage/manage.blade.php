@@ -14,7 +14,8 @@
 				{{Form::open(array('url'=>route('damage.manage'),'method'=>'get','class'=>'form-vertical', 'id'=>'product_search'))}}
 					<div class="col-md-2">
 						<div class="form-group">
-							{{Form::select('category', $categorySelect, $category, array('class' =>'dropdown input-sm form-control', 'id'=>'product_category'))}}
+							{{Form::select('category', $categorySelect,Input::get('category'), array('class' =>'dropdown input-sm form-control', 'id'=>'product_category'))}}
+				
 						</div>
 					</div>
 					<div class="col-md-3">
@@ -86,7 +87,7 @@
 					@endforeach
 				</tbody>
 			</table>
-			{{$damages->links()}}
+		{{$damages->appends(array('category'=>$cat, 'prodsearch'=>$prodsearch))->links()}}
 
 		</div>
 	</div>

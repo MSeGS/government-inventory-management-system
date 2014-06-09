@@ -5,14 +5,13 @@
 	{{Form::open(array('url'=>route('damage.index'),'method'=>'get','class'=>'form-vertical', 'id'=>'search'))}}
 		<div class="col-md-2">
 			<div class="form-group">
-				{{Form::select('category', $categorySelect, 'null', array('class' =>'dropdown input-sm form-control', 'id'=>'category_search'))}}
+				{{Form::select('category', $categorySelect, Input::get('category'), array('class' =>'dropdown input-sm form-control', 'id'=>'category_search'))}}
 			</div>
 		</div>
 		<div class="col-md-3">
 			<div class="form-group">
 				<div class="input-group">
-					<?php if(isset($_GET['prodsearch'])) { $prodsearch=$_GET['prodsearch'];} else { $prodsearch='';} ?>
-					<?php echo Form::text('prodsearch',$prodsearch, array('class'=>'input-sm form-control','placeholder'=>_('Search Product')));?>
+					{{Form::text('prodsearch',Input::get('prodsearch'), array('class'=>'input-sm form-control','placeholder'=>_('Search Product')))}}
 	  				<span class="input-group-btn">
 	    				<button class="btn-sm btn btn-default" name="search" value="Search" type=submit> <i class="glyphicon glyphicon-search"></i> </button>
 	  				</span>
@@ -63,7 +62,7 @@
 				@endforeach
 			</tbody>
 		</table>
-		{{$damages->appends(array('status'=>$filter['status']))->links()}}
+		{{$damages->appends(array('category'=>$cat, 'prodsearch'=>$prodsearch))->links()}}
 	</div>
 </div>
 @stop

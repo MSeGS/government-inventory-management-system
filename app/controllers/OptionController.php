@@ -15,16 +15,13 @@ class OptionController extends \BaseController {
 	 */
 	public function index()
 	{
-		$filter = array(
-			'option_key' => Input::get('option_key'),
-			);
+
 		$options = Option::orderBy('option_key', 'asc')->paginate();
 		$index = $options->getPerPage() *($options->getCurrentPage() -1) +1;
 		return View::make('option.index')
 			->with(array(
-				'filter' => $filter,
 				'options'=> $options,
-				'index'=> $index
+				'index'=> $index,
 				));
 	}
 
@@ -88,17 +85,14 @@ class OptionController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$filter = array(
-			'option_key' => Input::get('option_key'),
-			);
+		
 		$optionById = Option::find($id);
 		$options = Option::orderBy('option_key', 'asc')->paginate();
 		$index = $options->getPerPage() *($options->getCurrentPage() -1) +1;
 		return View::make('option.edit')
 			->with(array(
-				'filter' => $filter,
 				'options'=> $options, 
-				'optionById' => $optionById, 
+				'optionById' => $optionById,
 				'index' => $index));
 	}
 

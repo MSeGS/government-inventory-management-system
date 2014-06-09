@@ -11,10 +11,7 @@ class DamageController extends \BaseController
 	public function index()
 
 	{
-		$filter = array(
-			'status' => Input::get('status'),
-			);
-
+		
 		$product = new Product;
 		$damage = new Damage;
 		$damages = Damage::join($product->getTable(), $damage->getTable().'.product_id', '=', $product->getTable().'.id')
@@ -41,8 +38,9 @@ class DamageController extends \BaseController
 			->with(array(
 				'damages'=> $damages,
 				'categorySelect'=> $categorySelect,
-				'filter' => $filter,
-				'categories'=> $categories
+				'categories'=> $categories,
+				'cat'=> Input::get('category',null),
+				'prodsearch'=> Input::get('prodsearch',null)
 				));
 	}
 
@@ -85,6 +83,7 @@ class DamageController extends \BaseController
 
 	public function manage()
 	{
+		
 		$product = new Product;
 		$damage = new Damage;
 		$damages = Damage::join($product->getTable(), $damage->getTable().'.product_id', '=', $product->getTable().'.id')
@@ -99,7 +98,7 @@ class DamageController extends \BaseController
 			})
 			->select(array($damage->getTable().".*", $product->getTable().'.name'))
 			->orderBy($damage->getTable().'.id', 'asc')
-			->paginate();
+			->paginate(1);
 
 
 		$categories = Category::orderBy('id','asc')
@@ -113,7 +112,8 @@ class DamageController extends \BaseController
 				'damages'=> $damages,
 				'categorySelect'=> $categorySelect,
 				'categories'=> $categories,
-				'category'	=> Input::get('category',null),
+				'cat'=> Input::get('category',null),
+				'prodsearch'=> Input::get('prodsearch',null)			
 				));
 	}
 
