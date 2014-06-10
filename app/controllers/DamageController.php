@@ -98,7 +98,7 @@ class DamageController extends \BaseController
 			})
 			->select(array($damage->getTable().".*", $product->getTable().'.name'))
 			->orderBy($damage->getTable().'.id', 'asc')
-			->paginate(1);
+			->paginate();
 
 
 		$categories = Category::orderBy('id','asc')
